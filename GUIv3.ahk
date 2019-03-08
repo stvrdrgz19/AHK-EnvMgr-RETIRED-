@@ -59,7 +59,7 @@ Gui, Tab, 3
 Gui, Add, Text,, Select a Script to run:
 Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
-Gui, Add, Button, x254 y82 w100 h25, Reload
+Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
 ;GuiControl, Disable, Delete
 GuiControl, Disable, GPWEB
@@ -71,6 +71,12 @@ ListBoxDisplay:
 Loop, C:\#EnvMgr\BACKUPS\*, 2
 {
     GuiControl,, GPBackupsList, %A_LoopFileName%
+}
+
+ScriptListDisplay:
+Loop, C:\#SCRIPTS\*.*
+{
+    GuiControl,, ScriptList, %A_LoopFileName%
 }
 return
 
@@ -86,6 +92,19 @@ if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt")
     FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
 FileAppend,%GPBackupsList%,C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
 Run, C:\#EnvMgr\SCRIPTS\DBRestore.bat,, UseErrorLevel
+return
+
+ScriptList:
+if (A_GuiEvent <> "DoubleClick")
+    return
+ButtonRun:
+GuiControlGet, ScriptList
+MsgBox, 4,, Would you like to launch the Batch or AHK File below?`n`n%ScriptList%
+IfMsgBox, No
+    return
+Run, C:\#SCRIPTS\%ScriptList%,, UseErrorLevel
+if (ErrorLevel = "ERROR")
+    MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
 return
 
 ButtonBackupDB:
@@ -226,8 +245,14 @@ return
 
 ButtonRefresh:
 GuiControl,, GPBackupsList, |
+GuiControl,, ScriptList, |
 goto, ListBoxDisplay
 return
+
+;ButtonReload:
+;GuiControl,, ScriptList, |
+;goto, ScriptListDisplay
+;return
 
 ;Folder:
 ButtonBackupsFolder:
@@ -248,32 +273,6 @@ Update:
         Gui, -AlwaysOnTop
     }
 Return
-;=============================================================================================;
-;===========================================Tab 2=============================================;
-;=============================================================================================;
-ScriptListBox:
-Loop, C:\#SCRIPTS\*.*
-{
-    GuiControl,, ScriptList, %A_LoopFileName%
-}
-
-ScriptList:
-if (A_GuiEvent <> "DoubleClick")
-    return
-ButtonRun:
-GuiControlGet, ScriptList
-MsgBox, 4,, Would you like to launch the Batch or AHK File below?`n`n%ScriptList%
-IfMsgBox, No
-    return
-Run, C:\#SCRIPTS\%ScriptList%,, UseErrorLevel
-if (ErrorLevel = "ERROR")
-    MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
-return
-
-ButtonReload:
-GuiControl,, ScriptList, |
-goto, ScriptListBox
-return
 
 GuiClose:
 ButtonExit:
