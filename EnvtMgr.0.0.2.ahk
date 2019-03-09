@@ -174,38 +174,41 @@ if ErrorLevel
 Else
     Gui, Submit, NoHide
     Run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %InstallFolder%
-    return
+;    return
 ;Loop, C:\#EnvMgr\TEMPFILES\INSTALLERS\*.exe
 ;{
 ;	Run, %A_LoopFileLongPath%
 ;	break
 ;}
-SplitPath, SelectedFile, SelectedPath
-MsgBox, 4, EXTENDED DLL?. Do you need any Extended DLLs?
+SplitPath, SelectedFile,, dir
+MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
 ifMsgBox, Yes
-    FileSelectFile, Files, M3, %SelectedPath%\Extended, Select any DLLs needed, *.zip
-    Array := StrSplit(Files, "`n")
+    FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+    Array := StrSplit(FilesExt, "`n")
 
     for index, file in Array
     {
     	if index = 1
     		Dir := file
     	else
-    		FileCopy, % Dir "\" file, C:\#EnvMgr\DLLs
+    		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
     }
-MsgBox, 4, CUSTOM DLL?. Do you need any Custom DLLs?
+FilesExt = 
+dir = 
+SplitPath, SelectedFile,, dir
+MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
 ifMsgBox, Yes
-    FileSelectFile, Files, M3, %SelectedPath%\Custom, Select any DLLs needed, *.zip
-    Array := StrSplit(Files, "`n")
+    FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+    Array := StrSplit(FilesCust, "`n")
 
     for index, file in Array
     {
     	if index = 1
     		Dir := file
     	else
-    		FileCopy, % Dir "\" file, C:\#EnvMgr\DLLs
+    		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
     }
-Files = ; This clears the Files variable so dlls that were previously added won't re-add
+FilesCust = ; This clears the Files variable so dlls that were previously added won't re-add
 return
 
 ButtonSalesPadMobile:
