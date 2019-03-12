@@ -83,10 +83,7 @@ GuiControlGet, GPBackupsList
 MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
 IfMsgBox, No
     return
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt")
-    FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-FileAppend,%GPBackupsList%,C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-Run, C:\#EnvMgr\SCRIPTS\DBRestore.bat,, UseErrorLevel
+Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %GPBackupsList%,, UseErrorLevel
 return
 
 ScriptList:
@@ -107,10 +104,7 @@ GuiControlGet, GPBackupsList
 MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
 IfMsgBox, No
     return
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt")
-    FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-FileAppend,%GPBackupsList%,C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-Run, C:\#EnvMgr\SCRIPTS\DBOverwrite.bat,, UseErrorLevel
+Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %GPBackupsList%,, UseErrorLevel
 return
 
 ButtonNewBackup:
@@ -119,12 +113,9 @@ ifExist C:\#EnvMgr\BACKUPS\%Database%
     MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
 ifExist C:\#EnvMgr\BACKUPS\%Database%
     goto, CancelBak
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt")
-        FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt
-    FileAppend,%Database%,C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt
-    Run, C:\#EnvMgr\SCRIPTS\DBBackup.bat,, UseErrorLevel
-    sleep, 2000
-    goto, ButtonRefresh
+Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+sleep, 2000
+goto, ButtonRefresh
 return
 CancelBak:
 return
