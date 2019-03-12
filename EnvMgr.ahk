@@ -28,15 +28,12 @@ Gui, Add, Button, x260 y256 w100 h25, Backups Folder
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x382 y60, Select a SalesPad Product to Install:
 Gui, Add, Text, x382 y236, Launch an exisiting Build:
-Gui, Add, Button ,x382 y80 w150 h25, SalesPad Desktop ;old y228
+Gui, Add, Button ,x382 y80 w150 h25, SalesPad Desktop
 Gui, Add, Button ,x540 y80 w150 h25, SalesPad Mobile
 Gui, Add, Button ,x382 y110 w150 h25, DataCollection
-;Gui, Add, Button ,x350 y364 w100 h30 vIIS, DataCollection IIS
 Gui, Add, Button ,x382 y140 w150 h25, Ship Center
 Gui, Add, Button ,x540 y110 w150 h25, Card Control
 Gui, Add, Button, x540 y140 w150 h25 vGPWEB, GP Web
-Gui, Add, Button, x382 y170 w150 h25, Modules
-;Gui, Add, Button ,x662 y364 w100 h30 vAuto, Automation Agent
 Gui, Add, Button, x382 y256 w308 h25, Launch Build
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
@@ -59,7 +56,6 @@ Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
-;GuiControl, Disable, Delete
 GuiControl, Disable, GPWEB
 Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
@@ -132,31 +128,13 @@ return
 CancelBak:
 return
 
-; BUTTON THAT WOULD ALLOW THE USER TO GENERATE NEW DB BACKUPS
-;ButtonNewBackup:
-;MsgBox, 4,, Would you like to create a new Database Backup?
-;IfMsgBox, No
-;    return
-;InputBox, NewDB, New Database Name, Please enter a name for your new Database Backup.
-;if ErrorLevel
-;    MsgBox, CANCEL was pressed.
-;else
-;    ifExist("C:\#BAKs\%NewDB%")
-;        MsgBox, 4,, A backup with this name already exists. Please select "Backup DB" instead of "New Backup" if you wish to use this name.
-;    else
-;        FileCreateDir, C:\#BAKs\%NewDB%
-;return
-
 ButtonDeleteBackup:
 GuiControlGet, GPBackupsList
 MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
 ifMsgBox, Yes
-;    MsgBox, C:\#EnvMgr\BACKUPS\%GPBackupsList%
     FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
     sleep, 2000
     goto, ButtonRefresh
-;else
-;    return
 return
 
 
@@ -172,12 +150,6 @@ if ErrorLevel
 Else
     Gui, Submit, NoHide
     Run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %InstallFolder%
-;    return
-;Loop, C:\#EnvMgr\TEMPFILES\INSTALLERS\*.exe
-;{
-;	Run, %A_LoopFileLongPath%
-;	break
-;}
 SplitPath, SelectedFile,, dir
 MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
 ifMsgBox, Yes
@@ -206,9 +178,8 @@ ifMsgBox, Yes
     	else
     		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
     }
-FilesCust = ; This clears the Files variable so dlls that were previously added won't re-add
+FilesCust = 
 run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %InstallFolder%
-;run, FileUnzipAndMove.bat, C:\#EnvMgr\SCRIPTS
 run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%InstallFolder%
 return
 
@@ -222,11 +193,6 @@ FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollect
 run, %SelectedFile%
 return
 
-;ButtonDataCollectionIIS:
-;FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, *.msi
-;run, %SelectedFile%
-;return
-
 ButtonShipCenter:
 FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
 run, %SelectedFile%
@@ -235,34 +201,6 @@ return
 ButtonCardControl:
 FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
 run, %SelectedFile%
-return
-
-;ButtonAutomationAgent:
-;FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Cloud, *.exe
-;run, %SelectedFile%
-;return
-
-;ButtonModules:
-;FileSelectFile, SelectedModules, M, C:\Users\steve.rodriguez\Desktop\Test\DLLs, Select any DLLs needed, *.zip
-;;FileCopy, %SelectedModules%, C:\#SCRIPTS\Tests\test2
-;Loop, parse, SelectedModules, `,
-;{
-;    MsgBox, Color number C:\Users\steve.rodriguez\Desktop\Test\DLLs is %A_LoopField%.
-;}
-;;MsgBox, %SelectedModules%
-;return
-
-ButtonModules:
-FileSelectFile Files, M3, C:\Users\steve.rodriguez\Desktop\Test\DLLs, Select any DLLs needed, *.zip  ;https://autohotkey.com/board/topic/119441-how-to-copy-multiples-files/
-Array := StrSplit(Files, "`n")
-
-for index, file in Array
-{
-	if index = 1
-		Dir := file
-	else
-		FileCopy, % Dir "\" file, C:\#SCRIPTS\Tests\test2
-}
 return
 
 ButtonLaunchBuild:
@@ -274,14 +212,8 @@ ButtonRefresh:
 GuiControl,, GPBackupsList, |
 GuiControl,, ScriptList, |
 goto, ListBoxDisplay
-return
+Return
 
-;ButtonReload:
-;GuiControl,, ScriptList, |
-;goto, ScriptListDisplay
-;return
-
-;Folder:
 ButtonBackupsFolder:
 MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
 IfMsgBox, No
