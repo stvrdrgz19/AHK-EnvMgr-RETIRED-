@@ -146,12 +146,13 @@ ButtonSalesPadDesktop:
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
     FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
     Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
-    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %SelectedFile%
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
     Gui, 2:Show, w660 h160, Test Second GUI
     return
 
@@ -161,7 +162,7 @@ Can:
 
 OK:
     GuiControlGet, BuildLoc
-;    Gui, 2:Hide
+    Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
