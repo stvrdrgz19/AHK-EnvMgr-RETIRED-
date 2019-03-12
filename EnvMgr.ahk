@@ -61,7 +61,7 @@ Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
 GuiControl, Disable, GPWEB
 GuiControl, Disable, GPAPI
-GuiControl, Disable, CheckB
+;GuiControl, Disable, CheckB
 Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
 ;===========================================Gui 2=============================================;
@@ -164,6 +164,12 @@ OK:
     GuiControlGet, BuildLoc
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+
+    if CheckB = 1
+        run, "C:\Users\stvrd\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        Goto, NoDLL
+
+
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, No
