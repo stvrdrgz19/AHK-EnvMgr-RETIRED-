@@ -66,11 +66,10 @@ Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
 ;===========================================Gui 2=============================================;
 ;=============================================================================================;
-Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %SelectedFile%
-Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
-Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
-Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
+;Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+;Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
+;Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
+;Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
 
 
 ListBoxDisplay:
@@ -147,6 +146,12 @@ ButtonSalesPadDesktop:
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
     FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    Gui, 2:Destroy
+    Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
+    Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
+    Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %SelectedFile%
     Gui, 2:Show, w660 h160, Test Second GUI
     return
 
@@ -156,10 +161,13 @@ Can:
 
 OK:
     GuiControlGet, BuildLoc
+;    Gui, 2:Hide
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-    ifMsgBox, Yes
+    ifMsgBox, No
+        Goto, CustDLL
+    Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
     
@@ -172,9 +180,12 @@ OK:
         }
     FilesExt = 
     dir = 
+    CustDLL:
     SplitPath, SelectedFile,, dir
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-    ifMsgBox, Yes
+    ifMsgBox, No
+        Goto, NoDLL
+    Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesCust, "`n")
     
@@ -187,8 +198,7 @@ OK:
         }
     FilesCust = 
     run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
-; Update DLL MsgBox's, add ifMsgBox, No goto x, else
-BuildOpen:
+    NoDLL:
     run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
     return
 
