@@ -139,49 +139,49 @@ return
 
 
 ButtonSalesPadDesktop:
-FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe ;https://autohotkey.com/docs/commands/FileSelectFile.htm
-if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-    FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-InputBox, InstallFolder, Install To, Where would you like to install `n`n%SelectedFile%?, , 640, 200
-if ErrorLevel
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe ;https://autohotkey.com/docs/commands/FileSelectFile.htm
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    InputBox, InstallFolder, Install To, Where would you like to install `n`n%SelectedFile%?, , 640, 200
+    if ErrorLevel
+        return
+    Else
+        Gui, Submit, NoHide
+        Run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %InstallFolder%
+    SplitPath, SelectedFile,, dir
+    MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+    ifMsgBox, Yes
+        FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+        Array := StrSplit(FilesExt, "`n")
+    
+        for index, file in Array
+        {
+        	if index = 1
+        		Dir := file
+        	else
+        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesExt = 
+    dir = 
+    SplitPath, SelectedFile,, dir
+    MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+    ifMsgBox, Yes
+        FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+        Array := StrSplit(FilesCust, "`n")
+    
+        for index, file in Array
+        {
+        	if index = 1
+        		Dir := file
+        	else
+        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesCust = 
+    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %InstallFolder%
+    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%InstallFolder%
     return
-Else
-    Gui, Submit, NoHide
-    Run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %InstallFolder%
-SplitPath, SelectedFile,, dir
-MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-ifMsgBox, Yes
-    FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-    Array := StrSplit(FilesExt, "`n")
-
-    for index, file in Array
-    {
-    	if index = 1
-    		Dir := file
-    	else
-    		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-    }
-FilesExt = 
-dir = 
-SplitPath, SelectedFile,, dir
-MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-ifMsgBox, Yes
-    FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-    Array := StrSplit(FilesCust, "`n")
-
-    for index, file in Array
-    {
-    	if index = 1
-    		Dir := file
-    	else
-    		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-    }
-FilesCust = 
-run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %InstallFolder%
-run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%InstallFolder%
-return
 
 ButtonSalesPadMobile:
 FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
