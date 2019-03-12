@@ -63,80 +63,71 @@ Gui, Show, w721 h390, Environment Mananger
 ;===========================================Tab 1=============================================;
 ;=============================================================================================;
 ListBoxDisplay:
-Loop, C:\#EnvMgr\BACKUPS\*, 2
-{
-    GuiControl,, GPBackupsList, %A_LoopFileName%
-}
+    Loop, C:\#EnvMgr\BACKUPS\*, 2
+    {
+        GuiControl,, GPBackupsList, %A_LoopFileName%
+    }
 
 ScriptListDisplay:
-Loop, C:\#SCRIPTS\*.*
-{
-    GuiControl,, ScriptList, %A_LoopFileName%
-}
-return
+    Loop, C:\#SCRIPTS\*.*
+    {
+        GuiControl,, ScriptList, %A_LoopFileName%
+    }
+    return
 
 GPBackupsList:
-if (A_GuiEvent <> "DoubleClick")
-    return
+    if (A_GuiEvent <> "DoubleClick")
+        return
 ButtonRestoreDB:
-GuiControlGet, GPBackupsList
-MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
-IfMsgBox, No
+    GuiControlGet, GPBackupsList
+    MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
+    IfMsgBox, No
+        return
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %GPBackupsList%,, UseErrorLevel
     return
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt")
-    FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-FileAppend,%GPBackupsList%,C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-Run, C:\#EnvMgr\SCRIPTS\DBRestore.bat,, UseErrorLevel
-return
 
 ScriptList:
-if (A_GuiEvent <> "DoubleClick")
-    return
+    if (A_GuiEvent <> "DoubleClick")
+        return
 ButtonRun:
-GuiControlGet, ScriptList
-MsgBox, 4,, Would you like to launch the Batch or AHK File below?`n`n%ScriptList%
-IfMsgBox, No
+    GuiControlGet, ScriptList
+    MsgBox, 4,, Would you like to launch the Batch or AHK File below?`n`n%ScriptList%
+    IfMsgBox, No
+        return
+    Run, C:\#SCRIPTS\%ScriptList%,, UseErrorLevel
+    if (ErrorLevel = "ERROR")
+        MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
     return
-Run, C:\#SCRIPTS\%ScriptList%,, UseErrorLevel
-if (ErrorLevel = "ERROR")
-    MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
-return
 
 ButtonBackupDB:
-GuiControlGet, GPBackupsList
-MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
-IfMsgBox, No
+    GuiControlGet, GPBackupsList
+    MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
+    IfMsgBox, No
+        return
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %GPBackupsList%,, UseErrorLevel
     return
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt")
-    FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-FileAppend,%GPBackupsList%,C:\#EnvMgr\TEMPFILES\TEMP\BackRestore.txt
-Run, C:\#EnvMgr\SCRIPTS\DBOverwrite.bat,, UseErrorLevel
-return
 
 ButtonNewBackup:
-GuiControlGet, Database
-ifExist C:\#EnvMgr\BACKUPS\%Database%
-    MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
-ifExist C:\#EnvMgr\BACKUPS\%Database%
-    goto, CancelBak
-if FileExist("C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt")
-        FileDelete, C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt
-    FileAppend,%Database%,C:\#EnvMgr\TEMPFILES\TEMP\NewBack.txt
-    Run, C:\#EnvMgr\SCRIPTS\DBBackup.bat,, UseErrorLevel
+    GuiControlGet, Database
+    ifExist C:\#EnvMgr\BACKUPS\%Database%
+        MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+    ifExist C:\#EnvMgr\BACKUPS\%Database%
+        goto, CancelBak
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
     sleep, 2000
     goto, ButtonRefresh
-return
+    return
 CancelBak:
 return
 
 ButtonDeleteBackup:
-GuiControlGet, GPBackupsList
-MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
-ifMsgBox, Yes
-    FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-    sleep, 2000
-    goto, ButtonRefresh
-return
+    GuiControlGet, GPBackupsList
+    MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
+    ifMsgBox, Yes
+        FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
+        sleep, 2000
+        goto, ButtonRefresh
+    return
 
 
 ButtonSalesPadDesktop:
@@ -185,42 +176,42 @@ ButtonSalesPadDesktop:
     return
 
 ButtonSalesPadMobile:
-FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
-run, %SelectedFile%
-return
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
+    run, %SelectedFile%
+    return
 
 ButtonDataCollection:
-FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
-run, %SelectedFile%
-return
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
+    run, %SelectedFile%
+    return
 
 ButtonShipCenter:
-FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
-run, %SelectedFile%
-return
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
+    run, %SelectedFile%
+    return
 
 ButtonCardControl:
-FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
-run, %SelectedFile%
-return
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
+    run, %SelectedFile%
+    return
 
 ButtonLaunchBuild:
-FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
-run, %SelectedFile%
-return
+    FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+    run, %SelectedFile%
+    return
 
 ButtonRefresh:
-GuiControl,, GPBackupsList, |
-GuiControl,, ScriptList, |
-goto, ListBoxDisplay
-Return
+    GuiControl,, GPBackupsList, |
+    GuiControl,, ScriptList, |
+    goto, ListBoxDisplay
+    Return
 
 ButtonBackupsFolder:
-MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
-IfMsgBox, No
-    return
-Run, C:\#EnvMgr\BACKUPS
-return 
+    MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
+    IfMsgBox, No
+        return
+    Run, C:\#EnvMgr\BACKUPS
+    return 
 
 Update:
     Gui, Submit, NoHide
@@ -232,7 +223,7 @@ Update:
     {
         Gui, -AlwaysOnTop
     }
-Return
+    Return
 
 GuiClose:
 ButtonExit:
