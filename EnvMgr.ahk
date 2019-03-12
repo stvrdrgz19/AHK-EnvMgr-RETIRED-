@@ -10,7 +10,7 @@ RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisib
 -------------------------------------------------------------------------------
 */
 #SingleInstance, force
-; test
+
 Gui, Add, Button, x609 y354 w100 h30, Exit
 Gui, Add, CheckBox, x15 y361 gUpdate vCheck, Always On Top
 Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
