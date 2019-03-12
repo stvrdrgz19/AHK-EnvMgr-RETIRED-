@@ -13,14 +13,14 @@ RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisib
 #SingleInstance, force
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
-Gui, Add, CheckBox, x15 y361 gUpdate vCheck, Always On Top
+Gui, Add, CheckBox, x15 y361 gUpdateA vCheckA, Always On Top
 Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
 Gui, Tab, 1
 Gui, Add, GroupBox, w345 h308, Database Management
 Gui, Add, GroupBox, x375 y34 w322 h308, Build Management
 ;-----------------------------GroupBox 1 Fields-----------------------------;
 Gui, Add, Text, x31 y60, Select a Database:
-Gui, Add, Button, x152 y50 w100 h25, Refresh ;| https://autohotkey.com/board/topic/66602-refresh-gui-listbox-control/
+Gui, Add, Button, x152 y50 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x31 y81 w220 r15
 Gui, Add, Button, x260 y80 w100 h25, Restore DB
 Gui, Add, Button, x260 y110 w100 h25, Backup DB
@@ -29,12 +29,14 @@ Gui, Add, Button, x260 y256 w100 h25, Backups Folder
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x382 y60, Select a SalesPad Product to Install:
 Gui, Add, Text, x382 y236, Launch an exisiting Build:
-Gui, Add, Button ,x382 y80 w150 h25, SalesPad Desktop
-Gui, Add, Button ,x540 y80 w150 h25, SalesPad Mobile
-Gui, Add, Button ,x382 y110 w150 h25, DataCollection
-Gui, Add, Button ,x382 y140 w150 h25, Ship Center
-Gui, Add, Button ,x540 y110 w150 h25, Card Control
-Gui, Add, Button, x540 y140 w150 h25 vGPWEB, GP Web
+Gui, Add, Button, x382 y80 w150 h25, SalesPad Desktop
+Gui, Add, Button, x540 y80 w150 h25, SalesPad Mobile
+Gui, Add, Button, x382 y110 w150 h25, DataCollection
+Gui, Add, Button, x382 y140 w150 h25, Ship Center
+Gui, Add, Button, x540 y110 w150 h25, Card Control
+Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
+Gui, Add, Button, x540 y140 w150 h25 vGPWEB, Web Portal
+Gui, Add, Button, x540 y170 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x382 y256 w308 h25, Launch Build
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
@@ -58,10 +60,19 @@ Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
 GuiControl, Disable, GPWEB
+GuiControl, Disable, GPAPI
+GuiControl, Disable, CheckB
 Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
-;===========================================Tab 1=============================================;
+;===========================================Gui 2=============================================;
 ;=============================================================================================;
+Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %SelectedFile%
+Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
+Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
+Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
+
+
 ListBoxDisplay:
     Loop, C:\#EnvMgr\BACKUPS\*, 2
     {
@@ -131,17 +142,21 @@ ButtonDeleteBackup:
 
 
 ButtonSalesPadDesktop:
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe ;https://autohotkey.com/docs/commands/FileSelectFile.htm
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
     FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    InputBox, InstallFolder, Install To, Where would you like to install `n`n%SelectedFile%?, , 640, 200
-    if ErrorLevel
-        return
-    Else
-        Gui, Submit, NoHide
-        Run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %InstallFolder%
+    Gui, 2:Show, w660 h160, Test Second GUI
+    return
+
+Can:
+    Gui, 2:Destroy
+    return
+
+OK:
+    GuiControlGet, BuildLoc
+    run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, Yes
@@ -171,8 +186,10 @@ ButtonSalesPadDesktop:
         		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
     FilesCust = 
-    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %InstallFolder%
-    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%InstallFolder%
+    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
+; Update DLL MsgBox's, add ifMsgBox, No goto x, else
+BuildOpen:
+    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
     return
 
 ButtonSalesPadMobile:
@@ -195,6 +212,12 @@ ButtonCardControl:
     run, %SelectedFile%
     return
 
+ButtonWebPortal:
+    return
+
+ButtonWebAPI:
+    return
+
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
     run, %SelectedFile%
@@ -213,9 +236,9 @@ ButtonBackupsFolder:
     Run, C:\#EnvMgr\BACKUPS
     return 
 
-Update:
+UpdateA:
     Gui, Submit, NoHide
-    If Check = 1
+    If CheckA = 1
     {
         Gui, +AlwaysOnTop
     }
@@ -224,6 +247,10 @@ Update:
         Gui, -AlwaysOnTop
     }
     Return
+
+
+UpdateB:
+return
 
 GuiClose:
 ButtonExit:
