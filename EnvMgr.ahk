@@ -10,8 +10,6 @@ RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisib
 -------------------------------------------------------------------------------
 */
 
-; This is a test line > push to master
-
 #SingleInstance, force
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
