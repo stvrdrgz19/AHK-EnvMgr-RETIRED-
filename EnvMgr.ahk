@@ -85,6 +85,19 @@ ScriptListDisplay:
     }
     return
 
+UpdateB:
+    Gui, Submit, NoHide
+    if CheckB = 1
+    {
+        VarCheck = 1
+        return
+    }
+    Else
+    {
+        VarCheck = 0
+        return
+    }
+
 GPBackupsList:
     if (A_GuiEvent <> "DoubleClick")
         return
@@ -167,7 +180,9 @@ OK:
     GuiControlGet, CheckB
     if CheckB = 1
     {
-        Goto, Grizzly
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        return
     }
     else
     {
@@ -212,12 +227,6 @@ OK:
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
-
-Grizzly:
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
-    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    return
-
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
