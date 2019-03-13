@@ -164,12 +164,9 @@ OK:
     GuiControlGet, BuildLoc
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-
+    Gui, Submit, NoHide
     if CheckB = 1
-        run, "C:\Users\stvrd\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
-        Goto, NoDLL
-
-
+        goto, Grizzly
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, No
@@ -177,7 +174,7 @@ OK:
     Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -195,7 +192,7 @@ OK:
     Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesCust, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -206,8 +203,16 @@ OK:
     FilesCust = 
     run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
     NoDLL:
-    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     return
+
+Grizzly:
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    return
+
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
