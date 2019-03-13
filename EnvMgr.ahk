@@ -14,7 +14,7 @@ RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisib
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
 Gui, Add, CheckBox, x15 y361 gUpdateA vCheckA, Always On Top
-Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
+Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts|Cloud
 Gui, Tab, 1
 Gui, Add, GroupBox, w345 h308, Database Management
 Gui, Add, GroupBox, x375 y34 w322 h308, Build Management
@@ -59,6 +59,42 @@ Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
+Gui, Tab, 4
+Gui, Add, Text, x30 y67 vTenant, Tenant: 
+Gui, Add, Text, x30 y97 vAPI, API:
+Gui, Add, Text, x30 y127 vAuth, Auth:
+Gui, Add, Text, x30 y157 vWeb, Web:
+Gui, Add, Text, x30 y187 vPOS, POS:
+Gui, Add, Text, x30 y217 vSellbrite, SellBrite:
+Gui, Add, DropDownList, x75 y62 w278 vTenantID, SteveRodriguez01|SteveRodriguez02|SteveRodriguez03|SteveRodriguez04|SteveRodriguez05
+Gui, Add, Edit, x75 y92 w278 vEdit1, 
+Gui, Add, Edit, x75 y122 w278 vEdit2, 
+Gui, Add, Edit, x75 y152 w278 vEdit3, 
+Gui, Add, Edit, x75 y182 w278 vEdit4, 
+Gui, Add, Edit, x75 y212 w278 vEdit5, 
+Gui, Add, Button, x382 y60 w308 h25 vSR01, Delete DB SPC_%A_ComputerName%01
+Gui, Add, Button, x382 y90 w308 h25 vSR02, Delete DB SPC_%A_ComputerName%02
+Gui, Add, Button, x382 y120 w308 h25 vSR03, Delete DB SPC_%A_ComputerName%03
+Gui, Add, Button, x382 y150 w308 h25 vSR04, Delete DB SPC_%A_ComputerName%04
+Gui, Add, Button, x382 y180 w308 h25 vSR05, Delete DB SPC_%A_ComputerName%05
+;------------------------------End of Tab 4------------------------------;
+GuiControl, Disable, Tenant
+GuiControl, Disable, API
+GuiControl, Disable, Auth
+GuiControl, Disable, Web
+GuiControl, Disable, POS
+GuiControl, Disable, Sellbrite
+GuiControl, Disable, TenantID
+GuiControl, Disable, Edit1
+GuiControl, Disable, Edit2
+GuiControl, Disable, Edit3
+GuiControl, Disable, Edit4
+GuiControl, Disable, Edit5
+GuiControl, Disable, SR01
+GuiControl, Disable, SR02
+GuiControl, Disable, SR03
+GuiControl, Disable, SR04
+GuiControl, Disable, SR05
 GuiControl, Disable, GPWEB
 GuiControl, Disable, GPAPI
 GuiControl, Disable, CheckB
@@ -66,11 +102,6 @@ Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
 ;===========================================Gui 2=============================================;
 ;=============================================================================================;
-;Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-;Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
-;Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
-;Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
-
 
 ListBoxDisplay:
     Loop, C:\#EnvMgr\BACKUPS\*, 2
