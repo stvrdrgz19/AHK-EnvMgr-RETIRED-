@@ -164,49 +164,54 @@ OK:
     GuiControlGet, BuildLoc
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-    Gui, Submit, NoHide
+    GuiControlGet, CheckB
     if CheckB = 1
-        goto, Grizzly
-    SplitPath, SelectedFile,, dir
-    MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-    ifMsgBox, No
-        Goto, CustDLL
-    Else
-        FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesExt, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesExt = 
-    dir = 
-    CustDLL:
-    SplitPath, SelectedFile,, dir
-    MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-    ifMsgBox, No
-        Goto, NoDLL
-    Else
-        FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesCust = 
-    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
-    NoDLL:
-    ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    return
+    {
+        Goto, Grizzly
+    }
+    else
+    {
+        SplitPath, SelectedFile,, dir
+        MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+        ifMsgBox, No
+            Goto, CustDLL
+        Else
+            FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesExt, "`n")
+    
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesExt = 
+        dir = 
+        CustDLL:
+        SplitPath, SelectedFile,, dir
+        MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+        ifMsgBox, No
+            Goto, NoDLL
+        Else
+            FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesCust, "`n")
+    
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesCust = 
+        run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
+        NoDLL:
+        ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        return
+    }
 
 Grizzly:
     run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
