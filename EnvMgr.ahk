@@ -181,23 +181,58 @@ OK:
     if CheckB = 1
     {
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        sleep, 5000
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
     else
     {
-        Goto, Stuff
+        Goto, NotChecked
         return
     }
-    return
-    Stuff:
+    Return
+
+NotChecked:
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, No
         Goto, CustDLL
     Else
+        sleep, 3000
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		Dir := file
+        	else
+        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesExt = 
+    dir = 
+    CustDLL:
+    SplitPath, SelectedFile,, dir
+    MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+    ifMsgBox, No
+        Goto, NoDLL
+    Else
+        FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+        Array := StrSplit(FilesCust, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		Dir := file
+        	else
+        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesCust = 
+    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
+    NoDLL:
+    ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
@@ -254,10 +289,6 @@ UpdateA:
         Gui, -AlwaysOnTop
     }
     Return
-
-
-UpdateB:
-return
 
 GuiClose:
 ButtonExit:
