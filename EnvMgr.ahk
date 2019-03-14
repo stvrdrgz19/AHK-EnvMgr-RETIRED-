@@ -50,7 +50,7 @@ Gui, Tab, 2
 Gui, Add, GroupBox, w345 h308, Dynamics GP
 Gui, Add, Button, x30 y60 w200 h25, Dynamics GP 2013
 Gui, Add, Button, x30 y90 w200 h25, Dynamics GP 2015
-Gui, Add, Button, x30 y120 w200 h25, Dynamics GP 2016
+Gui, Add, Button, x30 y120 w200 h25 gD16, Dynamics GP 2016
 Gui, Add, Button, x30 y150 w200 h25, Dynamics GP 2018
 ;------------------------------End of Tab 2------------------------------;
 Gui, Tab, 3
@@ -61,7 +61,7 @@ Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
 GuiControl, Disable, GPWEB
 GuiControl, Disable, GPAPI
-GuiControl, Disable, CheckB
+;GuiControl, Disable, CheckB
 Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
 ;===========================================Gui 2=============================================;
@@ -84,6 +84,19 @@ ScriptListDisplay:
         GuiControl,, ScriptList, %A_LoopFileName%
     }
     return
+
+UpdateB:
+    Gui, Submit, NoHide
+    if CheckB = 1
+    {
+        VarCheck = 1
+        return
+    }
+    Else
+    {
+        VarCheck = 0
+        return
+    }
 
 GPBackupsList:
     if (A_GuiEvent <> "DoubleClick")
@@ -162,8 +175,25 @@ Can:
 
 OK:
     GuiControlGet, BuildLoc
+    GuiControlGet, CheckB
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+    sleep, 5000
+    if VarCheck = 1
+    {
+        Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        sleep, 10000
+        run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        return
+    }
+    else
+    {
+        Goto, NotChecked
+        return
+    }
+    Return
+
+NotChecked:
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, No
@@ -171,7 +201,7 @@ OK:
     Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -183,13 +213,14 @@ OK:
     dir = 
     CustDLL:
     SplitPath, SelectedFile,, dir
+    sleep, 3000
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
     ifMsgBox, No
         Goto, NoDLL
     Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesCust, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -200,7 +231,9 @@ OK:
     FilesCust = 
     run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
     NoDLL:
-    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     return
 
 ButtonSalesPadMobile:
@@ -227,7 +260,16 @@ ButtonWebPortal:
     return
 
 ButtonWebAPI:
-    return
+    ;Silently run installer "C:\inetpub\wwwroot\SalesPadWebAPI\SalesPad.GP.RESTv3.Setup.1.1.0.4.msi" to uninstall previous versions of API
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    ;run install
+    ;copy installer to install location
+    ;prompt for dll's
+    Return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
@@ -247,6 +289,10 @@ ButtonBackupsFolder:
     Run, C:\#EnvMgr\BACKUPS
     return 
 
+D16:
+    run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    return
+
 UpdateA:
     Gui, Submit, NoHide
     If CheckA = 1
@@ -258,10 +304,6 @@ UpdateA:
         Gui, -AlwaysOnTop
     }
     Return
-
-
-UpdateB:
-return
 
 GuiClose:
 ButtonExit:
