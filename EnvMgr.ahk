@@ -178,10 +178,11 @@ OK:
     GuiControlGet, CheckB
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-    if CheckB = 1
+    sleep, 5000
+    if VarCheck = 1
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
-        sleep, 5000
+        Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        sleep, 10000
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
@@ -198,7 +199,6 @@ NotChecked:
     ifMsgBox, No
         Goto, CustDLL
     Else
-        sleep, 3000
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
 
@@ -213,6 +213,7 @@ NotChecked:
     dir = 
     CustDLL:
     SplitPath, SelectedFile,, dir
+    sleep, 3000
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
     ifMsgBox, No
         Goto, NoDLL
@@ -233,6 +234,7 @@ NotChecked:
     ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+    return
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
