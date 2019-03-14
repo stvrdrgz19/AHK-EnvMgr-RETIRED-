@@ -50,7 +50,7 @@ Gui, Tab, 2
 Gui, Add, GroupBox, w345 h308, Dynamics GP
 Gui, Add, Button, x30 y60 w200 h25, Dynamics GP 2013
 Gui, Add, Button, x30 y90 w200 h25, Dynamics GP 2015
-Gui, Add, Button, x30 y120 w200 h25, Dynamics GP 2016
+Gui, Add, Button, x30 y120 w200 h25 gD16, Dynamics GP 2016
 Gui, Add, Button, x30 y150 w200 h25, Dynamics GP 2018
 ;------------------------------End of Tab 2------------------------------;
 Gui, Tab, 3
@@ -260,7 +260,16 @@ ButtonWebPortal:
     return
 
 ButtonWebAPI:
-    return
+    ;Silently run installer "C:\inetpub\wwwroot\SalesPadWebAPI\SalesPad.GP.RESTv3.Setup.1.1.0.4.msi" to uninstall previous versions of API
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    ;run install
+    ;copy installer to install location
+    ;prompt for dll's
+    Return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
@@ -279,6 +288,10 @@ ButtonBackupsFolder:
         return
     Run, C:\#EnvMgr\BACKUPS
     return 
+
+D16:
+    run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    return
 
 UpdateA:
     Gui, Submit, NoHide
