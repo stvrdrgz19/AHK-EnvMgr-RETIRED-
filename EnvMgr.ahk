@@ -35,8 +35,8 @@ Gui, Add, Button, x382 y110 w150 h25, DataCollection
 Gui, Add, Button, x382 y140 w150 h25, Ship Center
 Gui, Add, Button, x540 y110 w150 h25, Card Control
 Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
-Gui, Add, Button, x540 y140 w150 h25 vGPWEB, Web Portal
-Gui, Add, Button, x540 y170 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x540 y140 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x540 y170 w150 h25 vGPWEB, Web Portal 
 Gui, Add, Button, x382 y256 w308 h25, Launch Build
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
@@ -256,9 +256,6 @@ ButtonCardControl:
     run, %SelectedFile%
     return
 
-ButtonWebPortal:
-    return
-
 ButtonWebAPI:
     ;Silently run installer "C:\inetpub\wwwroot\SalesPadWebAPI\SalesPad.GP.RESTv3.Setup.1.1.0.4.msi" to uninstall previous versions of API
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
@@ -270,6 +267,9 @@ ButtonWebAPI:
     ;copy installer to install location
     ;prompt for dll's
     Return
+
+ButtonWebPortal:
+    return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
