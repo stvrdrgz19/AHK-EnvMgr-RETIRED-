@@ -59,8 +59,8 @@ Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
-GuiControl, Disable, GPWEB
-GuiControl, Disable, GPAPI
+;GuiControl, Disable, GPWEB
+;GuiControl, Disable, GPAPI
 ;GuiControl, Disable, CheckB
 Gui, Show, w721 h390, Environment Mananger
 ;=============================================================================================;
@@ -211,6 +211,7 @@ NotChecked:
         }
     FilesExt = 
     dir = 
+    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
     CustDLL:
     SplitPath, SelectedFile,, dir
     sleep, 3000
@@ -258,17 +259,40 @@ ButtonCardControl:
 
 ButtonWebAPI:
     ;Silently run installer "C:\inetpub\wwwroot\SalesPadWebAPI\SalesPad.GP.RESTv3.Setup.1.1.0.4.msi" to uninstall previous versions of API
+    ;WeirdLoop:
+    If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
+        Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
+        {
+        	Run, %A_LoopFileLongPath%
+        	;break
+            WinWait, Untitled - Notepad
+            WinWaitClose  ; Wait for the exact window found by WinWait to be closed.
+            Goto, Continue
+        }
+    Else
+        Goto, Continue
+    ;    run, "" ;insert customized bat file here to install the msi targeting the installer folder
+    ;    goto, WeirdLoop ;Check to see if you can run the installer multiple times at once, if so this could cause issues
+    Continue:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    ;if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+    ;    FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    ;FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\inetpub\wwwroot\SalesPadWebAPI
+    Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
+    {
+    	Run, %A_LoopFileLongPath%
+        Return
+    	;break
+    }
     ;run install
     ;copy installer to install location
     ;prompt for dll's
-    Return
 
 ButtonWebPortal:
+    FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
+    SplitPath, SelectedFile,, WEB
+    run, "" %WEB%
     return
 
 ButtonLaunchBuild:
