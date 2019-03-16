@@ -178,11 +178,14 @@ OK:
     GuiControlGet, CheckB
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-    sleep, 5000
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    ;sleep, 5000
     if VarCheck = 1
     {
         Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
-        sleep, 10000
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
@@ -265,7 +268,7 @@ ButtonWebAPI:
         {
         	Run, %A_LoopFileLongPath%
         	;break
-            WinWait, Untitled - Notepad
+            WinWait, SalesPad WebAPI Setup
             WinWaitClose  ; Wait for the exact window found by WinWait to be closed.
             Goto, Continue
         }
@@ -278,7 +281,8 @@ ButtonWebAPI:
     ;if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
     ;    FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     ;FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFile%, C:\inetpub\wwwroot\SalesPadWebAPI
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
+    ;FileCopy, %SelectedFile%, C:\inetpub\wwwroot\SalesPadWebAPI
     Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
     {
     	Run, %A_LoopFileLongPath%
