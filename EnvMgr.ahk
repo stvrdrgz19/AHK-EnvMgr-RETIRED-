@@ -1,15 +1,3 @@
-/*
--------------------------------------------------------------------------------
-References
--------------------------------------------------------------------------------
-REFRESH - https://autohotkey.com/board/topic/66602-refresh-gui-listbox-control/
-CLIPBOARD - https://autohotkey.com/docs/misc/Clipboard.htm
-FILESELECT - https://autohotkey.com/docs/commands/FileSelectFile.htm
-FILEAPPEND - https://www.autohotkey.com/docs/commands/FileAppend.htm
-RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisibly-without-displaying-command-prompt/
--------------------------------------------------------------------------------
-*/
-
 #SingleInstance, force
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
@@ -60,16 +48,7 @@ Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 ;------------------------------End of Tab 3------------------------------;
 ;GuiControl, Disable, GPWEB
-;GuiControl, Disable, GPAPI
-;GuiControl, Disable, CheckB
 Gui, Show, w721 h390, Environment Mananger
-;=============================================================================================;
-;===========================================Gui 2=============================================;
-;=============================================================================================;
-;Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-;Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
-;Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
-;Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
 
 
 ListBoxDisplay:
@@ -200,11 +179,9 @@ OK:
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
-    ;sleep, 5000
     if VarCheck = 1
     {
-        ;Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% ;%BuildLoc%
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
@@ -226,9 +203,6 @@ NotChecked:
         Goto, CustDLL
     Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-;        If ErrorLevel
-;            Goto, CustDll
-;            return
         Array := StrSplit(FilesExt, "`n")
 
         for index, file in Array
@@ -254,9 +228,6 @@ CustDLL:
         Goto, NoDLL
     Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-;        if ErrorLevel
-;            Goto, NoDLL
-;            return
         Array := StrSplit(FilesCust, "`n")
 
         for index, file in Array
@@ -274,8 +245,6 @@ CustDLL:
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
 NoDLL:
-    ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     return
 
@@ -308,39 +277,26 @@ ButtonCardControl:
     return
 
 ButtonWebAPI:
-    ;Silently run installer "C:\inetpub\wwwroot\SalesPadWebAPI\SalesPad.GP.RESTv3.Setup.1.1.0.4.msi" to uninstall previous versions of API
-    ;WeirdLoop:
     If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
         Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
         {
         	Run, %A_LoopFileLongPath%
-        	;break
             WinWait, SalesPad WebAPI Setup
-            WinWaitClose  ; Wait for the exact window found by WinWait to be closed.
+            WinWaitClose
             Goto, Continue
         }
     Else
         Goto, Continue
-    ;    run, "" ;insert customized bat file here to install the msi targeting the installer folder
-    ;    goto, WeirdLoop ;Check to see if you can run the installer multiple times at once, if so this could cause issues
     Continue:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
     if ErrorLevel
         return
-    ;if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-    ;    FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    ;FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
     run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
-    ;FileCopy, %SelectedFile%, C:\inetpub\wwwroot\SalesPadWebAPI
     Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
     {
     	Run, %A_LoopFileLongPath%
         Return
-    	;break
     }
-    ;run install
-    ;copy installer to install location
-    ;prompt for dll's
 
 ButtonWebPortal:
     FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
