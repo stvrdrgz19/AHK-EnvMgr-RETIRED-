@@ -154,7 +154,27 @@ ButtonDeleteBackup:
 
 
 ButtonSalesPadDesktop:
+    GuiControlGet, CheckB
+    If VarCheck = 1
+    {
+        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
+        ifMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
+        }
+    }
+    Else
+    {
+        Goto, GetBuild
+        return
+    }
+
+GetBuild:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    if ErrorLevel
+        return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
@@ -183,9 +203,12 @@ OK:
     ;sleep, 5000
     if VarCheck = 1
     {
-        Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        ;Run *RunAs "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% %BuildLoc%
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl% ;%BuildLoc%
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
@@ -203,6 +226,9 @@ NotChecked:
         Goto, CustDLL
     Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        If ErrorLevel
+;            Goto, CustDll
+;            return
         Array := StrSplit(FilesExt, "`n")
 
         for index, file in Array
@@ -214,8 +240,13 @@ NotChecked:
         }
     FilesExt = 
     dir = 
-    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
-    CustDLL:
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+CustDLL:
     SplitPath, SelectedFile,, dir
     sleep, 3000
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
@@ -223,6 +254,9 @@ NotChecked:
         Goto, NoDLL
     Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        if ErrorLevel
+;            Goto, NoDLL
+;            return
         Array := StrSplit(FilesCust, "`n")
 
         for index, file in Array
@@ -233,8 +267,13 @@ NotChecked:
         		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
     FilesCust = 
-    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
-    NoDLL:
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+NoDLL:
     ;MsgBox, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     ;run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
@@ -242,21 +281,29 @@ NotChecked:
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonDataCollection:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonShipCenter:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonCardControl:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
@@ -278,6 +325,8 @@ ButtonWebAPI:
     ;    goto, WeirdLoop ;Check to see if you can run the installer multiple times at once, if so this could cause issues
     Continue:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
+    if ErrorLevel
+        return
     ;if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
     ;    FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     ;FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
@@ -295,12 +344,16 @@ ButtonWebAPI:
 
 ButtonWebPortal:
     FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
+    if ErrorLevel
+        return
     SplitPath, SelectedFile,, WEB
     run, "" %WEB%
     return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 

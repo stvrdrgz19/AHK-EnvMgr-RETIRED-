@@ -12,11 +12,11 @@ for /R "C:\#EnvMgr\TEMPFILES\DLLs" %%I in ("*.zip") do (
   ":error"
 )
 
-robocopy "C:\#EnvMgr\TEMPFILES\DLLs" "%home%%2%"
-
-del /q "C:\#EnvMgr\TEMPFILES\DLLs\*"
+REM robocopy "C:\#EnvMgr\TEMPFILES\DLLs" "%home%%2%"
+REM 
+REM del /q "C:\#EnvMgr\TEMPFILES\DLLs\*"
 
 REM ECHO Argument 1 %1
 REM ECHO Argument 2 %2
 
-PAUSE
+REM PAUSE
