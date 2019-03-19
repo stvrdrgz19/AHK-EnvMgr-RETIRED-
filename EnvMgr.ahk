@@ -1,15 +1,3 @@
-/*
--------------------------------------------------------------------------------
-References
--------------------------------------------------------------------------------
-REFRESH - https://autohotkey.com/board/topic/66602-refresh-gui-listbox-control/
-CLIPBOARD - https://autohotkey.com/docs/misc/Clipboard.htm
-FILESELECT - https://autohotkey.com/docs/commands/FileSelectFile.htm
-FILEAPPEND - https://www.autohotkey.com/docs/commands/FileAppend.htm
-RUNNING BAT MINIMIZED - https://www.winhelponline.com/blog/run-bat-files-invisibly-without-displaying-command-prompt/
--------------------------------------------------------------------------------
-*/
-
 #SingleInstance, force
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
@@ -35,8 +23,8 @@ Gui, Add, Button, x382 y110 w150 h25, DataCollection
 Gui, Add, Button, x382 y140 w150 h25, Ship Center
 Gui, Add, Button, x540 y110 w150 h25, Card Control
 Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
-Gui, Add, Button, x540 y140 w150 h25 vGPWEB, Web Portal
-Gui, Add, Button, x540 y170 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x540 y140 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x540 y170 w150 h25 vGPWEB, Web Portal 
 Gui, Add, Button, x382 y256 w308 h25, Launch Build
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
@@ -50,7 +38,7 @@ Gui, Tab, 2
 Gui, Add, GroupBox, w345 h308, Dynamics GP
 Gui, Add, Button, x30 y60 w200 h25, Dynamics GP 2013
 Gui, Add, Button, x30 y90 w200 h25, Dynamics GP 2015
-Gui, Add, Button, x30 y120 w200 h25, Dynamics GP 2016
+Gui, Add, Button, x30 y120 w200 h25 gD16, Dynamics GP 2016
 Gui, Add, Button, x30 y150 w200 h25, Dynamics GP 2018
 ;------------------------------End of Tab 2------------------------------;
 Gui, Tab, 3
@@ -58,50 +46,11 @@ Gui, Add, Text,, Select a Script to run:
 Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
+Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
 ;------------------------------End of Tab 3------------------------------;
-Gui, Tab, 4
-Gui, Add, Text, x30 y67 vTenant, Tenant: 
-Gui, Add, Text, x30 y97 vAPI, API:
-Gui, Add, Text, x30 y127 vAuth, Auth:
-Gui, Add, Text, x30 y157 vWeb, Web:
-Gui, Add, Text, x30 y187 vPOS, POS:
-Gui, Add, Text, x30 y217 vSellbrite, SellBrite:
-Gui, Add, DropDownList, x75 y62 w278 vTenantID, SteveRodriguez01|SteveRodriguez02|SteveRodriguez03|SteveRodriguez04|SteveRodriguez05
-Gui, Add, Edit, x75 y92 w278 vEdit1, 
-Gui, Add, Edit, x75 y122 w278 vEdit2, 
-Gui, Add, Edit, x75 y152 w278 vEdit3, 
-Gui, Add, Edit, x75 y182 w278 vEdit4, 
-Gui, Add, Edit, x75 y212 w278 vEdit5, 
-Gui, Add, Button, x382 y60 w308 h25 vSR01, Delete DB SPC_%A_ComputerName%01
-Gui, Add, Button, x382 y90 w308 h25 vSR02, Delete DB SPC_%A_ComputerName%02
-Gui, Add, Button, x382 y120 w308 h25 vSR03, Delete DB SPC_%A_ComputerName%03
-Gui, Add, Button, x382 y150 w308 h25 vSR04, Delete DB SPC_%A_ComputerName%04
-Gui, Add, Button, x382 y180 w308 h25 vSR05, Delete DB SPC_%A_ComputerName%05
-;------------------------------End of Tab 4------------------------------;
-GuiControl, Disable, Tenant
-GuiControl, Disable, API
-GuiControl, Disable, Auth
-GuiControl, Disable, Web
-GuiControl, Disable, POS
-GuiControl, Disable, Sellbrite
-GuiControl, Disable, TenantID
-GuiControl, Disable, Edit1
-GuiControl, Disable, Edit2
-GuiControl, Disable, Edit3
-GuiControl, Disable, Edit4
-GuiControl, Disable, Edit5
-GuiControl, Disable, SR01
-GuiControl, Disable, SR02
-GuiControl, Disable, SR03
-GuiControl, Disable, SR04
-GuiControl, Disable, SR05
-GuiControl, Disable, GPWEB
-GuiControl, Disable, GPAPI
-GuiControl, Disable, CheckB
+;GuiControl, Disable, GPWEB
 Gui, Show, w721 h390, Environment Mananger
-;=============================================================================================;
-;===========================================Gui 2=============================================;
-;=============================================================================================;
+
 
 ListBoxDisplay:
     Loop, C:\#EnvMgr\BACKUPS\*, 2
@@ -115,6 +64,19 @@ ScriptListDisplay:
         GuiControl,, ScriptList, %A_LoopFileName%
     }
     return
+
+UpdateB:
+    Gui, Submit, NoHide
+    if CheckB = 1
+    {
+        VarCheck = 1
+        return
+    }
+    Else
+    {
+        VarCheck = 0
+        return
+    }
 
 GPBackupsList:
     if (A_GuiEvent <> "DoubleClick")
@@ -151,28 +113,54 @@ ButtonBackupDB:
 ButtonNewBackup:
     GuiControlGet, Database
     ifExist C:\#EnvMgr\BACKUPS\%Database%
+    {
         MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
-    ifExist C:\#EnvMgr\BACKUPS\%Database%
-        goto, CancelBak
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
-    sleep, 2000
-    goto, ButtonRefresh
-    return
-CancelBak:
-return
+        GuiControl,, Database, 
+        return
+    }
+    Else
+    {
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        ;sleep, 2000
+        GuiControl,, Database, 
+        goto, ButtonRefresh
+        return
+    }
 
 ButtonDeleteBackup:
     GuiControlGet, GPBackupsList
     MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
     ifMsgBox, Yes
         FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-        sleep, 2000
+        sleep, 1000
         goto, ButtonRefresh
     return
 
 
 ButtonSalesPadDesktop:
+    GuiControlGet, CheckB
+    If VarCheck = 1
+    {
+        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
+        ifMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
+        }
+    }
+    Else
+    {
+        Goto, GetBuild
+        return
+    }
+
+GetBuild:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    if ErrorLevel
+        return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
@@ -193,8 +181,29 @@ Can:
 
 OK:
     GuiControlGet, BuildLoc
+    GuiControlGet, CheckB
     Gui, 2:Destroy
     run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    if VarCheck = 1
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+        run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        return
+    }
+    else
+    {
+        Goto, NotChecked
+        return
+    }
+    Return
+
+NotChecked:
     SplitPath, SelectedFile,, dir
     MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
     ifMsgBox, No
@@ -202,7 +211,7 @@ OK:
     Else
         FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesExt, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -212,15 +221,22 @@ OK:
         }
     FilesExt = 
     dir = 
-    CustDLL:
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+CustDLL:
     SplitPath, SelectedFile,, dir
+    sleep, 3000
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
     ifMsgBox, No
         Goto, NoDLL
     Else
         FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesCust, "`n")
-    
+
         for index, file in Array
         {
         	if index = 1
@@ -229,39 +245,78 @@ OK:
         		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
     FilesCust = 
-    run, "C:\#EnvMgr\SCRIPTS\FileUnzipAndMove.bat - Shortcut.lnk" %BuildLoc%
-    NoDLL:
-    run, SalesPad.exe, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+NoDLL:
+    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
     return
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonDataCollection:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonShipCenter:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
 ButtonCardControl:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
-ButtonWebPortal:
-    return
-
 ButtonWebAPI:
+    If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
+        Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
+        {
+        	Run, %A_LoopFileLongPath%
+            WinWait, SalesPad WebAPI Setup
+            WinWaitClose
+            Goto, Continue
+        }
+    Else
+        Goto, Continue
+    Continue:
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
+    if ErrorLevel
+        return
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
+    Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
+    {
+    	Run, %A_LoopFileLongPath%
+        Return
+    }
+
+ButtonWebPortal:
+    FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
+    if ErrorLevel
+        return
+    SplitPath, SelectedFile,, WEB
+    run, "" %WEB%
     return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+    if ErrorLevel
+        return
     run, %SelectedFile%
     return
 
@@ -276,7 +331,18 @@ ButtonBackupsFolder:
     IfMsgBox, No
         return
     Run, C:\#EnvMgr\BACKUPS
-    return 
+    return
+
+ButtonScriptsFolder:
+    MsgBox, 4, OPEN FOLDER, Do you want to open the Scripts Folder?
+    IfMsgBox, No
+        return
+    Run, C:\#SCRIPTS
+    return
+
+D16:
+    run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    return
 
 UpdateA:
     Gui, Submit, NoHide
@@ -289,10 +355,6 @@ UpdateA:
         Gui, -AlwaysOnTop
     }
     Return
-
-
-UpdateB:
-return
 
 GuiClose:
 ButtonExit:
