@@ -46,6 +46,7 @@ Gui, Add, Text,, Select a Script to run:
 Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
+Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
 ;------------------------------End of Tab 3------------------------------;
 ;GuiControl, Disable, GPWEB
 Gui, Show, w721 h390, Environment Mananger
@@ -112,22 +113,28 @@ ButtonBackupDB:
 ButtonNewBackup:
     GuiControlGet, Database
     ifExist C:\#EnvMgr\BACKUPS\%Database%
+    {
         MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
-    ifExist C:\#EnvMgr\BACKUPS\%Database%
-        goto, CancelBak
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
-    sleep, 2000
-    goto, ButtonRefresh
-    return
-CancelBak:
-return
+        GuiControl,, Database, 
+        return
+    }
+    Else
+    {
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        ;sleep, 2000
+        GuiControl,, Database, 
+        goto, ButtonRefresh
+        return
+    }
 
 ButtonDeleteBackup:
     GuiControlGet, GPBackupsList
     MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
     ifMsgBox, Yes
         FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-        sleep, 2000
+        sleep, 1000
         goto, ButtonRefresh
     return
 
@@ -324,7 +331,14 @@ ButtonBackupsFolder:
     IfMsgBox, No
         return
     Run, C:\#EnvMgr\BACKUPS
-    return 
+    return
+
+ButtonScriptsFolder:
+    MsgBox, 4, OPEN FOLDER, Do you want to open the Scripts Folder?
+    IfMsgBox, No
+        return
+    Run, C:\#SCRIPTS
+    return
 
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
