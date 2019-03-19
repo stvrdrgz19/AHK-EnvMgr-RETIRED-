@@ -1,8 +1,9 @@
 #SingleInstance, force
 
 Gui, Add, Button, x609 y354 w100 h30, Exit
-Gui, Add, CheckBox, x15 y361 gUpdateA vCheckA, Always On Top
-Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts|Cloud
+Gui, Add, Text, x15 y361, IP Address: 
+Gui, Add, Edit, cgray x75 y357 w100 ReadOnly vIP, %A_IPAddress1%
+Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
 Gui, Tab, 1
 Gui, Add, GroupBox, w345 h308, Database Management
 Gui, Add, GroupBox, x375 y34 w322 h308, Build Management
@@ -16,7 +17,7 @@ Gui, Add, Button, x260 y140 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x260 y256 w100 h25, Backups Folder
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x382 y60, Select a SalesPad Product to Install:
-Gui, Add, Text, x382 y236, Launch an exisiting Build:
+Gui, Add, Text, x382 y294, Launch an exisiting Build:
 Gui, Add, Button, x382 y80 w150 h25, SalesPad Desktop
 Gui, Add, Button, x540 y80 w150 h25, SalesPad Mobile
 Gui, Add, Button, x382 y110 w150 h25, DataCollection
@@ -25,14 +26,12 @@ Gui, Add, Button, x540 y110 w150 h25, Card Control
 Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
 Gui, Add, Button, x540 y140 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x540 y170 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x382 y256 w308 h25, Launch Build
+Gui, Add, Button, x382 y230 w150 h25 vAddDLLs, Add DLLs
+Gui, Add, Button, x382 y310 w308 h25, Launch Build
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
 Gui, Add, Edit, x31 y312 w220 vDatabase,
 Gui, Add, Button, x260 y310 w100 h25 vBak, New Backup
-;--------------------IP Address section in the lower left--------------------;
-Gui, Add, Text, x382 y316, IP Address: 
-Gui, Add, Edit, cgray x437 y312 w100 ReadOnly vIP, %A_IPAddress1%
 ;------------------------------End of Tab 1------------------------------;
 Gui, Tab, 2
 Gui, Add, GroupBox, w345 h308, Dynamics GP
@@ -49,6 +48,7 @@ Gui, Add, Button, x254 y82 w100 h25, Refresh
 Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
 ;------------------------------End of Tab 3------------------------------;
 ;GuiControl, Disable, GPWEB
+GuiControl, Disable, AddDLLs
 Gui, Show, w721 h390, Environment Mananger
 
 
@@ -312,6 +312,27 @@ ButtonWebPortal:
     run, "" %WEB%
     return
 
+;ButtonAddDLLs:
+    ;GUI
+    ;Prompt user to select current SalesPad Install
+    ;Prompt user to navigate to wherever they want the dlls from and select them
+    ;FileSelectFolder, ToFolder, C:\Program Files (x86)\SalesPad.Desktop, 3, Select an Install for the DLLs
+    ;if ToFolder = 
+    ;{
+    ;    MsgBox, Nothing was selected.
+    ;    Return
+    ;}
+    ;MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+    ;ifMsgBox, Yes
+    ;{
+    ;    FileSelectFile ;basic spgp file path
+    ;    if FileSelectFileVariable = 
+    ;    {
+    ;        return
+    ;    }
+    ;    Else
+    ;}
+
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
     if ErrorLevel
@@ -341,18 +362,6 @@ ButtonScriptsFolder:
 
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
-    return
-
-UpdateA:
-    Gui, Submit, NoHide
-    If CheckA = 1
-    {
-        Gui, +AlwaysOnTop
-    }
-    else
-    {
-        Gui, -AlwaysOnTop
-    }
     Return
 
 GuiClose:
