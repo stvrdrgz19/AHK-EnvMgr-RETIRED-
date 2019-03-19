@@ -123,7 +123,6 @@ ButtonNewBackup:
         Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
-        ;sleep, 2000
         GuiControl,, Database, 
         goto, ButtonRefresh
         return
