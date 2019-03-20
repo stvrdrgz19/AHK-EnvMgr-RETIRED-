@@ -131,6 +131,7 @@ ButtonNewBackup:
             ifMsgBox, No
             {
                 MsgBox,, CANCEL, No backup was created.
+                GuiControl,, Database, 
                 return
             }
             ifMsgBox, Yes
@@ -139,6 +140,7 @@ ButtonNewBackup:
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 GuiControl,, Database, 
+                MsgBox,, CREATED, Database %Database% was created.
                 goto, ButtonRefresh
                 return
             }
@@ -149,11 +151,17 @@ ButtonDeleteBackup:
     GuiControlGet, GPBackupsList
     MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
     ifMsgBox, Yes
+    {
         FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-        sleep, 1000
+        MsgBox,, DELETED, Database %GPBackupsList% was deleted.
         goto, ButtonRefresh
-    return
-
+        return
+    }
+    IfMsgBox, No
+    {
+        MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
+        return
+    }
 
 ButtonSalesPadDesktop:
     GuiControlGet, CheckB
