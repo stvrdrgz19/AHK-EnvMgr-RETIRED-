@@ -112,20 +112,28 @@ ButtonBackupDB:
 
 ButtonNewBackup:
     GuiControlGet, Database
-    ifExist C:\#EnvMgr\BACKUPS\%Database%
+    if Database = 
     {
-        MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
-        GuiControl,, Database, 
+        MsgBox, No Database Name was entered.
         return
     }
     Else
     {
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
-        WinWait, C:\WINDOWS\system32\cmd.exe
-        WinWaitClose
-        GuiControl,, Database, 
-        goto, ButtonRefresh
-        return
+        ifExist C:\#EnvMgr\BACKUPS\%Database%
+        {
+            MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+            GuiControl,, Database, 
+            return
+        }
+        Else
+        {
+            Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+            WinWait, C:\WINDOWS\system32\cmd.exe
+            WinWaitClose
+            GuiControl,, Database, 
+            goto, ButtonRefresh
+            return
+        }
     }
 
 ButtonDeleteBackup:
