@@ -114,7 +114,7 @@ ButtonNewBackup:
     GuiControlGet, Database
     if Database = 
     {
-        MsgBox, No Database Name was entered.
+        MsgBox,, ERROR, No Database Name was entered.
         return
     }
     Else
@@ -127,12 +127,21 @@ ButtonNewBackup:
         }
         Else
         {
-            Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
-            WinWait, C:\WINDOWS\system32\cmd.exe
-            WinWaitClose
-            GuiControl,, Database, 
-            goto, ButtonRefresh
-            return
+            MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+            ifMsgBox, No
+            {
+                MsgBox,, CANCEL, No backup was created.
+                return
+            }
+            ifMsgBox, Yes
+            {
+                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                GuiControl,, Database, 
+                goto, ButtonRefresh
+                return
+            }
         }
     }
 
