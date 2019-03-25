@@ -17,7 +17,7 @@ Gui, Add, Button, x260 y140 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x260 y256 w100 h25, Backups Folder
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x382 y60, Select a SalesPad Product to Install:
-Gui, Add, Text, x382 y294, Launch an exisiting Build:
+Gui, Add, Text, x382 y264, Launch an exisiting Build:
 Gui, Add, Button, x382 y80 w150 h25, SalesPad Desktop
 Gui, Add, Button, x540 y80 w150 h25, SalesPad Mobile
 Gui, Add, Button, x382 y110 w150 h25, DataCollection
@@ -26,8 +26,9 @@ Gui, Add, Button, x540 y110 w150 h25, Card Control
 Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
 Gui, Add, Button, x540 y140 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x540 y170 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x382 y230 w150 h25 vAddDLLs, Add DLLs
-Gui, Add, Button, x382 y310 w308 h25, Launch Build
+Gui, Add, Button, x382 y280 w308 h25, Launch Build
+Gui, Add, Button, x382 y310 w150 h25 vAddDLLs, Add DLLs
+Gui, Add, Button, x540 y310 w150 h25, Build Folder
 ;-----------------------------GroupBox 3 Fields-----------------------------;
 Gui, Add, Text, x31 y294, Enter a Database Backup Name:
 Gui, Add, Edit, x31 y312 w220 vDatabase,
@@ -46,9 +47,14 @@ Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
 Gui, Add, Button, x254 y52 w100 h25, Run
 Gui, Add, Button, x254 y82 w100 h25, Refresh
 Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
+Gui, Add, Button, x540 y80 w150 h25, SteveRodriguez01
+Gui, Add, Button, x540 y110 w150 h25, SteveRodriguez02
+Gui, Add, Button, x540 y140 w150 h25, SteveRodriguez03
+Gui, Add, Button, x540 y170 w150 h25, SteveRodriguez04
+Gui, Add, Button, x540 y200 w150 h25, SteveRodriguez05
 ;------------------------------End of Tab 3------------------------------;
 ;GuiControl, Disable, GPWEB
-GuiControl, Disable, AddDLLs
+;GuiControl, Disable, AddDLLs
 Gui, Show, w721 h390, Environment Mananger
 
 
@@ -87,6 +93,9 @@ ButtonRestoreDB:
     IfMsgBox, No
         return
     Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %GPBackupsList%,, UseErrorLevel
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
     return
 
 ScriptList:
@@ -196,7 +205,7 @@ GetBuild:
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
-    Gui, 2:Show, w660 h160, Test Second GUI
+    Gui, 2:Show, w660 h160, Install SalesPad GP
     return
 
 Can:
@@ -217,6 +226,7 @@ OK:
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+        sleep 3000
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
@@ -253,7 +263,7 @@ NotChecked:
 
 CustDLL:
     SplitPath, SelectedFile,, dir
-    sleep, 3000
+    sleep, 2000
     MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
     ifMsgBox, No
         Goto, NoDLL
@@ -337,26 +347,107 @@ ButtonWebPortal:
     run, "" %WEB%
     return
 
-;ButtonAddDLLs:
-    ;GUI
-    ;Prompt user to select current SalesPad Install
-    ;Prompt user to navigate to wherever they want the dlls from and select them
-    ;FileSelectFolder, ToFolder, C:\Program Files (x86)\SalesPad.Desktop, 3, Select an Install for the DLLs
-    ;if ToFolder = 
-    ;{
-    ;    MsgBox, Nothing was selected.
-    ;    Return
-    ;}
-    ;MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-    ;ifMsgBox, Yes
-    ;{
-    ;    FileSelectFile ;basic spgp file path
-    ;    if FileSelectFileVariable = 
-    ;    {
-    ;        return
-    ;    }
-    ;    Else
-    ;}
+ButtonAddDLLs:
+    Process, Exist, SalesPad.exe
+        if ! errorLevel
+        {
+            Gui, 3:Destroy
+            Gui, 3:Add, Text, x30 y20, Select the SalesPad Install you want to add DLLs to:
+            Gui, 3:Add, Edit, x30 y37 w600 vDLLFrom, 
+            Gui, 3:Add, Button, x638 y35 w25 h25 ggetfile1 vgetfile1, ...
+            Gui, 3:Add, Text, x30 y73, Select the SalesPad Build you need DLLs from:
+            Gui, 3:Add, Edit, x30 y90 w600 vDLLPlace, 
+            Gui, 3:Add, Button, x638 y88 w25 h25 ggetfile2 vgetfile2, ...
+            Gui, 3:Add, Button, x420 y120 w100 h25 gCanx, Cancel
+            Gui, 3:Add, Button, x531 y120 w100 h25 gOKx, OK
+            Gui, 3:Show, w692 h160, Add DLLs
+            return
+        }
+        else
+        {
+            MsgBox, 4, CLOSE, SalesPad must be closed for DLLs to be added properly.`n`nDo you wan't Environment Manager to close SalesPad?
+            ifMsgBox, Yes
+            {
+                MsgBox, Close SalesPad
+                return
+            }
+            IfMsgBox, No
+            {
+                MsgBox, Don't close SalesPad
+                return
+            }
+            return
+        }
+
+getfile1:
+    FileSelectFolder, ToFolder, C:\Program Files (x86)\SalesPad.Desktop, 3, Select an Install for the DLLs
+    if ToFolder = 
+    {
+        MsgBox, Nothing was selected.
+        Return
+    }
+    Else
+    {
+        GuiControl,, DLLFrom, %ToFolder%
+        return
+    }
+    return
+
+getfile2:
+    FileSelectFolder, FromFolder, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, 3, Select a build to pull DLLs from:
+    if FromFolder = 
+    {
+        MsgBox, Nothing was selected.
+        Return
+    }
+    Else
+    {
+        GuiControl,, DLLPlace, %FromFolder%
+        return
+    }
+    return
+
+Canx:
+    Gui, 3:Destroy
+    return
+
+OKx:
+    Gui, 3:Destroy
+    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+        Array := StrSplit(FilesExt, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		FromFolder := file
+        	else
+        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesExt = 
+    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+        Array := StrSplit(FilesCust, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		FromFolder := file
+        	else
+        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    FilesCust = 
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+    return
+
+ButtonBuildFolder:
+    MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
+    IfMsgBox, No
+        return
+    Run, C:\Program Files (x86)\SalesPad.Desktop
+    return
 
 ButtonLaunchBuild:
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
@@ -388,6 +479,71 @@ ButtonScriptsFolder:
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
+
+ButtonSteveRodriguez01:
+    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
+    ifMsgBox, No
+    {
+        MsgBox, CANCEL, Tables were not deleted.
+        return
+    }
+    ifMsgBox, Yes
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR01.bat"
+        return
+    }
+
+ButtonSteveRodriguez02:
+    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez02 tables?
+    ifMsgBox, No
+    {
+        MsgBox, CANCEL, Tables were not deleted.
+        return
+    }
+    ifMsgBox, Yes
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR02.bat"
+        return
+    }
+
+ButtonSteveRodriguez03:
+    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez03 tables?
+    ifMsgBox, No
+    {
+        MsgBox, CANCEL, Tables were not deleted.
+        return
+    }
+    ifMsgBox, Yes
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR03.bat"
+        return
+    }
+
+ButtonSteveRodriguez04:
+    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez04 tables?
+    ifMsgBox, No
+    {
+        MsgBox, CANCEL, Tables were not deleted.
+        return
+    }
+    ifMsgBox, Yes
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR04.bat"
+        return
+    }
+
+ButtonSteveRodriguez05:
+    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez05 tables?
+    ifMsgBox, No
+    {
+        MsgBox, CANCEL, Tables were not deleted.
+        return
+    }
+    ifMsgBox, Yes
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR05.bat"
+        return
+    }
 
 GuiClose:
 ButtonExit:
