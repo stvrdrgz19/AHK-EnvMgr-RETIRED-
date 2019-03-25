@@ -11,21 +11,15 @@ echo Deleting Database SPC_SteveRodriguez02_Api. . .
 echo.
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE [SPC_SteveRodriguez02_Api] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [SPC_SteveRodriguez02_Api]"
 
-PAUSE
-
 echo.
 echo Deleting Database SPC_SteveRodriguez02_Auth. . .
 echo. 
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE [SPC_SteveRodriguez02_Auth] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [SPC_SteveRodriguez02_Auth]"
 
-PAUSE
-
 echo.
 echo Deleting Database SPC_SteveRodriguez02_Manager. . .
 echo. 
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE [SPC_SteveRodriguez02_Manager] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [SPC_SteveRodriguez02_Manager]"
-
-PAUSE
 
 echo.
 echo Deleting Database SPC_SteveRodriguez02_Tenantless. . .
