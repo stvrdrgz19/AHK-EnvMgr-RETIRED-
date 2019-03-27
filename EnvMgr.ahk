@@ -20,7 +20,7 @@ Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
 
 Gui, Add, Button, x592 y440 w100 h30, Exit
-Gui, Add, Text, x15 y446, IP Address: 
+Gui, Add, Text, x15 y449, IP Address: 
 Gui, Add, Edit, cgray x75 y447 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h308, Database Management
 Gui, Add, GroupBox, x369 y5 w322 h308, Build Management
@@ -52,10 +52,10 @@ Gui, Add, Button, x376 y251 w308 h25, Launch Build
 Gui, Add, Button, x376 y281 w150 h25 vAddDLLs, Add DLLs
 Gui, Add, Button, x534 y281 w150 h25, Build Folder
 
-Gui, Add, Button, x41 y335 w150 h25, Dynamics GP 2013
-Gui, Add, Button, x199 y335 w150 h25, Dynamics GP 2015
-Gui, Add, Button, x357 y335 w150 h25 gD16, Dynamics GP 2016
-Gui, Add, Button, x515 y335 w150 h25, Dynamics GP 2017
+Gui, Add, Button, x41 y335 w150 h25 gD13 vD13, Dynamics GP 2013
+Gui, Add, Button, x199 y335 w150 h25 gD15 vD15, Dynamics GP 2015
+Gui, Add, Button, x357 y335 w150 h25 gD16 vD16, Dynamics GP 2016
+Gui, Add, Button, x515 y335 w150 h25 gD18 vD18, Dynamics GP 2017
 
 Gui, Add, Button, x22 y397 w125 h25, SteveRodriguez01
 Gui, Add, Button, x155 y397 w125 h25, SteveRodriguez02
@@ -64,6 +64,9 @@ Gui, Add, Button, x421 y397 w125 h25, SteveRodriguez04
 Gui, Add, Button, x554 y397 w125 h25, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
+GuiControl, Disable, D13
+GuiControl, Disable, D15
+GuiControl, Disable, D18
 Gui, Show, w706 h475, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -382,12 +385,14 @@ ButtonAddDLLs:
             MsgBox, 4, CLOSE, SalesPad must be closed for DLLs to be added properly.`n`nDo you wan't Environment Manager to close SalesPad?
             ifMsgBox, Yes
             {
-                MsgBox, Close SalesPad
+                Process,Close,SalesPad.exe
+                sleep 2000
+                goto, ButtonAddDLLs
                 return
             }
             IfMsgBox, No
             {
-                MsgBox, Don't close SalesPad
+                MsgBox, You must close SalesPad to add DLLs.
                 return
             }
             return
@@ -483,9 +488,18 @@ ButtonBackupsFolder:
     Run, C:\#EnvMgr\BACKUPS
     Return
 
+D13:
+    return
+
+D15:
+    return
+
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
+
+D18:
+    return
 
 ButtonSteveRodriguez01:
     MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
