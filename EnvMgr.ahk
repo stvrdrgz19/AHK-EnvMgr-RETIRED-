@@ -2,6 +2,7 @@
 
 Menu, FileMenu, Add, &Open`tCtrl+O, MenuFileOpen 
 Menu, FileMenu, Add, E&xit, MenuHandler
+Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
 Menu, EditMenu, Add, Copy`tCtrl+C, MenuHandler
 Menu, EditMenu, Add, Paste`tCtrl+V, MenuHandler
@@ -18,63 +19,53 @@ Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
 
 
-Gui, Add, Button, x609 y354 w100 h30, Exit
-Gui, Add, Text, x15 y361, IP Address: 
-Gui, Add, Edit, cgray x75 y357 w100 ReadOnly vIP, %A_IPAddress1%
-;Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
-;Gui, Tab, 1
-Gui, Add, GroupBox, x15 y15 w345 h308, Database Management
-Gui, Add, GroupBox, x375 y15 w322 h308, Build Management
+Gui, Add, Button, x592 y440 w100 h30, Exit
+Gui, Add, Text, x15 y446, IP Address: 
+Gui, Add, Edit, cgray x75 y447 w100 ReadOnly vIP, %A_IPAddress1%
+Gui, Add, GroupBox, x15 y5 w345 h308, Database Management
+Gui, Add, GroupBox, x369 y5 w322 h308, Build Management
+Gui, Add, GroupBox, x15 y315 w676 h60, Dynamics GP
+Gui, Add, GroupBox, x15 y377 w676 h60, SPC SQL Database Management
 ;-----------------------------GroupBox 1 Fields-----------------------------;
-Gui, Add, Text, x24 y41, Select a Database:
-Gui, Add, Button, x145 y31 w100 h25, Refresh 
-Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y62 w220 r15
-Gui, Add, Button, x253 y61 w100 h25, Restore DB
-Gui, Add, Button, x253 y91 w100 h25, Backup DB
-Gui, Add, Button, x253 y121 w100 h25 vDelete, Delete Backup
-Gui, Add, Button, x253 y237 w100 h25, Backups Folder
+Gui, Add, Text, x24 y31, Select a Database:
+Gui, Add, Button, x145 y21 w100 h25, Refresh 
+Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
+Gui, Add, Button, x253 y51 w100 h25, Restore DB
+Gui, Add, Button, x253 y81 w100 h25, Backup DB
+Gui, Add, Button, x253 y111 w100 h25 vDelete, Delete Backup
+Gui, Add, Button, x253 y227 w100 h25, Backups Folder
+Gui, Add, Text, x24 y265, Enter a Database Backup Name:
+Gui, Add, Edit, x24 y283 w220 vDatabase,
+Gui, Add, Button, x253 y281 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
-Gui, Add, Text, x382 y41, Select a SalesPad Product to Install:
-Gui, Add, Text, x382 y245, Launch an exisiting Build:
-Gui, Add, Button, x382 y61 w150 h25, SalesPad Desktop
-Gui, Add, Button, x540 y61 w150 h25, SalesPad Mobile
-Gui, Add, Button, x382 y91 w150 h25, DataCollection
-Gui, Add, Button, x382 y121 w150 h25, Ship Center
-Gui, Add, Button, x540 y151 w150 h25, Card Control
-Gui, Add, CheckBox, x383 y153 gUpdateB vCheckB, Install With Grizzly DLLs
-Gui, Add, Button, x540 y91 w150 h25 vGPAPI, Web API
-Gui, Add, Button, x540 y121 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x382 y261 w308 h25, Launch Build
-Gui, Add, Button, x382 y291 w150 h25 vAddDLLs, Add DLLs
-Gui, Add, Button, x540 y291 w150 h25, Build Folder
-;-----------------------------GroupBox 3 Fields-----------------------------;
-Gui, Add, Text, x24 y275, Enter a Database Backup Name:
-Gui, Add, Edit, x24 y293 w220 vDatabase,
-Gui, Add, Button, x253 y291 w100 h25 vBak, New Backup
-;------------------------------End of Tab 1------------------------------;
-;Gui, Tab, 2
-;Gui, Add, GroupBox, w345 h308, Dynamics GP
-;Gui, Add, Button, x30 y60 w200 h25, Dynamics GP 2013
-;Gui, Add, Button, x30 y90 w200 h25, Dynamics GP 2015
-;Gui, Add, Button, x30 y120 w200 h25 gD16, Dynamics GP 2016
-;Gui, Add, Button, x30 y150 w200 h25, Dynamics GP 2018
-;------------------------------End of Tab 2------------------------------;
-;Gui, Tab, 3
-;Gui, Add, Text,, Select a Script to run:
-;Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
-;Gui, Add, Button, x254 y52 w100 h25, Run
-;Gui, Add, Button, x254 y82 w100 h25, Refresh
-;Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
-;Gui, Add, Button, x540 y80 w150 h25, SteveRodriguez01
-;Gui, Add, Button, x540 y110 w150 h25, SteveRodriguez02
-;Gui, Add, Button, x540 y140 w150 h25, SteveRodriguez03
-;Gui, Add, Button, x540 y170 w150 h25, SteveRodriguez04
-;Gui, Add, Button, x540 y200 w150 h25, SteveRodriguez05
-;------------------------------End of Tab 3------------------------------;
-;GuiControl, Disable, GPWEB
-;GuiControl, Disable, AddDLLs
-Gui, Show, w800 h500, Environment Mananger
+Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
+Gui, Add, Text, x376 y235, Launch an exisiting Build:
+Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
+Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
+Gui, Add, Button, x376 y81 w150 h25, DataCollection
+Gui, Add, Button, x376 y111 w150 h25, Ship Center
+Gui, Add, Button, x534 y141 w150 h25, Card Control
+Gui, Add, CheckBox, x377 y143 gUpdateB vCheckB, Install With Grizzly DLLs
+Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
+Gui, Add, Button, x376 y251 w308 h25, Launch Build
+Gui, Add, Button, x376 y281 w150 h25 vAddDLLs, Add DLLs
+Gui, Add, Button, x534 y281 w150 h25, Build Folder
 
+Gui, Add, Button, x41 y335 w150 h25, Dynamics GP 2013
+Gui, Add, Button, x199 y335 w150 h25, Dynamics GP 2015
+Gui, Add, Button, x357 y335 w150 h25 gD16, Dynamics GP 2016
+Gui, Add, Button, x515 y335 w150 h25, Dynamics GP 2017
+
+Gui, Add, Button, x22 y397 w125 h25, SteveRodriguez01
+Gui, Add, Button, x155 y397 w125 h25, SteveRodriguez02
+Gui, Add, Button, x288 y397 w125 h25, SteveRodriguez03
+Gui, Add, Button, x421 y397 w125 h25, SteveRodriguez04
+Gui, Add, Button, x554 y397 w125 h25, SteveRodriguez05
+
+;GuiControl, Disable, AddDLLs
+Gui, Show, w706 h475, Environment Mananger
+;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
     Loop, C:\#EnvMgr\BACKUPS\*, 2
@@ -83,19 +74,16 @@ ListBoxDisplay:
     }
     return
 
+SettingsScreen:
+    Gui, 4:Show, w706 h493, Environment Mananger
+    return
+
 MenuHandler:
 MsgBox, %A_ThisMenuItem%
 return
 MenuFileOpen:
 MsgBox, Open Menu was clicked
 return
-
-;ScriptListDisplay:
-;    Loop, C:\#SCRIPTS\*.*
-;    {
-;        GuiControl,, ScriptList, %A_LoopFileName%
-;    }
-;    return
 
 UpdateB:
     Gui, Submit, NoHide
@@ -493,14 +481,7 @@ ButtonBackupsFolder:
     IfMsgBox, No
         return
     Run, C:\#EnvMgr\BACKUPS
-    return
-/*
-ButtonScriptsFolder:
-    MsgBox, 4, OPEN FOLDER, Do you want to open the Scripts Folder?
-    IfMsgBox, No
-        return
-    Run, C:\#SCRIPTS
-    return
+    Return
 
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
@@ -570,7 +551,7 @@ ButtonSteveRodriguez05:
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR05.bat"
         return
     }
-*/
+
 GuiClose:
 ButtonExit:
 ExitApp
