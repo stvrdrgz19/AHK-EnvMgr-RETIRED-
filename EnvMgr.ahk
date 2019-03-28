@@ -135,6 +135,7 @@ SQLServ:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
@@ -147,6 +148,7 @@ SQLUN:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
@@ -159,6 +161,7 @@ SQLPW:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
@@ -171,6 +174,7 @@ DYN:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
@@ -183,6 +187,7 @@ REG:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
@@ -195,6 +200,7 @@ MB:
     if ErrorLevel
     {
         MsgBox, Nothing was entered.
+        return
     }
     Else
     {
