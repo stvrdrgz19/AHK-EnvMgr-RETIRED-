@@ -71,7 +71,8 @@ Gui, Show, w706 h475, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
-    Loop, C:\#EnvMgr\BACKUPS\*, 2
+IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    Loop, %DBListDisplay%\*, 2
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
     }
@@ -84,37 +85,72 @@ SettingsScreen:
     Gui, 4:Add, Text, x30 y90, SQL Server Name:
     Gui, 4:Add, Text, x30 y120, SQL Username:
     Gui, 4:Add, Text, x30 y150, SQL Password:
-    Gui, 4:Add, Edit, cgray x125 y85 w200 Readonly vServName
-    Gui, 4:Add, Edit, cgray x125 y115 w200 Readonly vServUN
-    Gui, 4:Add, Edit, cgray x125 y145 w200 Readonly vServPW
+    Gui, 4:Add, Edit, cgray x125 y85 w200 Readonly vServName,
+    Gui, 4:Add, Edit, cgray x125 y115 w200 Readonly vServUN,
+    Gui, 4:Add, Edit, cgray x125 y145 w200 Readonly vServPW,
     Gui, 4:Add, Button, x325 y84 w23 h23 vSQLServ gSQLServ, ...
     Gui, 4:Add, Button, x325 y114 w23 h23 vSQLUN gSQLUN, ...
     Gui, 4:Add, Button, x325 y144 w23 h23 vSQLPW gSQLPW, ...
     Gui, 4:Add, Text, x370 y90, Dynamics Database:
     Gui, 4:Add, Text, x370 y120, Non-MB Company:
     Gui, 4:Add, Text, x370 y150, MB Company:
-    Gui, 4:Add, Edit, cgray x475 y85 w155 Readonly vDynamicsDB
-    Gui, 4:Add, Edit, cgray x475 y115 w155 Readonly vRegDB
-    Gui, 4:Add, Edit, cgray x475 y145 w155 Readonly vMBDB
+    Gui, 4:Add, Edit, cgray x475 y85 w155 Readonly vDynamicsDB,
+    Gui, 4:Add, Edit, cgray x475 y115 w155 Readonly vRegDB,
+    Gui, 4:Add, Edit, cgray x475 y145 w155 Readonly vMBDB,
     Gui, 4:Add, Button, x630 y84 w23 h23 vDYN gDYN, ...
     Gui, 4:Add, Button, x630 y114 w23 h23 vREG gREG, ...
     Gui, 4:Add, Button, x630 y144 w23 h23 vMB gMB, ...
     Gui, 4:Add, Button, x443 y190 w100 h25 gSave, Save
     Gui, 4:Add, Button, x553 y190 w100 h25 gCan2, Cancel
     Gui, 4:Show, w680 h225, Settings
+    IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    GuiControl, 4:, BackupPath, %BackPathLoad%
+    IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    GuiControl, 4:, ServName, %ServLoad%
+    IniRead, UserLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    GuiControl, 4:, ServUN, %UserLoad%
+    IniRead, PasswordLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    GuiControl, 4:, ServPW, %PasswordLoad%
+    IniRead, DynamicLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    GuiControl, 4:, DynamicsDB, %DynamicLoad%
+    IniRead, Company1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    GuiControl, 4:, RegDB, %Company1Load%
+    IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    GuiControl, 4:, MBDB, %Company2Load%
+    ;Gui, 4:Submit, NoHide
     return
+
+    IniRead, OutputVar, Filename, Section, Key
+    ;IniRead, Var1, C:\#SCRIPTS\Tests\test3\settings.ini, Section1, Val1
+    ;GuiControl,, Edit, %Var1%
 
 4GuiClose:
     Gui, 4:Destroy
     return
 
 Save:
-    MsgBox, Saved!
-    Gui, 4:Destroy
+    GuiControlGet, BackupPath, 4:
+    IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    GuiControlGet, ServName, 4:
+    IniWrite, %ServName%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    GuiControlGet, ServUN, 4:
+    IniWrite, %ServUN%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    GuiControlGet, ServPW, 4:
+    IniWrite, %ServPW%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    GuiControlGet, DynamicsDB, 4:
+    IniWrite, %DynamicsDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    GuiControlGet, RegDB, 4:
+    IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    GuiControlGet, MBDB, 4:
+    IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    ;MsgBox, Saved!
+    ;Gui, 4:Destroy
     Return
 
 Can2:
     Gui, 4:Destroy
+    sleep 1000
+    goto, ButtonRefresh
     return
 
 BackPath:
