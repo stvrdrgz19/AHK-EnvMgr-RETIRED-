@@ -17,8 +17,6 @@ Menu, MyMenuBar, Add, &Edit, :EditMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
-
-
 Gui, Add, Button, x592 y440 w100 h30, Exit
 Gui, Add, Text, x15 y449, IP Address: 
 Gui, Add, Edit, cgray x75 y447 w100 ReadOnly vIP, %A_IPAddress1%
@@ -67,6 +65,8 @@ Gui, Add, Button, x554 y397 w125 h25, SteveRodriguez05
 GuiControl, Disable, D13
 GuiControl, Disable, D15
 GuiControl, Disable, D18
+;Gui, Color, FF0000, 3366FF
+;Gui, Color, FFFFFF
 Gui, Show, w706 h475, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -87,7 +87,7 @@ SettingsScreen:
     Gui, 4:Add, Text, x30 y150, SQL Password:
     Gui, 4:Add, Edit, cgray x125 y85 w200 Readonly vServName,
     Gui, 4:Add, Edit, cgray x125 y115 w200 Readonly vServUN,
-    Gui, 4:Add, Edit, cgray x125 y145 w200 Readonly vServPW,
+    Gui, 4:Add, Edit, cgray x125 y145 w200 Password Readonly vServPW,
     Gui, 4:Add, Button, x325 y84 w23 h23 vSQLServ gSQLServ, ...
     Gui, 4:Add, Button, x325 y114 w23 h23 vSQLUN gSQLUN, ...
     Gui, 4:Add, Button, x325 y144 w23 h23 vSQLPW gSQLPW, ...
@@ -102,6 +102,7 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y144 w23 h23 vMB gMB, ...
     Gui, 4:Add, Button, x443 y190 w100 h25 gSave, Save
     Gui, 4:Add, Button, x553 y190 w100 h25 gCan2, Cancel
+    Gui, 4:Color, FFFFFF
     Gui, 4:Show, w680 h225, Settings
     IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
@@ -117,12 +118,7 @@ SettingsScreen:
     GuiControl, 4:, RegDB, %Company1Load%
     IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
     GuiControl, 4:, MBDB, %Company2Load%
-    ;Gui, 4:Submit, NoHide
     return
-
-    IniRead, OutputVar, Filename, Section, Key
-    ;IniRead, Var1, C:\#SCRIPTS\Tests\test3\settings.ini, Section1, Val1
-    ;GuiControl,, Edit, %Var1%
 
 4GuiClose:
     Gui, 4:Destroy
@@ -274,7 +270,14 @@ ButtonRestoreDB:
     MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
     IfMsgBox, No
         return
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %GPBackupsList%,, UseErrorLevel
+    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
@@ -298,7 +301,14 @@ ButtonBackupDB:
     MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
     IfMsgBox, No
         return
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %GPBackupsList%,, UseErrorLevel
+    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
     return
 
 ButtonNewBackup:
@@ -327,7 +337,14 @@ ButtonNewBackup:
             }
             ifMsgBox, Yes
             {
-                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+                IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+                IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+                IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+                IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+                IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+                IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 GuiControl,, Database, 

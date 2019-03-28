@@ -2,20 +2,23 @@
 COLOR 0A
 cls
 
-SET SqlServer=%COMPUTERNAME%.salespad.com
-SET Username=sa
-SET Password=sa
-SET LocalFolder=C:\#EnvMgr\BACKUPS
-SET DataBases=%1
+SET SqlServer=%1
+SET Username=%2
+SET Password=%3
+SET LocalFolder=%4
+SET DataBases=%5
+SET DB1=%6
+SET DB2=%7
+REM SET DB3=%8
 
 echo.
-echo Restoring %DataBases% to TWO . . .
+echo Restoring %DataBases% to %DB1% . . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE TWO SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE TWO FROM DISK='%LocalFolder%\%DataBases%\TWO.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE TWO SET MULTI_USER;"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE %DB1% SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE %DB1% FROM DISK='%LocalFolder%\%DataBases%\%DB1%.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE %DB1% SET MULTI_USER;"
 
 echo.
-echo Restoring %DataBases% to DYNAMICS16 . . .
+echo Restoring %DataBases% to %DB2% . . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE DYNAMICS16 SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE DYNAMICS16 FROM DISK='%LocalFolder%\%DataBases%\DYNAMICS16.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE DYNAMICS16 SET MULTI_USER;"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE %DB2% SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE %DB2% FROM DISK='%LocalFolder%\%DataBases%\%DB2%.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE %DB2% SET MULTI_USER;"
 
 REM TIMEOUT 5
