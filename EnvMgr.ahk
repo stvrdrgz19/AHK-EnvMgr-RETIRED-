@@ -78,8 +78,131 @@ ListBoxDisplay:
     return
 
 SettingsScreen:
-    Gui, 4:Show, w706 h493, Environment Mananger
+    Gui, 4:Add, Text, x30 y30, Select a Database Backup Folder:
+    Gui, 4:Add, Edit, cgray x30 y50 w600 Readonly vBackupPath,
+    Gui, 4:Add, Button, x630 y49 w23 h23 vBackPath gBackPath, ...
+    Gui, 4:Add, Text, x30 y90, SQL Server Name:
+    Gui, 4:Add, Text, x30 y120, SQL Username:
+    Gui, 4:Add, Text, x30 y150, SQL Password:
+    Gui, 4:Add, Edit, cgray x125 y85 w200 Readonly vServName
+    Gui, 4:Add, Edit, cgray x125 y115 w200 Readonly vServUN
+    Gui, 4:Add, Edit, cgray x125 y145 w200 Readonly vServPW
+    Gui, 4:Add, Button, x325 y84 w23 h23 vSQLServ gSQLServ, ...
+    Gui, 4:Add, Button, x325 y114 w23 h23 vSQLUN gSQLUN, ...
+    Gui, 4:Add, Button, x325 y144 w23 h23 vSQLPW gSQLPW, ...
+    Gui, 4:Add, Text, x370 y90, Dynamics Database:
+    Gui, 4:Add, Text, x370 y120, Non-MB Company:
+    Gui, 4:Add, Text, x370 y150, MB Company:
+    Gui, 4:Add, Edit, cgray x475 y85 w155 Readonly vDynamicsDB
+    Gui, 4:Add, Edit, cgray x475 y115 w155 Readonly vRegDB
+    Gui, 4:Add, Edit, cgray x475 y145 w155 Readonly vMBDB
+    Gui, 4:Add, Button, x630 y84 w23 h23 vDYN gDYN, ...
+    Gui, 4:Add, Button, x630 y114 w23 h23 vREG gREG, ...
+    Gui, 4:Add, Button, x630 y144 w23 h23 vMB gMB, ...
+    Gui, 4:Add, Button, x443 y190 w100 h25 gSave, Save
+    Gui, 4:Add, Button, x553 y190 w100 h25 gCan2, Cancel
+    Gui, 4:Show, w680 h225, Settings
     return
+
+4GuiClose:
+    Gui, 4:Destroy
+    return
+
+Save:
+    MsgBox, Saved!
+    Gui, 4:Destroy
+    Return
+
+Can2:
+    Gui, 4:Destroy
+    return
+
+BackPath:
+    FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
+    if BackFolder = 
+    {
+        MsgBox, Nothing was selected.
+        return
+    }
+    Else
+    {
+        GuiControl,, BackupPath, %BackFolder%
+        return
+    }
+
+SQLServ:
+    InputBox, ServerName, SQL Server, Enter your SQL Server Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, ServName, %ServerName%
+        return
+    }
+
+SQLUN:
+    InputBox, UserNameBox, SQL Username, Enter your SQL User Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, ServUN, %UserNameBox%
+        return
+    }
+
+SQLPW:
+    InputBox, UserPWBox, SQL Password, Enter your SQL Password
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, ServPW, %UserPWBox%
+        return
+    }
+
+DYN:
+    InputBox, DynamicsBox, Dynamics Database, Enter your Dynamics GP Database
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, DynamicsDB, %DynamicsBox%
+        return
+    }
+
+REG:
+    InputBox, RegularBox, Non-Multibin Datbaase, Enter your Non-Multibin Database Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, RegDB, %RegularBox%
+        return
+    }
+
+MB:
+    InputBox, MultiBox, Multbin Database, Enter your Multibin Database Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+    }
+    Else
+    {
+        GuiControl,, MBDB, %MultiBox%
+        return
+    }
+
+
 
 MenuHandler:
 MsgBox, %A_ThisMenuItem%
