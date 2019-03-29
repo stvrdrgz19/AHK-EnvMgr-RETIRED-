@@ -21,6 +21,4 @@ echo Backing up %DB2% to %LocalFolder%\%DataBases%. . .
 echo.
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db2% To Disk='%LocalFolder%\%DataBases%\%db2%.bak' WITH INIT"
 
-PAUSE
-
 REM TIMEOUT 5
