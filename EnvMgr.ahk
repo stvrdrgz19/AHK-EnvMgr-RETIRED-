@@ -17,7 +17,7 @@ Menu, MyMenuBar, Add, &Edit, :EditMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
-Gui, Add, Button, x592 y386 w100 h30, Exit
+Gui, Add, Button, x592 y387 w100 h30, Exit
 Gui, Add, Text, x15 y395, IP Address: 
 Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
@@ -33,8 +33,6 @@ Gui, Add, Button, x253 y81 w100 h25, Backup DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
-;Gui, Add, Text, x24 y265, Enter a Database Backup Name:
-;Gui, Add, Edit, x24 y283 w220 vDatabase,
 Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
@@ -45,23 +43,22 @@ Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
 Gui, Add, Button, x376 y81 w150 h25, DataCollection
 Gui, Add, Button, x376 y111 w150 h25, Ship Center
 Gui, Add, Button, x534 y141 w150 h25, Card Control
-Gui, Add, CheckBox, x377 y143 gUpdateB vCheckB, Install With Grizzly DLLs
 Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
 Gui, Add, Button, x376 y197 w308 h25, Launch Build
 Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
 Gui, Add, Button, x534 y227 w150 h25, Build Folder
 
-Gui, Add, Button, x41 y281 w150 h25 gD13 vD13, Dynamics GP 2013
-Gui, Add, Button, x199 y281 w150 h25 gD15 vD15, Dynamics GP 2015
-Gui, Add, Button, x357 y281 w150 h25 gD16 vD16, Dynamics GP 2016
-Gui, Add, Button, x515 y281 w150 h25 gD18 vD18, Dynamics GP 2017
+Gui, Add, Button, x25 y281 w159 h25 gD13 vD13, Dynamics GP 2013
+Gui, Add, Button, x191 y281 w159 h25 gD15 vD15, Dynamics GP 2015
+Gui, Add, Button, x357 y281 w159 h25 gD16 vD16, Dynamics GP 2016
+Gui, Add, Button, x524 y281 w159 h25 gD18 vD18, Dynamics GP 2017
 
-Gui, Add, Button, x22 y343 w125 h25, SteveRodriguez01
-Gui, Add, Button, x155 y343 w125 h25, SteveRodriguez02
-Gui, Add, Button, x288 y343 w125 h25, SteveRodriguez03
-Gui, Add, Button, x421 y343 w125 h25, SteveRodriguez04
-Gui, Add, Button, x554 y343 w125 h25, SteveRodriguez05
+Gui, Add, Button, x25 y343 w125 h25, SteveRodriguez01
+Gui, Add, Button, x158 y343 w125 h25, SteveRodriguez02
+Gui, Add, Button, x291 y343 w125 h25, SteveRodriguez03
+Gui, Add, Button, x424 y343 w125 h25, SteveRodriguez04
+Gui, Add, Button, x557 y343 w126 h25, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
 GuiControl, Disable, D13
@@ -433,29 +430,7 @@ ButtonBackupMBDB:
         }
     }
 
-
-
-
-
 ButtonSalesPadDesktop:
-    GuiControlGet, CheckB
-    If VarCheck = 1
-    {
-        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
-        ifMsgBox, No
-        {
-            GuiControl, , CheckB, 0
-            VarCheck = 0
-            return
-        }
-    }
-    Else
-    {
-        Goto, GetBuild
-        return
-    }
-
-GetBuild:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
@@ -466,7 +441,8 @@ GetBuild:
     SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, ;C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
@@ -488,79 +464,88 @@ Can:
 OK:
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
-    Gui, 2:Destroy
-    run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    if VarCheck = 1
+    If VarCheck = 1
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
+        ifMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
+        }
+        ifMsgBox, Yes
+        {
+                Gui, 2:Destroy
+                run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                sleep 3000
+                run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+                return
+        }
+    }
+    Else
+    {
+        Gui, 2:Destroy
+        run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        SplitPath, SelectedFile,, dir
+        MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+        ifMsgBox, No
+            Goto, CustDLL
+        Else
+            FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesExt, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesExt = 
+        dir = 
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-        sleep 3000
+
+    CustDLL:
+        SplitPath, SelectedFile,, dir
+        sleep, 2000
+        MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+        ifMsgBox, No
+            Goto, NoDLL
+        Else
+            FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesCust, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesCust = 
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+    NoDLL:
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
-    else
-    {
-        Goto, NotChecked
-        return
-    }
-    Return
-
-NotChecked:
-    SplitPath, SelectedFile,, dir
-    MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-    ifMsgBox, No
-        Goto, CustDLL
-    Else
-        FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesExt, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesExt = 
-    dir = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-CustDLL:
-    SplitPath, SelectedFile,, dir
-    sleep, 2000
-    MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-    ifMsgBox, No
-        Goto, NoDLL
-    Else
-        FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesCust = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-NoDLL:
-    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    return
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
