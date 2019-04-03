@@ -29,7 +29,7 @@ Gui, Add, Text, x24 y31, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25, Restore DB
-Gui, Add, Button, x253 y81 w100 h25, Backup DB
+Gui, Add, Button, x253 y81 w100 h25, Overwrite DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
@@ -37,7 +37,7 @@ Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
 Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
-Gui, Add, Text, x376 y181, Existing Build:
+Gui, Add, Text, x376 y181, Existing Builds:
 Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
 Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
 Gui, Add, Button, x376 y81 w150 h25, DataCollection
@@ -53,7 +53,7 @@ Gui, Add, Button, x25 y281 w125 h25 gD13 vD10, Dynamics GP 2010
 Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, Dynamics GP 2013
 Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
 Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
-Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2017
+Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2018
 
 Gui, Add, Button, x25 y343 w125 h25, SteveRodriguez01
 Gui, Add, Button, x158 y343 w125 h25, SteveRodriguez02
@@ -298,7 +298,7 @@ ButtonRun:
         MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
     return
 
-ButtonBackupDB:
+ButtonOverwriteDB:
     GuiControlGet, GPBackupsList
     MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
     IfMsgBox, No
@@ -443,11 +443,11 @@ ButtonSalesPadDesktop:
     SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
     Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, ;C:\Program Files (x86)\SalesPad.Desktop\
     Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
-    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
     Gui, 2:Show, w660 h160, Install SalesPad GP
     return
 
@@ -478,7 +478,7 @@ OK:
         ifMsgBox, Yes
         {
                 Gui, 2:Destroy
-                run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
@@ -494,7 +494,9 @@ OK:
     Else
     {
         Gui, 2:Destroy
-        run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
+        ;MsgBox, %BuildLoc% test
+        ;return
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         SplitPath, SelectedFile,, dir
@@ -811,4 +813,13 @@ ButtonSteveRodriguez05:
 
 GuiClose:
 ButtonExit:
-ExitApp
+    MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
+    IfMsgBox, No
+    {
+        Return
+    }
+    IfMsgBox, Yes
+    {
+        ExitApp
+    }
+
