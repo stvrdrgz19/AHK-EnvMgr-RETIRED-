@@ -49,10 +49,11 @@ Gui, Add, Button, x376 y197 w308 h25, Launch Build
 Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
 Gui, Add, Button, x534 y227 w150 h25, Build Folder
 
-Gui, Add, Button, x25 y281 w159 h25 gD13 vD13, Dynamics GP 2013
-Gui, Add, Button, x191 y281 w159 h25 gD15 vD15, Dynamics GP 2015
-Gui, Add, Button, x357 y281 w159 h25 gD16 vD16, Dynamics GP 2016
-Gui, Add, Button, x524 y281 w159 h25 gD18 vD18, Dynamics GP 2017
+Gui, Add, Button, x25 y281 w125 h25 gD13 vD10, Dynamics GP 2010
+Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, Dynamics GP 2013
+Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
+Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
+Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2017
 
 Gui, Add, Button, x25 y343 w125 h25, SteveRodriguez01
 Gui, Add, Button, x158 y343 w125 h25, SteveRodriguez02
@@ -61,6 +62,7 @@ Gui, Add, Button, x424 y343 w125 h25, SteveRodriguez04
 Gui, Add, Button, x557 y343 w126 h25, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
+GuiControl, Disable, D10
 GuiControl, Disable, D13
 GuiControl, Disable, D15
 GuiControl, Disable, D18
