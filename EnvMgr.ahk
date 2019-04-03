@@ -31,13 +31,14 @@ Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25, Restore DB
 Gui, Add, Button, x253 y81 w100 h25, Backup DB
 Gui, Add, Button, x253 y111 w100 h25 vDelete, Delete Backup
+Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
 Gui, Add, Text, x24 y265, Enter a Database Backup Name:
 Gui, Add, Edit, x24 y283 w220 vDatabase,
 Gui, Add, Button, x253 y281 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
-Gui, Add, Text, x376 y235, Launch an exisiting Build:
+Gui, Add, Text, x376 y235, Existing Build:
 Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
 Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
 Gui, Add, Button, x376 y81 w150 h25, DataCollection
@@ -65,6 +66,7 @@ Gui, Add, Button, x554 y397 w125 h25, SteveRodriguez05
 GuiControl, Disable, D13
 GuiControl, Disable, D15
 GuiControl, Disable, D18
+GuiControl, Disable, MBBAK
 ;Gui, Color, FF0000, 3366FF
 Gui, Color, f9f9f9
 Gui, Show, w706 h475, Environment Mananger
@@ -344,7 +346,7 @@ ButtonNewBackup:
                 IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
                 IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
                 IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
+                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 GuiControl,, Database, 
@@ -370,6 +372,59 @@ ButtonDeleteBackup:
         MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
         return
     }
+
+
+
+
+
+
+ButtonBackupMBDB:
+    GuiControlGet, Database
+    if Database = 
+    {
+        MsgBox,, ERROR, No Database Name was entered.
+        return
+    }
+    Else
+    {
+        ifExist C:\#EnvMgr\BACKUPS\%Database%
+        {
+            MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+            GuiControl,, Database, 
+            return
+        }
+        Else
+        {
+            MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+            ifMsgBox, No
+            {
+                MsgBox,, CANCEL, No backup was created.
+                GuiControl,, Database, 
+                return
+            }
+            ifMsgBox, Yes
+            {
+                IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+                IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+                IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+                IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+                IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+                IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.MBDBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                GuiControl,, Database, 
+                MsgBox,, CREATED, Database %Database% was created.
+                goto, ButtonRefresh
+                return
+            }
+        }
+    }
+
+
+
+
 
 ButtonSalesPadDesktop:
     GuiControlGet, CheckB
@@ -408,8 +463,16 @@ GetBuild:
     return
 
 Can:
-    Gui, 2:Destroy
-    return
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 2:Destroy
+        return
+    }
 
 OK:
     GuiControlGet, BuildLoc
