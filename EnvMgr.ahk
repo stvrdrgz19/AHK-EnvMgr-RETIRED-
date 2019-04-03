@@ -17,28 +17,29 @@ Menu, MyMenuBar, Add, &Edit, :EditMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
-Gui, Add, Button, x592 y440 w100 h30, Exit
-Gui, Add, Text, x15 y449, IP Address: 
-Gui, Add, Edit, cgray x75 y447 w100 ReadOnly vIP, %A_IPAddress1%
-Gui, Add, GroupBox, x15 y5 w345 h308, Database Management
-Gui, Add, GroupBox, x369 y5 w322 h308, Build Management
-Gui, Add, GroupBox, x15 y315 w676 h60, Dynamics GP
-Gui, Add, GroupBox, x15 y377 w676 h60, SPC SQL Database Management
+Gui, Add, Button, x592 y386 w100 h30, Exit
+Gui, Add, Text, x15 y395, IP Address: 
+Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
+Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
+Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
+Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
+Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
 ;-----------------------------GroupBox 1 Fields-----------------------------;
 Gui, Add, Text, x24 y31, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25, Restore DB
 Gui, Add, Button, x253 y81 w100 h25, Backup DB
-Gui, Add, Button, x253 y111 w100 h25 vDelete, Delete Backup
+Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
-Gui, Add, Text, x24 y265, Enter a Database Backup Name:
-Gui, Add, Edit, x24 y283 w220 vDatabase,
-Gui, Add, Button, x253 y281 w100 h25 vBak, New Backup
+;Gui, Add, Text, x24 y265, Enter a Database Backup Name:
+;Gui, Add, Edit, x24 y283 w220 vDatabase,
+Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
-Gui, Add, Text, x376 y235, Existing Build:
+Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
+Gui, Add, Text, x376 y181, Existing Build:
 Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
 Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
 Gui, Add, Button, x376 y81 w150 h25, DataCollection
@@ -47,20 +48,20 @@ Gui, Add, Button, x534 y141 w150 h25, Card Control
 Gui, Add, CheckBox, x377 y143 gUpdateB vCheckB, Install With Grizzly DLLs
 Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x376 y251 w308 h25, Launch Build
-Gui, Add, Button, x376 y281 w150 h25 vAddDLLs, Add DLLs
-Gui, Add, Button, x534 y281 w150 h25, Build Folder
+Gui, Add, Button, x376 y197 w308 h25, Launch Build
+Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
+Gui, Add, Button, x534 y227 w150 h25, Build Folder
 
-Gui, Add, Button, x41 y335 w150 h25 gD13 vD13, Dynamics GP 2013
-Gui, Add, Button, x199 y335 w150 h25 gD15 vD15, Dynamics GP 2015
-Gui, Add, Button, x357 y335 w150 h25 gD16 vD16, Dynamics GP 2016
-Gui, Add, Button, x515 y335 w150 h25 gD18 vD18, Dynamics GP 2017
+Gui, Add, Button, x41 y281 w150 h25 gD13 vD13, Dynamics GP 2013
+Gui, Add, Button, x199 y281 w150 h25 gD15 vD15, Dynamics GP 2015
+Gui, Add, Button, x357 y281 w150 h25 gD16 vD16, Dynamics GP 2016
+Gui, Add, Button, x515 y281 w150 h25 gD18 vD18, Dynamics GP 2017
 
-Gui, Add, Button, x22 y397 w125 h25, SteveRodriguez01
-Gui, Add, Button, x155 y397 w125 h25, SteveRodriguez02
-Gui, Add, Button, x288 y397 w125 h25, SteveRodriguez03
-Gui, Add, Button, x421 y397 w125 h25, SteveRodriguez04
-Gui, Add, Button, x554 y397 w125 h25, SteveRodriguez05
+Gui, Add, Button, x22 y343 w125 h25, SteveRodriguez01
+Gui, Add, Button, x155 y343 w125 h25, SteveRodriguez02
+Gui, Add, Button, x288 y343 w125 h25, SteveRodriguez03
+Gui, Add, Button, x421 y343 w125 h25, SteveRodriguez04
+Gui, Add, Button, x554 y343 w125 h25, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
 GuiControl, Disable, D13
@@ -69,7 +70,7 @@ GuiControl, Disable, D18
 GuiControl, Disable, MBBAK
 ;Gui, Color, FF0000, 3366FF
 Gui, Color, f9f9f9
-Gui, Show, w706 h475, Environment Mananger
+Gui, Show, w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
@@ -314,48 +315,63 @@ ButtonBackupDB:
     return
 
 ButtonNewBackup:
-    GuiControlGet, Database
-    if Database = 
-    {
-        MsgBox,, ERROR, No Database Name was entered.
-        return
-    }
-    Else
-    {
-        ifExist C:\#EnvMgr\BACKUPS\%Database%
+    Gui, 5:Add, Text, x30 y30, Enter a New Database name:
+    Gui, 5:Add, Edit, x30 y45 w218 vDatabase, 
+    Gui, 5:Add, Button, x29 y75 w100 h25 gOK5, OK 
+    Gui, 5:Add, Button, x149 y75 w100 h25 gCancel5, Cancel
+    Gui, 5:Show, w280 h125, New Backup
+    return
+    
+    Cancel5:
+        MsgBox, No new Backup was created.
+        Gui, 5:Destroy
+        Return
+    
+    OK5:
+        GuiControlGet, Database
+        if Database = 
         {
-            MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
-            GuiControl,, Database, 
+            MsgBox,, ERROR, No Database Name was entered.
             return
         }
         Else
         {
-            MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
-            ifMsgBox, No
+            ifExist C:\#EnvMgr\BACKUPS\%Database%
             {
-                MsgBox,, CANCEL, No backup was created.
+                MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
                 GuiControl,, Database, 
                 return
             }
-            ifMsgBox, Yes
+            Else
             {
-                IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-                IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-                IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-                IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-                IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-                IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-                IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
-                WinWait, C:\WINDOWS\system32\cmd.exe
-                WinWaitClose
-                GuiControl,, Database, 
-                MsgBox,, CREATED, Database %Database% was created.
-                goto, ButtonRefresh
-                return
+                MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+                ifMsgBox, No
+                {
+                    MsgBox,, CANCEL, No backup was created.
+                    GuiControl,, Database, 
+                    return
+                }
+                ifMsgBox, Yes
+                {
+                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+                    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
+                    WinWait, C:\WINDOWS\system32\cmd.exe
+                    WinWaitClose
+                    GuiControl,, Database, 
+                    MsgBox,, CREATED, Database %Database% was created.
+                    Gui, 5:Destroy
+                    sleep 2000
+                    goto, ButtonRefresh
+                    return
+                }
             }
         }
-    }
 
 ButtonDeleteBackup:
     GuiControlGet, GPBackupsList
@@ -372,11 +388,6 @@ ButtonDeleteBackup:
         MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
         return
     }
-
-
-
-
-
 
 ButtonBackupMBDB:
     GuiControlGet, Database
@@ -455,7 +466,7 @@ GetBuild:
     SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
