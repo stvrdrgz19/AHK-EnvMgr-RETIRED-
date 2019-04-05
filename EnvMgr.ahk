@@ -4,16 +4,10 @@ Menu, FileMenu, Add, &Open`tCtrl+O, MenuFileOpen
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
-Menu, EditMenu, Add, Copy`tCtrl+C, MenuHandler
-Menu, EditMenu, Add, Paste`tCtrl+V, MenuHandler
-Menu, EditMenu, Add ; with no more options, this is a seperator
-Menu, EditMenu, Add, Delete`tDel, MenuHandler
-
 Menu, HelpMenu, Add, &About, MenuHandler
 
 ; Attach the sub-menus that were created above.
 Menu, MyMenuBar, Add, &File, :FileMenu
-Menu, MyMenuBar, Add, &Edit, :EditMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
@@ -31,7 +25,7 @@ Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25, Restore DB
 Gui, Add, Button, x253 y81 w100 h25, Overwrite DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
-Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
+;Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
 Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 ;-----------------------------GroupBox 2 Fields-----------------------------;
@@ -387,7 +381,7 @@ ButtonDeleteBackup:
         MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
         return
     }
-
+/*
 ButtonBackupMBDB:
     GuiControlGet, Database
     if Database = 
@@ -431,7 +425,7 @@ ButtonBackupMBDB:
             }
         }
     }
-
+*/
 ButtonSalesPadDesktop:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
