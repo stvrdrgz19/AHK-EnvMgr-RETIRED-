@@ -1,75 +1,249 @@
 #SingleInstance, force
 
-Gui, Add, Button, x609 y354 w100 h30, Exit
-Gui, Add, Text, x15 y361, IP Address: 
-Gui, Add, Edit, cgray x75 y357 w100 ReadOnly vIP, %A_IPAddress1%
-Gui, Add, Tab3, x10 y6 w701 h344, Databases\Builds|Dynamics\SQL Installations|Scripts
-Gui, Tab, 1
-Gui, Add, GroupBox, w345 h308, Database Management
-Gui, Add, GroupBox, x375 y34 w322 h308, Build Management
-;-----------------------------GroupBox 1 Fields-----------------------------;
-Gui, Add, Text, x31 y60, Select a Database:
-Gui, Add, Button, x152 y50 w100 h25, Refresh 
-Gui, Add, ListBox, vGPBackupsList gGPBackupsList x31 y81 w220 r15
-Gui, Add, Button, x260 y80 w100 h25, Restore DB
-Gui, Add, Button, x260 y110 w100 h25, Backup DB
-Gui, Add, Button, x260 y140 w100 h25 vDelete, Delete Backup
-Gui, Add, Button, x260 y256 w100 h25, Backups Folder
-;-----------------------------GroupBox 2 Fields-----------------------------;
-Gui, Add, Text, x382 y60, Select a SalesPad Product to Install:
-Gui, Add, Text, x382 y264, Launch an exisiting Build:
-Gui, Add, Button, x382 y80 w150 h25, SalesPad Desktop
-Gui, Add, Button, x540 y80 w150 h25, SalesPad Mobile
-Gui, Add, Button, x382 y110 w150 h25, DataCollection
-Gui, Add, Button, x382 y140 w150 h25, Ship Center
-Gui, Add, Button, x540 y110 w150 h25, Card Control
-Gui, Add, CheckBox, x383 y172 gUpdateB vCheckB, Install With Grizzly DLLs
-Gui, Add, Button, x540 y140 w150 h25 vGPAPI, Web API
-Gui, Add, Button, x540 y170 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x382 y280 w308 h25, Launch Build
-Gui, Add, Button, x382 y310 w150 h25 vAddDLLs, Add DLLs
-Gui, Add, Button, x540 y310 w150 h25, Build Folder
-;-----------------------------GroupBox 3 Fields-----------------------------;
-Gui, Add, Text, x31 y294, Enter a Database Backup Name:
-Gui, Add, Edit, x31 y312 w220 vDatabase,
-Gui, Add, Button, x260 y310 w100 h25 vBak, New Backup
-;------------------------------End of Tab 1------------------------------;
-Gui, Tab, 2
-Gui, Add, GroupBox, w345 h308, Dynamics GP
-Gui, Add, Button, x30 y60 w200 h25, Dynamics GP 2013
-Gui, Add, Button, x30 y90 w200 h25, Dynamics GP 2015
-Gui, Add, Button, x30 y120 w200 h25 gD16, Dynamics GP 2016
-Gui, Add, Button, x30 y150 w200 h25, Dynamics GP 2018
-;------------------------------End of Tab 2------------------------------;
-Gui, Tab, 3
-Gui, Add, Text,, Select a Script to run:
-Gui, Add, ListBox, Multi vScriptList gScriptList w225 r21
-Gui, Add, Button, x254 y52 w100 h25, Run
-Gui, Add, Button, x254 y82 w100 h25, Refresh
-Gui, Add, Button, x254 y112 w100 h25, Scripts Folder
-Gui, Add, Button, x540 y80 w150 h25, SteveRodriguez01
-Gui, Add, Button, x540 y110 w150 h25, SteveRodriguez02
-Gui, Add, Button, x540 y140 w150 h25, SteveRodriguez03
-Gui, Add, Button, x540 y170 w150 h25, SteveRodriguez04
-Gui, Add, Button, x540 y200 w150 h25, SteveRodriguez05
-;------------------------------End of Tab 3------------------------------;
-;GuiControl, Disable, GPWEB
-;GuiControl, Disable, AddDLLs
-Gui, Show, w721 h390, Environment Mananger
+Menu, FileMenu, Add, &Open`tCtrl+O, MenuFileOpen 
+Menu, FileMenu, Add, E&xit, MenuHandler
+Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
+Menu, HelpMenu, Add, &About, MenuHandler
+
+; Attach the sub-menus that were created above.
+Menu, MyMenuBar, Add, &File, :FileMenu
+Menu, MyMenuBar, Add, &Help, :HelpMenu
+Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
+
+Gui, Add, Button, x592 y387 w100 h30, Exit
+Gui, Add, Text, x15 y395, IP Address: 
+Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
+Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
+Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
+Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
+Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
+;-----------------------------GroupBox 1 Fields-----------------------------;
+Gui, Add, Text, x24 y31, Select a Database:
+Gui, Add, Button, x145 y21 w100 h25, Refresh 
+Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
+Gui, Add, Button, x253 y51 w100 h25, Restore DB
+Gui, Add, Button, x253 y81 w100 h25, Overwrite DB
+Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
+;Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
+Gui, Add, Button, x253 y227 w100 h25, Backups Folder
+Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
+;-----------------------------GroupBox 2 Fields-----------------------------;
+Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
+Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
+Gui, Add, Text, x376 y181, Existing Builds:
+Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
+Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
+Gui, Add, Button, x376 y81 w150 h25, DataCollection
+Gui, Add, Button, x376 y111 w150 h25, Ship Center
+Gui, Add, Button, x534 y141 w150 h25, Card Control
+Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
+Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
+Gui, Add, Button, x376 y197 w308 h25, Launch Build
+Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
+Gui, Add, Button, x534 y227 w150 h25, Build Folder
+
+Gui, Add, Button, x25 y281 w125 h25 gD13 vD10, Dynamics GP 2010
+Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, Dynamics GP 2013
+Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
+Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
+Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2018
+
+Gui, Add, Button, x25 y343 w125 h25, SteveRodriguez01
+Gui, Add, Button, x158 y343 w125 h25, SteveRodriguez02
+Gui, Add, Button, x291 y343 w125 h25, SteveRodriguez03
+Gui, Add, Button, x424 y343 w125 h25, SteveRodriguez04
+Gui, Add, Button, x557 y343 w126 h25, SteveRodriguez05
+
+;GuiControl, Disable, AddDLLs
+GuiControl, Disable, D10
+GuiControl, Disable, D13
+GuiControl, Disable, D15
+GuiControl, Disable, D18
+GuiControl, Disable, MBBAK
+;Gui, Color, FF0000, 3366FF
+Gui, Color, f9f9f9
+Gui, Show, w706 h421, Environment Mananger
+;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
-    Loop, C:\#EnvMgr\BACKUPS\*, 2
+IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    Loop, %DBListDisplay%\*, 2
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
     }
-
-ScriptListDisplay:
-    Loop, C:\#SCRIPTS\*.*
-    {
-        GuiControl,, ScriptList, %A_LoopFileName%
-    }
     return
+
+SettingsScreen:
+    Gui, 4:Add, Text, x30 y30, Select a Database Backup Folder:
+    Gui, 4:Add, Edit, cgray x30 y50 w600 Readonly vBackupPath,
+    Gui, 4:Add, Button, x630 y49 w23 h23 vBackPath gBackPath, ...
+    Gui, 4:Add, Text, x30 y90, SQL Server Name:
+    Gui, 4:Add, Text, x30 y120, SQL Username:
+    Gui, 4:Add, Text, x30 y150, SQL Password:
+    Gui, 4:Add, Edit, cgray x125 y85 w200 Readonly vServName,
+    Gui, 4:Add, Edit, cgray x125 y115 w200 Readonly vServUN,
+    Gui, 4:Add, Edit, cgray x125 y145 w200 Password Readonly vServPW,
+    Gui, 4:Add, Button, x325 y84 w23 h23 vSQLServ gSQLServ, ...
+    Gui, 4:Add, Button, x325 y114 w23 h23 vSQLUN gSQLUN, ...
+    Gui, 4:Add, Button, x325 y144 w23 h23 vSQLPW gSQLPW, ...
+    Gui, 4:Add, Text, x370 y90, Dynamics Database:
+    Gui, 4:Add, Text, x370 y120, Non-MB Company:
+    Gui, 4:Add, Text, x370 y150, MB Company:
+    Gui, 4:Add, Edit, cgray x475 y85 w155 Readonly vDynamicsDB,
+    Gui, 4:Add, Edit, cgray x475 y115 w155 Readonly vRegDB,
+    Gui, 4:Add, Edit, cgray x475 y145 w155 Readonly vMBDB,
+    Gui, 4:Add, Button, x630 y84 w23 h23 vDYN gDYN, ...
+    Gui, 4:Add, Button, x630 y114 w23 h23 vREG gREG, ...
+    Gui, 4:Add, Button, x630 y144 w23 h23 vMB gMB, ...
+    Gui, 4:Add, Button, x443 y190 w100 h25 gSave, Save
+    Gui, 4:Add, Button, x553 y190 w100 h25 gCan2, Cancel
+    Gui, 4:Color, FFFFFF
+    Gui, 4:Show, w680 h225, Settings
+    IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    GuiControl, 4:, BackupPath, %BackPathLoad%
+    IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    GuiControl, 4:, ServName, %ServLoad%
+    IniRead, UserLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    GuiControl, 4:, ServUN, %UserLoad%
+    IniRead, PasswordLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    GuiControl, 4:, ServPW, %PasswordLoad%
+    IniRead, DynamicLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    GuiControl, 4:, DynamicsDB, %DynamicLoad%
+    IniRead, Company1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    GuiControl, 4:, RegDB, %Company1Load%
+    IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    GuiControl, 4:, MBDB, %Company2Load%
+    return
+
+4GuiClose:
+    Gui, 4:Destroy
+    return
+
+Save:
+    GuiControlGet, BackupPath, 4:
+    IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    GuiControlGet, ServName, 4:
+    IniWrite, %ServName%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    GuiControlGet, ServUN, 4:
+    IniWrite, %ServUN%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    GuiControlGet, ServPW, 4:
+    IniWrite, %ServPW%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    GuiControlGet, DynamicsDB, 4:
+    IniWrite, %DynamicsDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    GuiControlGet, RegDB, 4:
+    IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    GuiControlGet, MBDB, 4:
+    IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    ;MsgBox, Saved!
+    ;Gui, 4:Destroy
+    Return
+
+Can2:
+    Gui, 4:Destroy
+    sleep 1000
+    goto, ButtonRefresh
+    return
+
+BackPath:
+    FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
+    if BackFolder = 
+    {
+        MsgBox, Nothing was selected.
+        return
+    }
+    Else
+    {
+        GuiControl,, BackupPath, %BackFolder%
+        return
+    }
+
+SQLServ:
+    InputBox, ServerName, SQL Server, Enter your SQL Server Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, ServName, %ServerName%
+        return
+    }
+
+SQLUN:
+    InputBox, UserNameBox, SQL Username, Enter your SQL User Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, ServUN, %UserNameBox%
+        return
+    }
+
+SQLPW:
+    InputBox, UserPWBox, SQL Password, Enter your SQL Password
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, ServPW, %UserPWBox%
+        return
+    }
+
+DYN:
+    InputBox, DynamicsBox, Dynamics Database, Enter your Dynamics GP Database
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, DynamicsDB, %DynamicsBox%
+        return
+    }
+
+REG:
+    InputBox, RegularBox, Non-Multibin Datbaase, Enter your Non-Multibin Database Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, RegDB, %RegularBox%
+        return
+    }
+
+MB:
+    InputBox, MultiBox, Multbin Database, Enter your Multibin Database Name
+    if ErrorLevel
+    {
+        MsgBox, Nothing was entered.
+        return
+    }
+    Else
+    {
+        GuiControl,, MBDB, %MultiBox%
+        return
+    }
+
+
+
+MenuHandler:
+MsgBox, %A_ThisMenuItem%
+return
+MenuFileOpen:
+MsgBox, Open Menu was clicked
+return
 
 UpdateB:
     Gui, Submit, NoHide
@@ -92,7 +266,14 @@ ButtonRestoreDB:
     MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
     IfMsgBox, No
         return
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %GPBackupsList%,, UseErrorLevel
+    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6%,, UseErrorLevel
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
@@ -111,15 +292,97 @@ ButtonRun:
         MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
     return
 
-ButtonBackupDB:
+ButtonOverwriteDB:
     GuiControlGet, GPBackupsList
     MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
     IfMsgBox, No
         return
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %GPBackupsList%,, UseErrorLevel
+    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% ,, UseErrorLevel
     return
 
 ButtonNewBackup:
+    Gui, 5:Add, Text, x30 y30, Enter a New Database name:
+    Gui, 5:Add, Edit, x30 y45 w218 vDatabase, 
+    Gui, 5:Add, Button, x29 y75 w100 h25 gOK5, OK 
+    Gui, 5:Add, Button, x149 y75 w100 h25 gCancel5, Cancel
+    Gui, 5:Show, w280 h125, New Backup
+    return
+    
+    Cancel5:
+        MsgBox, No new Backup was created.
+        Gui, 5:Destroy
+        Return
+    
+    OK5:
+        GuiControlGet, Database
+        if Database = 
+        {
+            MsgBox,, ERROR, No Database Name was entered.
+            return
+        }
+        Else
+        {
+            ifExist C:\#EnvMgr\BACKUPS\%Database%
+            {
+                MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+                GuiControl,, Database, 
+                return
+            }
+            Else
+            {
+                MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+                ifMsgBox, No
+                {
+                    MsgBox,, CANCEL, No backup was created.
+                    GuiControl,, Database, 
+                    return
+                }
+                ifMsgBox, Yes
+                {
+                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+                    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
+                    WinWait, C:\WINDOWS\system32\cmd.exe
+                    WinWaitClose
+                    GuiControl,, Database, 
+                    MsgBox,, CREATED, Database %Database% was created.
+                    Gui, 5:Destroy
+                    sleep 2000
+                    goto, ButtonRefresh
+                    return
+                }
+            }
+        }
+
+ButtonDeleteBackup:
+    GuiControlGet, GPBackupsList
+    MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
+    ifMsgBox, Yes
+    {
+        FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
+        MsgBox,, DELETED, Database %GPBackupsList% was deleted.
+        goto, ButtonRefresh
+        return
+    }
+    IfMsgBox, No
+    {
+        MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
+        return
+    }
+/*
+ButtonBackupMBDB:
     GuiControlGet, Database
     if Database = 
     {
@@ -145,7 +408,14 @@ ButtonNewBackup:
             }
             ifMsgBox, Yes
             {
-                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Database%,, UseErrorLevel
+                IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+                IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+                IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+                IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+                IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+                IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+                Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.MBDBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 GuiControl,, Database, 
@@ -155,42 +425,8 @@ ButtonNewBackup:
             }
         }
     }
-
-ButtonDeleteBackup:
-    GuiControlGet, GPBackupsList
-    MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
-    ifMsgBox, Yes
-    {
-        FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-        MsgBox,, DELETED, Database %GPBackupsList% was deleted.
-        goto, ButtonRefresh
-        return
-    }
-    IfMsgBox, No
-    {
-        MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
-        return
-    }
-
+*/
 ButtonSalesPadDesktop:
-    GuiControlGet, CheckB
-    If VarCheck = 1
-    {
-        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
-        ifMsgBox, No
-        {
-            GuiControl, , CheckB, 0
-            VarCheck = 0
-            return
-        }
-    }
-    Else
-    {
-        Goto, GetBuild
-        return
-    }
-
-GetBuild:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
@@ -201,93 +437,113 @@ GetBuild:
     SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, 
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, ;C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
-    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
     Gui, 2:Show, w660 h160, Install SalesPad GP
     return
 
 Can:
-    Gui, 2:Destroy
-    return
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 2:Destroy
+        return
+    }
 
 OK:
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
-    Gui, 2:Destroy
-    run, "C:\#EnvMgr\SCRIPTS\SPInstall.bat" %BuildLoc%
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    if VarCheck = 1
+    If VarCheck = 1
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
+        ifMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
+        }
+        ifMsgBox, Yes
+        {
+                Gui, 2:Destroy
+                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+                WinWait, C:\WINDOWS\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                sleep 3000
+                run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+                return
+        }
+    }
+    Else
+    {
+        Gui, 2:Destroy
+        ;MsgBox, %BuildLoc% test
+        ;return
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        SplitPath, SelectedFile,, dir
+        MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+        ifMsgBox, No
+            Goto, CustDLL
+        Else
+            FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesExt, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesExt = 
+        dir = 
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-        sleep 3000
+
+    CustDLL:
+        SplitPath, SelectedFile,, dir
+        sleep, 2000
+        MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+        ifMsgBox, No
+            Goto, NoDLL
+        Else
+            FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesCust, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesCust = 
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+    NoDLL:
         run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
         return
     }
-    else
-    {
-        Goto, NotChecked
-        return
-    }
-    Return
-
-NotChecked:
-    SplitPath, SelectedFile,, dir
-    MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-    ifMsgBox, No
-        Goto, CustDLL
-    Else
-        FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesExt, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesExt = 
-    dir = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-CustDLL:
-    SplitPath, SelectedFile,, dir
-    sleep, 2000
-    MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-    ifMsgBox, No
-        Goto, NoDLL
-    Else
-        FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		Dir := file
-        	else
-        		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesCust = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-NoDLL:
-    run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
-    return
 
 ButtonSalesPadMobile:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
@@ -368,12 +624,14 @@ ButtonAddDLLs:
             MsgBox, 4, CLOSE, SalesPad must be closed for DLLs to be added properly.`n`nDo you wan't Environment Manager to close SalesPad?
             ifMsgBox, Yes
             {
-                MsgBox, Close SalesPad
+                Process,Close,SalesPad.exe
+                sleep 2000
+                goto, ButtonAddDLLs
                 return
             }
             IfMsgBox, No
             {
-                MsgBox, Don't close SalesPad
+                MsgBox, You must close SalesPad to add DLLs.
                 return
             }
             return
@@ -458,7 +716,7 @@ ButtonLaunchBuild:
 
 ButtonRefresh:
     GuiControl,, GPBackupsList, |
-    GuiControl,, ScriptList, |
+;    GuiControl,, ScriptList, |
     goto, ListBoxDisplay
     Return
 
@@ -467,18 +725,20 @@ ButtonBackupsFolder:
     IfMsgBox, No
         return
     Run, C:\#EnvMgr\BACKUPS
+    Return
+
+D13:
     return
 
-ButtonScriptsFolder:
-    MsgBox, 4, OPEN FOLDER, Do you want to open the Scripts Folder?
-    IfMsgBox, No
-        return
-    Run, C:\#SCRIPTS
+D15:
     return
 
 D16:
     run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
+
+D18:
+    return
 
 ButtonSteveRodriguez01:
     MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
@@ -547,4 +807,13 @@ ButtonSteveRodriguez05:
 
 GuiClose:
 ButtonExit:
-ExitApp
+    MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
+    IfMsgBox, No
+    {
+        Return
+    }
+    IfMsgBox, Yes
+    {
+        ExitApp
+    }
+

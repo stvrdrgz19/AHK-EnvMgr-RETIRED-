@@ -25,5 +25,3 @@ echo.
 echo Deleting Database SPC_SteveRodriguez03_Tenantless. . .
 echo. 
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "DROP DATABASE [SPC_SteveRodriguez03_Tenantless]"
-
-PAUSE
