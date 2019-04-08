@@ -95,6 +95,7 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y84 w23 h23 vDYN gDYN, ...
     Gui, 4:Add, Button, x630 y114 w23 h23 vREG gREG, ...
     Gui, 4:Add, Button, x630 y144 w23 h23 vMB gMB, ...
+    Gui, 4:Add, Text, x0 y180 w683 0x10 ;Horizontal Line
     Gui, 4:Add, Button, x443 y190 w100 h25 gSave, Save
     Gui, 4:Add, Button, x553 y190 w100 h25 gCan2, Cancel
     Gui, 4:Color, FFFFFF
@@ -251,10 +252,11 @@ AboutScreen:
     Gui, 6:Add, Text, x50 y130 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
     Gui, 6:Font
     ;Gui, 6:Add, Text, x15 y165, Changelog:
-    Gui, 6:Add, Text, x15 y210, Environment Manager Team:
-    Gui, 6:Add, Text, x35 y230, stvrdrgz19 (Steve Rodriguez)
-    Gui, 6:Add, Button, x185 y260 w100 h25 gClose1, Close 
-    Gui, 6:Add, Picture, x15 y230 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvMgr\GitHubIcon.png
+    Gui, 6:Add, Text, x15 y225, Environment Manager Team:
+    Gui, 6:Add, Text, x35 y245, stvrdrgz19 (Steve Rodriguez)
+    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvMgr\GitHubIcon.png
+    Gui, 6:Add, Text, x0 y264 w403 0x10 ;Horizontal Line
+    Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
     Gui, 6:Show, w400 h300, About
     return
 
