@@ -1,10 +1,9 @@
 #SingleInstance, force
 
-Menu, FileMenu, Add, &Open`tCtrl+O, MenuFileOpen 
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
-Menu, HelpMenu, Add, &About, MenuHandler
+Menu, HelpMenu, Add, &About, AboutScreen
 
 ; Attach the sub-menus that were created above.
 Menu, MyMenuBar, Add, &File, :FileMenu
@@ -237,13 +236,49 @@ MB:
     }
 
 
+AboutScreen:
+    Gui, 6:Add, GroupBox, x15 y45 w370 h53, 
+    Gui, 6:Font, s15
+    Gui, 6:Add, Text, x15 y15, Environment Manager v0.0.1
+    Gui, 6:Font, s9
+    Gui, 6:Add, Text, x23 y55, Environment Manager is a tool that was created to help with time efficiency. `nIt was designed to quicken the database backup/restore/management `nprocess, as well as provide quick deployment of SalesPad Products.
+    Gui, 6:Add, Text, x15 y115, Product Page: 
+    Gui, 6:Font, Underline cBlue
+    Gui, 6:Add, Text, x85 y115 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+    Gui, 6:Font
+    Gui, 6:Add, Text, x15 y130, Issues:
+    Gui, 6:Font, Underline cBlue
+    Gui, 6:Add, Text, x50 y130 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+    Gui, 6:Font
+    ;Gui, 6:Add, Text, x15 y165, Changelog:
+    Gui, 6:Add, Text, x15 y210, Environment Manager Team:
+    Gui, 6:Add, Text, x35 y230, stvrdrgz19 (Steve Rodriguez)
+    Gui, 6:Add, Button, x185 y260 w100 h25 gClose1, Close 
+    Gui, 6:Add, Picture, x15 y230 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvMgr\GitHubIcon.png
+    Gui, 6:Show, w400 h300, About
+    return
+
+Close1:
+    Gui, 6:Destroy
+    return
+
+link1:
+    Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+    return
+
+link2:
+    Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+    return
+
+HubIcon:
+    Run, chrome.exe https://github.com/stvrdrgz19
+    return
 
 MenuHandler:
-MsgBox, %A_ThisMenuItem%
-return
-MenuFileOpen:
-MsgBox, Open Menu was clicked
-return
+    goto, ButtonExit
+    return
+
+
 
 UpdateB:
     Gui, Submit, NoHide
@@ -263,49 +298,52 @@ GPBackupsList:
         return
 ButtonRestoreDB:
     GuiControlGet, GPBackupsList
-    MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
-    IfMsgBox, No
+    If GPBackupsList = 
+    {
+        MsgBox, Please Select a Backtup to Restore.
         return
-    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-    ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6%,, UseErrorLevel
-    WinWait, C:\WINDOWS\system32\cmd.exe
-    WinWaitClose
-    MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
-    return
-
-ScriptList:
-    if (A_GuiEvent <> "DoubleClick")
+    }
+    Else
+    {
+        MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
+        IfMsgBox, No
+            return
+        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+        ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6%,, UseErrorLevel
+        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWaitClose
+        MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
         return
-ButtonRun:
-    GuiControlGet, ScriptList
-    MsgBox, 4,, Would you like to launch the Batch or AHK File below?`n`n%ScriptList%
-    IfMsgBox, No
-        return
-    Run, C:\#SCRIPTS\%ScriptList%,, UseErrorLevel
-    if (ErrorLevel = "ERROR")
-        MsgBox Could not launch the specified file. Perhaps it is not associated with anything.
-    return
+    }
 
 ButtonOverwriteDB:
     GuiControlGet, GPBackupsList
-    MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
-    IfMsgBox, No
+    If GPBackupsList = 
+    {
+        MsgBox, Please Select a Backtup to Restore.
         return
-    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-    ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% ,, UseErrorLevel
-    return
+    }
+    Else
+    {
+        MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
+        IfMsgBox, No
+            return
+        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+        ;IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% ,, UseErrorLevel
+        return
+    }
 
 ButtonNewBackup:
     Gui, 5:Add, Text, x30 y30, Enter a New Database name:
@@ -368,19 +406,28 @@ ButtonNewBackup:
 
 ButtonDeleteBackup:
     GuiControlGet, GPBackupsList
-    MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
-    ifMsgBox, Yes
+    If GPBackupsList = 
     {
-        FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
-        MsgBox,, DELETED, Database %GPBackupsList% was deleted.
-        goto, ButtonRefresh
+        MsgBox, Please Select a Backtup to Restore.
         return
     }
-    IfMsgBox, No
+    Else
     {
-        MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
-        return
+        MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
+        ifMsgBox, Yes
+        {
+            FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
+            MsgBox,, DELETED, Database %GPBackupsList% was deleted.
+            goto, ButtonRefresh
+            return
+        }
+        IfMsgBox, No
+        {
+            MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
+            return
+        }
     }
+
 /*
 ButtonBackupMBDB:
     GuiControlGet, Database
