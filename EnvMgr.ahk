@@ -530,15 +530,13 @@ OK:
                 FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 sleep 3000
-                run, %BuildLoc%
+                run, %BuildLoc%\SalesPad.exe
                 return
         }
     }
     Else
     {
         Gui, 2:Destroy
-        ;MsgBox, %BuildLoc% test
-        ;return
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" "%BuildLoc%"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
@@ -590,7 +588,7 @@ OK:
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
     NoDLL:
-        run, %BuildLoc%
+        run, %BuildLoc%\SalesPad.exe
         return
     }
 
