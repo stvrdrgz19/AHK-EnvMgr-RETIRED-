@@ -487,7 +487,7 @@ ButtonSalesPadDesktop:
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, ;C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
     Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
     Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
@@ -521,25 +521,23 @@ OK:
         ifMsgBox, Yes
         {
                 Gui, 2:Destroy
-                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
+                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" "%BuildLoc%"
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
-                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 sleep 3000
-                run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+                run, %BuildLoc%\SalesPad.exe
                 return
         }
     }
     Else
     {
         Gui, 2:Destroy
-        ;MsgBox, %BuildLoc% test
-        ;return
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" %BuildLoc%
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" "%BuildLoc%"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         SplitPath, SelectedFile,, dir
@@ -562,7 +560,7 @@ OK:
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
-        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
     CustDLL:
@@ -586,11 +584,11 @@ OK:
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
-        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
     NoDLL:
-        run, C:\Program Files (x86)\SalesPad.Desktop\%BuildLoc%\SalesPad.exe
+        run, %BuildLoc%\SalesPad.exe
         return
     }
 

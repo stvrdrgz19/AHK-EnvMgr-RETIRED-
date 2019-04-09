@@ -1,8 +1,9 @@
 @ECHO OFF
 
-SET Home=C:\Program Files (x86)\SalesPad.Desktop\
+REM SET Home=C:\Program Files (x86)\SalesPad.Desktop\
+SET Home=%1
 SET Build=C:\#EnvMgr\TEMPFILES\INSTALLERS
 
 for /f "delims=" %%i in ('dir /b "%Build%"') do SET a=%%i
 
-START "" "%Build%\%a%" /S /D=%Home%%1
+START "" "%Build%\%a%" /S /D=%~1
