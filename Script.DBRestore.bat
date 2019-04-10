@@ -9,7 +9,7 @@ SET LocalFolder=%4
 SET DataBases=%5
 SET DB1=%6
 SET DB2=%7
-REM SET DB3=%8
+SET DB3=%8
 
 echo.
 echo Restoring %DataBases% to %DB1% . . .
@@ -20,5 +20,12 @@ echo.
 echo Restoring %DataBases% to %DB2% . . .
 echo.
 SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE %DB2% SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE %DB2% FROM DISK='%LocalFolder%\%DataBases%\%DB2%.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE %DB2% SET MULTI_USER;"
+
+echo.
+echo Restoring %DataBases% to %DB3% . . .
+echo.
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "ALTER DATABASE %DB3% SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE %DB3% FROM DISK='%LocalFolder%\%DataBases%\%DB3%.bak' WITH  FILE = 1,  NOUNLOAD,  REPLACE; ALTER DATABASE %DB3% SET MULTI_USER;"
+
+PAUSE
 
 REM TIMEOUT 5
