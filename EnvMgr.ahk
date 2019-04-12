@@ -11,8 +11,8 @@ Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
 
 Gui, Add, Button, x592 y387 w100 h30, Exit
-Gui, Add, Text, x15 y395, IP Address: 
-Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
+Gui, Add, Text, x15 y395 gIP, IP Address: 
+Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress2%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
 Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
 Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
@@ -55,12 +55,39 @@ Gui, Add, Button, x424 y343 w125 h25, SteveRodriguez04
 Gui, Add, Button, x557 y343 w126 h25, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
-GuiControl, Disable, D10
-GuiControl, Disable, D13
-GuiControl, Disable, D15
-GuiControl, Disable, D18
-GuiControl, Disable, MBBAK
 ;Gui, Color, FF0000, 3366FF
+
+IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+GuiControl, 4:, CheckDyn10, %Dyn10Load%
+if Dyn10Load = 1
+{
+    GuiControl, 1:Disable, D10
+}
+IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+GuiControl, 4:, CheckDyn13, %Dyn13Load%
+if Dyn13Load = 1
+{
+    GuiControl, 1:Disable, D13
+}
+IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+GuiControl, 4:, CheckDyn15, %Dyn15Load%
+if Dyn15Load = 1
+{
+    GuiControl, 1:Disable, D15
+}
+IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+GuiControl, 4:, CheckDyn16, %Dyn16Load%
+if Dyn16Load = 1
+{
+    GuiControl, 1:Disable, D16
+}
+IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+GuiControl, 4:, CheckDyn18, %Dyn18Load%
+if Dyn18Load = 1
+{
+    GuiControl, 1:Disable, D18
+}
+
 Gui, Color, f9f9f9
 Gui, Show, w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -118,8 +145,16 @@ SettingsScreen:
     GuiControl, 4:, RegDB, %Company1Load%
     IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
     GuiControl, 4:, MBDB, %Company2Load%
-    ;IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
-    ;GuiControl, 4:, CheckDyn10, %Dyn10Load%
+    IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+    GuiControl, 4:, CheckDyn10, %Dyn10Load%
+    IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+    GuiControl, 4:, CheckDyn13, %Dyn13Load%
+    IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+    GuiControl, 4:, CheckDyn15, %Dyn15Load%
+    IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+    GuiControl, 4:, CheckDyn16, %Dyn16Load%
+    IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+    GuiControl, 4:, CheckDyn18, %Dyn18Load%
     return
 
 4GuiClose:
@@ -141,18 +176,58 @@ Save:
     IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
     GuiControlGet, MBDB, 4:
     IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-    ;GuiControlGet, CheckDyn10, 4:
-    ;IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
-    ;if CheckDyn10 = 1
-    ;{
-    ;    GuiControl, Disable, D10
-    ;    return
-    ;}
-    ;Else
-    ;{
-    ;    GuiControl, Enable, D10
-    ;    return
-    ;}
+    GuiControlGet, CheckDyn10, 4:
+    IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+    if CheckDyn10 = 1
+    {
+        GuiControl, 1:Disable, D10
+    }
+    Else
+    {
+        GuiControl, 1:Enable, D10
+    }
+    GuiControlGet, CheckDyn13, 4:
+    IniWrite, %CheckDyn13%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+    if CheckDyn13 = 1
+    {
+        GuiControl, 1:Disable, D13
+    }
+    Else
+    {
+        GuiControl, 1:Enable, D13
+    }
+    GuiControlGet, CheckDyn15, 4:
+    IniWrite, %CheckDyn15%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+    if CheckDyn15 = 1
+    {
+        GuiControl, 1:Disable, D15
+    }
+    Else
+    {
+        GuiControl, 1:Enable, D15
+    }
+    GuiControlGet, CheckDyn16, 4:
+    IniWrite, %CheckDyn16%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+    if CheckDyn16 = 1
+    {
+        GuiControl, 1:Disable, D16
+    }
+    Else
+    {
+        GuiControl, 1:Enable, D16
+    }
+    GuiControlGet, CheckDyn18, 4:
+    IniWrite, %CheckDyn18%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+    if CheckDyn18 = 1
+    {
+        GuiControl, 1:Disable, D18
+        return
+    }
+    Else
+    {
+        GuiControl, 1:Enable, D18
+        return
+    }
     Return
 
 Can2:
@@ -282,6 +357,10 @@ AboutScreen:
     Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
     Gui, 6:Show, w400 h300, About
     return
+
+IP:
+    MsgBox, Computer Name: %A_ComputerName%`nOS Version: %A_OSVersion%`nIP Address: %A_IPAddress2%
+    Return
 
 Close1:
     Gui, 6:Destroy
