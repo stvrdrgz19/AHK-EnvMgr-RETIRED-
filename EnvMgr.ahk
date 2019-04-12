@@ -5,29 +5,27 @@ Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
 Menu, HelpMenu, Add, &About, AboutScreen
 
-; Attach the sub-menus that were created above.
 Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
-Gui, Menu, MyMenuBar ; Attach MyMenuBar to the GUI
+Gui, Menu, MyMenuBar 
 
 Gui, Add, Button, x592 y387 w100 h30, Exit
-Gui, Add, Text, x15 y395 gIP, IP Address: 
-Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress2%
+Gui, Add, Text, x15 y395, IP Address: 
+Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
 Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
 Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
 Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
-;-----------------------------GroupBox 1 Fields-----------------------------;
+
 Gui, Add, Text, x24 y31, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25, Restore DB
 Gui, Add, Button, x253 y81 w100 h25, Overwrite DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
-;Gui, Add, Button, x253 y171 w100 h25 vMBBAK, Backup MB DB
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
 Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
-;-----------------------------GroupBox 2 Fields-----------------------------;
+
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
 Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
 Gui, Add, Text, x376 y181, Existing Builds:
@@ -358,9 +356,9 @@ AboutScreen:
     Gui, 6:Show, w400 h300, About
     return
 
-IP:
-    MsgBox, Computer Name: %A_ComputerName%`nOS Version: %A_OSVersion%`nIP Address: %A_IPAddress2%
-    Return
+;IP:
+;    MsgBox, Computer Name: %A_ComputerName%`nOS Version: %A_OSVersion%`nIP Address: %A_IPAddress2%
+;    Return
 
 Close1:
     Gui, 6:Destroy
@@ -454,7 +452,7 @@ ButtonNewBackup:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
     Gui, 5:Add, Button, x9 y60 w100 h25 gOK5, OK 
     Gui, 5:Add, Button, x129 y60 w100 h25 gCancel5, Cancel
-    Gui, 5:Show, w238 h95, New Backup
+    Gui, 5:Show, w238 h90, New Backup
     return
     
     Cancel5:
@@ -496,14 +494,22 @@ ButtonNewBackup:
                     IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
                     IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
                     Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
-                    WinWait, C:\WINDOWS\system32\cmd.exe
-                    WinWaitClose
-                    GuiControl,, Database, 
-                    MsgBox,, CREATED, Database %Database% was created.
+                    ;WinWait, C:\WINDOWS\system32\cmd.exe
+                    ;WinWaitClose
                     Gui, 5:Destroy
                     sleep 2000
-                    goto, ButtonRefresh
-                    return
+                    Goto, ListBoxDisplay
+                    ;GuiControl,, Database, 
+                    ;MsgBox,, CREATED, Database %Database% was created.
+                    ;IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                    ;Loop, %DBListDisplay%\*, 2
+                    ;{
+                    ;    GuiControl,, GPBackupsList, %A_LoopFileName%
+                    ;}
+                    ;Gui, 5:Destroy
+                    ;return
+                    ;goto, ButtonRefresh
+                    ;return
                 }
             }
         }
