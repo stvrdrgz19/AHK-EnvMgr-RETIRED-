@@ -100,35 +100,55 @@ IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Setting
 
 SettingsScreen:
     ;Gui, 4:Add, Text, x0 y10 w683 0x10 ;Horizontal Line
-    Gui, 4:Add, Text, x30 y30, Select a Database Backup Folder:
-    Gui, 4:Add, Edit, cgray x30 y50 w600 Readonly vBackupPath,
-    Gui, 4:Add, Button, x630 y49 w23 h23 vBackPath gBackPath, ...
-    Gui, 4:Add, Text, x30 y90, SQL Server Name:
-    Gui, 4:Add, Text, x30 y120, SQL Username:
-    Gui, 4:Add, Text, x30 y150, SQL Password:
-    Gui, 4:Add, Edit, cgray x135 y85 w200 Readonly vServName,
-    Gui, 4:Add, Edit, cgray x135 y115 w200 Readonly vServUN,
-    Gui, 4:Add, Edit, cgray x135 y145 w200 Password Readonly vServPW,
-    Gui, 4:Add, Button, x335 y84 w23 h23 vSQLServ gSQLServ, ...
-    Gui, 4:Add, Button, x335 y114 w23 h23 vSQLUN gSQLUN, ...
-    Gui, 4:Add, Button, x335 y144 w23 h23 vSQLPW gSQLPW, ...
-    Gui, 4:Add, Text, x30 y180, Dynamics Database:
-    Gui, 4:Add, Text, x30 y210, Non-MB Company:
-    Gui, 4:Add, Text, x30 y240, MB Company:
-    Gui, 4:Add, Edit, cgray x135 y175 w200 Readonly vDynamicsDB,
-    Gui, 4:Add, Edit, cgray x135 y205 w200 Readonly vRegDB,
-    Gui, 4:Add, Edit, cgray x135 y235 w200 Readonly vMBDB,
-    Gui, 4:Add, Button, x335 y174 w23 h23 vDYN gDYN, ...
-    Gui, 4:Add, Button, x335 y204 w23 h23 vREG gREG, ...
-    Gui, 4:Add, Button, x335 y234 w23 h23 vMB gMB, ...
-    Gui, 4:Add, Checkbox, x410 y90 vCheckDyn10, Disable Microsoft Dynamics GP 2010
-    Gui, 4:Add, Checkbox, x410 y120 vCheckDyn13, Disable Microsoft Dynamics GP 2013
-    Gui, 4:Add, Checkbox, x410 y150 vCheckDyn15, Disable Microsoft Dynamics GP 2015
-    Gui, 4:Add, Checkbox, x410 y180 vCheckDyn16, Disable Microsoft Dynamics GP 2016
-    Gui, 4:Add, Checkbox, x410 y210 vCheckDyn18, Disable Microsoft Dynamics GP 2018
-    Gui, 4:Add, Button, x443 y270 w100 h25 gSave, Save
-    Gui, 4:Add, Button, x553 y270 w100 h25 gCan2, Exit
-    Gui, 4:Show, w680 h300, Settings
+    Gui, 4:Add, Button, x459 y220 w100 h25 gSave, Save
+    Gui, 4:Add, Button, x569 y220 w100 h25 gCan2, Exit
+    Gui, 4:Add, Tab3, x10 y10 w660 h206, Connection|Desktop DBs|Build Management|Dynamics GP|SPC DBs
+    Gui, 4:Tab, 1
+    Gui, 4:Add, Text, x30 y55, Select a Database Backup Folder:
+    Gui, 4:Add, Edit, cgray x30 y75 w600 Readonly vBackupPath,
+    Gui, 4:Add, Button, x630 y74 w23 h23 vBackPath gBackPath, ...
+    Gui, 4:Add, Text, x30 y115, SQL Server Name:
+    Gui, 4:Add, Text, x30 y145, SQL Username:
+    Gui, 4:Add, Text, x30 y175, SQL Password:
+    Gui, 4:Add, Edit, cgray x125 y110 w200 Readonly vServName,
+    Gui, 4:Add, Edit, cgray x125 y140 w200 Readonly vServUN,
+    Gui, 4:Add, Edit, cgray x125 y170 w200 Password Readonly vServPW,
+    Gui, 4:Add, Button, x325 y109 w23 h23 vSQLServ gSQLServ, ...
+    Gui, 4:Add, Button, x325 y139 w23 h23 vSQLUN gSQLUN, ...
+    Gui, 4:Add, Button, x325 y169 w23 h23 vSQLPW gSQLPW, ...
+    Gui, 4:Add, Text, x370 y115, Dynamics Database:
+    Gui, 4:Add, Text, x370 y145, Non-MB Company:
+    Gui, 4:Add, Text, x370 y175, MB Company:
+    Gui, 4:Add, Edit, cgray x475 y110 w155 Readonly vDynamicsDB,
+    Gui, 4:Add, Edit, cgray x475 y140 w155 Readonly vRegDB,
+    Gui, 4:Add, Edit, cgray x475 y170 w155 Readonly vMBDB,
+    Gui, 4:Add, Button, x630 y109 w23 h23 vDYN gDYN, ...
+    Gui, 4:Add, Button, x630 y139 w23 h23 vREG gREG, ...
+    Gui, 4:Add, Button, x630 y169 w23 h23 vMB gMB, ...
+    Gui, 4:Tab, 2
+    Gui, 4:Add, Checkbox, x30 y55 vCheckRestore, Disable Restore DB Button
+    Gui, 4:Add, Checkbox, x30 y85 vCheckOverwrite, Disable Overwrite DB Button
+    Gui, 4:Add, Checkbox, x30 y115 vCheckNew, Disable New Backup Button
+    Gui, 4:Add, Checkbox, x30 y145 vCheckDelete, Disable Delete Backup Button
+    Gui, 4:Tab, 3
+    Gui, 4:Add, Checkbox, x30 y55 vDisableSP, Disable SalesPad Desktop Button
+    Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection Button
+    Gui, 4:Add, Checkbox, x30 y115 vDisableSC, Disable Ship Center Button
+    Gui, 4:Add, Checkbox, x30 y145 vDisableMOB, Disable SalesPad Mobile Button
+    Gui, 4:Add, Checkbox, x30 y175 vDisableCC, Disable Card Control Button
+    Gui, 4:Add, Checkbox, x300 y55 vDisableAPI, Disable Web API Button
+    Gui, 4:Add, Checkbox, x300 y85 vDisableWeb, Disable Web Portal Button
+    Gui, 4:Add, Checkbox, x300 y115 vDisableLaunch, Disable Launch Build Button
+    Gui, 4:Add, Checkbox, x300 y145 vDisableAdd, Disable Add DLLs Button
+    Gui, 4:Add, Checkbox, x300 y175 vDisableBuild, Disable Build Folder Button
+    Gui, 4:Tab, 4
+    Gui, 4:Add, Checkbox, x30 y55 vCheckDyn10, Disable Microsoft Dynamics GP 2010
+    Gui, 4:Add, Checkbox, x30 y85 vCheckDyn13, Disable Microsoft Dynamics GP 2013
+    Gui, 4:Add, Checkbox, x30 y115 vCheckDyn15, Disable Microsoft Dynamics GP 2015
+    Gui, 4:Add, Checkbox, x30 y145 vCheckDyn16, Disable Microsoft Dynamics GP 2016
+    Gui, 4:Add, Checkbox, x30 y175 vCheckDyn18, Disable Microsoft Dynamics GP 2018
+    Gui, 4:Tab, 5
+    Gui, 4:Show, w680 h250, Settings
     IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
     IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
