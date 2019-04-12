@@ -9,7 +9,7 @@ Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar 
 
-Gui, Add, Button, x592 y387 w100 h30, Exit
+Gui, Add, Button, x592 y387 w100 h30 gExit1, Exit
 Gui, Add, Text, x15 y395, IP Address: 
 Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
@@ -127,7 +127,7 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x410 y180 vCheckDyn16, Disable Microsoft Dynamics GP 2016
     Gui, 4:Add, Checkbox, x410 y210 vCheckDyn18, Disable Microsoft Dynamics GP 2018
     Gui, 4:Add, Button, x443 y270 w100 h25 gSave, Save
-    Gui, 4:Add, Button, x553 y270 w100 h25 gCan2, Cancel
+    Gui, 4:Add, Button, x553 y270 w100 h25 gCan2, Exit
     Gui, 4:Show, w680 h300, Settings
     IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
@@ -377,7 +377,7 @@ HubIcon:
     return
 
 MenuHandler:
-    goto, ButtonExit
+    goto, Exit1
     return
 
 
@@ -953,7 +953,7 @@ ButtonSteveRodriguez05:
     }
 
 GuiClose:
-ButtonExit:
+Exit1:
     MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
     IfMsgBox, No
     {
