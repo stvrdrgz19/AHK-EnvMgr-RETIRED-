@@ -627,11 +627,12 @@ Save:
 
 Can2:
     Gui, 4:Destroy
-    GuiControl,, GPBackupsList, |
+    sleep 1000
+    GuiControl, 1:, GPBackupsList, |
     IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
         Loop, %DBListDisplay%\*, 2
         {
-            GuiControl,, GPBackupsList, %A_LoopFileName%
+            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
         }
         return
     ;sleep 1000
@@ -648,6 +649,7 @@ BackPath:
     Else
     {
         GuiControl,, BackupPath, %BackFolder%
+
         return
     }
 
@@ -926,22 +928,15 @@ ButtonNewBackup:
                     IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
                     IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
                     Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% %Database% %Var5% %Var6% %Var7%,, UseErrorLevel
-                    ;WinWait, C:\WINDOWS\system32\cmd.exe
-                    ;WinWaitClose
-                    Gui, 5:Destroy
                     sleep 2000
-                    Goto, ListBoxDisplay
-                    ;GuiControl,, Database, 
-                    ;MsgBox,, CREATED, Database %Database% was created.
-                    ;IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-                    ;Loop, %DBListDisplay%\*, 2
-                    ;{
-                    ;    GuiControl,, GPBackupsList, %A_LoopFileName%
-                    ;}
-                    ;Gui, 5:Destroy
-                    ;return
-                    ;goto, ButtonRefresh
-                    ;return
+                    GuiControl, 1:, GPBackupsList, |
+                    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                        Loop, %DBListDisplay%\*, 2
+                        {
+                            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
+                        }
+                    Gui, 5:Destroy
+                    return
                 }
             }
         }
@@ -1026,6 +1021,8 @@ OK:
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 sleep 3000
                 run, %BuildLoc%\SalesPad.exe
+                GuiControl, , CheckB, 0
+                VarCheck = 0
                 return
         }
     }
