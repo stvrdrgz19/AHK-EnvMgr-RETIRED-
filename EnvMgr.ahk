@@ -20,8 +20,8 @@ Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
 Gui, Add, Text, x24 y31, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
-Gui, Add, Button, x253 y51 w100 h25, Restore DB
-Gui, Add, Button, x253 y81 w100 h25, Overwrite DB
+Gui, Add, Button, x253 y51 w100 h25 vBRest, Restore DB
+Gui, Add, Button, x253 y81 w100 h25 vBOver, Overwrite DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x253 y227 w100 h25, Backups Folder
 Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
@@ -29,31 +29,121 @@ Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
 Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
 Gui, Add, Text, x376 y181, Existing Builds:
-Gui, Add, Button, x376 y51 w150 h25, SalesPad Desktop
-Gui, Add, Button, x534 y51 w150 h25, SalesPad Mobile
-Gui, Add, Button, x376 y81 w150 h25, DataCollection
-Gui, Add, Button, x376 y111 w150 h25, Ship Center
-Gui, Add, Button, x534 y141 w150 h25, Card Control
+Gui, Add, Button, x376 y51 w150 h25 vBDesktop, SalesPad Desktop
+Gui, Add, Button, x534 y51 w150 h25 vBMobile, SalesPad Mobile
+Gui, Add, Button, x376 y81 w150 h25 vBDataCollection, DataCollection
+Gui, Add, Button, x376 y111 w150 h25 vBShipCenter, Ship Center
+Gui, Add, Button, x534 y141 w150 h25 vBCardControl, Card Control
 Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
-Gui, Add, Button, x376 y197 w308 h25, Launch Build
+Gui, Add, Button, x376 y197 w308 h25 vBLaunch, Launch Build
 Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
-Gui, Add, Button, x534 y227 w150 h25, Build Folder
+Gui, Add, Button, x534 y227 w150 h25 vBBuild, Build Folder
 
-Gui, Add, Button, x25 y281 w125 h25 gD13 vD10, Dynamics GP 2010
+Gui, Add, Button, x25 y281 w125 h25 gD10 vD10, Dynamics GP 2010
 Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, Dynamics GP 2013
 Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
 Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
 Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2018
 
-Gui, Add, Button, x25 y343 w125 h25, SteveRodriguez01
-Gui, Add, Button, x158 y343 w125 h25, SteveRodriguez02
-Gui, Add, Button, x291 y343 w125 h25, SteveRodriguez03
-Gui, Add, Button, x424 y343 w125 h25, SteveRodriguez04
-Gui, Add, Button, x557 y343 w126 h25, SteveRodriguez05
+Gui, Add, Button, x25 y343 w125 h25 vSR1, SteveRodriguez01
+Gui, Add, Button, x158 y343 w125 h25 vSR2, SteveRodriguez02
+Gui, Add, Button, x291 y343 w125 h25 vSR3, SteveRodriguez03
+Gui, Add, Button, x424 y343 w125 h25 vSR4, SteveRodriguez04
+Gui, Add, Button, x557 y343 w126 h25 vSR5, SteveRodriguez05
 
 ;GuiControl, Disable, AddDLLs
 ;Gui, Color, FF0000, 3366FF
+
+IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+GuiControl, 4:, CheckRestore, %RestoreLoad%
+if RestoreLoad = 1
+{
+    GuiControl, 1:Disable, BRest
+}
+IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
+if OverwriteLoad = 1
+{
+    GuiControl, 1:Disable, BOver
+}
+IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+GuiControl, 4:, CheckDelete, %DeleteLoad%
+if DeleteLoad = 1
+{
+    GuiControl, 1:Disable, Delete
+}
+IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+GuiControl, 4:, CheckNew, %NewLoad%
+if NewLoad = 1
+{
+    GuiControl, 1:Disable, Bak
+}
+
+
+
+IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+GuiControl, 4:, DisableSP, %DesktopLoad%
+if DesktopLoad = 1
+{
+    GuiControl, 1:Disable, BDesktop
+}
+IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+GuiControl, 4:, DisableDC, %MobileLoad%
+if MobileLoad = 1
+{
+    GuiControl, 1:Disable, BMobile
+}
+IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+GuiControl, 4:, DisableSC, %DataCollectionLoad%
+if DataCollectionLoad = 1
+{
+    GuiControl, 1:Disable, BDataCollection
+}
+IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+GuiControl, 4:, DisableMOB, %ShipCenterLoad%
+if ShipCenterLoad = 1
+{
+    GuiControl, 1:Disable, BShipCenter
+}
+IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+GuiControl, 4:, DisableCC, %CardControlLoad%
+if CardControlLoad = 1
+{
+    GuiControl, 1:Disable, BCardControl
+}
+IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+GuiControl, 4:, DisableAPI, %GPAPILoad%
+if GPAPILoad = 1
+{
+    GuiControl, 1:Disable, GPAPI
+}
+IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+GuiControl, 4:, DisableWeb, %GPWEBLoad%
+if GPWEBLoad = 1
+{
+    GuiControl, 1:Disable, GPWEB
+}
+IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+GuiControl, 4:, DisableLaunch, %LaunchLoad%
+if LaunchLoad = 1
+{
+    GuiControl, 1:Disable, BLaunch
+}
+IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+GuiControl, 4:, DisableAdd, %AddLoad%
+if AddLoad = 1
+{
+    GuiControl, 1:Disable, AddDLLs
+}
+IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+GuiControl, 4:, DisableBuild, %BuildLoad%
+if BuildLoad = 1
+{
+    GuiControl, 1:Disable, BBuild
+}
+
+
 
 IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
 GuiControl, 4:, CheckDyn10, %Dyn10Load%
@@ -86,6 +176,42 @@ if Dyn18Load = 1
     GuiControl, 1:Disable, D18
 }
 
+
+
+
+IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+GuiControl, 4:, CheckSPC1, %SR1Load%
+if SR1Load = 1
+{
+    GuiControl, 1:Disable, SR1
+}
+IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+GuiControl, 4:, CheckSPC2, %SR2Load%
+if SR2Load = 1
+{
+    GuiControl, 1:Disable, SR2
+}
+IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+GuiControl, 4:, CheckSPC3, %SR3Load%
+if SR3Load = 1
+{
+    GuiControl, 1:Disable, SR3
+}
+IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+GuiControl, 4:, CheckSPC4, %SR4Load%
+if SR4Load = 1
+{
+    GuiControl, 1:Disable, SR4
+}
+IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+GuiControl, 4:, CheckSPC5, %SR5Load%
+if SR5Load = 1
+{
+    GuiControl, 1:Disable, SR5
+}
+
+
+
 Gui, Color, f9f9f9
 Gui, Show, w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -99,6 +225,7 @@ IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Setting
     return
 
 SettingsScreen:
+    Gui, 4:Destroy
     ;Gui, 4:Add, Text, x0 y10 w683 0x10 ;Horizontal Line
     Gui, 4:Add, Button, x459 y220 w100 h25 gSave, Save
     Gui, 4:Add, Button, x569 y220 w100 h25 gCan2, Exit
@@ -148,6 +275,11 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y145 vCheckDyn16, Disable Microsoft Dynamics GP 2016
     Gui, 4:Add, Checkbox, x30 y175 vCheckDyn18, Disable Microsoft Dynamics GP 2018
     Gui, 4:Tab, 5
+    Gui, 4:Add, Checkbox, x30 y55 vCheckSPC1, Disable SPC Sql Server 1 
+    Gui, 4:Add, Checkbox, x30 y85 vCheckSPC2, Disable SPC Sql Server 2
+    Gui, 4:Add, Checkbox, x30 y115 vCheckSPC3, Disable SPC Sql Server 3
+    Gui, 4:Add, Checkbox, x30 y145 vCheckSPC4, Disable SPC Sql Server 4
+    Gui, 4:Add, Checkbox, x30 y175 vCheckSPC5, Disable SPC Sql Server 5
     Gui, 4:Show, w680 h250, Settings
     IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
@@ -163,6 +295,37 @@ SettingsScreen:
     GuiControl, 4:, RegDB, %Company1Load%
     IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
     GuiControl, 4:, MBDB, %Company2Load%
+
+    IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+    GuiControl, 4:, CheckRestore, %RestoreLoad%
+    IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+    GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
+    IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+    GuiControl, 4:, CheckDelete, %DeleteLoad%
+    IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+    GuiControl, 4:, CheckNew, %NewLoad%
+    
+    IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+    GuiControl, 4:, DisableSP, %DesktopLoad%
+    IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+    GuiControl, 4:, DisableMOB, %MobileLoad%
+    IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+    GuiControl, 4:, DisableDC, %DataCollectionLoad%
+    IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+    GuiControl, 4:, DisableSC, %ShipCenterLoad%
+    IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+    GuiControl, 4:, DisableCC, %CardControlLoad%
+    IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+    GuiControl, 4:, DisableAPI, %GPAPILoad%
+    IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+    GuiControl, 4:, DisableWeb, %GPWEBLoad%
+    IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+    GuiControl, 4:, DisableLaunch, %LaunchLoad%
+    IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+    GuiControl, 4:, DisableAdd, %AddLoad%
+    IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+    GuiControl, 4:, DisableBuild, %BuildLoad%
+
     IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
     GuiControl, 4:, CheckDyn10, %Dyn10Load%
     IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
@@ -173,6 +336,17 @@ SettingsScreen:
     GuiControl, 4:, CheckDyn16, %Dyn16Load%
     IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
     GuiControl, 4:, CheckDyn18, %Dyn18Load%
+
+    IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+    GuiControl, 4:, CheckSPC1, %SR1Load%
+    IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+    GuiControl, 4:, CheckSPC2, %SR2Load%
+    IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+    GuiControl, 4:, CheckSPC3, %SR3Load%
+    IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+    GuiControl, 4:, CheckSPC4, %SR4Load%
+    IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+    GuiControl, 4:, CheckSPC5, %SR5Load%
     return
 
 4GuiClose:
@@ -194,6 +368,154 @@ Save:
     IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
     GuiControlGet, MBDB, 4:
     IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+
+
+    GuiControlGet, CheckRestore, 4:
+    IniWrite, %CheckRestore%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+    if CheckRestore = 1
+    {
+        GuiControl, 1:Disable, BRest
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BRest
+    }
+    GuiControlGet, CheckOverwrite, 4:
+    IniWrite, %CheckOverwrite%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+    if CheckOverwrite = 1
+    {
+        GuiControl, 1:Disable, BOver
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BOver
+    }
+    GuiControlGet, CheckDelete, 4:
+    IniWrite, %CheckDelete%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+    if CheckDelete = 1
+    {
+        GuiControl, 1:Disable, Delete
+    }
+    Else
+    {
+        GuiControl, 1:Enable, Delete
+    }
+    GuiControlGet, CheckNew, 4:
+    IniWrite, %CheckNew%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+    if CheckNew = 1
+    {
+        GuiControl, 1:Disable, Bak
+    }
+    Else
+    {
+        GuiControl, 1:Enable, Bak
+    }
+
+
+
+    GuiControlGet, DisableSP, 4:
+    IniWrite, %DisableSP%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+    if DisableSP = 1
+    {
+        GuiControl, 1:Disable, BDesktop
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BDesktop
+    }
+    GuiControlGet, DisableDC, 4:
+    IniWrite, %DisableDC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+    if DisableDC = 1
+    {
+        GuiControl, 1:Disable, BDataCollection
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BDataCollection
+    }
+    GuiControlGet, DisableSC, 4:
+    IniWrite, %DisableSC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+    if DisableSC = 1
+    {
+        GuiControl, 1:Disable, BShipCenter
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BShipCenter
+    }
+    GuiControlGet, DisableMOB, 4:
+    IniWrite, %DisableMOB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+    if DisableMOB = 1
+    {
+        GuiControl, 1:Disable, BMobile
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BMobile
+    }
+    GuiControlGet, DisableCC, 4:
+    IniWrite, %DisableCC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+    if DisableCC = 1
+    {
+        GuiControl, 1:Disable, BCardControl
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BCardControl
+    }
+    GuiControlGet, DisableAPI, 4:
+    IniWrite, %DisableAPI%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+    if DisableAPI = 1
+    {
+        GuiControl, 1:Disable, GPAPI
+    }
+    Else
+    {
+        GuiControl, 1:Enable, GPAPI
+    }
+    GuiControlGet, DisableWeb, 4:
+    IniWrite, %DisableWeb%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+    if DisableWeb = 1
+    {
+        GuiControl, 1:Disable, GPWEB
+    }
+    Else
+    {
+        GuiControl, 1:Enable, GPWEB
+    }
+    GuiControlGet, DisableLaunch, 4:
+    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+    if DisableLaunch = 1
+    {
+        GuiControl, 1:Disable, BLaunch
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BLaunch
+    }
+    GuiControlGet, DisableAdd, 4:
+    IniWrite, %DisableAdd%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+    if DisableAdd = 1
+    {
+        GuiControl, 1:Disable, AddDLLs
+    }
+    Else
+    {
+        GuiControl, 1:Enable, AddDLLs
+    }
+    GuiControlGet, DisableLaunch, 4:
+    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+    if DisableLaunch = 1
+    {
+        GuiControl, 1:Disable, BBuild
+    }
+    Else
+    {
+        GuiControl, 1:Enable, BBuild
+    }
+
+
+
     GuiControlGet, CheckDyn10, 4:
     IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
     if CheckDyn10 = 1
@@ -239,14 +561,69 @@ Save:
     if CheckDyn18 = 1
     {
         GuiControl, 1:Disable, D18
-        return
     }
     Else
     {
         GuiControl, 1:Enable, D18
+    }
+
+
+    
+    GuiControlGet, CheckSPC1, 4:
+    IniWrite, %CheckSPC1%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+    if CheckSPC1 = 1
+    {
+        GuiControl, 1:Disable, SR1
+    }
+    Else
+    {
+        GuiControl, 1:Enable, SR1
+    }
+    GuiControlGet, CheckSPC2, 4:
+    IniWrite, %CheckSPC2%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+    if CheckSPC2 = 1
+    {
+        GuiControl, 1:Disable, SR2
+    }
+    Else
+    {
+        GuiControl, 1:Enable, SR2
+    }
+    GuiControlGet, CheckSPC3, 4:
+    IniWrite, %CheckSPC3%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+    if CheckSPC3 = 1
+    {
+        GuiControl, 1:Disable, SR3
+    }
+    Else
+    {
+        GuiControl, 1:Enable, SR3
+    }
+    GuiControlGet, CheckSPC4, 4:
+    IniWrite, %CheckSPC4%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+    if CheckSPC4 = 1
+    {
+        GuiControl, 1:Disable, SR4
+    }
+    Else
+    {
+        GuiControl, 1:Enable, SR4
+    }
+    GuiControlGet, CheckSPC5, 4:
+    IniWrite, %CheckSPC5%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+    if CheckSPC5 = 1
+    {
+        GuiControl, 1:Disable, SR5
+        return
+    }
+    Else
+    {
+        GuiControl, 1:Enable, SR5
         return
     }
     Return
+
+
 
 Can2:
     Gui, 4:Destroy
