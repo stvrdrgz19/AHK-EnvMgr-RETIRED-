@@ -652,83 +652,118 @@ BackPath:
     }
 
 SQLServ:
-    InputBox, ServerName, SQL Server, Enter your SQL Server Name
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, ServName, %ServerName%
-        return
-    }
+    GuiControlGet, ServName
+    Gui, 8:Add, Text, x10 y15, Enter your SQL Server Name:
+    Gui, 8:Add, Edit, x10 y30 w218 vServerName, %ServName%
+    Gui, 8:Add, Button, x9 y60 w100 h25 gOK8, OK 
+    Gui, 8:Add, Button, x129 y60 w100 h25 gCancel8, Cancel
+    Gui, 8:Show, w238 h90, SQL Server
+    return
+
+Cancel8:
+    Gui, 8:Destroy
+    Return
+
+OK8:
+    GuiControlGet, ServerName
+    GuiControl, 4:, ServName, %ServerName%
+    Gui, 8:Destroy
+    return
 
 SQLUN:
-    InputBox, UserNameBox, SQL Username, Enter your SQL User Name
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, ServUN, %UserNameBox%
-        return
-    }
+    GuiControlGet, ServUN
+    Gui, 9:Add, Text, x10 y15, Enter your SQL Server Username:
+    Gui, 9:Add, Edit, x10 y30 w218 vUserNameBox, %ServUN%
+    Gui, 9:Add, Button, x9 y60 w100 h25 gOK9, OK 
+    Gui, 9:Add, Button, x129 y60 w100 h25 gCancel9, Cancel
+    Gui, 9:Show, w238 h90, SQL Server Username
+    return
+
+Cancel9:
+    Gui, 9:Destroy
+    Return
+
+OK9:
+    GuiControlGet, UserNameBox
+    GuiControl, 4:, ServUN, %UserNameBox%
+    Gui, 9:Destroy
+    return
 
 SQLPW:
-    InputBox, UserPWBox, SQL Password, Enter your SQL Password
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, ServPW, %UserPWBox%
-        return
-    }
+    GuiControlGet, ServPW
+    Gui, 10:Add, Text, x10 y15, Enter your SQL Server Password:
+    Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox, %ServPW%
+    Gui, 10:Add, Button, x9 y60 w100 h25 gOK10, OK 
+    Gui, 10:Add, Button, x129 y60 w100 h25 gCancel10, Cancel
+    Gui, 10:Show, w238 h90, SQL Server Password
+    return
+
+Cancel10:
+    Gui, 10:Destroy
+    Return
+
+OK10:
+    GuiControlGet, UserPWBox
+    GuiControl, 4:, ServPW, %UserPWBox%
+    Gui, 10:Destroy
+    return
 
 DYN:
-    InputBox, DynamicsBox, Dynamics Database, Enter your Dynamics GP Database
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, DynamicsDB, %DynamicsBox%
-        return
-    }
+    GuiControlGet, DynamicsDB
+    Gui, 11:Add, Text, x10 y15, Enter your Dynamics GP Database:
+    Gui, 11:Add, Edit, x10 y30 w218 vDynamicsBox, %DynamicsDB%
+    Gui, 11:Add, Button, x9 y60 w100 h25 gOK11, OK 
+    Gui, 11:Add, Button, x129 y60 w100 h25 gCancel11, Cancel
+    Gui, 11:Show, w238 h90, Dynamics GP Database
+    return
+
+Cancel11:
+    Gui, 11:Destroy
+    Return
+
+OK11:
+    GuiControlGet, DynamicsBox
+    GuiControl, 4:, DynamicsDB, %DynamicsBox%
+    Gui, 11:Destroy
+    return
 
 REG:
-    InputBox, RegularBox, Non-Multibin Datbaase, Enter your Non-Multibin Database Name
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, RegDB, %RegularBox%
-        return
-    }
+    GuiControlGet, RegDB
+    Gui, 12:Add, Text, x10 y15, Enter your Non-Multibin DB:
+    Gui, 12:Add, Edit, x10 y30 w218 vRegularBox, %RegDB%
+    Gui, 12:Add, Button, x9 y60 w100 h25 gOK12, OK 
+    Gui, 12:Add, Button, x129 y60 w100 h25 gCancel12, Cancel
+    Gui, 12:Show, w238 h90, Non-Multibin
+    return
+
+Cancel12:
+    Gui, 12:Destroy
+    Return
+
+OK12:
+    GuiControlGet, RegularBox
+    GuiControl, 4:, RegDB, %RegularBox%
+    Gui, 12:Destroy
+    return
 
 MB:
-    InputBox, MultiBox, Multbin Database, Enter your Multibin Database Name
-    if ErrorLevel
-    {
-        MsgBox, Nothing was entered.
-        return
-    }
-    Else
-    {
-        GuiControl,, MBDB, %MultiBox%
-        return
-    }
+    GuiControlGet, MBDB
+    Gui, 13:Add, Text, x10 y15, Enter your Multibin DB:
+    Gui, 13:Add, Edit, x10 y30 w218 vMultiBox, %MBDB%
+    Gui, 13:Add, Button, x9 y60 w100 h25 gOK13, OK 
+    Gui, 13:Add, Button, x129 y60 w100 h25 gCancel13, Cancel
+    Gui, 13:Show, w238 h90, Multibin
+    return
 
+Cancel13:
+    Gui, 13:Destroy
+    Return
+
+OK13:
+    GuiControlGet, MultiBox
+    GuiControl, 4:, MBDB, %MultiBox%
+    Gui, 13:Destroy
+    return
 
 AboutScreen:
     Gui, 6:Add, GroupBox, x15 y45 w370 h53, 
