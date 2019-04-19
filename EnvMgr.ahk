@@ -655,6 +655,7 @@ BackPath:
 
 SQLServ:
     GuiControlGet, ServName
+    Gui, 8:Destroy
     Gui, 8:Add, Text, x10 y15, Enter your SQL Server Name:
     Gui, 8:Add, Edit, x10 y30 w218 vServerName, %ServName%
     Gui, 8:Add, Button, x9 y60 w100 h25 gOK8, OK 
@@ -674,6 +675,7 @@ OK8:
 
 SQLUN:
     GuiControlGet, ServUN
+    Gui, 9:Destroy
     Gui, 9:Add, Text, x10 y15, Enter your SQL Server Username:
     Gui, 9:Add, Edit, x10 y30 w218 vUserNameBox, %ServUN%
     Gui, 9:Add, Button, x9 y60 w100 h25 gOK9, OK 
@@ -693,6 +695,7 @@ OK9:
 
 SQLPW:
     GuiControlGet, ServPW
+    Gui, 10:Destroy
     Gui, 10:Add, Text, x10 y15, Enter your SQL Server Password:
     Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox, %ServPW%
     Gui, 10:Add, Button, x9 y60 w100 h25 gOK10, OK 
@@ -712,6 +715,7 @@ OK10:
 
 DYN:
     GuiControlGet, DynamicsDB
+    Gui, 11:Destroy
     Gui, 11:Add, Text, x10 y15, Enter your Dynamics GP Database:
     Gui, 11:Add, Edit, x10 y30 w218 vDynamicsBox, %DynamicsDB%
     Gui, 11:Add, Button, x9 y60 w100 h25 gOK11, OK 
@@ -731,6 +735,7 @@ OK11:
 
 REG:
     GuiControlGet, RegDB
+    Gui, 12:Destroy
     Gui, 12:Add, Text, x10 y15, Enter your Non-Multibin DB:
     Gui, 12:Add, Edit, x10 y30 w218 vRegularBox, %RegDB%
     Gui, 12:Add, Button, x9 y60 w100 h25 gOK12, OK 
@@ -750,6 +755,7 @@ OK12:
 
 MB:
     GuiControlGet, MBDB
+    Gui, 13:Destroy
     Gui, 13:Add, Text, x10 y15, Enter your Multibin DB:
     Gui, 13:Add, Edit, x10 y30 w218 vMultiBox, %MBDB%
     Gui, 13:Add, Button, x9 y60 w100 h25 gOK13, OK 
@@ -882,6 +888,7 @@ ButtonOverwriteDB:
     }
 
 ButtonNewBackup:
+    Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
     Gui, 5:Add, Button, x9 y60 w100 h25 gOK5, OK 
@@ -1255,6 +1262,7 @@ OKx:
         		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
     FilesExt = 
+    FromFolder = 
     FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
         Array := StrSplit(FilesCust, "`n")
 
@@ -1266,6 +1274,7 @@ OKx:
         		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
     FilesCust = 
+    FromFolder = 
     run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
