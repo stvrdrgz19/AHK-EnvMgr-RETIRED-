@@ -1194,8 +1194,9 @@ ButtonAddDLLs:
             Gui, 3:Add, Text, x10 y73, Select the SalesPad Build you need DLLs from:
             Gui, 3:Add, Edit, x10 y90 w600 vDLLPlace, 
             Gui, 3:Add, Button, x610 y89 w23 h23 ggetfile2 vgetfile2, ...
-            Gui, 3:Add, Button, x422 y120 w100 h25 gCanx, Cancel
-            Gui, 3:Add, Button, x533 y120 w100 h25 gOKx, OK
+            Gui, 3:Add, Button, x533 y120 w100 h25 gCloseDLL, Close
+            Gui, 3:Add, Button, x200 y120 w100 h25 gExtendedDLL, Extended DLLs
+            Gui, 3:Add, Button, x311 y120 w100 h25 gCustomDLL, Custom DLLs
             Gui, 3:Show, w642 h154, Add DLLs
             return
         }
@@ -1245,14 +1246,13 @@ getfile2:
     }
     return
 
-Canx:
+CloseDLL:
     Gui, 3:Destroy
     return
 
-OKx:
-    Gui, 3:Destroy
-    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesExt, "`n")
+ExtendedDLL:
+    FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
+        Array := StrSplit(AddExt, "`n")
 
         for index, file in Array
         {
@@ -1261,26 +1261,69 @@ OKx:
         	else
         		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
-    FilesExt = 
+    AddExt = 
     FromFolder = 
-    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesCust = 
-    FromFolder = 
+    file = 
     run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
     return
+
+CustomDLL:
+    FileSelectFile, AddCust, M3, %FromFolder%\CustomModules\WithOutCardControl\, Select any Custom DLLs needed, *.zip
+        Array := StrSplit(AddCust, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		FromFolder := file
+        	else
+        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    AddCust = 
+    FromFolder = 
+    file = 
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+    return
+
+;OKx:
+;    Gui, 3:Destroy
+;    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        Array := StrSplit(FilesExt, "`n")
+;
+;        for index, file in Array
+;        {
+;        	if index = 1
+;        		FromFolder := file
+;        	else
+;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+;        }
+;    FilesExt = 
+;    FromFolder = 
+;    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        Array := StrSplit(FilesCust, "`n")
+;
+;        for index, file in Array
+;        {
+;        	if index = 1
+;        		FromFolder := file
+;        	else
+;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+;        }
+;    FilesCust = 
+;    FromFolder = 
+;    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+;    WinWait, C:\WINDOWS\system32\cmd.exe
+;    WinWaitClose
+;    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
+;    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+;    return
 
 ButtonBuildFolder:
     MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
