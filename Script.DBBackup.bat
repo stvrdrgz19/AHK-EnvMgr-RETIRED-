@@ -11,21 +11,21 @@ SET DB1=%6
 SET DB2=%7
 SET DB3=%8
 
-if not exist "%LocalFolder%\%DataBases%" mkdir %LocalFolder%\%DataBases%
+if not exist "%LocalFolder%\%~5" mkdir "%LocalFolder%\%~5"
 
 echo.
-echo Backing up %DB1% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB1% to "%LocalFolder%\%~5". . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB1% To Disk='%LocalFolder%\%DataBases%\%DB1%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB1% To Disk='%LocalFolder%\%~5\%DB1%.bak' WITH INIT"
 
 echo.
-echo Backing up %DB2% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB2% to "%LocalFolder%\%~5". . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB2% To Disk='%LocalFolder%\%DataBases%\%DB2%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB2% To Disk='%LocalFolder%\%~5\%DB2%.bak' WITH INIT"
 
 echo.
-echo Backing up %DB3% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB3% to "%LocalFolder%\%~5". . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB3% To Disk='%LocalFolder%\%DataBases%\%DB3%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %DB3% To Disk='%LocalFolder%\%~5\%DB3%.bak' WITH INIT"
 
 REM TIMEOUT 5
