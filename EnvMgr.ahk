@@ -925,24 +925,7 @@ ButtonNewBackup:
                     GuiControl,, Database, 
                     return
                 }
-                ifMsgBox, Yes{color:#14892c}*Passed Testing In*{color}
-{color:#14892c}*Desktop:* {color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgent.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgentService.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonAdvancedUDF.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonOperationsCore.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.BusinessRules.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.CaseTracker.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.ConnectShip.dll{color}
-{color:#14892c}*Extended DLL:* SalesPad.Module.Nodus.dll{color}
-{color:#14892c}*Custom DLL:* SalesPad.Module.Grizzly.dll{color}
-{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToGrizzly.dll{color}
-{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToPayfabric.dll{color}
-{color:#14892c}*Custom DLL:* SalesPad.Module.OSCO.dll{color}
-
-{color:#14892c}_View Attached Screenshot [^A-.png]_{color}
-{color:#14892c}_View Attached Mp4 [^A-.mp4]_{color}
-{color:#14892c}_View Attached Crash Log [^A- Crash Log.txt]_{color}
+                ifMsgBox, Yes
                 {
                     IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
                     IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
