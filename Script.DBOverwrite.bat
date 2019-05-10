@@ -12,18 +12,18 @@ SET DB2=%7
 SET DB3=%8
 
 echo.
-echo Backing up %DB1% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB1% to %LocalFolder%\%~5. . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db1% To Disk='%LocalFolder%\%DataBases%\%db1%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db1% To Disk='%LocalFolder%\%~5\%db1%.bak' WITH INIT"
 
 echo.
-echo Backing up %DB2% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB2% to %LocalFolder%\%~5. . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db2% To Disk='%LocalFolder%\%DataBases%\%db2%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db2% To Disk='%LocalFolder%\%~5\%db2%.bak' WITH INIT"
 
 echo.
-echo Backing up %DB3% to %LocalFolder%\%DataBases%. . .
+echo Backing up %DB3% to %LocalFolder%\%~5. . .
 echo.
-SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db3% To Disk='%LocalFolder%\%DataBases%\%db3%.bak' WITH INIT"
+SqlCmd -S %SqlServer% -U %Username% -P %Password% -Q "Backup Database %db3% To Disk='%LocalFolder%\%~5\%db3%.bak' WITH INIT"
 
 REM TIMEOUT 5

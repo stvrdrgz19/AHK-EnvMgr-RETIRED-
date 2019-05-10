@@ -857,7 +857,7 @@ ButtonRestoreDB:
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
@@ -883,7 +883,7 @@ ButtonOverwriteDB:
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         return
     }
 
@@ -925,7 +925,24 @@ ButtonNewBackup:
                     GuiControl,, Database, 
                     return
                 }
-                ifMsgBox, Yes
+                ifMsgBox, Yes{color:#14892c}*Passed Testing In*{color}
+{color:#14892c}*Desktop:* {color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgent.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgentService.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonAdvancedUDF.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonOperationsCore.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BusinessRules.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.CaseTracker.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.ConnectShip.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.Nodus.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.Grizzly.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToGrizzly.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToPayfabric.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.OSCO.dll{color}
+
+{color:#14892c}_View Attached Screenshot [^A-.png]_{color}
+{color:#14892c}_View Attached Mp4 [^A-.mp4]_{color}
+{color:#14892c}_View Attached Crash Log [^A- Crash Log.txt]_{color}
                 {
                     IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
                     IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
@@ -1362,7 +1379,8 @@ D15:
     return
 
 D16:
-    run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016$NOT UPDATED\Dynamics.exe - Shortcut.lnk"
+    ;run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
 
 D18:
