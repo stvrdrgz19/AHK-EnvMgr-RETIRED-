@@ -857,7 +857,7 @@ ButtonRestoreDB:
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
@@ -883,7 +883,7 @@ ButtonOverwriteDB:
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% %GPBackupsList% %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         return
     }
 
@@ -925,7 +925,24 @@ ButtonNewBackup:
                     GuiControl,, Database, 
                     return
                 }
-                ifMsgBox, Yes
+                ifMsgBox, Yes{color:#14892c}*Passed Testing In*{color}
+{color:#14892c}*Desktop:* {color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgent.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.AutomationAgentService.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonAdvancedUDF.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BlueMoonOperationsCore.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.BusinessRules.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.CaseTracker.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.ConnectShip.dll{color}
+{color:#14892c}*Extended DLL:* SalesPad.Module.Nodus.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.Grizzly.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToGrizzly.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.IntegrationToPayfabric.dll{color}
+{color:#14892c}*Custom DLL:* SalesPad.Module.OSCO.dll{color}
+
+{color:#14892c}_View Attached Screenshot [^A-.png]_{color}
+{color:#14892c}_View Attached Mp4 [^A-.mp4]_{color}
+{color:#14892c}_View Attached Crash Log [^A- Crash Log.txt]_{color}
                 {
                     IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
                     IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
@@ -1194,8 +1211,9 @@ ButtonAddDLLs:
             Gui, 3:Add, Text, x10 y73, Select the SalesPad Build you need DLLs from:
             Gui, 3:Add, Edit, x10 y90 w600 vDLLPlace, 
             Gui, 3:Add, Button, x610 y89 w23 h23 ggetfile2 vgetfile2, ...
-            Gui, 3:Add, Button, x422 y120 w100 h25 gCanx, Cancel
-            Gui, 3:Add, Button, x533 y120 w100 h25 gOKx, OK
+            Gui, 3:Add, Button, x533 y120 w100 h25 gCloseDLL, Close
+            Gui, 3:Add, Button, x200 y120 w100 h25 gExtendedDLL, Extended DLLs
+            Gui, 3:Add, Button, x311 y120 w100 h25 gCustomDLL, Custom DLLs
             Gui, 3:Show, w642 h154, Add DLLs
             return
         }
@@ -1245,14 +1263,13 @@ getfile2:
     }
     return
 
-Canx:
+CloseDLL:
     Gui, 3:Destroy
     return
 
-OKx:
-    Gui, 3:Destroy
-    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesExt, "`n")
+ExtendedDLL:
+    FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
+        Array := StrSplit(AddExt, "`n")
 
         for index, file in Array
         {
@@ -1261,26 +1278,69 @@ OKx:
         	else
         		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
         }
-    FilesExt = 
+    AddExt = 
     FromFolder = 
-    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-        Array := StrSplit(FilesCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    FilesCust = 
-    FromFolder = 
+    file = 
     run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
     return
+
+CustomDLL:
+    FileSelectFile, AddCust, M3, %FromFolder%\CustomModules\WithOutCardControl\, Select any Custom DLLs needed, *.zip
+        Array := StrSplit(AddCust, "`n")
+
+        for index, file in Array
+        {
+        	if index = 1
+        		FromFolder := file
+        	else
+        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+        }
+    AddCust = 
+    FromFolder = 
+    file = 
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWaitClose
+    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
+    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+    return
+
+;OKx:
+;    Gui, 3:Destroy
+;    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        Array := StrSplit(FilesExt, "`n")
+;
+;        for index, file in Array
+;        {
+;        	if index = 1
+;        		FromFolder := file
+;        	else
+;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+;        }
+;    FilesExt = 
+;    FromFolder = 
+;    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+;        Array := StrSplit(FilesCust, "`n")
+;
+;        for index, file in Array
+;        {
+;        	if index = 1
+;        		FromFolder := file
+;        	else
+;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+;        }
+;    FilesCust = 
+;    FromFolder = 
+;    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+;    WinWait, C:\WINDOWS\system32\cmd.exe
+;    WinWaitClose
+;    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
+;    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+;    return
 
 ButtonBuildFolder:
     MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
@@ -1319,7 +1379,8 @@ D15:
     return
 
 D16:
-    run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016$NOT UPDATED\Dynamics.exe - Shortcut.lnk"
+    ;run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
 
 D18:
