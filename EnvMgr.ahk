@@ -1,4 +1,13 @@
+; AutoHotkey Version:   1.1.30.01
+; Platform:             Win10
+; Author:               Steve Rodriguez
+;
+; Script Function: A tool used for managing/creating SQL Database Backups, as well as installing builds
+; of the different SalesPad Applications. 
+
 #SingleInstance, force
+#NoEnv
+SendMode Input
 
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
