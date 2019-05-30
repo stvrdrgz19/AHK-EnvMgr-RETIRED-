@@ -26,21 +26,21 @@ Gui, Add, Button, x30 y225 w100 h25 gMoveCNK, CNK and XML
 Gui, Add, Text, x30 y275, Next you will need to run Dynamics GP as Admin. Select OK/accept the table updates, `nthese are required for Onesource.
 Gui, Add, Text, x150 y325, Clicking the Shared button will pop open the shared location `nof the Onesource files. Run the SQL file against your TWO `ndatabase. Leave the folder open and return to Dynamics GP.
 Gui, Add, Button, x30 y330 w100 h25 gShared, Shared
-Gui, Add, Text, x30 y385, Navigate to Dynamics GP > Tools > Setup > Onesource > Company Setup. Fill out the `nsettings referencing the screenshots in the Shared Folder.
-Gui, Add, Text, x30 y425, Navigate to Dynamics GP > Tools > Setup > Onesource > Inventory Setup. Fill out `nthe Settings referencing the screenshots in the Shared Folder.
+Gui, Add, Text, x30 y385, Navigate to Microsoft Dynamics GP > Tools > Setup > ONESOURCE IDT > Tax `nConfiguration. Fill out the settings referencing the files in the Shared Folder.
+Gui, Add, Text, x30 y425, Navigate to Microsoft Dynamics GP > Tools > Setup > ONESOURCE IDT > Item `nTaxability. Fill out the Settings referencing the files in the Shared Folder.
 Gui, Add, Text, x30 y465, In SalesPad GP > Settings > Filter to Onesource, fill out the settings referencing `nthe screenshots in the Shared Folder. Also set the Tax Query Handler to Onesource.
 Gui, Add, Text, x30 y505, In SalesPad GP, navigate to the Customer you want to use and set their Contact's `nTax Codes to IDT > Save. To verify taxes are being calculated correctly create a `nSales Document for this Customer > Add an Item > Save > Check the Audit.
 Gui, Add, Text, x30 y555 w425 0x10 ;Horizontal Line
 Gui, Add, Text, x150 y570, Click the Remove button to remove all of the Onesource stuff `nfrom your Dynamics GP installation. This also restores your `nbacked up DYNAMICS SET file.
 Gui, Add, Button, x30 y575 w100 h25 gRemove, Remove
 ;Gui, Add, Button, x5 y5 w50 h25 gTest, Test
-Gui, Show, w480 h635, Onesource Tool
 if A_IsAdmin = 0
 {
     MsgBox, 0, NOT ADMIN, Please run Onesource Setup.ahk as Admin.
     ExitApp
     return
 }
+Gui, Show, w480 h635, Onesource Tool
 Return
 
 ;Test:
