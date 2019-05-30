@@ -658,7 +658,6 @@ BackPath:
     Else
     {
         GuiControl,, BackupPath, %BackFolder%
-
         return
     }
 
