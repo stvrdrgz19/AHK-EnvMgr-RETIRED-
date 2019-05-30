@@ -35,6 +35,12 @@ Gui, Add, Text, x150 y570, Click the Remove button to remove all of the Onesourc
 Gui, Add, Button, x30 y575 w100 h25 gRemove, Remove
 ;Gui, Add, Button, x5 y5 w50 h25 gTest, Test
 Gui, Show, w480 h635, Onesource Tool
+if A_IsAdmin = 0
+{
+    MsgBox, 0, NOT ADMIN, Please run Onesource Setup.ahk as Admin.
+    ExitApp
+    return
+}
 Return
 
 ;Test:
