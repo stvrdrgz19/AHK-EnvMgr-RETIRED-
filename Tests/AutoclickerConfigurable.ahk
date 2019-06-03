@@ -15,25 +15,39 @@ Gui, Add, Text, x30 y45, Enter the Number of Clicks:
 Gui, Add, Edit, x30 y60 vNumOfClicksEdit, 
 Gui, Add, UpDown, vNumOfClicks Range1-1000, 100
 Gui, Add, Text, x30 y115, Enter the Pause time between clicks (ms):
-Gui, Add, Edit, x30 y130 vLenghOfSleepEdit, 
+Gui, Add, Edit, x30 y130 vLengthOfSleepEdit, 
 Gui, Add, UpDown, vLengthOfSleep Range1-10000, 200
 Gui, Add, Button, x80 y170 w100 h25 vSet gSet, Set
+Gui, Add, Button, x80 y200 w100 h25 vtest gtest, Test
 Gui, Show, w250 h230, Configure AutoClicks
 Return
 
+Test:
+    Return
+
 Set:
-GuiControlGet, NumOfClicksEdit
-GuiControlGet, LenghOfSleepEdit
-Return
+    GuiControlGet, NumOfClicksEdit
+    GuiControlGet, LengthOfSleepEdit
+    ;MsgBox, 0, Test, %NumOfClicksEdit% and %LengthOfSleepEdit%
+    Return
 
 F7::
-i:=0
-While(i<%NumOfClicksEdit%)
-{
-    i++
-    Send, {LButton}
-    sleep %LenghOfSleepEdit%
-}
-Return
+    GuiControlGet, NumOfClicksEdit
+    GuiControlGet, LengthOfSleepEdit
+    i:=0
+    While(i<NumOfClicksEdit)
+    {
+        if stop
+            Break
+        i++
+        Send, {LButton}
+        sleep LengthOfSleepEdit
+    }
+    Return
 
-F8::ExitApp
+F8::
+    stop=1
+    Return
+
+GuiClose:
+ExitApp
