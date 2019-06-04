@@ -13,7 +13,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 Gui, Add, GroupBox, x10 y10 w185 h110, Modifier
 Gui, Add, Checkbox, x20 y30 vCtrl gCtrl, Ctrl
-Gui, Add, Checkbox, x20 y50 vShift gShify, Shift
+Gui, Add, Checkbox, x20 y50 vShift gShift, Shift
 Gui, Add, Checkbox, x20 y70 vWin gWin, Win
 Gui, Add, Checkbox, x20 y90 vAlt gAlt, Alt
 
