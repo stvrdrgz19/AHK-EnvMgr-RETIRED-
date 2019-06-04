@@ -1,0 +1,10 @@
+<div class="list"><a href="https://www.autohotkey.com/docs/Variables.htm#AddSub" tabindex="-1" data-content="-" class="">
+</a><a href="https://www.autohotkey.com/docs/Variables.htm#unary" tabindex="-1" data-content="- (sign)">
+</a><a href="https://www.autohotkey.com/docs/Variables.htm#IncDec" tabindex="-1" data-content="--"></a><a href="https://www.autohotkey.com/docs/Variables.htm#AssignOp" 
+data-content="-="></a><a href="https://www.autohotkey.com/docs/Variables.htm#comma" 
+tabindex="-1" data-content=","></a><a href="https://www.autohotkey.com/docs/Variables.htm#ternary" 
+tabindex="-1" data-content=":"></a><a href="https://www.autohotkey.com/docs/commands/SetExpression.htm" tabindex="-1" 
+data-content=":="></a><a href="https://www.autohotkey.com/docs/Variables.htm#unary" tabindex="-1" data-content="!">
+</a><a href="https://www.autohotkey.com/docs/Variables.htm#equal" tabindex="-1" data-content="!="></a><a href="https://www.autohotkey.com/docs/Variables.htm#ternary" 
+tabindex="-1" data-content="?"></a><a href="https://www.autohotkey.com/docs/Variables.htm#concat" tabindex="-1" data-content=".">
+</a><a href="https://www.autohotkey.com/docs/Variables.htm#AssignOp" tabindex="-1" data-content=".=">

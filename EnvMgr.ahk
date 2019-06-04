@@ -1090,11 +1090,14 @@ OK:
         FilesCust = 
         run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
+        ;WinWait, CUSTOM DLL?
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
     NoDLL:
+        ;WinWait, CUSTOM DLL?
+        ;WinWaitClose, CUSTOM DLL?
         run, %BuildLoc%\SalesPad.exe
         return
     }
