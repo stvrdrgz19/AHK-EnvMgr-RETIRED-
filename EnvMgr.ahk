@@ -222,7 +222,7 @@ if SR5Load = 1
 
 
 Gui, Color, f9f9f9
-Gui, Show, w706 h421, Environment Mananger
+Gui, Show, x2100 y-800 w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
