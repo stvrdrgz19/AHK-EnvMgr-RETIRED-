@@ -31,9 +31,9 @@ Gui, Add, Text, x30 y425, Navigate to Microsoft Dynamics GP > Tools > Setup > ON
 Gui, Add, Text, x30 y465, In SalesPad GP > Settings > Filter to Onesource, fill out the settings referencing `nthe screenshots in the Shared Folder. Also set the Tax Query Handler to Onesource.
 Gui, Add, Text, x30 y505, In SalesPad GP, navigate to the Customer you want to use and set their Contact's `nTax Codes to IDT > Save. To verify taxes are being calculated correctly create a `nSales Document for this Customer > Add an Item > Save > Check the Audit.
 Gui, Add, Text, x30 y555 w425 0x10 ;Horizontal Line
-Gui, Font,, Consolas
+;Gui, Font,, Consolas
 Gui, Add, Text, x150 y570, Click the Remove button to remove all of the Onesource stuff `nfrom your Dynamics GP installation. This also restores your `nbacked up DYNAMICS SET file.
-Gui, Font
+;Gui, Font
 Gui, Add, Button, x30 y575 w100 h25 gRemove, Remove
 ;Gui, Add, Button, x5 y5 w50 h25 gTest, Test
 if A_IsAdmin = 0
