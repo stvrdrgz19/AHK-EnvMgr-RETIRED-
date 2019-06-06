@@ -70,7 +70,7 @@ Extended:
         	else
         		FileCopy, % FromFolder "\" file, %DestFolder%
         }
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    run, "C:\Users\stvrd\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" %DestFolder%
     Return
 
 Custom:
@@ -86,7 +86,7 @@ Custom:
         	else
         		FileCopy, % FromFolder "\" file, %DestFolder%
         }
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    run, "C:\Users\stvrd\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" %DestFolder%
     Return
 
 GuiClose:
