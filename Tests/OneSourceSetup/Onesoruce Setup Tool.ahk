@@ -27,17 +27,17 @@ Gui, Add, Text, x30 y390, In SalesPad GP, navigate to the Customer you want to u
 Gui, Add, Text, x30 y440 w425 0x10 ;Horizontal Line
 Gui, Add, Text, x150 y455, Click the Remove button to remove all of the Onesource stuff `nfrom your Dynamics GP installation. This also restores your `nbacked up DYNAMICS SET file.
 Gui, Add, Button, x30 y460 w100 h25 gRemove, Remove
-;if A_IsAdmin = 0
-;{
-;    MsgBox, 0, NOT ADMIN, Please run Onesource Setup Tool as Admin.
-;    ExitApp
-;    return
-;}
+if A_IsAdmin = 0
+{
+    MsgBox, 0, NOT ADMIN, Please run Onesource Setup Tool as Admin.
+    ExitApp
+    return
+}
 Gui, Show, w480 h520, Onesource Setup Tool
 Return
 
 DynamicsFind:
-    FileSelectFolder, DynamicsFolder, C:\, 3, Select your Dynamics GP Folder to modify:
+    FileSelectFolder, DynamicsFolder, C:\Program Files (x86)\Microsoft Dynamics, 3, Select your Dynamics GP Folder to modify:
     if DynamicsFolder = 
     {
         MsgBox, 0, NOTHING SELECTED, Nothing was selected.
@@ -84,25 +84,34 @@ MoveFiles:
     }
 
 Remove:
-    MsgBox, 3, REMOVE ONESOURCE?, Are you sure you want to remove the Onesource files from GP?
-    IfMsgBox Yes
+    GuiControlGet, Dynamics
+    If Dynamics = 
     {
-        GuiControlGet, Dynamics
-        FileDelete, %Dynamics%\ONESOURCE.cnk
-        FileDelete, %Dynamics%\ONESOURCENetSDKConfig.xml
-        FileDelete, %Dynamics%\ONESOURCENetSDKLoggingConfig.xml
-        FileDelete, %Dynamics%\ONESOURCE.DIC
-        FileCopy, C:\#FILEBAKS\DYNAMICS.SET, %Dynamics%, 1
+        MsgBox, 0, ERROR, Please select the Dynamics GP Install Folder Onesource was installed to.
         Return
     }
-    IfMsgBox No
+    If Dynamics !=
     {
-        MsgBox, 0, REMOVE ONESOURCE?, Onesource files were not removed.
-        Return
-    }
-    ifMsgBox Cancel
-    {
-        Return
+        MsgBox, 3, REMOVE ONESOURCE?, Are you sure you want to remove the Onesource files from GP?
+        IfMsgBox Yes
+        {
+            GuiControlGet, Dynamics
+            FileDelete, %Dynamics%\ONESOURCE.cnk
+            FileDelete, %Dynamics%\ONESOURCENetSDKConfig.xml
+            FileDelete, %Dynamics%\ONESOURCENetSDKLoggingConfig.xml
+            FileDelete, %Dynamics%\ONESOURCE.DIC
+            FileCopy, C:\#FILEBAKS\DYNAMICS.SET, %Dynamics%, 1
+            Return
+        }
+        IfMsgBox No
+        {
+            MsgBox, 0, REMOVE ONESOURCE?, Onesource files were not removed.
+            Return
+        }
+        ifMsgBox Cancel
+        {
+            Return
+        }
     }
 
 ;Look into creating a Sql script that would insert the values for the Onesource Settings
@@ -110,4 +119,4 @@ Remove:
 ;Create a recording of the Onesource setup process for additional help
 
 GuiClose:
-ExitApp
+    ExitApp

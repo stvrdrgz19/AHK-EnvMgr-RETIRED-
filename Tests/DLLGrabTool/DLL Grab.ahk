@@ -2,7 +2,7 @@
 ; Platform:             Win10
 ; Author:               Steve Rodriguez
 ;
-; Description: 
+; Description: A small tool designed to help grab and unzip dlls
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
@@ -11,22 +11,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 
-
-; TODO ==========================================================================
-;Reference FileUnzipAndMove.bat
-;Modify this to accept arguments from ahk
-;Need to pass the destination location from ahk to bat
-
-
 Gui, Add, Text, x30 y30, Select a Location where you want to put the DLLs:
 Gui, Add, Edit, ReadOnly x30 y50 w400 vDestination, 
 Gui, Add, Button, x430 y49 w23 h23 gDest, ...
-Gui, Add, Text, x30 y100, Select a SalesPad Install Folder you want to get DLLs from:
-Gui, Add, Edit, ReadOnly x30 y120 w400 vFromBuild,
-Gui, Add, Button, x430 y119 w23 h23 gFrom, ...
-Gui, Add, Button, x243 y170 w100 h25 gExtended, Extended DLLs
-Gui, Add, Button, x353 y170 w100 h25 gCustom, Custom DLLs
-Gui, Show, w490 h210, DLL Grab
+Gui, Add, Button, x353 y80 w100 h25 gExtended, Get DLLs
+Gui, Show, w490 h120, DLL Grab
 Return
 
 Dest:
@@ -43,51 +32,38 @@ Dest:
         Return
     }
 
-From:   
-    FileSelectFolder, FromFolder, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, 3, Select a Build you want to get DLLs from:
-    If FromFolder = 
+Extended:  
+    GuiControlGet, FromFolder
+    GuiControlGet, Destination
+    If Destination = 
     {
-        MsgBox, 0, ERROR, Nothing was selected.
-        GuiControl,, FromBuild, 
+        MsgBox, 0, ERRPR, Please select a Folder to place the DLLs into.
         Return
     }
     Else
-    {
-        GuiControl,, FromBuild, %FromFolder%
+    {   
+        FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
+        if ErrorLevel = 1
+        {
+            MsgBox, 0, ERROR, Nothing was selected.
+            Return
+        }
+        If ErrorLevel != 1
+        {
+            Array := StrSplit(AddExt, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		FromFolder := file
+            	else
+            		FileCopy, % FromFolder "\" file, %DestFolder%
+            }
+
+        }
+        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" "%Destination%"
         Return
     }
-
-Extended:
-    GuiControlGet, FromFolder
-    GuiControlGet, DestFolder
-    FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
-        Array := StrSplit(AddExt, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, %DestFolder%
-        }
-    run, "C:\Users\stvrd\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" %DestFolder%
-    Return
-
-Custom:
-    GuiControlGet, FromFolder
-    GuiControlGet, DestFolder
-    FileSelectFile, AddCust, M3, %FromFolder%\CustomModules\WithOutCardControl\, Select any Custom DLLs needed, *.zip
-        Array := StrSplit(AddCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, %DestFolder%
-        }
-    run, "C:\Users\stvrd\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" %DestFolder%
-    Return
 
 GuiClose:
 ExitApp
