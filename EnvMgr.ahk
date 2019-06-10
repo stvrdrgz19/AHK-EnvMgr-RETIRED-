@@ -1165,6 +1165,17 @@ ButtonCardControl:
     return
 
 ButtonWebAPI:
+    MsgBox, 4, API?, Are you sure you want to install a new Web API?
+    If MsgBox Yes
+    {
+        Run, "C:\#SCRIPTS\API - Shortcut.lnk"
+        Return
+    }
+    If MsgBox No
+    {
+        Return
+    }
+    /*
     If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
         Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
         {
@@ -1185,14 +1196,27 @@ ButtonWebAPI:
     	Run, %A_LoopFileLongPath%
         Return
     }
+*/
 
 ButtonWebPortal:
+    MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
+    If MsgBox Yes
+    {
+        Run, "C:\#SCRIPTS\WEB - Shortcut.lnk"
+        Return
+    }
+    If MsgBox No
+    {
+        Return
+    }
+/*
     FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
     if ErrorLevel
         return
     SplitPath, SelectedFile,, WEB
     run, "" %WEB%
     return
+*/
 
 ButtonAddDLLs:
     Process, Exist, SalesPad.exe

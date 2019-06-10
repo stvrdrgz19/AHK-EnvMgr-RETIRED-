@@ -12,13 +12,13 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 Gui, Add, Text, x30 y30, Please select a SalesPad Build to pull DLLs from:
-Gui, Add, Edit, ReadOnly x30 y50 w498 vFromBuild, ;\\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
+Gui, Add, Edit, ReadOnly x30 y50 w498 vFromBuild, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
 Gui, Add, Button, x528 y49 w23 h23 gFrom, ...
 Gui, Add, Button, x240 y80 w100 h25 gRun, Run
 Gui, Add, ListBox, 8 vExtList gExtList x30 y110 w250 r15
 Gui, Add, ListBox, 8 vCustList gCustList x300 y110 w250 r15
 Gui, Add, Text, x30 y350, Please select a path to store the DLLs In:
-Gui, Add, Edit, ReadOnly x30 y370 w498 vDestFolder, ;C:\Users\steve.rodriguez\Downloads\xTest
+Gui, Add, Edit, ReadOnly x30 y370 w498 vDestFolder, C:\Users\steve.rodriguez\Downloads\xTest
 Gui, Add, Button, x528 y369 w23 h23 gDest, ...
 Gui, Add, Button, x451 y400 w100 h25 gMove, Move DLLs
 Gui, Show, w580 h440, DLL Grab
@@ -79,36 +79,18 @@ Move:
     GuiControlGet, CustList
     GuiControlGet, DestFolder
     GuiControlGet, FromBuild
-    Dir1 = %FromBuild%\ExtModules\WithOutCardControl
-    ;MsgBox, 0, TEST, %FromBuild%`n%Dir1%`nDir1
 
-    ArrayX := StrSplit(ExtList , |)
-    MsgBox % ArrayX
+    Loop, Parse, ExtList, |
+    {
+        FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+    }
+
+    Loop, Parse, CustList, |
+    {
+        FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+    }
+    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" "%DestFolder%"
     Return
-
-
-
-
-    ;Array1 := StrSplit(ExtList, "`n")
-    ;
-    ;for index, file in Array1
-    ;{
-    ;    if index = 1
-    ;        Dir1 := file
-    ;    else
-    ;        FileCopy, % Dir1 "\" file, %DestFolder%
-    ;}
-    ;Array2 := StrSplit(CustList, "`n")
-    ;
-    ;for index, file in Array2
-    ;{
-    ;    if index = 1
-    ;        Dir := file
-    ;    else
-    ;        FileCopy, % Dir "\" file, %DestFolder%
-    ;}
-    ;Return
-
 
 ExtList:
     Return

@@ -15,4 +15,4 @@ for /R "%Destination%" %%I in ("*.zip") do (
   ":error"
 )
 
-PAUSE
+REM PAUSE

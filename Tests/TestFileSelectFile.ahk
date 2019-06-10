@@ -16,7 +16,7 @@ Gui, Show, w200 h200, Test Gui
 Return
 
 Select:
-    FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
+    FileSelectFile, AddExt, 2, C:\, Select a folder.
     if ErrorLevel = 1
     {
         MsgBox, 0, ERROR, Nothing was selected.
@@ -24,9 +24,16 @@ Select:
     }
     if ErrorLevel != 1
     {
-        MsgBox, 0, CONTINUE, Continue to do other stuff
+        MsgBox, 0, CONTINUE, %AddExt%
         Return
     }
+
+
+
+
+FileSelectFile, SelectedFolder, 2, %a_workingdir% , Select a folder ,folder(_)
+msgbox The Path you selected was >%SelectedFolder%<`r`nerrorlevel is %errorlevel%
+return
 
 GuiClose:
     ExitApp

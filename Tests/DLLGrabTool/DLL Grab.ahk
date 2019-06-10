@@ -11,59 +11,134 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 
-Gui, Add, Text, x30 y30, Select a Location where you want to put the DLLs:
-Gui, Add, Edit, ReadOnly x30 y50 w400 vDestination, 
-Gui, Add, Button, x430 y49 w23 h23 gDest, ...
-Gui, Add, Button, x353 y80 w100 h25 gExtended, Get DLLs
-Gui, Show, w490 h120, DLL Grab
+Gui, Add, Text, x30 y30, From Location ;Please select a SalesPad Build to pull DLLs from:
+Gui, Add, Text, x30 y50, Example: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
+Gui, Add, Edit, ReadOnly x30 y70 w498 vFromBuild, ;\\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
+Gui, Add, Button, x528 y69 w23 h23 gFrom, ...
+Gui, Add, Button, x240 y100 w100 h25 gRun, List DLLs
+Gui, Add, Text, x125 y130, Extended
+Gui, Add, Text, x400 y130, Custom
+Gui, Add, ListBox, 8 vExtList gExtList x30 y150 w250 r15
+Gui, Add, ListBox, 8 vCustList gCustList x300 y150 w250 r15
+Gui, Add, Text, x30 y370, To Location ;Please select a path to store the DLLs In:
+Gui, Add, Edit, ReadOnly x30 y390 w498 vDestFolder, ;C:\Users\steve.rodriguez\Downloads\xTest
+Gui, Add, Button, x528 y389 w23 h23 gDest, ...
+Gui, Add, Button, x451 y420 w100 h25 gMove, Move DLLs
+Gui, Show, w580 h460, DLL Grab
+MsgBox, 0x40000, WARNING, WARNING!`n`nPressing the "Move DLLs" button will attempt to unzip any zipped files in the specified To Location. If this concerns you then it's recommended that you set your To Location to one that doesn't have any existing zipped files, then manually copy them over to your SalesPad Install folder once complete.
 Return
 
-Dest:
-    FileSelectFolder, DestFolder, C:\, 3, Select where you want to put the DLLs:
-    if DestFolder =
+From:
+    FileSelectFolder, FromFolder, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, 2, Select a SalesPad folder to pull DLLs from:
+    if FromFolder =
     {
         MsgBox, 0, ERROR, Nothing was selected.
-        GuiControl,, Destination, 
+        GuiControl,, FromBuild, 
         Return
     }
     Else
     {
-        GuiControl,, Destination, %DestFolder%
+        GuiControl,, FromBuild, %FromFolder%
         Return
     }
 
-Extended:  
-    GuiControlGet, FromFolder
-    GuiControlGet, Destination
-    If Destination = 
+Run:
+    GuiControlGet, FromBuild
+    GuiControl,, ExtList, |
+    GuiControl,, CustList, |
+    If FromBuild = 
     {
-        MsgBox, 0, ERRPR, Please select a Folder to place the DLLs into.
+        MsgBox, 0, ERROR, Please select a SalesPad Build to pull DLLs from.
         Return
     }
-    Else
-    {   
-        FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
-        if ErrorLevel = 1
+    If FromBuild != 
+    {
+        Loop, %FromBuild%\ExtModules\WithOutCardControl\*.*
         {
-            MsgBox, 0, ERROR, Nothing was selected.
-            Return
+            GuiControl,, ExtList, %A_LoopFileName%
         }
-        If ErrorLevel != 1
+        Loop, %FromBuild%\CustomModules\WithOutCardControl\*.*
         {
-            Array := StrSplit(AddExt, "`n")
+            GuiControl,, CustList, %A_LoopFileName%
+        }
+        Return
+    }
 
-            for index, file in Array
+Dest:
+    FileSelectFolder, DestSelect, C:\, 3, Select where you want to put the DLLs:
+    if DestSelect = 
+    {
+        MsgBox, 0, ERROR, Nothing was selected.
+        GuiControl,, DestFolder,
+        Return
+    }
+    if DestSelect != 
+    {
+        GuiControl,, DestFolder, %DestSelect%
+        Return
+    }
+
+Move:
+    GuiControlGet, ExtList
+    GuiControlGet, CustList
+    GuiControlGet, DestFolder
+    GuiControlGet, FromBuild
+    If DestFolder = 
+    {
+        MsgBox, 0, ERROR, Please enter a Folder to move the selected DLLs to.
+        Return
+    }
+    if DestFolder != 
+    {
+        if ExtList = 
+        {
+            If CustList = 
             {
-            	if index = 1
-            		FromFolder := file
-            	else
-            		FileCopy, % FromFolder "\" file, %DestFolder%
+                MsgBox, 0, ERROR, No DLLs were selected
+                Return
             }
-
+            if CustList != 
+            {
+                Loop, Parse, CustList, |
+                {
+                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                }
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                Return
+            }
         }
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Tests\DLLGrabTool\Unzip.bat" "%Destination%"
-        Return
+        if ExtList != 
+        {
+            if CustList =
+            {
+                Loop, Parse, ExtList, |
+                {
+                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                }
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                Return
+            }
+            if CustList != 
+            {
+                Loop, Parse, ExtList, |
+                {
+                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                }
+                Loop, Parse, CustList, |
+                {
+                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                }
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                Return
+            }
+        }
     }
+
+ExtList:
+    Return
+
+CustList:
+    Return
 
 GuiClose:
-ExitApp
+    ExitApp

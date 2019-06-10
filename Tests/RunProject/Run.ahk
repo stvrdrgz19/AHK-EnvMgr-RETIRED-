@@ -11,11 +11,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 ;MouseGetPos, OutputVarX, OutputVarY
-Gui, Add, DropDownList, x10 y10 w200 vList, Development||Staging|Steve01|Steve02|Steve03|Steve04|Steve05
-Gui, Add, Button, +Default x111 y35 w100 h25 gRun, Run ; +Default allows the Run key to be pressed when pressing the Enter key even if the Run button isn't currently selected
+MyColor0 := "c3366ff"
+
+;Gui, Add, GroupBox, x5 y1 w220 h74 vGrp %MyColor0%, 
+Gui, Add, GroupBox, x5 y1 w220 h74 vGrp BackgroundWhite, 
+Gui, Add, DropDownList, x15 y20 w200 vList, Development||Staging|Steve01|Steve02|Steve03|Steve04|Steve05
+Gui, Add, Button, +Default x116 y45 w100 h25 gRun, Run ; +Default allows the Run key to be pressed when pressing the Enter key even if the Run button isn't currently selected
 F7::
 ;Gui, Show, x%OutputVarX% y%OutputVarY% w220 h70, Run
-Gui, Show, w220 h70, Run
+Gui, Show, w230 h80, Run
 Return
 
 Run:
