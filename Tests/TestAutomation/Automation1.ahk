@@ -18,17 +18,21 @@ if A_IsAdmin = 0
     Return
 }
 
-ControlSend,WindowsForms10.EDIT.app.0.3ce0bb8_r9_ad11,sa,ahk_exe SalesPad.exe
-ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad15,ahk_exe SalesPad.exe
-Sleep, 3000
-ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad13,ahk_exe SalesPad.exe
-Sleep, 3000
-Control,Check,,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad114,ahk_exe SalesPad.exe
-Sleep, 3000
-Control,Check,,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad17,ahk_exe SalesPad.exe
-Sleep, 3000
-ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad13,ahk_exe SalesPad.exe
-Sleep, 3000
+ControlGet,var,List,,WindowsForms10.Window.8.app.0.3ce0bb8_r9_ad19,ahk_exe SalesPad.exe
+MsgBox % var
+
+
+;ControlSend,WindowsForms10.EDIT.app.0.3ce0bb8_r9_ad11,sa,ahk_exe SalesPad.exe
+;ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad15,ahk_exe SalesPad.exe
+;Sleep, 3000
+;ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad13,ahk_exe SalesPad.exe
+;Sleep, 3000
+;Control,Check,,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad114,ahk_exe SalesPad.exe
+;Sleep, 3000
+;Control,Check,,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad17,ahk_exe SalesPad.exe
+;Sleep, 3000
+;ControlClick,WindowsForms10.Window.b.app.0.3ce0bb8_r9_ad13,ahk_exe SalesPad.exe
+;Sleep, 3000
 
 
 ;Control, Check ,, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
