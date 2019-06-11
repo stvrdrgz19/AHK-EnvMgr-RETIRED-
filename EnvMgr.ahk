@@ -989,6 +989,7 @@ ButtonSalesPadDesktop:
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
     FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
     SplitPath, SelectedFile,, Instl
+    Variable1 := Instl
     Gui, 2:Destroy
     Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
@@ -1014,6 +1015,7 @@ Can:
 OK:
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
+    Clipboard := Variable1
     If VarCheck = 1
     {
         MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
@@ -1098,6 +1100,7 @@ OK:
     NoDLL:
         ;WinWait, CUSTOM DLL?
         ;WinWaitClose, CUSTOM DLL?
+        Sleep, 1000
         run, %BuildLoc%\SalesPad.exe
         return
     }
