@@ -15,13 +15,12 @@ Gui, Add, Text, x30 y30, From Location ;Please select a SalesPad Build to pull D
 Gui, Add, Text, x30 y50, Example: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
 Gui, Add, Edit, ReadOnly x30 y70 w498 vFromBuild, ;\\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
 Gui, Add, Button, x528 y69 w23 h23 gFrom, ...
-Gui, Add, Button, x240 y100 w100 h25 gRun, List DLLs
-Gui, Add, Text, x125 y130, Extended
-Gui, Add, Text, x400 y130, Custom
-Gui, Add, ListBox, 8 vExtList gExtList x30 y150 w250 r15
-Gui, Add, ListBox, 8 vCustList gCustList x300 y150 w250 r15
-Gui, Add, Button, x240 y370 w100 h25 gMove, Move DLLs
-Gui, Show, w580 h410, DLL Grab
+Gui, Add, Text, x125 y100, Extended
+Gui, Add, Text, x400 y100, Custom
+Gui, Add, ListBox, 8 vExtList gExtList x30 y120 w250 r15
+Gui, Add, ListBox, 8 vCustList gCustList x300 y120 w250 r15
+Gui, Add, Button, x240 y340 w100 h25 gMove, Move DLLs
+Gui, Show, w580 h380, DLL Grab
 Return
 
 From:
@@ -30,32 +29,32 @@ From:
     {
         MsgBox, 0, ERROR, Nothing was selected.
         GuiControl,, FromBuild, 
+        GuiControl,, ExtList, |
+        GuiControl,, CustList, |
         Return
     }
     Else
     {
         GuiControl,, FromBuild, %FromFolder%
-        Return
-    }
-
-Run:
-    GuiControlGet, FromBuild
-    GuiControl,, ExtList, |
-    GuiControl,, CustList, |
-    If FromBuild = 
-    {
-        MsgBox, 0, ERROR, Please select a SalesPad Build to pull DLLs from.
-        Return
-    }
-    If FromBuild != 
-    {
-        Loop, %FromBuild%\ExtModules\WithOutCardControl\*.*
+        GuiControlGet, FromBuild
+        GuiControl,, ExtList, |
+        GuiControl,, CustList, |
+        If FromBuild = 
         {
-            GuiControl,, ExtList, %A_LoopFileName%
+            MsgBox, 0, ERROR, Please select a SalesPad Build to pull DLLs from.
+            Return
         }
-        Loop, %FromBuild%\CustomModules\WithOutCardControl\*.*
+        If FromBuild != 
         {
-            GuiControl,, CustList, %A_LoopFileName%
+            Loop, %FromBuild%\ExtModules\WithOutCardControl\*.*
+            {
+                GuiControl,, ExtList, %A_LoopFileName%
+            }
+            Loop, %FromBuild%\CustomModules\WithOutCardControl\*.*
+            {
+                GuiControl,, CustList, %A_LoopFileName%
+            }
+            Return
         }
         Return
     }
