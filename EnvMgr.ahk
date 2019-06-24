@@ -222,7 +222,8 @@ if SR5Load = 1
 
 
 Gui, Color, f9f9f9
-Gui, Show, x2100 y-800 w706 h421, Environment Mananger
+;Gui, Show, x2100 y-800 w706 h421, Environment Mananger
+Gui, Show, w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
@@ -899,7 +900,7 @@ ButtonNewBackup:
     Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
-    Gui, 5:Add, Button, x9 y60 w100 h25 gOK5, OK 
+    Gui, 5:Add, Button, +Default x9 y60 w100 h25 gOK5, OK 
     Gui, 5:Add, Button, x129 y60 w100 h25 gCancel5, Cancel
     Gui, 5:Show, w238 h90, New Backup
     return
@@ -1391,6 +1392,7 @@ ButtonBackupsFolder:
     Return
 
 D10:
+    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2010\Dynamics.exe - Shortcut.lnk"
     return
 
 D13:

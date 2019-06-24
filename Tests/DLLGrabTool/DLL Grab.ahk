@@ -20,12 +20,8 @@ Gui, Add, Text, x125 y130, Extended
 Gui, Add, Text, x400 y130, Custom
 Gui, Add, ListBox, 8 vExtList gExtList x30 y150 w250 r15
 Gui, Add, ListBox, 8 vCustList gCustList x300 y150 w250 r15
-Gui, Add, Text, x30 y370, To Location ;Please select a path to store the DLLs In:
-Gui, Add, Edit, ReadOnly x30 y390 w498 vDestFolder, ;C:\Users\steve.rodriguez\Downloads\xTest
-Gui, Add, Button, x528 y389 w23 h23 gDest, ...
-Gui, Add, Button, x451 y420 w100 h25 gMove, Move DLLs
-Gui, Show, w580 h460, DLL Grab
-MsgBox, 0x40000, WARNING, WARNING!`n`nPressing the "Move DLLs" button will attempt to unzip any zipped files in the specified To Location. If this concerns you then it's recommended that you set your To Location to one that doesn't have any existing zipped files, then manually copy them over to your SalesPad Install folder once complete.
+Gui, Add, Button, x240 y370 w100 h25 gMove, Move DLLs
+Gui, Show, w580 h410, DLL Grab
 Return
 
 From:
@@ -64,32 +60,13 @@ Run:
         Return
     }
 
-Dest:
-    FileSelectFolder, DestSelect, C:\, 3, Select where you want to put the DLLs:
-    if DestSelect = 
-    {
-        MsgBox, 0, ERROR, Nothing was selected.
-        GuiControl,, DestFolder,
-        Return
-    }
-    if DestSelect != 
-    {
-        GuiControl,, DestFolder, %DestSelect%
-        Return
-    }
-
 Move:
-    GuiControlGet, ExtList
-    GuiControlGet, CustList
-    GuiControlGet, DestFolder
-    GuiControlGet, FromBuild
-    If DestFolder = 
-    {
-        MsgBox, 0, ERROR, Please enter a Folder to move the selected DLLs to.
-        Return
-    }
-    if DestFolder != 
-    {
+    if FileExist("C:\#DLLs")
+        {
+        GuiControlGet, ExtList
+        GuiControlGet, CustList
+        GuiControlGet, FromBuild
+        DestFolder = "C:\#DLLs"
         if ExtList = 
         {
             If CustList = 
@@ -101,9 +78,10 @@ Move:
             {
                 Loop, Parse, CustList, |
                 {
-                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
                 }
-                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                run Explorer "C:\#DLLs"
                 Return
             }
         }
@@ -113,26 +91,91 @@ Move:
             {
                 Loop, Parse, ExtList, |
                 {
-                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
                 }
-                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                run Explorer "C:\#DLLs"
                 Return
             }
             if CustList != 
             {
                 Loop, Parse, ExtList, |
                 {
-                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                    FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
                 }
                 Loop, Parse, CustList, |
                 {
-                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, %DestFolder%
+                    FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
                 }
-                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat" "%DestFolder%"
+                run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                run Explorer "C:\#DLLs"
                 Return
             }
         }
     }
+    Else
+    {
+        MsgBox, 4, CREATE DIRECTORY?, The path C:\#DLLs doesn't exist. The DLL Grab Tool requires this directory to function. Would you like DLL Grab Tool to create this directory and continue?
+        ifMsgBox No
+        {
+            MsgBox, 0, CANCELED, The directory C:\#DLLs was not created, the Selected DLLs were not moved and extracted.
+            return
+        }
+        ifMsgBox Yes
+        {
+            FileCreateDir, C:\#DLLs
+            GuiControlGet, ExtList
+            GuiControlGet, CustList
+            GuiControlGet, FromBuild
+            DestFolder = "C:\#DLLs"
+            if ExtList = 
+            {
+                If CustList = 
+                {
+                    MsgBox, 0, ERROR, No DLLs were selected
+                    Return
+                }
+                if CustList != 
+                {
+                    Loop, Parse, CustList, |
+                    {
+                        FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
+                    }
+                    run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                    run Explorer "C:\#DLLs"
+                    Return
+                }
+            }
+            if ExtList != 
+            {
+                if CustList =
+                {
+                    Loop, Parse, ExtList, |
+                    {
+                        FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
+                    }
+                    run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                    run Explorer "C:\#DLLs"
+                    Return
+                }
+                if CustList != 
+                {
+                    Loop, Parse, ExtList, |
+                    {
+                        FileCopy, %FromBuild%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
+                    }
+                    Loop, Parse, CustList, |
+                    {
+                        FileCopy, %FromBuild%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#DLLs
+                    }
+                    run, "\\sp-fileserv-01\Team QA\Tools\Get DLLs\Scripts\Unzip.bat"
+                    run Explorer "C:\#DLLs"
+                    Return
+                }
+            }
+        }
+    }
+
 
 ExtList:
     Return
