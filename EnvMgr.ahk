@@ -64,25 +64,25 @@ Gui, Add, Button, x557 y343 w126 h25 vSR5, SteveRodriguez05
 ;GuiControl, Disable, AddDLLs
 ;Gui, Color, FF0000, 3366FF
 
-IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
 GuiControl, 4:, CheckRestore, %RestoreLoad%
 if RestoreLoad = 1
 {
     GuiControl, 1:Disable, BRest
 }
-IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
 GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
 if OverwriteLoad = 1
 {
     GuiControl, 1:Disable, BOver
 }
-IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
 GuiControl, 4:, CheckDelete, %DeleteLoad%
 if DeleteLoad = 1
 {
     GuiControl, 1:Disable, Delete
 }
-IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
 GuiControl, 4:, CheckNew, %NewLoad%
 if NewLoad = 1
 {
@@ -91,61 +91,61 @@ if NewLoad = 1
 
 
 
-IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
 GuiControl, 4:, DisableSP, %DesktopLoad%
 if DesktopLoad = 1
 {
     GuiControl, 1:Disable, BDesktop
 }
-IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
 GuiControl, 4:, DisableDC, %MobileLoad%
 if MobileLoad = 1
 {
     GuiControl, 1:Disable, BMobile
 }
-IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
 GuiControl, 4:, DisableSC, %DataCollectionLoad%
 if DataCollectionLoad = 1
 {
     GuiControl, 1:Disable, BDataCollection
 }
-IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
 GuiControl, 4:, DisableMOB, %ShipCenterLoad%
 if ShipCenterLoad = 1
 {
     GuiControl, 1:Disable, BShipCenter
 }
-IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
 GuiControl, 4:, DisableCC, %CardControlLoad%
 if CardControlLoad = 1
 {
     GuiControl, 1:Disable, BCardControl
 }
-IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
 GuiControl, 4:, DisableAPI, %GPAPILoad%
 if GPAPILoad = 1
 {
     GuiControl, 1:Disable, GPAPI
 }
-IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
 GuiControl, 4:, DisableWeb, %GPWEBLoad%
 if GPWEBLoad = 1
 {
     GuiControl, 1:Disable, GPWEB
 }
-IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
 GuiControl, 4:, DisableLaunch, %LaunchLoad%
 if LaunchLoad = 1
 {
     GuiControl, 1:Disable, BLaunch
 }
-IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
 GuiControl, 4:, DisableAdd, %AddLoad%
 if AddLoad = 1
 {
     GuiControl, 1:Disable, AddDLLs
 }
-IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
 GuiControl, 4:, DisableBuild, %BuildLoad%
 if BuildLoad = 1
 {
@@ -154,31 +154,31 @@ if BuildLoad = 1
 
 
 
-IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
 GuiControl, 4:, CheckDyn10, %Dyn10Load%
 if Dyn10Load = 1
 {
     GuiControl, 1:Disable, D10
 }
-IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
 GuiControl, 4:, CheckDyn13, %Dyn13Load%
 if Dyn13Load = 1
 {
     GuiControl, 1:Disable, D13
 }
-IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
 GuiControl, 4:, CheckDyn15, %Dyn15Load%
 if Dyn15Load = 1
 {
     GuiControl, 1:Disable, D15
 }
-IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
 GuiControl, 4:, CheckDyn16, %Dyn16Load%
 if Dyn16Load = 1
 {
     GuiControl, 1:Disable, D16
 }
-IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
 GuiControl, 4:, CheckDyn18, %Dyn18Load%
 if Dyn18Load = 1
 {
@@ -188,31 +188,31 @@ if Dyn18Load = 1
 
 
 
-IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
 GuiControl, 4:, CheckSPC1, %SR1Load%
 if SR1Load = 1
 {
     GuiControl, 1:Disable, SR1
 }
-IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
 GuiControl, 4:, CheckSPC2, %SR2Load%
 if SR2Load = 1
 {
     GuiControl, 1:Disable, SR2
 }
-IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
 GuiControl, 4:, CheckSPC3, %SR3Load%
 if SR3Load = 1
 {
     GuiControl, 1:Disable, SR3
 }
-IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
 GuiControl, 4:, CheckSPC4, %SR4Load%
 if SR4Load = 1
 {
     GuiControl, 1:Disable, SR4
 }
-IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
 GuiControl, 4:, CheckSPC5, %SR5Load%
 if SR5Load = 1
 {
@@ -227,7 +227,7 @@ Gui, Show, w706 h421, Environment Mananger
 ;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ListBoxDisplay:
-IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     Loop, %DBListDisplay%\*, 2
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
@@ -291,71 +291,71 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y145 vCheckSPC4, Disable SPC Sql Server 4
     Gui, 4:Add, Checkbox, x30 y175 vCheckSPC5, Disable SPC Sql Server 5
     Gui, 4:Show, w680 h250, Settings
-    IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
-    IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
     GuiControl, 4:, ServName, %ServLoad%
-    IniRead, UserLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniRead, UserLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
     GuiControl, 4:, ServUN, %UserLoad%
-    IniRead, PasswordLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniRead, PasswordLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
     GuiControl, 4:, ServPW, %PasswordLoad%
-    IniRead, DynamicLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniRead, DynamicLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
     GuiControl, 4:, DynamicsDB, %DynamicLoad%
-    IniRead, Company1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    IniRead, Company1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
     GuiControl, 4:, RegDB, %Company1Load%
-    IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
     GuiControl, 4:, MBDB, %Company2Load%
 
-    IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+    IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
     GuiControl, 4:, CheckRestore, %RestoreLoad%
-    IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+    IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
     GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
-    IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+    IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
     GuiControl, 4:, CheckDelete, %DeleteLoad%
-    IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+    IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
     GuiControl, 4:, CheckNew, %NewLoad%
     
-    IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+    IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
     GuiControl, 4:, DisableSP, %DesktopLoad%
-    IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+    IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
     GuiControl, 4:, DisableMOB, %MobileLoad%
-    IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+    IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
     GuiControl, 4:, DisableDC, %DataCollectionLoad%
-    IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+    IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
     GuiControl, 4:, DisableSC, %ShipCenterLoad%
-    IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+    IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
     GuiControl, 4:, DisableCC, %CardControlLoad%
-    IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+    IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
     GuiControl, 4:, DisableAPI, %GPAPILoad%
-    IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+    IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
     GuiControl, 4:, DisableWeb, %GPWEBLoad%
-    IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+    IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
     GuiControl, 4:, DisableLaunch, %LaunchLoad%
-    IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+    IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
     GuiControl, 4:, DisableAdd, %AddLoad%
-    IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+    IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
     GuiControl, 4:, DisableBuild, %BuildLoad%
 
-    IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+    IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
     GuiControl, 4:, CheckDyn10, %Dyn10Load%
-    IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+    IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
     GuiControl, 4:, CheckDyn13, %Dyn13Load%
-    IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+    IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
     GuiControl, 4:, CheckDyn15, %Dyn15Load%
-    IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+    IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
     GuiControl, 4:, CheckDyn16, %Dyn16Load%
-    IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+    IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
     GuiControl, 4:, CheckDyn18, %Dyn18Load%
 
-    IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+    IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
     GuiControl, 4:, CheckSPC1, %SR1Load%
-    IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+    IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
     GuiControl, 4:, CheckSPC2, %SR2Load%
-    IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+    IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
     GuiControl, 4:, CheckSPC3, %SR3Load%
-    IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+    IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
     GuiControl, 4:, CheckSPC4, %SR4Load%
-    IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+    IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
     GuiControl, 4:, CheckSPC5, %SR5Load%
     return
 
@@ -365,23 +365,23 @@ SettingsScreen:
 
 Save:
     GuiControlGet, BackupPath, 4:
-    IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, ServName, 4:
-    IniWrite, %ServName%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
+    IniWrite, %ServName%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
     GuiControlGet, ServUN, 4:
-    IniWrite, %ServUN%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
+    IniWrite, %ServUN%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
     GuiControlGet, ServPW, 4:
-    IniWrite, %ServPW%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
+    IniWrite, %ServPW%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
     GuiControlGet, DynamicsDB, 4:
-    IniWrite, %DynamicsDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
+    IniWrite, %DynamicsDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
     GuiControlGet, RegDB, 4:
-    IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
+    IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
     GuiControlGet, MBDB, 4:
-    IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
+    IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
 
 
     GuiControlGet, CheckRestore, 4:
-    IniWrite, %CheckRestore%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Rest
+    IniWrite, %CheckRestore%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
     if CheckRestore = 1
     {
         GuiControl, 1:Disable, BRest
@@ -391,7 +391,7 @@ Save:
         GuiControl, 1:Enable, BRest
     }
     GuiControlGet, CheckOverwrite, 4:
-    IniWrite, %CheckOverwrite%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Over
+    IniWrite, %CheckOverwrite%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
     if CheckOverwrite = 1
     {
         GuiControl, 1:Disable, BOver
@@ -401,7 +401,7 @@ Save:
         GuiControl, 1:Enable, BOver
     }
     GuiControlGet, CheckDelete, 4:
-    IniWrite, %CheckDelete%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, Delete
+    IniWrite, %CheckDelete%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
     if CheckDelete = 1
     {
         GuiControl, 1:Disable, Delete
@@ -411,7 +411,7 @@ Save:
         GuiControl, 1:Enable, Delete
     }
     GuiControlGet, CheckNew, 4:
-    IniWrite, %CheckNew%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, DBManagement, New
+    IniWrite, %CheckNew%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
     if CheckNew = 1
     {
         GuiControl, 1:Disable, Bak
@@ -424,7 +424,7 @@ Save:
 
 
     GuiControlGet, DisableSP, 4:
-    IniWrite, %DisableSP%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, SalesPad
+    IniWrite, %DisableSP%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
     if DisableSP = 1
     {
         GuiControl, 1:Disable, BDesktop
@@ -434,7 +434,7 @@ Save:
         GuiControl, 1:Enable, BDesktop
     }
     GuiControlGet, DisableDC, 4:
-    IniWrite, %DisableDC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, DataCollection
+    IniWrite, %DisableDC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
     if DisableDC = 1
     {
         GuiControl, 1:Disable, BDataCollection
@@ -444,7 +444,7 @@ Save:
         GuiControl, 1:Enable, BDataCollection
     }
     GuiControlGet, DisableSC, 4:
-    IniWrite, %DisableSC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, ShipCenter
+    IniWrite, %DisableSC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
     if DisableSC = 1
     {
         GuiControl, 1:Disable, BShipCenter
@@ -454,7 +454,7 @@ Save:
         GuiControl, 1:Enable, BShipCenter
     }
     GuiControlGet, DisableMOB, 4:
-    IniWrite, %DisableMOB%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Mobile
+    IniWrite, %DisableMOB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
     if DisableMOB = 1
     {
         GuiControl, 1:Disable, BMobile
@@ -464,7 +464,7 @@ Save:
         GuiControl, 1:Enable, BMobile
     }
     GuiControlGet, DisableCC, 4:
-    IniWrite, %DisableCC%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, CardControl
+    IniWrite, %DisableCC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
     if DisableCC = 1
     {
         GuiControl, 1:Disable, BCardControl
@@ -474,7 +474,7 @@ Save:
         GuiControl, 1:Enable, BCardControl
     }
     GuiControlGet, DisableAPI, 4:
-    IniWrite, %DisableAPI%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, API
+    IniWrite, %DisableAPI%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
     if DisableAPI = 1
     {
         GuiControl, 1:Disable, GPAPI
@@ -484,7 +484,7 @@ Save:
         GuiControl, 1:Enable, GPAPI
     }
     GuiControlGet, DisableWeb, 4:
-    IniWrite, %DisableWeb%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Web
+    IniWrite, %DisableWeb%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
     if DisableWeb = 1
     {
         GuiControl, 1:Disable, GPWEB
@@ -494,7 +494,7 @@ Save:
         GuiControl, 1:Enable, GPWEB
     }
     GuiControlGet, DisableLaunch, 4:
-    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Launch
+    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
     if DisableLaunch = 1
     {
         GuiControl, 1:Disable, BLaunch
@@ -504,7 +504,7 @@ Save:
         GuiControl, 1:Enable, BLaunch
     }
     GuiControlGet, DisableAdd, 4:
-    IniWrite, %DisableAdd%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Add
+    IniWrite, %DisableAdd%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
     if DisableAdd = 1
     {
         GuiControl, 1:Disable, AddDLLs
@@ -514,7 +514,7 @@ Save:
         GuiControl, 1:Enable, AddDLLs
     }
     GuiControlGet, DisableLaunch, 4:
-    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BuildManagement, Build
+    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
     if DisableLaunch = 1
     {
         GuiControl, 1:Disable, BBuild
@@ -527,7 +527,7 @@ Save:
 
 
     GuiControlGet, CheckDyn10, 4:
-    IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics10
+    IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
     if CheckDyn10 = 1
     {
         GuiControl, 1:Disable, D10
@@ -537,7 +537,7 @@ Save:
         GuiControl, 1:Enable, D10
     }
     GuiControlGet, CheckDyn13, 4:
-    IniWrite, %CheckDyn13%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics13
+    IniWrite, %CheckDyn13%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
     if CheckDyn13 = 1
     {
         GuiControl, 1:Disable, D13
@@ -547,7 +547,7 @@ Save:
         GuiControl, 1:Enable, D13
     }
     GuiControlGet, CheckDyn15, 4:
-    IniWrite, %CheckDyn15%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics15
+    IniWrite, %CheckDyn15%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
     if CheckDyn15 = 1
     {
         GuiControl, 1:Disable, D15
@@ -557,7 +557,7 @@ Save:
         GuiControl, 1:Enable, D15
     }
     GuiControlGet, CheckDyn16, 4:
-    IniWrite, %CheckDyn16%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics16
+    IniWrite, %CheckDyn16%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
     if CheckDyn16 = 1
     {
         GuiControl, 1:Disable, D16
@@ -567,7 +567,7 @@ Save:
         GuiControl, 1:Enable, D16
     }
     GuiControlGet, CheckDyn18, 4:
-    IniWrite, %CheckDyn18%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, GPButtons, Dynamics18
+    IniWrite, %CheckDyn18%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
     if CheckDyn18 = 1
     {
         GuiControl, 1:Disable, D18
@@ -580,7 +580,7 @@ Save:
 
     
     GuiControlGet, CheckSPC1, 4:
-    IniWrite, %CheckSPC1%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud1
+    IniWrite, %CheckSPC1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
     if CheckSPC1 = 1
     {
         GuiControl, 1:Disable, SR1
@@ -590,7 +590,7 @@ Save:
         GuiControl, 1:Enable, SR1
     }
     GuiControlGet, CheckSPC2, 4:
-    IniWrite, %CheckSPC2%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud2
+    IniWrite, %CheckSPC2%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
     if CheckSPC2 = 1
     {
         GuiControl, 1:Disable, SR2
@@ -600,7 +600,7 @@ Save:
         GuiControl, 1:Enable, SR2
     }
     GuiControlGet, CheckSPC3, 4:
-    IniWrite, %CheckSPC3%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud3
+    IniWrite, %CheckSPC3%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
     if CheckSPC3 = 1
     {
         GuiControl, 1:Disable, SR3
@@ -610,7 +610,7 @@ Save:
         GuiControl, 1:Enable, SR3
     }
     GuiControlGet, CheckSPC4, 4:
-    IniWrite, %CheckSPC4%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud4
+    IniWrite, %CheckSPC4%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
     if CheckSPC4 = 1
     {
         GuiControl, 1:Disable, SR4
@@ -620,7 +620,7 @@ Save:
         GuiControl, 1:Enable, SR4
     }
     GuiControlGet, CheckSPC5, 4:
-    IniWrite, %CheckSPC5%, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SPCButtons, Cloud5
+    IniWrite, %CheckSPC5%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
     if CheckSPC5 = 1
     {
         GuiControl, 1:Disable, SR5
@@ -639,7 +639,7 @@ Can2:
     Gui, 4:Destroy
     sleep 1000
     GuiControl, 1:, GPBackupsList, |
-    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
         Loop, %DBListDisplay%\*, 2
         {
             GuiControl, 1:, GPBackupsList, %A_LoopFileName%
@@ -799,7 +799,7 @@ AboutScreen:
     ;Gui, 6:Add, Text, x15 y165, Changelog:
     Gui, 6:Add, Text, x15 y225, Environment Manager Team:
     Gui, 6:Add, Text, x35 y245, stvrdrgz19 (Steve Rodriguez)
-    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvMgr\GitHubIcon.png
+    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\GitHubIcon.png
     Gui, 6:Add, Text, x0 y264 w403 0x10 ;Horizontal Line
     Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
     Gui, 6:Show, w400 h300, About
@@ -859,14 +859,14 @@ ButtonRestoreDB:
         MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
         IfMsgBox, No
             return
-        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
+        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
@@ -885,14 +885,14 @@ ButtonOverwriteDB:
         MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
         IfMsgBox, No
             return
-        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
+        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         return
     }
 
@@ -919,7 +919,7 @@ ButtonNewBackup:
         }
         Else
         {
-            ifExist C:\#EnvMgr\BACKUPS\%Database%
+            ifExist C:\#DBBackups\%Database%
             {
                 MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
                 GuiControl,, Database, 
@@ -936,17 +936,17 @@ ButtonNewBackup:
                 }
                 ifMsgBox, Yes
                 {
-                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Server
-                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, User
-                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, SQLCreds, Password
-                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
-                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Dynamics
-                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company1
-                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, Databases, Company2
-                    Run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
+                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
+                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
+                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
+                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
+                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+                    Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
                     sleep 2000
                     GuiControl, 1:, GPBackupsList, |
-                    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvMgr\Settings\Settings.ini, BackupFolder, path
+                    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
                         Loop, %DBListDisplay%\*, 2
                         {
                             GuiControl, 1:, GPBackupsList, %A_LoopFileName%
@@ -969,7 +969,7 @@ ButtonDeleteBackup:
         MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
         ifMsgBox, Yes
         {
-            FileRemoveDir, C:\#EnvMgr\BACKUPS\%GPBackupsList%, 1
+            FileRemoveDir, C:\#DBBackups\%GPBackupsList%, 1
             MsgBox,, DELETED, Database %GPBackupsList% was deleted.
             goto, ButtonRefresh
             return
@@ -1029,10 +1029,10 @@ OK:
         ifMsgBox, Yes
         {
                 Gui, 2:Destroy
-                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" "%BuildLoc%"
+                run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
-                run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.GetGrizzlyDLL.bat" %Instl%
+                run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.GetGrizzlyDLL.bat" %Instl%
                 WinWait, C:\WINDOWS\system32\cmd.exe
                 WinWaitClose
                 FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
@@ -1047,7 +1047,7 @@ OK:
     Else
     {
         Gui, 2:Destroy
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\SPInstall.bat" "%BuildLoc%"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         SplitPath, SelectedFile,, dir
@@ -1067,7 +1067,7 @@ OK:
             }
         FilesExt = 
         dir = 
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
@@ -1091,7 +1091,7 @@ OK:
             		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
             }
         FilesCust = 
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
         WinWait, C:\WINDOWS\system32\cmd.exe
         ;WinWait, CUSTOM DLL?
         WinWaitClose
@@ -1140,7 +1140,7 @@ ButtonSalesPadMobile:
 ;OK1:
 ;    GuiControlGet, vBuildLoc
 ;    Gui, 7:Destroy
-;    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Scripts\SPMobileInstall.bat" "%BuildLoc%"
+;    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\SPMobileInstall.bat" "%BuildLoc%"
 ;    WinWait, C:\WINDOWS\system32\cmd.exe
 ;    WinWaitClose
 ;    sleep 3000
@@ -1194,7 +1194,7 @@ ButtonWebAPI:
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
     if ErrorLevel
         return
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
     Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
     {
     	Run, %A_LoopFileLongPath%
@@ -1303,7 +1303,7 @@ ExtendedDLL:
     AddExt = 
     FromFolder = 
     file = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
@@ -1324,7 +1324,7 @@ CustomDLL:
     AddCust = 
     FromFolder = 
     file = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
     WinWait, C:\WINDOWS\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
@@ -1357,7 +1357,7 @@ CustomDLL:
 ;        }
 ;    FilesCust = 
 ;    FromFolder = 
-;    run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\FileUnzipAndMove.bat"
+;    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
 ;    WinWait, C:\WINDOWS\system32\cmd.exe
 ;    WinWaitClose
 ;    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
@@ -1388,7 +1388,7 @@ ButtonBackupsFolder:
     MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
         return
-    Run, C:\#EnvMgr\BACKUPS
+    Run, C:\#DBBackups
     Return
 
 D10:
@@ -1402,7 +1402,7 @@ D15:
     return
 
 D16:
-    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016$NOT UPDATED\Dynamics.exe - Shortcut.lnk"
+    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics.exe - Shortcut.lnk"
     ;run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
 
@@ -1418,7 +1418,7 @@ ButtonSteveRodriguez01:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR01.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat"
         return
     }
 
@@ -1431,7 +1431,7 @@ ButtonSteveRodriguez02:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR02.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR02.bat"
         return
     }
 
@@ -1444,7 +1444,7 @@ ButtonSteveRodriguez03:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR03.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR03.bat"
         return
     }
 
@@ -1457,7 +1457,7 @@ ButtonSteveRodriguez04:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR04.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR04.bat"
         return
     }
 
@@ -1470,7 +1470,7 @@ ButtonSteveRodriguez05:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvMgr\Script.DropSR05.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR05.bat"
         return
     }
 
