@@ -32,7 +32,7 @@ PAUSE
 ECHO.
 ECHO Deleting old installer. . .
 del /Q "%INSTALL%\"
-
+@RD /S /Q "C:\inetpub\wwwroot\SalesPadWebAPI\bin
 PAUSE
 
 

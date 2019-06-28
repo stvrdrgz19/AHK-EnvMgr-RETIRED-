@@ -22,7 +22,7 @@ Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar 
 
 Gui, Add, Button, x592 y387 w100 h30 gExit1, Exit
-Gui, Add, Text, x15 y395, IP Address: 
+Gui, Add, Text, x15 y395 gIPText, IP Address: 
 Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
 Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
@@ -1157,140 +1157,33 @@ ButtonCardControl:  ; Button to launch the CardControl selection/installer
 
 ButtonWebAPI:
     MsgBox, 4, API?, Are you sure you want to install a new Web API?
-    If MsgBox Yes
+    IfMsgBox Yes
     {
-        Run, "C:\#SCRIPTS\API - Shortcut.lnk"
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.API - Shortcut.lnk"
         Return
     }
     If MsgBox No
     {
         Return
     }
+    Return
 
 ButtonWebPortal:
     MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
-    If MsgBox Yes
+    IfMsgBox Yes
     {
-        Run, "C:\#SCRIPTS\WEB - Shortcut.lnk"
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.WEB - Shortcut.lnk"
         Return
     }
     If MsgBox No
     {
         Return
     }
+    Return
 
 ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs plugin
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\DLLGrabTool\DLL Grab.exe"
     return
-    /*
-    Process, Exist, SalesPad.exe
-        if ! errorLevel
-        {
-            Gui, 3:Destroy
-            Gui, 3:Add, Text, x10 y20, Select the SalesPad Install you want to add DLLs to:
-            Gui, 3:Add, Edit, x10 y37 w600 vDLLFrom, 
-            Gui, 3:Add, Button, x610 y36 w23 h23 ggetfile1 vgetfile1, ...
-            Gui, 3:Add, Text, x10 y73, Select the SalesPad Build you need DLLs from:
-            Gui, 3:Add, Edit, x10 y90 w600 vDLLPlace, 
-            Gui, 3:Add, Button, x610 y89 w23 h23 ggetfile2 vgetfile2, ...
-            Gui, 3:Add, Button, x533 y120 w100 h25 gCloseDLL, Close
-            Gui, 3:Add, Button, x200 y120 w100 h25 gExtendedDLL, Extended DLLs
-            Gui, 3:Add, Button, x311 y120 w100 h25 gCustomDLL, Custom DLLs
-            Gui, 3:Show, w642 h154, Add DLLs
-            return
-        }
-        else
-        {
-            MsgBox, 4, CLOSE, SalesPad must be closed for DLLs to be added properly.`n`nDo you wan't Environment Manager to close SalesPad?
-            ifMsgBox, Yes
-            {
-                Process,Close,SalesPad.exe
-                sleep 2000
-                goto, ButtonAddDLLs
-                return
-            }
-            IfMsgBox, No
-            {
-                MsgBox, You must close SalesPad to add DLLs.
-                return
-            }
-            return
-        }
-
-getfile1:
-    FileSelectFolder, ToFolder, C:\Program Files (x86)\SalesPad.Desktop, 3, Select an Install for the DLLs
-    if ToFolder = 
-    {
-        MsgBox, Nothing was selected.
-        Return
-    }
-    Else
-    {
-        GuiControl,, DLLFrom, %ToFolder%
-        return
-    }
-    return
-
-getfile2:
-    FileSelectFolder, FromFolder, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, 3, Select a build to pull DLLs from:
-    if FromFolder = 
-    {
-        MsgBox, Nothing was selected.
-        Return
-    }
-    Else
-    {
-        GuiControl,, DLLPlace, %FromFolder%
-        return
-    }
-    return
-
-CloseDLL:
-    Gui, 3:Destroy
-    return
-
-ExtendedDLL:
-    FileSelectFile, AddExt, M3, %FromFolder%\ExtModules\WithOutCardControl\, Select any Extended DLLs needed, *.zip
-        Array := StrSplit(AddExt, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    AddExt = 
-    FromFolder = 
-    file = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-    return
-
-CustomDLL:
-    FileSelectFile, AddCust, M3, %FromFolder%\CustomModules\WithOutCardControl\, Select any Custom DLLs needed, *.zip
-        Array := StrSplit(AddCust, "`n")
-
-        for index, file in Array
-        {
-        	if index = 1
-        		FromFolder := file
-        	else
-        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-        }
-    AddCust = 
-    FromFolder = 
-    file = 
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
-    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-    return
-    */
 
 ButtonBuildFolder:  ; Launches the SP install folder
     MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
@@ -1336,6 +1229,11 @@ D16:    ; Launches GP 2016
     Return
 
 D18:
+    return
+
+IPText:
+    GuiControl,, IP, %A_IPAddress1%
+    ;MsgBox, 0, test, this is a test %A_IPAddress1%
     return
 
 ;--------------------------------------------------------------------------------------------------------------------------
