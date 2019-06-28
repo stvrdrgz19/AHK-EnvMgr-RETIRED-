@@ -1,5 +1,5 @@
 @ECHO OFF
-
+REM PAUSE
 SET home=C:\Program Files (x86)\SalesPad.Desktop\
 
 robocopy "%1\CustomModules\WithOutCardControl" "C:\#EnvMgr\TEMPFILES\DLLs" SalesPad.Module.Grizzly.*.zip SalesPad.Module.IntegrationToGrizzly.*.zip SalesPad.Module.IntegrationToPayFabric.*.zip SalesPad.Module.OSCO.*.zip

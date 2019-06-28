@@ -1,5 +1,5 @@
 @ECHO OFF
-
+REM PAUSE
 REM SET Home=C:\Program Files (x86)\SalesPad.Desktop\
 SET Home=%1
 SET Build=C:\#EnvMgr\TEMPFILES\INSTALLERS

@@ -8,6 +8,9 @@
 #SingleInstance, force
 #NoEnv
 SendMode Input
+;--------------------------------------------------------------------------------------------------------------------------
+; Creating the first GUI
+;--------------------------------------------------------------------------------------------------------------------------
 
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
@@ -61,9 +64,12 @@ Gui, Add, Button, x291 y343 w125 h25 vSR3, SteveRodriguez03
 Gui, Add, Button, x424 y343 w125 h25 vSR4, SteveRodriguez04
 Gui, Add, Button, x557 y343 w126 h25 vSR5, SteveRodriguez05
 
-;GuiControl, Disable, AddDLLs
-;Gui, Color, FF0000, 3366FF
+;GuiControl, Disable, AddDLLs ;Disabling controls
+;Gui, Color, FF0000, 3366FF ; Attempting to change the GUI color
 
+;--------------------------------------------------------------------------------------------------------------------------
+; This loads the settings from the Settings.ini file
+;--------------------------------------------------------------------------------------------------------------------------
 IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
 GuiControl, 4:, CheckRestore, %RestoreLoad%
 if RestoreLoad = 1
@@ -223,9 +229,11 @@ if SR5Load = 1
 
 Gui, Color, f9f9f9
 ;Gui, Show, x2100 y-800 w706 h421, Environment Mananger
-Gui, Show, w706 h421, Environment Mananger
-;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Gui, Show, w706 h421, Environment Mananger  ; Finally showing the GUI
 
+;--------------------------------------------------------------------------------------------------------------------------
+; Loading the list of database folders into the listbox - location pulled from Settings
+;--------------------------------------------------------------------------------------------------------------------------
 ListBoxDisplay:
 IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     Loop, %DBListDisplay%\*, 2
@@ -234,12 +242,15 @@ IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-
     }
     return
 
+;--------------------------------------------------------------------------------------------------------------------------
+; Clicking the Settings menu option ot CTRL s > Creating the Settings GUI
+;--------------------------------------------------------------------------------------------------------------------------
 SettingsScreen:
     Gui, 4:Destroy
     ;Gui, 4:Add, Text, x0 y10 w683 0x10 ;Horizontal Line
     Gui, 4:Add, Button, x459 y220 w100 h25 gSave, Save
     Gui, 4:Add, Button, x569 y220 w100 h25 gCan2, Exit
-    Gui, 4:Add, Tab3, x10 y10 w660 h206, Connection|Desktop DBs|Build Management|Dynamics GP|SPC DBs
+    Gui, 4:Add, Tab3, x10 y10 w660 h206, Connection|Desktop DBs|Build Management|Dynamics GP|SPC DBs|Other
     Gui, 4:Tab, 1
     Gui, 4:Add, Text, x30 y55, Select a Database Backup Folder:
     Gui, 4:Add, Edit, cgray x30 y75 w600 Readonly vBackupPath,
@@ -290,7 +301,13 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y115 vCheckSPC3, Disable SPC Sql Server 3
     Gui, 4:Add, Checkbox, x30 y145 vCheckSPC4, Disable SPC Sql Server 4
     Gui, 4:Add, Checkbox, x30 y175 vCheckSPC5, Disable SPC Sql Server 5
+    Gui, 4:Tab, 6
+    Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt user when closing Environment Manager 
     Gui, 4:Show, w680 h250, Settings
+    
+;--------------------------------------------------------------------------------------------------------------------------
+; Loading the Settings values from the Settings.ini file
+;--------------------------------------------------------------------------------------------------------------------------
     IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControl, 4:, BackupPath, %BackPathLoad%
     IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
@@ -357,13 +374,16 @@ SettingsScreen:
     GuiControl, 4:, CheckSPC4, %SR4Load%
     IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
     GuiControl, 4:, CheckSPC5, %SR5Load%
+
+    IniRead, Other1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
+    GuiControl, 4:, PromptCloseBox, %Other1Load%
     return
 
-4GuiClose:
+4GuiClose: ; Close the GUI screen
     Gui, 4:Destroy
     return
 
-Save:
+Save: ; Saves the Settings fields to the Settings.ini file
     GuiControlGet, BackupPath, 4:
     IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, ServName, 4:
@@ -624,18 +644,17 @@ Save:
     if CheckSPC5 = 1
     {
         GuiControl, 1:Disable, SR5
-        return
     }
     Else
     {
         GuiControl, 1:Enable, SR5
-        return
     }
+
+    GuiControlGet, PromptCloseBox, 4:
+    IniWrite, %PromptCloseBox%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
     Return
 
-
-
-Can2:
+Can2:   ; Cancel the GUI screen
     Gui, 4:Destroy
     sleep 1000
     GuiControl, 1:, GPBackupsList, |
@@ -645,10 +664,11 @@ Can2:
             GuiControl, 1:, GPBackupsList, %A_LoopFileName%
         }
         return
-    ;sleep 1000
-    ;goto, ButtonRefresh
     return
 
+;--------------------------------------------------------------------------------------------------------------------------
+; The actual Settings Screen Controls
+;--------------------------------------------------------------------------------------------------------------------------
 BackPath:
     FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
     if BackFolder = 
@@ -772,16 +792,19 @@ MB:
     Gui, 13:Show, w238 h90, Multibin
     return
 
-Cancel13:
+Cancel13: ; Cancel action
     Gui, 13:Destroy
     Return
 
-OK13:
+OK13: ; OK action
     GuiControlGet, MultiBox
     GuiControl, 4:, MBDB, %MultiBox%
     Gui, 13:Destroy
     return
 
+;--------------------------------------------------------------------------------------------------------------------------
+; GUI for the about screen
+;--------------------------------------------------------------------------------------------------------------------------
 AboutScreen:
     Gui, 6:Add, GroupBox, x15 y45 w370 h53, 
     Gui, 6:Font, s15
@@ -805,11 +828,7 @@ AboutScreen:
     Gui, 6:Show, w400 h300, About
     return
 
-;IP:
-;    MsgBox, Computer Name: %A_ComputerName%`nOS Version: %A_OSVersion%`nIP Address: %A_IPAddress2%
-;    Return
-
-Close1:
+Close1: ; Close the about screen
     Gui, 6:Destroy
     return
 
@@ -831,7 +850,7 @@ MenuHandler:
 
 
 
-UpdateB:
+UpdateB: ; I believe this is the Grizzly DLL checkbox
     Gui, Submit, NoHide
     if CheckB = 1
     {
@@ -844,10 +863,11 @@ UpdateB:
         return
     }
 
-GPBackupsList:
+GPBackupsList:  ; Double clicking an option from the list box will launch it
     if (A_GuiEvent <> "DoubleClick")
         return
-ButtonRestoreDB:
+
+ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -867,13 +887,13 @@ ButtonRestoreDB:
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
         Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
-        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
         return
     }
 
-ButtonOverwriteDB:
+ButtonOverwriteDB:  ; Button to override the selected DB from the list
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -896,7 +916,7 @@ ButtonOverwriteDB:
         return
     }
 
-ButtonNewBackup:
+ButtonNewBackup:    ; Button to create a new DB and add it to the list
     Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
@@ -957,7 +977,7 @@ ButtonNewBackup:
             }
         }
 
-ButtonDeleteBackup:
+ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -981,7 +1001,7 @@ ButtonDeleteBackup:
         }
     }
 
-ButtonSalesPadDesktop:
+ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
@@ -1028,27 +1048,27 @@ OK:
         }
         ifMsgBox, Yes
         {
-                Gui, 2:Destroy
-                run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
-                WinWait, C:\WINDOWS\system32\cmd.exe
-                WinWaitClose
-                run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.GetGrizzlyDLL.bat" %Instl%
-                WinWait, C:\WINDOWS\system32\cmd.exe
-                WinWaitClose
-                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
-                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-                sleep 3000
-                run, %BuildLoc%\SalesPad.exe
-                GuiControl, , CheckB, 0
-                VarCheck = 0
-                return
+            Gui, 2:Destroy
+            run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.GetGrizzlyDLL.bat" %Instl%
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+            sleep 3000
+            run, %BuildLoc%\SalesPad.exe
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
         }
     }
     Else
     {
         Gui, 2:Destroy
         run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
-        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         SplitPath, SelectedFile,, dir
         MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
@@ -1068,7 +1088,7 @@ OK:
         FilesExt = 
         dir = 
         run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
@@ -1092,76 +1112,40 @@ OK:
             }
         FilesCust = 
         run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-        WinWait, C:\WINDOWS\system32\cmd.exe
+        WinWait, C:\windows\system32\cmd.exe
         ;WinWait, CUSTOM DLL?
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
         FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
 
     NoDLL:
-        ;WinWait, CUSTOM DLL?
-        ;WinWaitClose, CUSTOM DLL?
         Sleep, 1000
         run, %BuildLoc%\SalesPad.exe
         return
     }
 
-ButtonSalesPadMobile:
+ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
     run, %SelectedFile%
-;    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-;        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-;    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-;    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-;    SplitPath, SelectedFile,, Instl
-;    Gui, 7:Destroy
-;    Gui, 7:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-;    Gui, 7:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
-;    Gui, 7:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.GP.Mobile.Server\
-;    Gui, 7:Add, Button, x420 y120 w100 h25 gCan1, Cancel
-;    Gui, 7:Add, Button, x531 y120 w100 h25 gOK1, OK
-;    Gui, 7:Show, w660 h160, Install SalesPad Mobile Server
-;    return
-;
-;Can1:
-;    MsgBox, 4, CANCEL, Are you sure you want to cancel?
-;    IfMsgBox, No
-;    {
-;        return
-;    }
-;    IfMsgBox, Yes
-;    {
-;        Gui, 7:Destroy
-;        return
-;    }
-;
-;OK1:
-;    GuiControlGet, vBuildLoc
-;    Gui, 7:Destroy
-;    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\SPMobileInstall.bat" "%BuildLoc%"
-;    WinWait, C:\WINDOWS\system32\cmd.exe
-;    WinWaitClose
-;    sleep 3000
-;    run, %BuildLoc%\SalesPad.GP.Mobile.Server.exe
     return
 
-ButtonDataCollection:
+ButtonDataCollection:   ; Button to launch the DC selection/installer
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
     run, %SelectedFile%
     return
 
-ButtonShipCenter:
+ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
     run, %SelectedFile%
     return
 
-ButtonCardControl:
+ButtonCardControl:  ; Button to launch the CardControl selection/installer
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
     if ErrorLevel
         return
@@ -1179,28 +1163,6 @@ ButtonWebAPI:
     {
         Return
     }
-    /*
-    If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
-        Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
-        {
-        	Run, %A_LoopFileLongPath%
-            WinWait, SalesPad WebAPI Setup
-            WinWaitClose
-            Goto, Continue
-        }
-    Else
-        Goto, Continue
-    Continue:
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select an API Build, *.msi
-    if ErrorLevel
-        return
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.APIDLLCopy.bat - Shortcut.lnk" %SelectedFile%
-    Loop, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
-    {
-    	Run, %A_LoopFileLongPath%
-        Return
-    }
-*/
 
 ButtonWebPortal:
     MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
@@ -1213,16 +1175,8 @@ ButtonWebPortal:
     {
         Return
     }
-/*
-    FileSelectFile, SelectedFile, 1, , Select a Web Build, *.zip
-    if ErrorLevel
-        return
-    SplitPath, SelectedFile,, WEB
-    run, "" %WEB%
-    return
-*/
 
-ButtonAddDLLs:
+ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs plugin
     Process, Exist, SalesPad.exe
         if ! errorLevel
         {
@@ -1304,7 +1258,7 @@ ExtendedDLL:
     FromFolder = 
     file = 
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
@@ -1325,66 +1279,32 @@ CustomDLL:
     FromFolder = 
     file = 
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-    WinWait, C:\WINDOWS\system32\cmd.exe
+    WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
     return
 
-;OKx:
-;    Gui, 3:Destroy
-;    FileSelectFile, FilesExt, M3, %FromFolder%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-;        Array := StrSplit(FilesExt, "`n")
-;
-;        for index, file in Array
-;        {
-;        	if index = 1
-;        		FromFolder := file
-;        	else
-;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-;        }
-;    FilesExt = 
-;    FromFolder = 
-;    FileSelectFile, FilesCust, M3, %FromFolder%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-;        Array := StrSplit(FilesCust, "`n")
-;
-;        for index, file in Array
-;        {
-;        	if index = 1
-;        		FromFolder := file
-;        	else
-;        		FileCopy, % FromFolder "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-;        }
-;    FilesCust = 
-;    FromFolder = 
-;    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
-;    WinWait, C:\WINDOWS\system32\cmd.exe
-;    WinWaitClose
-;    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
-;    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-;    return
-
-ButtonBuildFolder:
+ButtonBuildFolder:  ; Launches the SP install folder
     MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
     IfMsgBox, No
         return
     Run, C:\Program Files (x86)\SalesPad.Desktop
     return
 
-ButtonLaunchBuild:
+ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
     if ErrorLevel
         return
     run, %SelectedFile%
     return
 
-ButtonRefresh:
+ButtonRefresh:  ; Refreshes the Listbox
     GuiControl,, GPBackupsList, |
-;    GuiControl,, ScriptList, |
     goto, ListBoxDisplay
     Return
 
-ButtonBackupsFolder:
+ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
     MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
         return
@@ -1401,14 +1321,17 @@ D13:
 D15:
     return
 
-D16:
-    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics.exe - Shortcut.lnk"
+D16:    ; Launches GP 2016
+    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics - Shortcut.lnk"
     ;run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
     Return
 
 D18:
     return
 
+;--------------------------------------------------------------------------------------------------------------------------
+; Delete the DB files for local tenants
+;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
     MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
     ifMsgBox, No
@@ -1476,13 +1399,20 @@ ButtonSteveRodriguez05:
 
 GuiClose:
 Exit1:
-    MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
-    IfMsgBox, No
+    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
+    if PromptToClose = 1
     {
-        Return
+        MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
+        IfMsgBox, No
+        {
+            Return
+        }
+        IfMsgBox, Yes
+        {
+            ExitApp
+        }
     }
-    IfMsgBox, Yes
+    if PromptToClose = 0
     {
         ExitApp
     }
-
