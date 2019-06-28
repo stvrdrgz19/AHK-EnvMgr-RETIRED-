@@ -931,6 +931,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         Return
     
     OK5:
+        IniRead, DBListNew, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
         GuiControlGet, Database
         if Database = 
         {
@@ -939,7 +940,8 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
         Else
         {
-            ifExist C:\#DBBackups\%Database%
+            ;ifExist C:\#DBBackups\%Database%
+            ifExist %DBListNew%\%Database%
             {
                 MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
                 GuiControl,, Database, 
@@ -978,6 +980,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
 
 ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
+    IniRead, DBListDelete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -989,7 +992,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
         MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
         ifMsgBox, Yes
         {
-            FileRemoveDir, C:\#DBBackups\%GPBackupsList%, 1
+            FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
             MsgBox,, DELETED, Database %GPBackupsList% was deleted.
             goto, ButtonRefresh
             return
@@ -1177,6 +1180,9 @@ ButtonWebPortal:
     }
 
 ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs plugin
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\DLLGrabTool\DLL Grab.exe"
+    return
+    /*
     Process, Exist, SalesPad.exe
         if ! errorLevel
         {
@@ -1284,6 +1290,7 @@ CustomDLL:
     FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %ToFolder%
     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
     return
+    */
 
 ButtonBuildFolder:  ; Launches the SP install folder
     MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
@@ -1291,6 +1298,7 @@ ButtonBuildFolder:  ; Launches the SP install folder
         return
     Run, C:\Program Files (x86)\SalesPad.Desktop
     return
+
 
 ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
@@ -1305,10 +1313,11 @@ ButtonRefresh:  ; Refreshes the Listbox
     Return
 
 ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
+    IniRead, DBListFolder, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
         return
-    Run, C:\#DBBackups
+    Run, %DBListFolder%
     Return
 
 D10:
