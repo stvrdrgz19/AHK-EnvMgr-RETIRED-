@@ -1128,11 +1128,48 @@ OK:
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
+    FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
-    run, %SelectedFile%
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFileMobile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    SplitPath, SelectedFileMobile,, InstlMobile
+    Variable1 := InstlMobile
+    Gui, 15:Destroy
+    Gui, 15:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 15:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlMobile%
+    Gui, 15:Add, Edit, x30 y90 w600 vBuildLocMobile, C:\Program Files (x86)\SalesPad.GP.Mobile.Server\
+    Gui, 15:Add, Button, x420 y120 w100 h25 gCanMobile, Cancel
+    Gui, 15:Add, Button, x531 y120 w100 h25 gOKMobile, OK
+    Gui, 15:Show, w660 h160, Install SalesPad GP Mobile Server
     return
+
+CanMobile:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 15:Destroy
+        return
+    }
+
+OKMobile:
+    GuiControlGet, BuildLocMobile
+    Clipboard := Variable1
+    Gui, 15:Destroy
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocMobile%"
+    WinWait, C:\windows\system32\cmd.exe
+    WinWaitClose
+    ;MsgBox, 0, Test, %BuildLocMobile%
+    Sleep 3000
+    ;Run, %BuildLocMobile%\SalesPad.GP.Mobile.Server.exe
+    Run, %BuildLocMobile%
+    Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
     FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
@@ -1176,18 +1213,88 @@ DCOK:
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
+    FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
-    run, %SelectedFile%
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFileSC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    SplitPath, SelectedFileSC,, InstlSC
+    Variable1 := InstlSC
+    Gui, 16:Destroy
+    Gui, 16:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 16:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlSC%
+    Gui, 16:Add, Edit, x30 y90 w600 vBuildLocSC, C:\Program Files (x86)\ShipCenter\
+    Gui, 16:Add, Button, x420 y120 w100 h25 gCanSC, Cancel
+    Gui, 16:Add, Button, x531 y120 w100 h25 gOKSC, OK
+    Gui, 16:Show, w660 h160, Install Ship Center
     return
 
+CanSC:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 16:Destroy
+        return
+    }
+
+OKSC:
+    GuiControlGet, BuildLocSC
+    Clipboard := Variable1
+    Gui, 16:Destroy
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocSC%"
+    WinWait, C:\windows\system32\cmd.exe
+    WinWaitClose
+    Sleep 3000
+    Run, %BuildLocSC%
+    Return
+
 ButtonCardControl:  ; Button to launch the CardControl selection/installer
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
+    FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
     if ErrorLevel
         return
-    run, %SelectedFile%
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFileCC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    SplitPath, SelectedFileCC,, InstlCC
+    Variable1 := InstlCC
+    Gui, 17:Destroy
+    Gui, 17:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 17:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlCC%
+    Gui, 17:Add, Edit, x30 y90 w600 vBuildLocCC, C:\Program Files (x86)\CardControl
+    Gui, 17:Add, Button, x420 y120 w100 h25 gCanCC, Cancel
+    Gui, 17:Add, Button, x531 y120 w100 h25 gOKCC, OK
+    Gui, 17:Show, w660 h160, Install Card Control
     return
+
+CanCC:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 17:Destroy
+        return
+    }
+
+OKCC:
+    GuiControlGet, BuildLocCC
+    Clipboard := Variable1
+    Gui, 17:Destroy
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocCC%"
+    WinWait, C:\windows\system32\cmd.exe
+    WinWaitClose
+    Sleep 3000
+    Run, %BuildLocCC%
+    Return
 
 ButtonWebAPI:
     MsgBox, 4, API?, Are you sure you want to install a new Web API?
