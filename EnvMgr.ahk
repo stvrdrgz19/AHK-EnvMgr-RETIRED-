@@ -29,7 +29,7 @@ Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
 Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
 Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
 
-Gui, Add, Text, x24 y31, Select a Database:
+Gui, Add, Text, x24 y31 gUtilities, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25 vBRest, Restore DB
@@ -1135,11 +1135,45 @@ ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/install
     return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
+    FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
-    run, %SelectedFile%
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFileDC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    SplitPath, SelectedFileDC,, InstlDC
+    Variable1 := InstlDC
+    Gui, 14:Destroy
+    Gui, 14:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 14:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlDC%
+    Gui, 14:Add, Edit, x30 y90 w600 vDCBuildLoc, C:\Program Files (x86)\DataCollection\
+    Gui, 14:Add, Button, x420 y120 w100 h25 gDCCan, Cancel
+    Gui, 14:Add, Button, x531 y120 w100 h25 gDCOK, OK
+    Gui, 14:Show, w660 h160, Install DataCollection
     return
+
+DCCan:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 14:Destroy
+        return
+    }
+
+DCOK:
+    GuiControlGet, DCBuildLoc
+    Clipboard := Variable1
+    Gui, 14:Destroy
+    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%DCBuildLoc%"
+    WinWait, C:\windows\system32\cmd.exe
+    WinWaitClose
+    Run, %DCBuildLoc%
+    Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
@@ -1303,6 +1337,10 @@ ButtonSteveRodriguez05:
         run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR05.bat"
         return
     }
+
+Utilities:
+    run, "C:\Users\steve.rodriguez\Desktop\Scripts\SteveUtilities.ahk"
+    return
 
 GuiClose:
 Exit1:
