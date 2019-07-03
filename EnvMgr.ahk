@@ -1166,9 +1166,10 @@ OKMobile:
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     ;MsgBox, 0, Test, %BuildLocMobile%
-    Sleep 3000
-    ;Run, %BuildLocMobile%\SalesPad.GP.Mobile.Server.exe
-    Run, %BuildLocMobile%
+    Sleep 4000
+    Run *RunAs "%BuildLocMobile%\SalesPad.GP.Mobile.Server.exe" ;Looks like Run *RunAs only prompts if the program it's triggered from isn't running as admin
+    ;MsgBox, 0, Test, "%BuildLocMobile%\SalesPad.GP.Mobile.Server.exe"
+    ;Run, %BuildLocMobile%
     Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
@@ -1209,7 +1210,9 @@ DCOK:
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%DCBuildLoc%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
-    Run, %DCBuildLoc%
+    Sleep 4000
+    Run *RunAs "%DCBuildLoc%\DataCollection Extended Warehouse.exe"
+    ;Run, %DCBuildLoc%
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
@@ -1250,8 +1253,9 @@ OKSC:
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocSC%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
-    Sleep 3000
-    Run, %BuildLocSC%
+    Sleep 4000
+    Run *RunAs "%BuildLocSC%\SalesPad.ShipCenter.exe"
+    ;Run, %BuildLocSC%
     Return
 
 ButtonCardControl:  ; Button to launch the CardControl selection/installer
@@ -1292,8 +1296,8 @@ OKCC:
     run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocCC%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
-    Sleep 3000
-    Run, %BuildLocCC%
+    Sleep 4000
+    Run, "%BuildLocCC%\CardControl.exe"
     Return
 
 ButtonWebAPI:
