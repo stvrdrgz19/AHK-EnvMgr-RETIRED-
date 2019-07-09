@@ -21,7 +21,7 @@ Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar 
 
-Gui, Add, Button, x592 y387 w100 h30 gExit1, Exit
+Gui, Add, Button, x592 y387 w100 h30 gExit1 vExit1, Exit
 Gui, Add, Text, x15 y395 gIPText, IP Address: 
 Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
 Gui, Add, GroupBox, x15 y5 w345 h254, Database Management
@@ -30,12 +30,12 @@ Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
 Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
 
 Gui, Add, Text, x24 y31 gUtilities, Select a Database:
-Gui, Add, Button, x145 y21 w100 h25, Refresh 
+Gui, Add, Button, x145 y21 w100 h25 vRefresh, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25 vBRest, Restore DB
 Gui, Add, Button, x253 y81 w100 h25 vBOver, Overwrite DB
 Gui, Add, Button, x253 y141 w100 h25 vDelete, Delete Backup
-Gui, Add, Button, x253 y227 w100 h25, Backups Folder
+Gui, Add, Button, x253 y227 w100 h25 vBakFolder, Backups Folder
 Gui, Add, Button, x253 y111 w100 h25 vBak, New Backup
 
 Gui, Add, Text, x376 y31, Select a SalesPad Product to Install:
@@ -43,7 +43,7 @@ Gui, Add, Text, x376 y174 w308 0x10 ;Horizontal Line
 Gui, Add, Text, x376 y181, Existing Builds:
 Gui, Add, Button, x376 y51 w150 h25 vBDesktop, SalesPad Desktop
 Gui, Add, Button, x534 y51 w150 h25 vBMobile, SalesPad Mobile
-Gui, Add, Button, x376 y81 w150 h25 vBDataCollection, DataCollection
+Gui, Add, Button, x376 y81 w150 h25 vBDataCollection, Data Collection
 Gui, Add, Button, x376 y111 w150 h25 vBShipCenter, Ship Center
 Gui, Add, Button, x534 y141 w150 h25 vBCardControl, Card Control
 Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
