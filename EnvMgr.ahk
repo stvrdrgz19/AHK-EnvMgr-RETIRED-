@@ -1369,8 +1369,10 @@ D15:
     return
 
 D16:    ; Launches GP 2016
-    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics - Shortcut.lnk"
-    ;run, "C:\#SCRIPTS\Tests\DynamicsTest.bat"
+    if GetKeyState("Shift","P")
+        Run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016"
+    else
+        run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics - Shortcut.lnk"
     Return
 
 D18:
