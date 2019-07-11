@@ -290,17 +290,29 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x300 y145 vDisableAdd, Disable Add DLLs Button
     Gui, 4:Add, Checkbox, x300 y175 vDisableBuild, Disable Build Folder Button
     Gui, 4:Tab, 4
-    Gui, 4:Add, Checkbox, x30 y55 vCheckDyn10, Disable Microsoft Dynamics GP 2010
-    Gui, 4:Add, Checkbox, x30 y85 vCheckDyn13, Disable Microsoft Dynamics GP 2013
-    Gui, 4:Add, Checkbox, x30 y115 vCheckDyn15, Disable Microsoft Dynamics GP 2015
-    Gui, 4:Add, Checkbox, x30 y145 vCheckDyn16, Disable Microsoft Dynamics GP 2016
-    Gui, 4:Add, Checkbox, x30 y175 vCheckDyn18, Disable Microsoft Dynamics GP 2018
+    Gui, 4:Add, Text, x38 y45, Disabled
+    Gui, 4:Add, Checkbox, x30 y70 vCheckDyn10, GP 2010
+    Gui, 4:Add, Checkbox, x30 y100 vCheckDyn13, GP 2013
+    Gui, 4:Add, Checkbox, x30 y130 vCheckDyn15, GP 2015
+    Gui, 4:Add, Checkbox, x30 y160 vCheckDyn16, GP 2016
+    Gui, 4:Add, Checkbox, x30 y190 vCheckDyn18, GP 2018
+    Gui, 4:Add, Text, x300 y45, GP Launcher Files
+    Gui, 4:Add, Edit, x110 y65 w520 cGray ReadOnly vGP2010Loc, 
+    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectGP2010, ...
+    Gui, 4:Add, Edit, x110 y95 w520 cGray ReadOnly vGP2013Loc,
+    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectGP2013, ...
+    Gui, 4:Add, Edit, x110 y125 w520 cGray ReadOnly vGP2015Loc,
+    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectGP2015, ...
+    Gui, 4:Add, Edit, x110 y155 w520 cGray ReadOnly vGP2016Loc,
+    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP2016, ...
+    Gui, 4:Add, Edit, x110 y185 w520 cGray ReadOnly vGP2018Loc,
+    Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP2018, ...
     Gui, 4:Tab, 5
-    Gui, 4:Add, Checkbox, x30 y55 vCheckSPC1, Disable SPC Sql Server 1 
-    Gui, 4:Add, Checkbox, x30 y85 vCheckSPC2, Disable SPC Sql Server 2
-    Gui, 4:Add, Checkbox, x30 y115 vCheckSPC3, Disable SPC Sql Server 3
-    Gui, 4:Add, Checkbox, x30 y145 vCheckSPC4, Disable SPC Sql Server 4
-    Gui, 4:Add, Checkbox, x30 y175 vCheckSPC5, Disable SPC Sql Server 5
+    Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 1
+    Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable SPC Sql Server 2
+    Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable SPC Sql Server 3
+    Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable SPC Sql Server 4
+    Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable SPC Sql Server 5
     Gui, 4:Tab, 6
     Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt user when closing Environment Manager 
     Gui, 4:Show, w680 h250, Settings
@@ -801,6 +813,21 @@ OK13: ; OK action
     GuiControl, 4:, MBDB, %MultiBox%
     Gui, 13:Destroy
     return
+
+SelectGP2010:
+    Return
+
+SelectGP2013:
+    Return
+
+SelectGP2015:
+    Return
+
+SelectGP2016:
+    Return
+
+SelectGP2018:
+    Return
 
 ;--------------------------------------------------------------------------------------------------------------------------
 ; GUI for the about screen
