@@ -859,9 +859,10 @@ OK13: ; OK action
     return
 
 SelectCloudLabel01:
+    GuiControlGet, CloudLabel01
     Gui, 18:Destroy
     Gui, 18:Add, Text, x10 y15, Enter the name of your 01 Tenant:
-    Gui, 18:Add, Edit, x10 y30 w218 vCloudPrompt01, %CloudButtonLabel01%
+    Gui, 18:Add, Edit, x10 y30 w218 vCloudPrompt01, %CloudLabel01%
     Gui, 18:Add, Button, x9 y60 w100 h25 gOKC01, OK 
     Gui, 18:Add, Button, x129 y60 w100 h25 gCancelC01, Cancel
     Gui, 18:Show, w238 h90, Tenant 01
@@ -878,9 +879,10 @@ CancelC01:
     Return
 
 SelectCloudLabel02:
+    GuiControlGet, CloudLabel02
     Gui, 19:Destroy
     Gui, 19:Add, Text, x10 y15, Enter the name of your 02 Tenant:
-    Gui, 19:Add, Edit, x10 y30 w218 vCloudPrompt02, %CloudButtonLabel02%
+    Gui, 19:Add, Edit, x10 y30 w218 vCloudPrompt02, %CloudLabel02%
     Gui, 19:Add, Button, x9 y60 w100 h25 gOKC02, OK 
     Gui, 19:Add, Button, x129 y60 w100 h25 gCancelC02, Cancel
     Gui, 19:Show, w238 h90, Tenant 02
@@ -897,9 +899,10 @@ CancelC02:
     Return
 
 SelectCloudLabel03:
+    GuiControlGet, CloudLabel03
     Gui, 20:Destroy
     Gui, 20:Add, Text, x10 y15, Enter the name of your 03 Tenant:
-    Gui, 20:Add, Edit, x10 y30 w218 vCloudPrompt03, %CloudButtonLabel03%
+    Gui, 20:Add, Edit, x10 y30 w218 vCloudPrompt03, %CloudLabel03%
     Gui, 20:Add, Button, x9 y60 w100 h25 gOKC03, OK 
     Gui, 20:Add, Button, x129 y60 w100 h25 gCancelC03, Cancel
     Gui, 20:Show, w238 h90, Tenant 03
@@ -916,9 +919,10 @@ CancelC03:
     Return
 
 SelectCloudLabel04:
+    GuiControlGet, CloudLabel04
     Gui, 21:Destroy
     Gui, 21:Add, Text, x10 y15, Enter the name of your 04 Tenant:
-    Gui, 21:Add, Edit, x10 y30 w218 vCloudPrompt04, %CloudButtonLabel04%
+    Gui, 21:Add, Edit, x10 y30 w218 vCloudPrompt04, %CloudLabel04%
     Gui, 21:Add, Button, x9 y60 w100 h25 gOKC04, OK 
     Gui, 21:Add, Button, x129 y60 w100 h25 gCancelC04, Cancel
     Gui, 21:Show, w238 h90, Tenant 04
@@ -935,9 +939,10 @@ CancelC04:
     Return
 
 SelectCloudLabel05:
+    GuiControlGet, CloudLabel05
     Gui, 22:Destroy
     Gui, 22:Add, Text, x10 y15, Enter the name of your 05 Tenant:
-    Gui, 22:Add, Edit, x10 y30 w218 vCloudPrompt05, %CloudButtonLabel05%
+    Gui, 22:Add, Edit, x10 y30 w218 vCloudPrompt05, %CloudLabel05%
     Gui, 22:Add, Button, x9 y60 w100 h25 gOKC05, OK 
     Gui, 22:Add, Button, x129 y60 w100 h25 gCancelC05, Cancel
     Gui, 22:Show, w238 h90, Tenant 05
