@@ -58,11 +58,16 @@ Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
 Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
 Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2018
 
-Gui, Add, Button, x25 y343 w125 h25 vSR1, SteveRodriguez01
-Gui, Add, Button, x158 y343 w125 h25 vSR2, SteveRodriguez02
-Gui, Add, Button, x291 y343 w125 h25 vSR3, SteveRodriguez03
-Gui, Add, Button, x424 y343 w125 h25 vSR4, SteveRodriguez04
-Gui, Add, Button, x557 y343 w126 h25 vSR5, SteveRodriguez05
+IniRead, SPC01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+IniRead, SPC02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+IniRead, SPC03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+IniRead, SPC04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+IniRead, SPC05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+Gui, Add, Button, x25 y343 w125 h25 vCloud01, %SPC01%
+Gui, Add, Button, x158 y343 w125 h25 vCloud02, %SPC02%
+Gui, Add, Button, x291 y343 w125 h25 vCloud03, %SPC03%
+Gui, Add, Button, x424 y343 w125 h25 vCloud04, %SPC04%
+Gui, Add, Button, x557 y343 w126 h25 vCloud05, %SPC05%
 
 ;GuiControl, Disable, AddDLLs ;Disabling controls
 ;Gui, Color, FF0000, 3366FF ; Attempting to change the GUI color
@@ -194,35 +199,35 @@ if Dyn18Load = 1
 
 
 
-IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
-GuiControl, 4:, CheckSPC1, %SR1Load%
-if SR1Load = 1
+IniRead, Cloud01Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
+GuiControl, 4:, CheckSPC1, %Cloud01Load%
+if Cloud01Load = 1
 {
-    GuiControl, 1:Disable, SR1
+    GuiControl, 1:Disable, Cloud01
 }
-IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
-GuiControl, 4:, CheckSPC2, %SR2Load%
-if SR2Load = 1
+IniRead, Cloud02Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
+GuiControl, 4:, CheckSPC2, %Cloud02Load%
+if Cloud02Load = 1
 {
-    GuiControl, 1:Disable, SR2
+    GuiControl, 1:Disable, Cloud02
 }
-IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
-GuiControl, 4:, CheckSPC3, %SR3Load%
-if SR3Load = 1
+IniRead, Cloud03Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
+GuiControl, 4:, CheckSPC3, %Cloud03Load%
+if Cloud03Load = 1
 {
-    GuiControl, 1:Disable, SR3
+    GuiControl, 1:Disable, Cloud03
 }
-IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
-GuiControl, 4:, CheckSPC4, %SR4Load%
-if SR4Load = 1
+IniRead, Cloud04Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
+GuiControl, 4:, CheckSPC4, %Cloud04Load%
+if Cloud04Load = 1
 {
-    GuiControl, 1:Disable, SR4
+    GuiControl, 1:Disable, Cloud04
 }
-IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
-GuiControl, 4:, CheckSPC5, %SR5Load%
-if SR5Load = 1
+IniRead, Cloud05Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
+GuiControl, 4:, CheckSPC5, %Cloud05Load%
+if Cloud05Load = 1
 {
-    GuiControl, 1:Disable, SR5
+    GuiControl, 1:Disable, Cloud05
 }
 
 
@@ -298,21 +303,33 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y190 vCheckDyn18, GP 2018
     Gui, 4:Add, Text, x300 y45, GP Launcher Files
     Gui, 4:Add, Edit, x110 y65 w520 cGray ReadOnly vGP2010Loc, 
-    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectGP2010, ...
     Gui, 4:Add, Edit, x110 y95 w520 cGray ReadOnly vGP2013Loc,
-    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectGP2013, ...
     Gui, 4:Add, Edit, x110 y125 w520 cGray ReadOnly vGP2015Loc,
-    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectGP2015, ...
     Gui, 4:Add, Edit, x110 y155 w520 cGray ReadOnly vGP2016Loc,
-    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP2016, ...
     Gui, 4:Add, Edit, x110 y185 w520 cGray ReadOnly vGP2018Loc,
+    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectGP2010, ...
+    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectGP2013, ...
+    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectGP2015, ...
+    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP2016, ...
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP2018, ...
     Gui, 4:Tab, 5
-    Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 1
-    Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable SPC Sql Server 2
-    Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable SPC Sql Server 3
-    Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable SPC Sql Server 4
-    Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable SPC Sql Server 5
+    Gui, 4:Add, Text, x70 y45, Disabled
+    Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 01
+    Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable SPC Sql Server 02
+    Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable SPC Sql Server 03
+    Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable SPC Sql Server 04
+    Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable SPC Sql Server 05
+    Gui, 4:Add, Text, x300 y45, Please enter the name of your tenants (Ex. SteveRodriguez01)
+    Gui, 4:Add, Edit, x250 y65 w380 cGray ReadOnly vCloudLabel01, 
+    Gui, 4:Add, Edit, x250 y95 w380 cGray ReadOnly vCloudLabel02, 
+    Gui, 4:Add, Edit, x250 y125 w380 cGray ReadOnly vCloudLabel03, 
+    Gui, 4:Add, Edit, x250 y155 w380 cGray ReadOnly vCloudLabel04, 
+    Gui, 4:Add, Edit, x250 y185 w380 cGray ReadOnly vCloudLabel05, 
+    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectCloudLabel01, ...
+    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectCloudLabel02, ...
+    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectCloudLabel03, ...
+    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectCloudLabel04, ...
+    Gui, 4:Add, Button, x630 y184 w23 h23 gSelectCloudLabel05, ...
     Gui, 4:Tab, 6
     Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt user when closing Environment Manager 
     Gui, 4:Show, w680 h250, Settings
@@ -376,19 +393,30 @@ SettingsScreen:
     IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
     GuiControl, 4:, CheckDyn18, %Dyn18Load%
 
-    IniRead, SR1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
-    GuiControl, 4:, CheckSPC1, %SR1Load%
-    IniRead, SR2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
-    GuiControl, 4:, CheckSPC2, %SR2Load%
-    IniRead, SR3Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
-    GuiControl, 4:, CheckSPC3, %SR3Load%
-    IniRead, SR4Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
-    GuiControl, 4:, CheckSPC4, %SR4Load%
-    IniRead, SR5Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
-    GuiControl, 4:, CheckSPC5, %SR5Load%
+    IniRead, Cloud01Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
+    GuiControl, 4:, CheckSPC1, %Cloud01Load%
+    IniRead, Cloud02Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
+    GuiControl, 4:, CheckSPC2, %Cloud02Load%
+    IniRead, Cloud03Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
+    GuiControl, 4:, CheckSPC3, %Cloud03Load%
+    IniRead, Cloud04Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
+    GuiControl, 4:, CheckSPC4, %Cloud04Load%
+    IniRead, Cloud05Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
+    GuiControl, 4:, CheckSPC5, %Cloud05Load%
 
     IniRead, Other1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
     GuiControl, 4:, PromptCloseBox, %Other1Load%
+
+    IniRead, CloudButtonLabel01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+    GuiControl, 4:, CloudLabel01, %CloudButtonLabel01%
+    IniRead, CloudButtonLabel02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+    GuiControl, 4:, CloudLabel02, %CloudButtonLabel02%
+    IniRead, CloudButtonLabel03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+    GuiControl, 4:, CloudLabel03, %CloudButtonLabel03%
+    IniRead, CloudButtonLabel04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+    GuiControl, 4:, CloudLabel04, %CloudButtonLabel04%
+    IniRead, CloudButtonLabel05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+    GuiControl, 4:, CloudLabel05, %CloudButtonLabel05%
     return
 
 4GuiClose: ; Close the GUI screen
@@ -615,55 +643,73 @@ Save: ; Saves the Settings fields to the Settings.ini file
     IniWrite, %CheckSPC1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
     if CheckSPC1 = 1
     {
-        GuiControl, 1:Disable, SR1
+        GuiControl, 1:Disable, Cloud01
     }
     Else
     {
-        GuiControl, 1:Enable, SR1
+        GuiControl, 1:Enable, Cloud01
     }
     GuiControlGet, CheckSPC2, 4:
     IniWrite, %CheckSPC2%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
     if CheckSPC2 = 1
     {
-        GuiControl, 1:Disable, SR2
+        GuiControl, 1:Disable, Cloud02
     }
     Else
     {
-        GuiControl, 1:Enable, SR2
+        GuiControl, 1:Enable, Cloud02
     }
     GuiControlGet, CheckSPC3, 4:
     IniWrite, %CheckSPC3%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
     if CheckSPC3 = 1
     {
-        GuiControl, 1:Disable, SR3
+        GuiControl, 1:Disable, Cloud03
     }
     Else
     {
-        GuiControl, 1:Enable, SR3
+        GuiControl, 1:Enable, Cloud03
     }
     GuiControlGet, CheckSPC4, 4:
     IniWrite, %CheckSPC4%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
     if CheckSPC4 = 1
     {
-        GuiControl, 1:Disable, SR4
+        GuiControl, 1:Disable, Cloud04
     }
     Else
     {
-        GuiControl, 1:Enable, SR4
+        GuiControl, 1:Enable, Cloud04
     }
     GuiControlGet, CheckSPC5, 4:
     IniWrite, %CheckSPC5%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
     if CheckSPC5 = 1
     {
-        GuiControl, 1:Disable, SR5
+        GuiControl, 1:Disable, Cloud05
     }
     Else
     {
-        GuiControl, 1:Enable, SR5
+        GuiControl, 1:Enable, Cloud05
     }
 
     GuiControlGet, PromptCloseBox, 4:
     IniWrite, %PromptCloseBox%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
+
+
+
+    GuiControlGet, CloudLabel01, 4:
+    IniWrite, %CloudLabel01%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+    GuiControl, 1:, Cloud01, %CloudLabel01%
+    GuiControlGet, CloudLabel02, 4:
+    IniWrite, %CloudLabel02%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+    GuiControl, 1:, Cloud02, %CloudLabel02%
+    GuiControlGet, CloudLabel03, 4:
+    IniWrite, %CloudLabel03%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+    GuiControl, 1:, Cloud03, %CloudLabel03%
+    GuiControlGet, CloudLabel04, 4:
+    IniWrite, %CloudLabel04%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+    GuiControl, 1:, Cloud04, %CloudLabel04%
+    GuiControlGet, CloudLabel05, 4:
+    IniWrite, %CloudLabel05%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+    GuiControl, 1:, Cloud05, %CloudLabel05%
     Return
 
 Can2:   ; Cancel the GUI screen
@@ -813,6 +859,106 @@ OK13: ; OK action
     GuiControl, 4:, MBDB, %MultiBox%
     Gui, 13:Destroy
     return
+
+SelectCloudLabel01:
+    GuiControlGet, CloudLabel01
+    Gui, 18:Destroy
+    Gui, 18:Add, Text, x10 y15, Enter the name of your 01 Tenant:
+    Gui, 18:Add, Edit, x10 y30 w218 vCloudPrompt01, %CloudLabel01%
+    Gui, 18:Add, Button, x9 y60 w100 h25 gOKC01, OK 
+    Gui, 18:Add, Button, x129 y60 w100 h25 gCancelC01, Cancel
+    Gui, 18:Show, w238 h90, Tenant 01
+    Return
+
+OKC01:
+    GuiControlGet, CloudPrompt01
+    GuiControl, 4:, CloudLabel01, %CloudPrompt01%
+    Gui, 18:Destroy
+    Return
+
+CancelC01:
+    Gui, 18:Destroy
+    Return
+
+SelectCloudLabel02:
+    GuiControlGet, CloudLabel02
+    Gui, 19:Destroy
+    Gui, 19:Add, Text, x10 y15, Enter the name of your 02 Tenant:
+    Gui, 19:Add, Edit, x10 y30 w218 vCloudPrompt02, %CloudLabel02%
+    Gui, 19:Add, Button, x9 y60 w100 h25 gOKC02, OK 
+    Gui, 19:Add, Button, x129 y60 w100 h25 gCancelC02, Cancel
+    Gui, 19:Show, w238 h90, Tenant 02
+    Return
+
+OKC02:
+    GuiControlGet, CloudPrompt02
+    GuiControl, 4:, CloudLabel02, %CloudPrompt02%
+    Gui, 19:Destroy
+    Return
+
+CancelC02:
+    Gui, 19:Destroy
+    Return
+
+SelectCloudLabel03:
+    GuiControlGet, CloudLabel03
+    Gui, 20:Destroy
+    Gui, 20:Add, Text, x10 y15, Enter the name of your 03 Tenant:
+    Gui, 20:Add, Edit, x10 y30 w218 vCloudPrompt03, %CloudLabel03%
+    Gui, 20:Add, Button, x9 y60 w100 h25 gOKC03, OK 
+    Gui, 20:Add, Button, x129 y60 w100 h25 gCancelC03, Cancel
+    Gui, 20:Show, w238 h90, Tenant 03
+    Return
+
+OKC03:
+    GuiControlGet, CloudPrompt03
+    GuiControl, 4:, CloudLabel03, %CloudPrompt03%
+    Gui, 20:Destroy
+    Return
+
+CancelC03:
+    Gui, 20:Destroy
+    Return
+
+SelectCloudLabel04:
+    GuiControlGet, CloudLabel04
+    Gui, 21:Destroy
+    Gui, 21:Add, Text, x10 y15, Enter the name of your 04 Tenant:
+    Gui, 21:Add, Edit, x10 y30 w218 vCloudPrompt04, %CloudLabel04%
+    Gui, 21:Add, Button, x9 y60 w100 h25 gOKC04, OK 
+    Gui, 21:Add, Button, x129 y60 w100 h25 gCancelC04, Cancel
+    Gui, 21:Show, w238 h90, Tenant 04
+    Return
+
+OKC04:
+    GuiControlGet, CloudPrompt04
+    GuiControl, 4:, CloudLabel04, %CloudPrompt04%
+    Gui, 21:Destroy
+    Return
+
+CancelC04:
+    Gui, 21:Destroy
+    Return
+
+SelectCloudLabel05:
+    GuiControlGet, CloudLabel05
+    Gui, 22:Destroy
+    Gui, 22:Add, Text, x10 y15, Enter the name of your 05 Tenant:
+    Gui, 22:Add, Edit, x10 y30 w218 vCloudPrompt05, %CloudLabel05%
+    Gui, 22:Add, Button, x9 y60 w100 h25 gOKC05, OK 
+    Gui, 22:Add, Button, x129 y60 w100 h25 gCancelC05, Cancel
+    Gui, 22:Show, w238 h90, Tenant 05
+    Return
+
+OKC05:
+    GuiControlGet, CloudPrompt05
+    GuiControl, 4:, CloudLabel05, %CloudPrompt05%
+    Gui, 22:Destroy
+    Return
+
+CancelC05:
+    Gui, 22:Destroy
+    Return
 
 SelectGP2010:
     Return
@@ -1414,7 +1560,8 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
+    IniRead, 01Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+    MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1422,12 +1569,14 @@ ButtonSteveRodriguez01:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %01Delete%
+        ;run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\0TestSPCName.bat" %01Delete%
         return
     }
 
 ButtonSteveRodriguez02:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez02 tables?
+    IniRead, 02Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+    MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1435,12 +1584,13 @@ ButtonSteveRodriguez02:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR02.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %02Delete%
         return
     }
 
 ButtonSteveRodriguez03:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez03 tables?
+    IniRead, 03Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+    MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1448,12 +1598,13 @@ ButtonSteveRodriguez03:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR03.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %03Delete%
         return
     }
 
 ButtonSteveRodriguez04:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez04 tables?
+    IniRead, 04Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+    MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1461,12 +1612,13 @@ ButtonSteveRodriguez04:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR04.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %04Delete%
         return
     }
 
 ButtonSteveRodriguez05:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez05 tables?
+    IniRead, 05Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+    MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1474,7 +1626,7 @@ ButtonSteveRodriguez05:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR05.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %05Delete%
         return
     }
 
