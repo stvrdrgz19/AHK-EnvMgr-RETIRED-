@@ -1475,6 +1475,8 @@ OKCC:
 
 ButtonWebAPI:
     if GetKeyState("Shift", "P")
+        Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
+    Else if GetKeyState("Ctrl", "P")
         Run, http://localhost:49403/
     Else
         MsgBox, 4, API?, Are you sure you want to install a new Web API?
@@ -1491,6 +1493,8 @@ ButtonWebAPI:
 
 ButtonWebPortal:
     if GetKeyState("Shift", "P")
+        Run, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP
+    Else if GetKeyState("Ctrl", "P")
         Run, http://localhost:80/
     Else
         MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
