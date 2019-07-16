@@ -1474,29 +1474,35 @@ OKCC:
     Return
 
 ButtonWebAPI:
-    MsgBox, 4, API?, Are you sure you want to install a new Web API?
-    IfMsgBox Yes
-    {
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.API - Shortcut.lnk"
-        Return
-    }
-    If MsgBox No
-    {
-        Return
-    }
+    if GetKeyState("Shift", "P")
+        Run, http://localhost:49403/
+    Else
+        MsgBox, 4, API?, Are you sure you want to install a new Web API?
+        IfMsgBox Yes
+        {
+            Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.API - Shortcut.lnk"
+            Return
+        }
+        If MsgBox No
+        {
+            Return
+        }
     Return
 
 ButtonWebPortal:
-    MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
-    IfMsgBox Yes
-    {
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.WEB - Shortcut.lnk"
-        Return
-    }
-    If MsgBox No
-    {
-        Return
-    }
+    if GetKeyState("Shift", "P")
+        Run, http://localhost:80/
+    Else
+        MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
+        IfMsgBox Yes
+        {
+            Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.WEB - Shortcut.lnk"
+            Return
+        }
+        If MsgBox No
+        {
+            Return
+        }
     Return
 
 ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs plugin
