@@ -313,11 +313,13 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP2016, ...
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP2018, ...
     Gui, 4:Tab, 5
+    Gui, 4:Add, Text, x70 y45, Disabled
     Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 01
     Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable SPC Sql Server 02
     Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable SPC Sql Server 03
     Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable SPC Sql Server 04
     Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable SPC Sql Server 05
+    Gui, 4:Add, Text, x300 y45, Please enter the name of your tenants (Ex. SteveRodriguez01)
     Gui, 4:Add, Edit, x250 y65 w380 cGray ReadOnly vCloudLabel01, 
     Gui, 4:Add, Edit, x250 y95 w380 cGray ReadOnly vCloudLabel02, 
     Gui, 4:Add, Edit, x250 y125 w380 cGray ReadOnly vCloudLabel03, 
@@ -1558,7 +1560,8 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez01 tables?
+    IniRead, 01Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+    MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1566,12 +1569,14 @@ ButtonSteveRodriguez01:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %01Delete%
+        ;run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\0TestSPCName.bat" %01Delete%
         return
     }
 
 ButtonSteveRodriguez02:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez02 tables?
+    IniRead, 02Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+    MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1579,12 +1584,13 @@ ButtonSteveRodriguez02:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR02.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %02Delete%
         return
     }
 
 ButtonSteveRodriguez03:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez03 tables?
+    IniRead, 03Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+    MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1592,12 +1598,13 @@ ButtonSteveRodriguez03:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR03.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %03Delete%
         return
     }
 
 ButtonSteveRodriguez04:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez04 tables?
+    IniRead, 04Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+    MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1605,12 +1612,13 @@ ButtonSteveRodriguez04:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR04.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %04Delete%
         return
     }
 
 ButtonSteveRodriguez05:
-    MsgBox, 4, RUN, Do you want to Delete SteveRodriguez05 tables?
+    IniRead, 05Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+    MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
     {
         MsgBox, CANCEL, Tables were not deleted.
@@ -1618,7 +1626,7 @@ ButtonSteveRodriguez05:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR05.bat"
+        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %05Delete%
         return
     }
 
