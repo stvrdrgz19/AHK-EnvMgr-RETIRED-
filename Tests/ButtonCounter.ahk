@@ -19,9 +19,14 @@ Return
 
 Button1:
     IniRead, One, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\ButtonCounter.ini, ButtonClicks, First
-    One := %One% + 1
-    IniWrite, %One%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\ButtonCounter.ini, ButtonClicks, First
-    MsgBox, 0, Test, First button was clicked! %One%
+    MsgBox, 0, Test, %One%
+    One += 1
+    MsgBox, 0, Test, %One%
+    IniWrite, %One%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\ButtonCounter.ini,ButtonClicks, First
+    ;Inc1 := %One% + 1
+    ;MsgBox, 0, Test, %Inc1%
+    ;IniWrite, %Inc1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\ButtonCounter.ini, ButtonClicks, First
+    ;MsgBox, 0, Test, First button was clicked! %One%
     Return
 
 Button2:
