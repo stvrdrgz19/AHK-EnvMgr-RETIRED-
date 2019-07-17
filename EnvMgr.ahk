@@ -52,11 +52,16 @@ Gui, Add, Button, x376 y197 w308 h25 vBLaunch, Launch Build
 Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
 Gui, Add, Button, x534 y227 w150 h25 vBBuild, Build Folder
 
-Gui, Add, Button, x25 y281 w125 h25 gD10 vD10, Dynamics GP 2010
-Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, Dynamics GP 2013
-Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, Dynamics GP 2015
-Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, Dynamics GP 2016
-Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, Dynamics GP 2018
+IniRead, GP01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
+IniRead, GP02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
+IniRead, GP03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
+IniRead, GP04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
+IniRead, GP05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
+Gui, Add, Button, x25 y281 w125 h25 gD10 vD10, %GP01%
+Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, %GP02%
+Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, %GP03%
+Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, %GP04%
+Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, %GP05%
 
 IniRead, SPC01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
 IniRead, SPC02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
@@ -301,17 +306,28 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y130 vCheckDyn15, GP 2015
     Gui, 4:Add, Checkbox, x30 y160 vCheckDyn16, GP 2016
     Gui, 4:Add, Checkbox, x30 y190 vCheckDyn18, GP 2018
-    Gui, 4:Add, Text, x300 y45, GP Launcher Files
-    Gui, 4:Add, Edit, x110 y65 w520 cGray ReadOnly vGP2010Loc, 
-    Gui, 4:Add, Edit, x110 y95 w520 cGray ReadOnly vGP2013Loc,
-    Gui, 4:Add, Edit, x110 y125 w520 cGray ReadOnly vGP2015Loc,
-    Gui, 4:Add, Edit, x110 y155 w520 cGray ReadOnly vGP2016Loc,
-    Gui, 4:Add, Edit, x110 y185 w520 cGray ReadOnly vGP2018Loc,
-    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectGP2010, ...
-    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectGP2013, ...
-    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectGP2015, ...
-    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP2016, ...
-    Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP2018, ...
+    Gui, 4:Add, Text, x140 y45, Button Labels
+    Gui, 4:Add, Edit, x110 y65 w120 cGray ReadOnly vGPLabel1,
+    Gui, 4:Add, Edit, x110 y95 w120 cGray ReadOnly vGPLabel2,
+    Gui, 4:Add, Edit, x110 y125 w120 cGray ReadOnly vGPLabel3,
+    Gui, 4:Add, Edit, x110 y155 w120 cGray ReadOnly vGPLabel4,
+    Gui, 4:Add, Edit, x110 y185 w120 cGray ReadOnly vGPLabel5,
+    Gui, 4:Add, Button, x230 y64 w23 h23 gSelectGPLabel1, ...
+    Gui, 4:Add, Button, x230 y94 w23 h23 gSelectGPLabel2, ...
+    Gui, 4:Add, Button, x230 y124 w23 h23 gSelectGPLabel3, ...
+    Gui, 4:Add, Button, x230 y154 w23 h23 gSelectGPLabel4, ...
+    Gui, 4:Add, Button, x230 y184 w23 h23 gSelectGPLabel5, ...
+    Gui, 4:Add, Text, x400 y45, GP Launcher Files
+    Gui, 4:Add, Edit, x270 y65 w360 cGray ReadOnly vGP1Loc, 
+    Gui, 4:Add, Edit, x270 y95 w360 cGray ReadOnly vGP2Loc,
+    Gui, 4:Add, Edit, x270 y125 w360 cGray ReadOnly vGP3Loc,
+    Gui, 4:Add, Edit, x270 y155 w360 cGray ReadOnly vGP4Loc,
+    Gui, 4:Add, Edit, x270 y185 w360 cGray ReadOnly vGP5Loc,
+    Gui, 4:Add, Button, x630 y64 w23 h23 gSelectGP1, ...
+    Gui, 4:Add, Button, x630 y94 w23 h23 gSelectGP2, ...
+    Gui, 4:Add, Button, x630 y124 w23 h23 gSelectGP3, ...
+    Gui, 4:Add, Button, x630 y154 w23 h23 gSelectGP4, ...
+    Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP5, ...
     Gui, 4:Tab, 5
     Gui, 4:Add, Text, x70 y45, Disabled
     Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 01
@@ -417,6 +433,28 @@ SettingsScreen:
     GuiControl, 4:, CloudLabel04, %CloudButtonLabel04%
     IniRead, CloudButtonLabel05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
     GuiControl, 4:, CloudLabel05, %CloudButtonLabel05%
+
+    IniRead, GPButtonLabel1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
+    GuiControl, 4:, GPLabel1, %GPButtonLabel1%
+    IniRead, GPButtonLabel2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
+    GuiControl, 4:, GPLabel2, %GPButtonLabel2%
+    IniRead, GPButtonLabel3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
+    GuiControl, 4:, GPLabel3, %GPButtonLabel3%
+    IniRead, GPButtonLabel4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
+    GuiControl, 4:, GPLabel4, %GPButtonLabel4%
+    IniRead, GPButtonLabel5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
+    GuiControl, 4:, GPLabel5, %GPButtonLabel5%
+
+    IniRead, GPLaunchPath1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch1
+    GuiControl, 4:, GP1Loc, %GPLaunchPath1%
+    IniRead, GPLaunchPath2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch2
+    GuiControl, 4:, GP2Loc, %GPLaunchPath2%
+    IniRead, GPLaunchPath3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch3
+    GuiControl, 4:, GP3Loc, %GPLaunchPath3%
+    IniRead, GPLaunchPath4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
+    GuiControl, 4:, GP4Loc, %GPLaunchPath4%
+    IniRead, GPLaunchPath5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch5
+    GuiControl, 4:, GP5Loc, %GPLaunchPath5%
     return
 
 4GuiClose: ; Close the GUI screen
@@ -710,6 +748,33 @@ Save: ; Saves the Settings fields to the Settings.ini file
     GuiControlGet, CloudLabel05, 4:
     IniWrite, %CloudLabel05%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
     GuiControl, 1:, Cloud05, %CloudLabel05%
+
+    GuiControlGet, GPLabel1, 4:
+    IniWrite, %GPLabel1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
+    GuiControl, 1:, D10, %GPLabel1%
+    GuiControlGet, GPLabel2, 4:
+    IniWrite, %GPLabel2%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
+    GuiControl, 1:, D13, %GPLabel2%
+    GuiControlGet, GPLabel3, 4:
+    IniWrite, %GPLabel3%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
+    GuiControl, 1:, D15, %GPLabel3%
+    GuiControlGet, GPLabel4, 4:
+    IniWrite, %GPLabel4%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
+    GuiControl, 1:, D16, %GPLabel4%
+    GuiControlGet, GPLabel5, 4:
+    IniWrite, %GPLabel5%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
+    GuiControl, 1:, D18, %GPLabel5%
+
+    GuiControlGet, GP1Loc, 4:
+    IniWrite, %GP1Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch1
+    GuiControlGet, GP2Loc, 4:
+    IniWrite, %GP2Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch2
+    GuiControlGet, GP3Loc, 4:
+    IniWrite, %GP3Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch3
+    GuiControlGet, GP4Loc, 4:
+    IniWrite, %GP4Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
+    GuiControlGet, GP5Loc, 4:
+    IniWrite, %GP5Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch5
     Return
 
 Can2:   ; Cancel the GUI screen
@@ -784,7 +849,7 @@ SQLPW:
     GuiControlGet, ServPW
     Gui, 10:Destroy
     Gui, 10:Add, Text, x10 y15, Enter your SQL Server Password:
-    Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox, %ServPW%
+    Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox Password, %ServPW%
     Gui, 10:Add, Button, x9 y60 w100 h25 gOK10, OK 
     Gui, 10:Add, Button, x129 y60 w100 h25 gCancel10, Cancel
     Gui, 10:Show, w238 h90, SQL Server Password
@@ -960,19 +1025,139 @@ CancelC05:
     Gui, 22:Destroy
     Return
 
-SelectGP2010:
+SelectGP1:
+    FileSelectFile, ChooseGP1, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
+    if ErrorLevel
+        return
+    GuiControl, 4:, GP1Loc, %ChooseGP1%
     Return
 
-SelectGP2013:
+SelectGP2:
+    FileSelectFile, ChooseGP2, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
+    if ErrorLevel
+        return
+    GuiControl, 4:, GP2Loc, %ChooseGP2%
     Return
 
-SelectGP2015:
+SelectGP3:
+    FileSelectFile, ChooseGP3, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
+    if ErrorLevel
+        return
+    GuiControl, 4:, GP3Loc, %ChooseGP3%
     Return
 
-SelectGP2016:
+SelectGP4:
+    FileSelectFile, ChooseGP4, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
+    if ErrorLevel
+        return
+    GuiControl, 4:, GP4Loc, %ChooseGP4%
     Return
 
-SelectGP2018:
+SelectGP5:
+    FileSelectFile, ChooseGP5, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
+    if ErrorLevel
+        return
+    GuiControl, 4:, GP5Loc, %ChooseGP5%
+    Return
+
+SelectGPLabel1:
+    GuiControlGet, GPLabel1
+    Gui, 23:Destroy
+    Gui, 23:Add, Text, x10 y15, Enter the name of your selected GP Instance:
+    Gui, 23:Add, Edit, x10 y30 w218 vGPName1, %GPLabel1%
+    Gui, 23:Add, Button, x9 y60 w100 h25 gOKGP1, OK 
+    Gui, 23:Add, Button, x129 y60 w100 h25 gCancelGP1, Cancel
+    Gui, 23:Show, w238 h90, GP 1 Button Label
+    Return
+
+OKGP1:
+    GuiControlGet, GPName1
+    GuiControl, 4:, GPLabel1, %GPName1%
+    Gui, 23:Destroy
+    Return
+
+CancelGP1:
+    Gui, 23:Destroy
+    Return
+
+SelectGPLabel2:
+    GuiControlGet, GPLabel2
+    Gui, 24:Destroy
+    Gui, 24:Add, Text, x10 y15, Enter the name of your selected GP Instance:
+    Gui, 24:Add, Edit, x10 y30 w218 vGPName2, %GPLabel2%
+    Gui, 24:Add, Button, x9 y60 w100 h25 gOKGP2, OK 
+    Gui, 24:Add, Button, x129 y60 w100 h25 gCancelGP2, Cancel
+    Gui, 24:Show, w238 h90, GP 2 Button Label
+    Return
+
+OKGP2:
+    GuiControlGet, GPName2
+    GuiControl, 4:, GPLabel2, %GPName2%
+    Gui, 24:Destroy
+    Return
+
+CancelGP2:
+    Gui, 24:Destroy
+    Return
+
+SelectGPLabel3:
+    GuiControlGet, GPLabel3
+    Gui, 25:Destroy
+    Gui, 25:Add, Text, x10 y15, Enter the name of your selected GP Instance:
+    Gui, 25:Add, Edit, x10 y30 w218 vGPName3, %GPLabel3%
+    Gui, 25:Add, Button, x9 y60 w100 h25 gOKGP3, OK 
+    Gui, 25:Add, Button, x129 y60 w100 h25 gCancelGP3, Cancel
+    Gui, 25:Show, w238 h90, GP 3 Button Label
+    Return
+
+OKGP3:
+    GuiControlGet, GPName3
+    GuiControl, 4:, GPLabel3, %GPName3%
+    Gui, 25:Destroy
+    Return
+
+CancelGP3:
+    Gui, 25:Destroy
+    Return
+
+SelectGPLabel4:
+    GuiControlGet, GPLabel4
+    Gui, 26:Destroy
+    Gui, 26:Add, Text, x10 y15, Enter the name of your selected GP Instance:
+    Gui, 26:Add, Edit, x10 y30 w218 vGPName4, %GPLabel4%
+    Gui, 26:Add, Button, x9 y60 w100 h25 gOKGP4, OK 
+    Gui, 26:Add, Button, x129 y60 w100 h25 gCancelGP4, Cancel
+    Gui, 26:Show, w238 h90, GP 4 Button Label
+    Return
+
+OKGP4:
+    GuiControlGet, GPName4
+    GuiControl, 4:, GPLabel4, %GPName4%
+    Gui, 26:Destroy
+    Return
+
+CancelGP4:
+    Gui, 26:Destroy
+    Return
+
+SelectGPLabel5:
+    GuiControlGet, GPLabel5
+    Gui, 27:Destroy
+    Gui, 27:Add, Text, x10 y15, Enter the name of your selected GP Instance:
+    Gui, 27:Add, Edit, x10 y30 w218 vGPName5, %GPLabel5%
+    Gui, 27:Add, Button, x9 y60 w100 h25 gOKGP5, OK 
+    Gui, 27:Add, Button, x129 y60 w100 h25 gCancelGP5, Cancel
+    Gui, 27:Show, w238 h90, GP 5 Button Label
+    Return
+
+OKGP5:
+    GuiControlGet, GPName5
+    GuiControl, 4:, GPLabel5, %GPName5%
+    Gui, 27:Destroy
+    Return
+
+CancelGP5:
+    Gui, 27:Destroy
     Return
 
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -1041,6 +1226,9 @@ GPBackupsList:  ; Double clicking an option from the list box will launch it
         return
 
 ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
+    IniRead, RestoreCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, RestoreDB
+    RestoreCounter += 1
+    IniWrite, %RestoreCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, RestoreDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -1067,10 +1255,13 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     }
 
 ButtonOverwriteDB:  ; Button to override the selected DB from the list
+    IniRead, OverwriteCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, OverwriteDB
+    OverwriteCounter += 1
+    IniWrite, %OverwriteCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, OverwriteDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, Please Select a Backtup to Restore.
+        MsgBox, Please Select a Backtup to Overwrite.
         return
     }
     Else
@@ -1090,6 +1281,9 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
+    IniRead, NewCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, NewBackup
+    NewCounter += 1
+    IniWrite, %NewCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, NewBackup
     Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
@@ -1153,11 +1347,14 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
 
 ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
+    IniRead, DeleteCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DeleteBackup
+    DeleteCounter += 1
+    IniWrite, %DeleteCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DeleteBackup
     IniRead, DBListDelete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, Please Select a Backtup to Restore.
+        MsgBox, Please Select a Backtup to Delete.
         return
     }
     Else
@@ -1178,6 +1375,9 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     }
 
 ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
+    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadDesktop
+    SPGP += 1
+    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadDesktop
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
@@ -1301,6 +1501,9 @@ OK:
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
+    IniRead, MobileCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadMobile
+    MobileCounter += 1
+    IniWrite, %MobileCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadMobile
     FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
@@ -1346,6 +1549,9 @@ OKMobile:
     Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
+    IniRead, DCCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DataCollection
+    DCCounter += 1
+    IniWrite, %DCCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DataCollection
     FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
@@ -1389,6 +1595,9 @@ DCOK:
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
+    IniRead, ShipCenterCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, ShipCenter
+    ShipCenterCounter += 1
+    IniWrite, %ShipCenterCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, ShipCenter
     FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
@@ -1432,6 +1641,9 @@ OKSC:
     Return
 
 ButtonCardControl:  ; Button to launch the CardControl selection/installer
+    IniRead, CardControlCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, CardControl
+    CardControlCounter += 1
+    IniWrite, %CardControlCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, CardControl
     FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
     if ErrorLevel
         return
@@ -1474,6 +1686,9 @@ OKCC:
     Return
 
 ButtonWebAPI:
+    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebAPI
+    APICounter += 1
+    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebAPI
     if GetKeyState("Shift", "P")
         Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
     Else if GetKeyState("Ctrl", "P")
@@ -1492,6 +1707,9 @@ ButtonWebAPI:
     Return
 
 ButtonWebPortal:
+    IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebPortal
+    WebCounter += 1
+    IniWrite, %WebCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebPortal
     if GetKeyState("Shift", "P")
         Run, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP
     Else if GetKeyState("Ctrl", "P")
@@ -1522,6 +1740,9 @@ ButtonBuildFolder:  ; Launches the SP install folder
 
 
 ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
+    IniRead, LaunchBuildCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, LaunchBuild
+    LaunchBuildCounter += 1
+    IniWrite, %LaunchBuildCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, LaunchBuild
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
     if ErrorLevel
         return
@@ -1542,7 +1763,6 @@ ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- 
     Return
 
 D10:
-    run, "C:\Program Files (x86)\Microsoft Dynamics\GP2010\Dynamics.exe - Shortcut.lnk"
     return
 
 D13:
@@ -1552,9 +1772,14 @@ D15:
     return
 
 D16:    ; Launches GP 2016
+    IniRead, GP4Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, GP4
+    GP4Counter += 1
+    IniWrite, %GP4Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, GP4
+    IniRead, D16Location, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
     if GetKeyState("Shift","P")
         Run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016"
     else
+        ;Run, %D16Location%
         run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\Dynamics - Shortcut.lnk"
     Return
 
@@ -1570,11 +1795,14 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
+    IniRead, SPC01Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC1
+    SPC01Counter += 1
+    IniWrite, %SPC01Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC1
     IniRead, 01Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
     MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, CANCEL, Tables were not deleted.
+        MsgBox, 0, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -1585,11 +1813,14 @@ ButtonSteveRodriguez01:
     }
 
 ButtonSteveRodriguez02:
+    IniRead, SPC02Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC2
+    SPC02Counter += 1
+    IniWrite, %SPC02Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC2
     IniRead, 02Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
     MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, CANCEL, Tables were not deleted.
+        MsgBox, 0, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -1599,11 +1830,14 @@ ButtonSteveRodriguez02:
     }
 
 ButtonSteveRodriguez03:
+    IniRead, SPC03Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC3
+    SPC03Counter += 1
+    IniWrite, %SPC03Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC3
     IniRead, 03Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
     MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, CANCEL, Tables were not deleted.
+        MsgBox, 0, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -1613,11 +1847,14 @@ ButtonSteveRodriguez03:
     }
 
 ButtonSteveRodriguez04:
+    IniRead, SPC04Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC4
+    SPC04Counter += 1
+    IniWrite, %SPC04Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC4
     IniRead, 04Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
     MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, CANCEL, Tables were not deleted.
+        MsgBox, 0, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -1627,11 +1864,14 @@ ButtonSteveRodriguez04:
     }
 
 ButtonSteveRodriguez05:
+    IniRead, SPC05Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC5
+    SPC05Counter += 1
+    IniWrite, %SPC05Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC5
     IniRead, 05Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
     MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, CANCEL, Tables were not deleted.
+        MsgBox, 0, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
