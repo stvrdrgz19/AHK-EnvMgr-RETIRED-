@@ -16,6 +16,7 @@ Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
 Menu, HelpMenu, Add, &About, AboutScreen
+Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
 
 Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
@@ -1220,6 +1221,76 @@ UpdateB: ; I believe this is the Grizzly DLL checkbox
         VarCheck = 0
         return
     }
+
+ButtonCountersScreen:
+    IniRead, Restore, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, RestoreDB
+    IniRead, Overwrite, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, OverwriteDB
+    IniRead, New, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, NewBackup
+    IniRead, Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, DeleteBackup
+    IniRead, Desktop, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SalesPadDesktop
+    IniRead, Mobile, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SalesPadMobile
+    IniRead, DC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, DataCollection
+    IniRead, SC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, ShipCenter
+    IniRead, API, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, WebAPI
+    IniRead, Web, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, WebPortal
+    IniRead, CC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, CardControl
+    IniRead, Launch, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, LaunchBuild
+    IniRead, GP1CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP1
+    IniRead, GP2CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP2
+    IniRead, GP3CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP3
+    IniRead, GP4CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP4
+    IniRead, GP5CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP5
+    IniRead, SPCCounterScreen1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC1
+    IniRead, SPCCounterScreen2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC2
+    IniRead, SPCCounterScreen3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC3
+    IniRead, SPCCounterScreen4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC4
+    IniRead, SPCCounterScreen5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC5
+    Gui, 28:Add, Text, x65 y55, Restore
+    Gui, 28:Add, Text, x65 y85, Overwrite
+    Gui, 28:Add, Text, x65 y115, New
+    Gui, 28:Add, Text, x65 y145, Delete
+    Gui, 28:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
+    Gui, 28:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
+    Gui, 28:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
+    Gui, 28:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
+    Gui, 28:Add, Text, x200 y55, Desktop
+    Gui, 28:Add, Text, x200 y85, Mobile
+    Gui, 28:Add, Text, x200 y115, DC
+    Gui, 28:Add, Text, x200 y145, SC
+    Gui, 28:Add, Text, x200 y175, API
+    Gui, 28:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
+    Gui, 28:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
+    Gui, 28:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
+    Gui, 28:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
+    Gui, 28:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
+    Gui, 28:Add, Text, x335 y55, Web
+    Gui, 28:Add, Text, x335 y85, CC
+    Gui, 28:Add, Text, x335 y115, Launch
+    Gui, 28:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
+    Gui, 28:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
+    Gui, 28:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
+    Gui, 28:Add, Text, x470 y55, GP1
+    Gui, 28:Add, Text, x470 y85, GP2
+    Gui, 28:Add, Text, x470 y115, GP3
+    Gui, 28:Add, Text, x470 y145, GP4
+    Gui, 28:Add, Text, x470 y175, GP5
+    Gui, 28:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
+    Gui, 28:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
+    Gui, 28:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
+    Gui, 28:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
+    Gui, 28:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
+    Gui, 28:Add, Text, x605 y55, SCP1
+    Gui, 28:Add, Text, x605 y85, SCP2
+    Gui, 28:Add, Text, x605 y115, SCP3
+    Gui, 28:Add, Text, x605 y145, SCP4
+    Gui, 28:Add, Text, x605 y175, SCP5
+    Gui, 28:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
+    Gui, 28:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
+    Gui, 28:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
+    Gui, 28:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
+    Gui, 28:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
+    Gui, 28:Show, w680 h250, Button Counters
+
 
 GPBackupsList:  ; Double clicking an option from the list box will launch it
     if (A_GuiEvent <> "DoubleClick")
