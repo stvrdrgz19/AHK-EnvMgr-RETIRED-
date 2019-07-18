@@ -1223,28 +1223,28 @@ UpdateB: ; I believe this is the Grizzly DLL checkbox
     }
 
 ButtonCountersScreen:
-    IniRead, Restore, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, RestoreDB
-    IniRead, Overwrite, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, OverwriteDB
-    IniRead, New, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, NewBackup
-    IniRead, Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, DeleteBackup
-    IniRead, Desktop, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SalesPadDesktop
-    IniRead, Mobile, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SalesPadMobile
-    IniRead, DC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, DataCollection
-    IniRead, SC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, ShipCenter
-    IniRead, API, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, WebAPI
-    IniRead, Web, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, WebPortal
-    IniRead, CC, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, CardControl
-    IniRead, Launch, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, LaunchBuild
-    IniRead, GP1CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP1
-    IniRead, GP2CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP2
-    IniRead, GP3CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP3
-    IniRead, GP4CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP4
-    IniRead, GP5CounterScreen, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, GP5
-    IniRead, SPCCounterScreen1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC1
-    IniRead, SPCCounterScreen2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC2
-    IniRead, SPCCounterScreen3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC3
-    IniRead, SPCCounterScreen4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC4
-    IniRead, SPCCounterScreen5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini,ButtonCounters, SPC5
+    IniRead, Restore, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
+    IniRead, Overwrite, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    IniRead, New, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
+    IniRead, Delete, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, Desktop, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    IniRead, Mobile, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
+    IniRead, DC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
+    IniRead, SC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
+    IniRead, API, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
+    IniRead, Web, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
+    IniRead, CC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
+    IniRead, Launch, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    IniRead, GP1CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP1
+    IniRead, GP2CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP2
+    IniRead, GP3CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP3
+    IniRead, GP4CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
+    IniRead, GP5CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP5
+    IniRead, SPCCounterScreen1, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
+    IniRead, SPCCounterScreen2, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
+    IniRead, SPCCounterScreen3, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
+    IniRead, SPCCounterScreen4, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
+    IniRead, SPCCounterScreen5, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
     Gui, 28:Add, Text, x65 y55, Restore
     Gui, 28:Add, Text, x65 y85, Overwrite
     Gui, 28:Add, Text, x65 y115, New
@@ -1297,9 +1297,9 @@ GPBackupsList:  ; Double clicking an option from the list box will launch it
         return
 
 ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
-    IniRead, RestoreCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, RestoreDB
+    IniRead, RestoreCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
     RestoreCounter += 1
-    IniWrite, %RestoreCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, RestoreDB
+    IniWrite, %RestoreCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -1326,9 +1326,9 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     }
 
 ButtonOverwriteDB:  ; Button to override the selected DB from the list
-    IniRead, OverwriteCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, OverwriteDB
+    IniRead, OverwriteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
     OverwriteCounter += 1
-    IniWrite, %OverwriteCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, OverwriteDB
+    IniWrite, %OverwriteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -1352,9 +1352,9 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
-    IniRead, NewCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, NewBackup
+    IniRead, NewCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
     NewCounter += 1
-    IniWrite, %NewCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, NewBackup
+    IniWrite, %NewCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
     Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
@@ -1418,9 +1418,9 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
 
 ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
-    IniRead, DeleteCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DeleteBackup
+    IniRead, DeleteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
     DeleteCounter += 1
-    IniWrite, %DeleteCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DeleteBackup
+    IniWrite, %DeleteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
     IniRead, DBListDelete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
@@ -1446,9 +1446,9 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     }
 
 ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
-    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadDesktop
+    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
-    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadDesktop
+    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
@@ -1572,9 +1572,9 @@ OK:
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
-    IniRead, MobileCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadMobile
+    IniRead, MobileCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
     MobileCounter += 1
-    IniWrite, %MobileCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SalesPadMobile
+    IniWrite, %MobileCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
     FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
@@ -1620,9 +1620,9 @@ OKMobile:
     Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
-    IniRead, DCCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DataCollection
+    IniRead, DCCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
     DCCounter += 1
-    IniWrite, %DCCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, DataCollection
+    IniWrite, %DCCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
     FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
@@ -1666,9 +1666,9 @@ DCOK:
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
-    IniRead, ShipCenterCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, ShipCenter
+    IniRead, ShipCenterCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
     ShipCenterCounter += 1
-    IniWrite, %ShipCenterCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, ShipCenter
+    IniWrite, %ShipCenterCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
     FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
@@ -1712,9 +1712,9 @@ OKSC:
     Return
 
 ButtonCardControl:  ; Button to launch the CardControl selection/installer
-    IniRead, CardControlCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, CardControl
+    IniRead, CardControlCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
     CardControlCounter += 1
-    IniWrite, %CardControlCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, CardControl
+    IniWrite, %CardControlCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
     FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
     if ErrorLevel
         return
@@ -1757,9 +1757,9 @@ OKCC:
     Return
 
 ButtonWebAPI:
-    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebAPI
+    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
     APICounter += 1
-    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebAPI
+    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
     if GetKeyState("Shift", "P")
         Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
     Else if GetKeyState("Ctrl", "P")
@@ -1778,9 +1778,9 @@ ButtonWebAPI:
     Return
 
 ButtonWebPortal:
-    IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebPortal
+    IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
     WebCounter += 1
-    IniWrite, %WebCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, WebPortal
+    IniWrite, %WebCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
     if GetKeyState("Shift", "P")
         Run, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP
     Else if GetKeyState("Ctrl", "P")
@@ -1811,9 +1811,9 @@ ButtonBuildFolder:  ; Launches the SP install folder
 
 
 ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
-    IniRead, LaunchBuildCounter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, LaunchBuild
+    IniRead, LaunchBuildCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
     LaunchBuildCounter += 1
-    IniWrite, %LaunchBuildCounter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, LaunchBuild
+    IniWrite, %LaunchBuildCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
     if ErrorLevel
         return
@@ -1843,9 +1843,9 @@ D15:
     return
 
 D16:    ; Launches GP 2016
-    IniRead, GP4Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, GP4
+    IniRead, GP4Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
     GP4Counter += 1
-    IniWrite, %GP4Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, GP4
+    IniWrite, %GP4Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
     IniRead, D16Location, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
     if GetKeyState("Shift","P")
         Run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016"
@@ -1866,9 +1866,9 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
-    IniRead, SPC01Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC1
+    IniRead, SPC01Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
     SPC01Counter += 1
-    IniWrite, %SPC01Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC1
+    IniWrite, %SPC01Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
     IniRead, 01Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
     MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
@@ -1884,9 +1884,9 @@ ButtonSteveRodriguez01:
     }
 
 ButtonSteveRodriguez02:
-    IniRead, SPC02Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC2
+    IniRead, SPC02Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
     SPC02Counter += 1
-    IniWrite, %SPC02Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC2
+    IniWrite, %SPC02Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
     IniRead, 02Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
     MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
@@ -1901,9 +1901,9 @@ ButtonSteveRodriguez02:
     }
 
 ButtonSteveRodriguez03:
-    IniRead, SPC03Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC3
+    IniRead, SPC03Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
     SPC03Counter += 1
-    IniWrite, %SPC03Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC3
+    IniWrite, %SPC03Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
     IniRead, 03Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
     MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
@@ -1918,9 +1918,9 @@ ButtonSteveRodriguez03:
     }
 
 ButtonSteveRodriguez04:
-    IniRead, SPC04Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC4
+    IniRead, SPC04Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
     SPC04Counter += 1
-    IniWrite, %SPC04Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC4
+    IniWrite, %SPC04Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
     IniRead, 04Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
     MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
@@ -1935,9 +1935,9 @@ ButtonSteveRodriguez04:
     }
 
 ButtonSteveRodriguez05:
-    IniRead, SPC05Counter, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC5
+    IniRead, SPC05Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
     SPC05Counter += 1
-    IniWrite, %SPC05Counter%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, ButtonCounters, SPC5
+    IniWrite, %SPC05Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
     IniRead, 05Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
     MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
