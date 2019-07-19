@@ -1814,11 +1814,18 @@ ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose 
     IniRead, LaunchBuildCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
     LaunchBuildCounter += 1
     IniWrite, %LaunchBuildCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
-    if ErrorLevel
+    if GetKeyState("Shift", "P")
+        MsgBox, 4, DB UPDATE?, Do you want to select an installed build to run a database update on?
+            ifMsgBox, Yes
+                Return
+            IfMsgBox, No
+                Return
+    Else
+        FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+        if ErrorLevel
+            return
+        run, %SelectedFile%
         return
-    run, %SelectedFile%
-    return
 
 ButtonRefresh:  ; Refreshes the Listbox
     GuiControl,, GPBackupsList, |
