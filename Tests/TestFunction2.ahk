@@ -20,6 +20,7 @@ Gui, Show, w400 h200, Test Functions 2
 Return
 
 ; > Functions
+; REFERENCE - https://jacksautohotkeyblog.wordpress.com/2015/07/29/writing-autohotkey-functions-to-make-life-easier/
 DisableCheckbox(Var1, Var2) {
     GuiControlGet, Var1
     MsgBox, 0, Test, %Var1% %Var2%
