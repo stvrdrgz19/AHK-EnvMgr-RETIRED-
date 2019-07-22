@@ -2,7 +2,7 @@
 REM PAUSE
 SET home=C:\Program Files (x86)\SalesPad.Desktop\
 
-robocopy "%1\CustomModules\WithOutCardControl" "C:\#EnvMgr\TEMPFILES\DLLs" SalesPad.Module.Grizzly.*.zip SalesPad.Module.IntegrationToGrizzly.*.zip SalesPad.Module.IntegrationToPayFabric.*.zip SalesPad.Module.OSCO.*.zip
+robocopy "%1\CustomModules\WithOutCardControl" "C:\#EnvMgr\TEMPFILES\DLLs" SalesPad.Module.Grizzly.*.zip SalesPad.Module.IntegrationToGrizzly.*.zip SalesPad.Module.IntegrationToPayFabric.*.zip SalesPad.Module.OSCO.*.zip SalesPad.Module.PayPal.*.zip
 robocopy "%1\ExtModules\WithOutCardControl" "C:\#EnvMgr\TEMPFILES\DLLs" SalesPad.Module.AutomationAgent.*.zip SalesPad.Module.AutomationAgentService.*.zip SalesPad.Module.BlueMoonAdvancedUDF.*.zip SalesPad.Module.BlueMoonOperationsCore.*.zip SalesPad.Module.BusinessRules.*.zip SalesPad.Module.CaseTracker.*.zip SalesPad.Module.ConnectShip.*.zip SalesPad.Module.Nodus.*.zip 
 
 for /R "C:\#EnvMgr\TEMPFILES\DLLs" %%I in ("*.zip") do (
