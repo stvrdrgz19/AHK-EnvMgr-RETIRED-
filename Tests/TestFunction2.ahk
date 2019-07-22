@@ -23,23 +23,24 @@ Return
 ; REFERENCE - https://jacksautohotkeyblog.wordpress.com/2015/07/29/writing-autohotkey-functions-to-make-life-easier/
 ; REFERENCE - https://www.autohotkey.com/docs/Variables.htm#Operators
 DisableCheckbox(Var1, Var2) {
-    GuiControlGet, Var1
-    MsgBox, 0, Test, %Var1% %Var2%
     ;GuiControlGet, Var1
-    ;IniWrite, %Var1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\TestFunction2.ini, Section1, %Var2%
+    ;MsgBox, 0, Test, %Var1% %Var2%
+    GuiControlGet, Var1
+    IniWrite, %Var1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\TestFunction2.ini, Section1, Var2
 }
 
 ; > Buttons
 Check1:
-    DisableCheckbox(Value1, One)
+    IniWrite, Test, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\TestFunction2.ini, Section1, One
+    ;DisableCheckbox("Value1", "One")
     Return
 
 Check2:
-    DisableCheckbox(Value2, Two)
+    DisableCheckbox("Value2", "Two")
     Return
 
 Check3:
-    DisableCheckbox(Value3, Three)
+    DisableCheckbox("Value3", "Three")
     Return
 
 Save:
