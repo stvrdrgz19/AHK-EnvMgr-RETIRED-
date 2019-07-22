@@ -21,6 +21,7 @@ Return
 
 ; > Functions
 ; REFERENCE - https://jacksautohotkeyblog.wordpress.com/2015/07/29/writing-autohotkey-functions-to-make-life-easier/
+; REFERENCE - https://www.autohotkey.com/docs/Variables.htm#Operators
 DisableCheckbox(Var1, Var2) {
     GuiControlGet, Var1
     MsgBox, 0, Test, %Var1% %Var2%
