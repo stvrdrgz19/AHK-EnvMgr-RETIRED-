@@ -82,7 +82,7 @@ Gui, Add, Button, x557 y343 w126 h25 vCloud05, %SPC05%
 ; This loads the settings from the Settings.ini file
 ;--------------------------------------------------------------------------------------------------------------------------
 ; > Functions
-LoadSettings(SettingsOutput,Section,Key,CheckboxName,ButtonName) ; This function is designed to load the Settings
+LoadFromSettings(SettingsOutput,Section,Key,CheckboxName,ButtonName) ; This function is designed to load values from settings.ini
 {
     IniRead, %SettingsOutput%, Settings\Settings.ini, %Section%, %Key%
     GuiControl, 4:, %CheckboxName%, %SettingsOutput%
@@ -92,34 +92,40 @@ LoadSettings(SettingsOutput,Section,Key,CheckboxName,ButtonName) ; This function
     }
 }
 
+LoadSettingsScreen(SettingsInput,Section,Key,Field)
+{
+    IniRead, SettingsInput, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, %Section%, %Key%
+    GuiControl, 4:, %Field%, %SettingsInput%
+}
+
 ; > Loading Settings
-LoadSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
-LoadSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
-LoadSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
-LoadSettings("NewLoad","DBManagement","New","CheckNew","Bak")
+LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
+LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
+LoadFromSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
+LoadFromSettings("NewLoad","DBManagement","New","CheckNew","Bak")
 
-LoadSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
-LoadSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
-LoadSettings("DataCollectionLoad","BuildManagement","DataCollection","DisableDC","BDataCollection")
-LoadSettings("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC","BShipCenter")
-LoadSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
-LoadSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
-LoadSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
-LoadSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","BLaunch")
-LoadSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLLs")
-LoadSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
+LoadFromSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
+LoadFromSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
+LoadFromSettings("DataCollectionLoad","BuildManagement","DataCollection","DisableDC","BDataCollection")
+LoadFromSettings("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC","BShipCenter")
+LoadFromSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
+LoadFromSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
+LoadFromSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
+LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","BLaunch")
+LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLLs")
+LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
 
-LoadSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
-LoadSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
-LoadSettings("Dyn15Load","GPButtons","Dynamics15","CheckDyn15","D15")
-LoadSettings("Dyn16Load","GPButtons","Dynamics16","CheckDyn16","D16")
-LoadSettings("Dyn18Load","GPButtons","Dynamics18","CheckDyn18","D18")
+LoadFromSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
+LoadFromSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
+LoadFromSettings("Dyn15Load","GPButtons","Dynamics15","CheckDyn15","D15")
+LoadFromSettings("Dyn16Load","GPButtons","Dynamics16","CheckDyn16","D16")
+LoadFromSettings("Dyn18Load","GPButtons","Dynamics18","CheckDyn18","D18")
 
-LoadSettings("Cloud01Load","SPCButtons","Cloud1","CheckSPC1","Cloud01")
-LoadSettings("Cloud02Load","SPCButtons","Cloud2","CheckSPC2","Cloud02")
-LoadSettings("Cloud03Load","SPCButtons","Cloud3","CheckSPC3","Cloud03")
-LoadSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
-LoadSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
+LoadFromSettings("Cloud01Load","SPCButtons","Cloud1","CheckSPC1","Cloud01")
+LoadFromSettings("Cloud02Load","SPCButtons","Cloud2","CheckSPC2","Cloud02")
+LoadFromSettings("Cloud03Load","SPCButtons","Cloud3","CheckSPC3","Cloud03")
+LoadFromSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
+LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
 Gui, Color, f9f9f9
 Gui, Show, w706 h421, Environment Mananger  ; Finally showing the GUI
@@ -236,109 +242,63 @@ SettingsScreen:
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Loading the Settings values from the Settings.ini file
 ;--------------------------------------------------------------------------------------------------------------------------
-    IniRead, BackPathLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-    GuiControl, 4:, BackupPath, %BackPathLoad%
-    IniRead, ServLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
-    GuiControl, 4:, ServName, %ServLoad%
-    IniRead, UserLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
-    GuiControl, 4:, ServUN, %UserLoad%
-    IniRead, PasswordLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
-    GuiControl, 4:, ServPW, %PasswordLoad%
-    IniRead, DynamicLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
-    GuiControl, 4:, DynamicsDB, %DynamicLoad%
-    IniRead, Company1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
-    GuiControl, 4:, RegDB, %Company1Load%
-    IniRead, Company2Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
-    GuiControl, 4:, MBDB, %Company2Load%
+    ; > Calling Functions
+    LoadSettingsScreen("BackPathLoad","BackupFolder","path","BackupPath")
+    LoadSettingsScreen("ServLoad","SQLCreds","Server","ServName")
+    LoadSettingsScreen("UserLoad","SQLCreds","User","ServUN")
+    LoadSettingsScreen("PasswordLoad","SQLCreds","Password","ServPW")
+    LoadSettingsScreen("DynamicLoad","Databases","Dynamics","DynamicsDB")
+    LoadSettingsScreen("Company1Load","Databases","Company1","RegDB")
+    LoadSettingsScreen("Company2Load","Databases","Company2","MBDB")
 
-    IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
-    GuiControl, 4:, CheckRestore, %RestoreLoad%
-    IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
-    GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
-    IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
-    GuiControl, 4:, CheckDelete, %DeleteLoad%
-    IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
-    GuiControl, 4:, CheckNew, %NewLoad%
-    
-    IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
-    GuiControl, 4:, DisableSP, %DesktopLoad%
-    IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
-    GuiControl, 4:, DisableMOB, %MobileLoad%
-    IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
-    GuiControl, 4:, DisableDC, %DataCollectionLoad%
-    IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
-    GuiControl, 4:, DisableSC, %ShipCenterLoad%
-    IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
-    GuiControl, 4:, DisableCC, %CardControlLoad%
-    IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
-    GuiControl, 4:, DisableAPI, %GPAPILoad%
-    IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
-    GuiControl, 4:, DisableWeb, %GPWEBLoad%
-    IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
-    GuiControl, 4:, DisableLaunch, %LaunchLoad%
-    IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
-    GuiControl, 4:, DisableAdd, %AddLoad%
-    IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
-    GuiControl, 4:, DisableBuild, %BuildLoad%
+    LoadSettingsScreen("RestoreLoad","DBManagement","Rest","CheckRestore")
+    LoadSettingsScreen("OverwriteLoad","DBManagement","Over","CheckOverwrite")
+    LoadSettingsScreen("DeleteLoad","DBManagement","Delete","CheckDelete")
+    LoadSettingsScreen("NewLoad","DBManagement","New","CheckNew")
 
-    IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
-    GuiControl, 4:, CheckDyn10, %Dyn10Load%
-    IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
-    GuiControl, 4:, CheckDyn13, %Dyn13Load%
-    IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
-    GuiControl, 4:, CheckDyn15, %Dyn15Load%
-    IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
-    GuiControl, 4:, CheckDyn16, %Dyn16Load%
-    IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
-    GuiControl, 4:, CheckDyn18, %Dyn18Load%
+    LoadSettingsScreen("DesktopLoad","BuildManagement","SalesPad","DisableSP")
+    LoadSettingsScreen("MobileLoad","BuildManagement","Mobile","DisableMOB")
+    LoadSettingsScreen("DataCollectionLoad","BuildManagement","DataCollection","DisableDC")
+    LoadSettingsScreen("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC")
+    LoadSettingsScreen("CardControlLoad","BuildManagement","CardControl","DisableCC")
+    LoadSettingsScreen("GPAPILoad","BuildManagement","API","DisableAPI")
+    LoadSettingsScreen("GPWEBLoad","BuildManagement","Web","DisableWeb")
+    LoadSettingsScreen("LaunchLoad","BuildManagement","Launch","DisableLaunch")
+    LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
+    LoadSettingsScreen("BuildLoad","BuildManagement","Build","DisableBuild")
 
-    IniRead, Cloud01Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
-    GuiControl, 4:, CheckSPC1, %Cloud01Load%
-    IniRead, Cloud02Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
-    GuiControl, 4:, CheckSPC2, %Cloud02Load%
-    IniRead, Cloud03Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
-    GuiControl, 4:, CheckSPC3, %Cloud03Load%
-    IniRead, Cloud04Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
-    GuiControl, 4:, CheckSPC4, %Cloud04Load%
-    IniRead, Cloud05Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
-    GuiControl, 4:, CheckSPC5, %Cloud05Load%
+    LoadSettingsScreen("Dyn10Load","GPButtons","Dynamics10","CheckDyn10")
+    LoadSettingsScreen("Dyn13Load","GPButtons","Dynamics13","CheckDyn13")
+    LoadSettingsScreen("Dyn15Load","GPButtons","Dynamics15","CheckDyn15")
+    LoadSettingsScreen("Dyn16Load","GPButtons","Dynamics16","CheckDyn16")
+    LoadSettingsScreen("Dyn18Load","GPButtons","Dynamics18","CheckDyn18")
 
-    IniRead, Other1Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
-    GuiControl, 4:, PromptCloseBox, %Other1Load%
+    LoadSettingsScreen("Cloud01Load","SPCButtons","Cloud1","CheckSPC1")
+    LoadSettingsScreen("Cloud02Load","SPCButtons","Cloud2","CheckSPC2")
+    LoadSettingsScreen("Cloud03Load","SPCButtons","Cloud3","CheckSPC3")
+    LoadSettingsScreen("Cloud04Load","SPCButtons","Cloud4","CheckSPC4")
+    LoadSettingsScreen("Cloud05Load","SPCButtons","Cloud5","CheckSPC5")
 
-    IniRead, CloudButtonLabel01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
-    GuiControl, 4:, CloudLabel01, %CloudButtonLabel01%
-    IniRead, CloudButtonLabel02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
-    GuiControl, 4:, CloudLabel02, %CloudButtonLabel02%
-    IniRead, CloudButtonLabel03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
-    GuiControl, 4:, CloudLabel03, %CloudButtonLabel03%
-    IniRead, CloudButtonLabel04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
-    GuiControl, 4:, CloudLabel04, %CloudButtonLabel04%
-    IniRead, CloudButtonLabel05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
-    GuiControl, 4:, CloudLabel05, %CloudButtonLabel05%
+    LoadSettingsScreen("Other1Load","PromptClose","Close","PromptCloseBox")
 
-    IniRead, GPButtonLabel1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
-    GuiControl, 4:, GPLabel1, %GPButtonLabel1%
-    IniRead, GPButtonLabel2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
-    GuiControl, 4:, GPLabel2, %GPButtonLabel2%
-    IniRead, GPButtonLabel3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
-    GuiControl, 4:, GPLabel3, %GPButtonLabel3%
-    IniRead, GPButtonLabel4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
-    GuiControl, 4:, GPLabel4, %GPButtonLabel4%
-    IniRead, GPButtonLabel5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
-    GuiControl, 4:, GPLabel5, %GPButtonLabel5%
+    LoadSettingsScreen("CloudButtonLabel01","CloudButtonNames","01","CloudLabel01")
+    LoadSettingsScreen("CloudButtonLabel02","CloudButtonNames","02","CloudLabel02")
+    LoadSettingsScreen("CloudButtonLabel03","CloudButtonNames","03","CloudLabel03")
+    LoadSettingsScreen("CloudButtonLabel04","CloudButtonNames","04","CloudLabel04")
+    LoadSettingsScreen("CloudButtonLabel05","CloudButtonNames","05","CloudLabel05")
 
-    IniRead, GPLaunchPath1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch1
-    GuiControl, 4:, GP1Loc, %GPLaunchPath1%
-    IniRead, GPLaunchPath2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch2
-    GuiControl, 4:, GP2Loc, %GPLaunchPath2%
-    IniRead, GPLaunchPath3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch3
-    GuiControl, 4:, GP3Loc, %GPLaunchPath3%
-    IniRead, GPLaunchPath4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
-    GuiControl, 4:, GP4Loc, %GPLaunchPath4%
-    IniRead, GPLaunchPath5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch5
-    GuiControl, 4:, GP5Loc, %GPLaunchPath5%
-    return
+    LoadSettingsScreen("GPButtonLabel1","GPButtonLabels","GPButton1","GPLabel1")
+    LoadSettingsScreen("GPButtonLabel2","GPButtonLabels","GPButton2","GPLabel2")
+    LoadSettingsScreen("GPButtonLabel3","GPButtonLabels","GPButton3","GPLabel3")
+    LoadSettingsScreen("GPButtonLabel4","GPButtonLabels","GPButton4","GPLabel4")
+    LoadSettingsScreen("GPButtonLabel5","GPButtonLabels","GPButton5","GPLabel5")
+
+    LoadSettingsScreen("GPLaunchPath1","GPLaunchFile","GPLaunch1","GP1Loc")
+    LoadSettingsScreen("GPLaunchPath2","GPLaunchFile","GPLaunch2","GP2Loc")
+    LoadSettingsScreen("GPLaunchPath3","GPLaunchFile","GPLaunch3","GP3Loc")
+    LoadSettingsScreen("GPLaunchPath4","GPLaunchFile","GPLaunch4","GP4Loc")
+    LoadSettingsScreen("GPLaunchPath5","GPLaunchFile","GPLaunch5","GP5Loc")
+    Return
 
 4GuiClose: ; Close the GUI screen
     Gui, 4:Destroy
@@ -494,9 +454,9 @@ Save: ; Saves the Settings fields to the Settings.ini file
     {
         GuiControl, 1:Enable, AddDLLs
     }
-    GuiControlGet, DisableLaunch, 4:
-    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
-    if DisableLaunch = 1
+    GuiControlGet, DisableBuild, 4:
+    IniWrite, %DisableBuild%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
+    if DisableBuild = 1
     {
         GuiControl, 1:Disable, BBuild
     }
