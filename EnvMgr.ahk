@@ -81,163 +81,47 @@ Gui, Add, Button, x557 y343 w126 h25 vCloud05, %SPC05%
 ;--------------------------------------------------------------------------------------------------------------------------
 ; This loads the settings from the Settings.ini file
 ;--------------------------------------------------------------------------------------------------------------------------
-IniRead, RestoreLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
-GuiControl, 4:, CheckRestore, %RestoreLoad%
-if RestoreLoad = 1
+; > Functions
+LoadSettings(SettingsOutput,Section,Key,CheckboxName,ButtonName) ; This function is designed to load the Settings
 {
-    GuiControl, 1:Disable, BRest
-}
-IniRead, OverwriteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
-GuiControl, 4:, CheckOverwrite, %OverwriteLoad%
-if OverwriteLoad = 1
-{
-    GuiControl, 1:Disable, BOver
-}
-IniRead, DeleteLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
-GuiControl, 4:, CheckDelete, %DeleteLoad%
-if DeleteLoad = 1
-{
-    GuiControl, 1:Disable, Delete
-}
-IniRead, NewLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
-GuiControl, 4:, CheckNew, %NewLoad%
-if NewLoad = 1
-{
-    GuiControl, 1:Disable, Bak
+    IniRead, %SettingsOutput%, Settings\Settings.ini, %Section%, %Key%
+    GuiControl, 4:, %CheckboxName%, %SettingsOutput%
+    if %SettingsOutput% = 1
+    {
+        GuiControl, 1:Disable, %ButtonName%
+    }
 }
 
+; > Loading Settings
+LoadSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
+LoadSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
+LoadSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
+LoadSettings("NewLoad","DBManagement","New","CheckNew","Bak")
 
+LoadSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
+LoadSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
+LoadSettings("DataCollectionLoad","BuildManagement","DataCollection","DisableDC","BDataCollection")
+LoadSettings("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC","BShipCenter")
+LoadSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
+LoadSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
+LoadSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
+LoadSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","BLaunch")
+LoadSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLLs")
+LoadSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
 
-IniRead, DesktopLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
-GuiControl, 4:, DisableSP, %DesktopLoad%
-if DesktopLoad = 1
-{
-    GuiControl, 1:Disable, BDesktop
-}
-IniRead, MobileLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
-GuiControl, 4:, DisableMOB, %MobileLoad%
-if MobileLoad = 1
-{
-    GuiControl, 1:Disable, BMobile
-}
-IniRead, DataCollectionLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
-GuiControl, 4:, DisableDC, %DataCollectionLoad%
-if DataCollectionLoad = 1
-{
-    GuiControl, 1:Disable, BDataCollection
-}
-IniRead, ShipCenterLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
-GuiControl, 4:, DisableSC, %ShipCenterLoad%
-if ShipCenterLoad = 1
-{
-    GuiControl, 1:Disable, BShipCenter
-}
-IniRead, CardControlLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
-GuiControl, 4:, DisableCC, %CardControlLoad%
-if CardControlLoad = 1
-{
-    GuiControl, 1:Disable, BCardControl
-}
-IniRead, GPAPILoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
-GuiControl, 4:, DisableAPI, %GPAPILoad%
-if GPAPILoad = 1
-{
-    GuiControl, 1:Disable, GPAPI
-}
-IniRead, GPWEBLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
-GuiControl, 4:, DisableWeb, %GPWEBLoad%
-if GPWEBLoad = 1
-{
-    GuiControl, 1:Disable, GPWEB
-}
-IniRead, LaunchLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
-GuiControl, 4:, DisableLaunch, %LaunchLoad%
-if LaunchLoad = 1
-{
-    GuiControl, 1:Disable, BLaunch
-}
-IniRead, AddLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
-GuiControl, 4:, DisableAdd, %AddLoad%
-if AddLoad = 1
-{
-    GuiControl, 1:Disable, AddDLLs
-}
-IniRead, BuildLoad, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
-GuiControl, 4:, DisableBuild, %BuildLoad%
-if BuildLoad = 1
-{
-    GuiControl, 1:Disable, BBuild
-}
+LoadSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
+LoadSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
+LoadSettings("Dyn15Load","GPButtons","Dynamics15","CheckDyn15","D15")
+LoadSettings("Dyn16Load","GPButtons","Dynamics16","CheckDyn16","D16")
+LoadSettings("Dyn18Load","GPButtons","Dynamics18","CheckDyn18","D18")
 
-
-
-IniRead, Dyn10Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
-GuiControl, 4:, CheckDyn10, %Dyn10Load%
-if Dyn10Load = 1
-{
-    GuiControl, 1:Disable, D10
-}
-IniRead, Dyn13Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
-GuiControl, 4:, CheckDyn13, %Dyn13Load%
-if Dyn13Load = 1
-{
-    GuiControl, 1:Disable, D13
-}
-IniRead, Dyn15Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
-GuiControl, 4:, CheckDyn15, %Dyn15Load%
-if Dyn15Load = 1
-{
-    GuiControl, 1:Disable, D15
-}
-IniRead, Dyn16Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
-GuiControl, 4:, CheckDyn16, %Dyn16Load%
-if Dyn16Load = 1
-{
-    GuiControl, 1:Disable, D16
-}
-IniRead, Dyn18Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
-GuiControl, 4:, CheckDyn18, %Dyn18Load%
-if Dyn18Load = 1
-{
-    GuiControl, 1:Disable, D18
-}
-
-
-
-
-IniRead, Cloud01Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
-GuiControl, 4:, CheckSPC1, %Cloud01Load%
-if Cloud01Load = 1
-{
-    GuiControl, 1:Disable, Cloud01
-}
-IniRead, Cloud02Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
-GuiControl, 4:, CheckSPC2, %Cloud02Load%
-if Cloud02Load = 1
-{
-    GuiControl, 1:Disable, Cloud02
-}
-IniRead, Cloud03Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
-GuiControl, 4:, CheckSPC3, %Cloud03Load%
-if Cloud03Load = 1
-{
-    GuiControl, 1:Disable, Cloud03
-}
-IniRead, Cloud04Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
-GuiControl, 4:, CheckSPC4, %Cloud04Load%
-if Cloud04Load = 1
-{
-    GuiControl, 1:Disable, Cloud04
-}
-IniRead, Cloud05Load, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
-GuiControl, 4:, CheckSPC5, %Cloud05Load%
-if Cloud05Load = 1
-{
-    GuiControl, 1:Disable, Cloud05
-}
+LoadSettings("Cloud01Load","SPCButtons","Cloud1","CheckSPC1","Cloud01")
+LoadSettings("Cloud02Load","SPCButtons","Cloud2","CheckSPC2","Cloud02")
+LoadSettings("Cloud03Load","SPCButtons","Cloud3","CheckSPC3","Cloud03")
+LoadSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
+LoadSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
 Gui, Color, f9f9f9
-;Gui, Show, x2100 y-800 w706 h421, Environment Mananger
 Gui, Show, w706 h421, Environment Mananger  ; Finally showing the GUI
 
 ;--------------------------------------------------------------------------------------------------------------------------
