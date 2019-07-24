@@ -98,6 +98,29 @@ LoadSettingsScreen(SettingsInput,Section,Key,Field)
     GuiControl, 4:, %Field%, %SettingsInput%
 }
 
+SaveSettingsEdit(FieldToSave,Section,Key)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+}
+
+SaveSettingsCheckbox(FieldToSave,Section,Key,ButtonName)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+    If %FieldToSave% = 1
+    {
+        GuiControl, 1:Disable, %ButtonName%
+    }
+}
+
+SaveSettingsEditAndButton(FieldToSave,Section,Key,ButtonName)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+    GuiControl, 1:, %ButtonName%, %FieldToSave%
+}
+
 ; > Loading Settings
 LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
 LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
@@ -250,12 +273,10 @@ SettingsScreen:
     LoadSettingsScreen("DynamicLoad","Databases","Dynamics","DynamicsDB")
     LoadSettingsScreen("Company1Load","Databases","Company1","RegDB")
     LoadSettingsScreen("Company2Load","Databases","Company2","MBDB")
-
     LoadSettingsScreen("RestoreLoad","DBManagement","Rest","CheckRestore")
     LoadSettingsScreen("OverwriteLoad","DBManagement","Over","CheckOverwrite")
     LoadSettingsScreen("DeleteLoad","DBManagement","Delete","CheckDelete")
     LoadSettingsScreen("NewLoad","DBManagement","New","CheckNew")
-
     LoadSettingsScreen("DesktopLoad","BuildManagement","SalesPad","DisableSP")
     LoadSettingsScreen("MobileLoad","BuildManagement","Mobile","DisableMOB")
     LoadSettingsScreen("DataCollectionLoad","BuildManagement","DataCollection","DisableDC")
@@ -266,33 +287,27 @@ SettingsScreen:
     LoadSettingsScreen("LaunchLoad","BuildManagement","Launch","DisableLaunch")
     LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
     LoadSettingsScreen("BuildLoad","BuildManagement","Build","DisableBuild")
-
     LoadSettingsScreen("Dyn10Load","GPButtons","Dynamics10","CheckDyn10")
     LoadSettingsScreen("Dyn13Load","GPButtons","Dynamics13","CheckDyn13")
     LoadSettingsScreen("Dyn15Load","GPButtons","Dynamics15","CheckDyn15")
     LoadSettingsScreen("Dyn16Load","GPButtons","Dynamics16","CheckDyn16")
     LoadSettingsScreen("Dyn18Load","GPButtons","Dynamics18","CheckDyn18")
-
     LoadSettingsScreen("Cloud01Load","SPCButtons","Cloud1","CheckSPC1")
     LoadSettingsScreen("Cloud02Load","SPCButtons","Cloud2","CheckSPC2")
     LoadSettingsScreen("Cloud03Load","SPCButtons","Cloud3","CheckSPC3")
     LoadSettingsScreen("Cloud04Load","SPCButtons","Cloud4","CheckSPC4")
     LoadSettingsScreen("Cloud05Load","SPCButtons","Cloud5","CheckSPC5")
-
     LoadSettingsScreen("Other1Load","PromptClose","Close","PromptCloseBox")
-
     LoadSettingsScreen("CloudButtonLabel01","CloudButtonNames","01","CloudLabel01")
     LoadSettingsScreen("CloudButtonLabel02","CloudButtonNames","02","CloudLabel02")
     LoadSettingsScreen("CloudButtonLabel03","CloudButtonNames","03","CloudLabel03")
     LoadSettingsScreen("CloudButtonLabel04","CloudButtonNames","04","CloudLabel04")
     LoadSettingsScreen("CloudButtonLabel05","CloudButtonNames","05","CloudLabel05")
-
     LoadSettingsScreen("GPButtonLabel1","GPButtonLabels","GPButton1","GPLabel1")
     LoadSettingsScreen("GPButtonLabel2","GPButtonLabels","GPButton2","GPLabel2")
     LoadSettingsScreen("GPButtonLabel3","GPButtonLabels","GPButton3","GPLabel3")
     LoadSettingsScreen("GPButtonLabel4","GPButtonLabels","GPButton4","GPLabel4")
     LoadSettingsScreen("GPButtonLabel5","GPButtonLabels","GPButton5","GPLabel5")
-
     LoadSettingsScreen("GPLaunchPath1","GPLaunchFile","GPLaunch1","GP1Loc")
     LoadSettingsScreen("GPLaunchPath2","GPLaunchFile","GPLaunch2","GP2Loc")
     LoadSettingsScreen("GPLaunchPath3","GPLaunchFile","GPLaunch3","GP3Loc")
@@ -305,6 +320,57 @@ SettingsScreen:
     return
 
 Save: ; Saves the Settings fields to the Settings.ini file
+    ; => Maybe have to add a crap ton of GuiControlGets (BackupPath, Servname etc)
+    SaveSettingsEdit(BackupPath,"BackupFolder","path")
+    SaveSettingsEdit(ServName,"SQLCreds","Server")
+    SaveSettingsEdit(ServUN,"SQLCreds","User")
+    SaveSettingsEdit(ServPW,"SQLCreds","Password")
+    SaveSettingsEdit(DynamicsDB,"Databases","Dynamics")
+    SaveSettingsEdit(RegDB,"Databases","Company1")
+    SaveSettingsEdit(MBDB,"Databases","Company2")
+    SaveSettingsEdit(GP1Loc,"GPLaunchFile","GPLaunch1")
+    SaveSettingsEdit(GP2Loc,"GPLaunchFile","GPLaunch2")
+    SaveSettingsEdit(GP3Loc,"GPLaunchFile","GPLaunch3")
+    SaveSettingsEdit(GP4Loc,"GPLaunchFile","GPLaunch4")
+    SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
+    SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
+    SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
+    SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
+    SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
+    SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
+    SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
+    SaveSettingsCheckbox(DisableDC,"BuildManagement","DataCollection","BDataCollection")
+    SaveSettingsCheckbox(DisableSC,"BuildManagement","ShipCenter","BShipCenter")
+    SaveSettingsCheckbox(DisableMOB,"BuildManagement","Mobile","BMobile")
+    SaveSettingsCheckbox(DisableCC,"BuildManagement","CardControl","BCardControl")
+    SaveSettingsCheckbox(DisableAPI,"BuildManagement","API","GPAPI")
+    SaveSettingsCheckbox(DisableWeb,"BuildManagement","Web","GPWEB")
+    SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
+    SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
+    SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
+    SaveSettingsCheckbox(CheckDyn10,"GPButtons","Dynamics10","D10")
+    SaveSettingsCheckbox(CheckDyn13,"GPButtons","Dynamics13","D13")
+    SaveSettingsCheckbox(CheckDyn15,"GPButtons","Dynamics15","D15")
+    SaveSettingsCheckbox(CheckDyn16,"GPButtons","Dynamics16","D16")
+    SaveSettingsCheckbox(CheckDyn18,"GPButtons","Dynamics18","D18")
+    SaveSettingsCheckbox(CheckSPC1,"SPCButtons","Cloud1","Cloud01")
+    SaveSettingsCheckbox(CheckSPC2,"SPCButtons","Cloud2","Cloud02")
+    SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
+    SaveSettingsCheckbox(CheckSPC4,"SPCButtons","Cloud4","Cloud04")
+    SaveSettingsCheckbox(CheckSPC5,"SPCButtons","Cloud5","Cloud05")
+    SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
+    SaveSettingsEditAndButton(CloudLabel02,"CloudButtonNames","02","Cloud02")
+    SaveSettingsEditAndButton(CloudLabel03,"CloudButtonNames","03","Cloud03")
+    SaveSettingsEditAndButton(CloudLabel04,"CloudButtonNames","04","Cloud04")
+    SaveSettingsEditAndButton(CloudLabel05,"CloudButtonNames","05","Cloud05")
+    SaveSettingsEditAndButton(GPLabel1,"GPButtonLabels","GPButton1","D10")
+    SaveSettingsEditAndButton(GPLabel2,"GPButtonLabels","GPButton2","D13")
+    SaveSettingsEditAndButton(GPLabel3,"GPButtonLabels","GPButton3","D15")
+    SaveSettingsEditAndButton(GPLabel4,"GPButtonLabels","GPButton4","D16")
+    SaveSettingsEditAndButton(GPLabel5,"GPButtonLabels","GPButton5","D18")
+    Return
+
+/*
     GuiControlGet, BackupPath, 4:
     IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
     GuiControlGet, ServName, 4:
@@ -619,6 +685,7 @@ Save: ; Saves the Settings fields to the Settings.ini file
     GuiControlGet, GP5Loc, 4:
     IniWrite, %GP5Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch5
     Return
+*/
 
 Can2:   ; Cancel the GUI screen
     Gui, 4:Destroy
