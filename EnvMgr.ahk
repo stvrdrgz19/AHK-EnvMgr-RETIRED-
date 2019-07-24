@@ -320,7 +320,7 @@ SettingsScreen:
     return
 
 Save: ; Saves the Settings fields to the Settings.ini file
-    ; => Maybe have to add a crap ton of GuiControlGets (BackupPath, Servname etc)
+    ; => Maybe have to add a crap ton of GuiControlGets (BackupPath, Servname etc
     SaveSettingsEdit(BackupPath,"BackupFolder","path")
     SaveSettingsEdit(ServName,"SQLCreds","Server")
     SaveSettingsEdit(ServUN,"SQLCreds","User")
