@@ -1482,6 +1482,7 @@ OK:
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
     Clipboard := Variable1
+    IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Scripts\Tests\Path.ini, LastInstalledBuild, SPGP
     If VarCheck = 1
     {
         MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
