@@ -1361,10 +1361,6 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         return
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
     SplitPath, SelectedFile,, Instl
     Variable1 := Instl
     Gui, 2:Destroy
@@ -1390,9 +1386,14 @@ Can:
     }
 
 OK:
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
     Clipboard := Variable1
+    IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Scripts\Tests\Path.ini, LastInstalledBuild, SPGP
     If VarCheck = 1
     {
         MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
