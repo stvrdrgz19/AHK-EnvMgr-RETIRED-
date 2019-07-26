@@ -24,29 +24,94 @@ LoadSettings(SettingsOutput,Section,Key,CheckboxName,ButtonName) ; This function
 
 ; > Loading Settings
 LoadSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
-LoadSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
-LoadSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
-LoadSettings("NewLoad","DBManagement","New","CheckNew","Bak")
 
-LoadSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
-LoadSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
-LoadSettings("DataCollectionLoad","BuildManagement","DataCollection","DisableDC","BDataCollection")
-LoadSettings("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC","BShipCenter")
-LoadSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
-LoadSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
-LoadSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
-LoadSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","BLaunch")
-LoadSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLLs")
-LoadSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
 
-LoadSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
-LoadSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
-LoadSettings("Dyn15Load","GPButtons","Dynamics15","CheckDyn15","D15")
-LoadSettings("Dyn16Load","GPButtons","Dynamics16","CheckDyn16","D16")
-LoadSettings("Dyn18Load","GPButtons","Dynamics18","CheckDyn18","D18")
+; > Function
+LoadSettingsScreen(SettingsInput,Section,Key,Field)
+{
+    IniRead, SettingsInput, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, %Section%, %Key%
+    GuiControl, 4:, %Field%, %SettingsInput%
+}
 
-LoadSettings("Cloud01Load","SPCButtons","Cloud1","CheckSPC1","Cloud01")
-LoadSettings("Cloud02Load","SPCButtons","Cloud2","CheckSPC2","Cloud02")
-LoadSettings("Cloud03Load","SPCButtons","Cloud3","CheckSPC3","Cloud03")
-LoadSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
-LoadSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
+; > Calling Functions
+LoadSettingsScreen("BackPathLoad","BackupFolder","path","BackupPath")
+Return
+
+
+; > Function
+SaveSettingsEdit(FieldToSave,Section,Key)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+}
+
+SaveSettingsEdit("BackupPath","BackupFolder","path")
+SaveSettingsEdit("ServName","SQLCreds","Server")
+SaveSettingsEdit("ServUN","SQLCreds","User")
+SaveSettingsEdit("ServPW","SQLCreds","Password")
+SaveSettingsEdit("DynamicsDB","Databases","Dynamics")
+SaveSettingsEdit("RegDB","Databases","Company1")
+SaveSettingsEdit("MBDB","Databases","Company2")
+SaveSettingsEdit("GP1Loc","GPLaunchFile","GPLaunch1")
+SaveSettingsEdit("GP2Loc","GPLaunchFile","GPLaunch2")
+SaveSettingsEdit("GP3Loc","GPLaunchFile","GPLaunch3")
+SaveSettingsEdit("GP4Loc","GPLaunchFile","GPLaunch4")
+SaveSettingsEdit("GP5Loc","GPLaunchFile","GPLaunch5")
+SaveSettingsEdit("PromptCloseBox","PromptClose","Close")
+
+SaveSettingsCheckbox(FieldToSave,Section,Key,ButtonName)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+    If %FieldToSave% = 1
+    {
+        GuiControl, 1:Disable, %ButtonName%
+    }
+}
+
+SaveSettingsCheckbox("CheckRestore","DBManagement","Rest","BRest")
+SaveSettingsCheckbox("CheckOverwrite","DBManagement","Over","BOver")
+SaveSettingsCheckbox("CheckDelete","DBManagement","Delete","Delete")
+SaveSettingsCheckbox("CheckNew","DBManagement","New","Bak")
+
+SaveSettingsCheckbox("DisableSP","BuildManagement","SalesPad","BDesktop")
+SaveSettingsCheckbox("DisableDC","BuildManagement","DataCollection","BDataCollection")
+SaveSettingsCheckbox("DisableSC","BuildManagement","ShipCenter","BShipCenter")
+SaveSettingsCheckbox("DisableMOB","BuildManagement","Mobile","BMobile")
+SaveSettingsCheckbox("DisableCC","BuildManagement","CardControl","BCardControl")
+SaveSettingsCheckbox("DisableAPI","BuildManagement","API","GPAPI")
+SaveSettingsCheckbox("DisableWeb","BuildManagement","Web","GPWEB")
+SaveSettingsCheckbox("DisableLaunch","BuildManagement","Launch","BLaunch")
+SaveSettingsCheckbox("DisableAdd","BuildManagement","Add","AddDLLs")
+SaveSettingsCheckbox("DisableBuild","BuildManagement","Build","BBuild")
+
+SaveSettingsCheckbox("CheckDyn10","GPButtons","Dynamics10","D10")
+SaveSettingsCheckbox("CheckDyn13","GPButtons","Dynamics13","D13")
+SaveSettingsCheckbox("CheckDyn15","GPButtons","Dynamics15","D15")
+SaveSettingsCheckbox("CheckDyn16","GPButtons","Dynamics16","D16")
+SaveSettingsCheckbox("CheckDyn18","GPButtons","Dynamics18","D18")
+
+SaveSettingsCheckbox("CheckSPC1","SPCButtons","Cloud1","Cloud01")
+SaveSettingsCheckbox("CheckSPC2","SPCButtons","Cloud2","Cloud02")
+SaveSettingsCheckbox("CheckSPC3","SPCButtons","Cloud3","Cloud03")
+SaveSettingsCheckbox("CheckSPC4","SPCButtons","Cloud4","Cloud04")
+SaveSettingsCheckbox("CheckSPC5","SPCButtons","Cloud5","Cloud05")
+
+SaveSettingsEditAndButton(FieldToSave,Section,Key,ButtonName)
+{
+    GuiControlGet, %FieldToSave%, 4:
+    IniWrite, %FieldToSave%, Path, %Section%, %Key%
+    GuiControl, 1:, %ButtonName%, %FieldToSave%
+}
+
+SaveSettingsEditAndButton("CloudLabel01","CloudButtonNames","01","Cloud01")
+SaveSettingsEditAndButton("CloudLabel02","CloudButtonNames","02","Cloud02")
+SaveSettingsEditAndButton("CloudLabel03","CloudButtonNames","03","Cloud03")
+SaveSettingsEditAndButton("CloudLabel04","CloudButtonNames","04","Cloud04")
+SaveSettingsEditAndButton("CloudLabel05","CloudButtonNames","05","Cloud05")
+
+SaveSettingsEditAndButton("GPLabel1","GPButtonLabels","GPButton1","D10")
+SaveSettingsEditAndButton("GPLabel2","GPButtonLabels","GPButton2","D13")
+SaveSettingsEditAndButton("GPLabel3","GPButtonLabels","GPButton3","D15")
+SaveSettingsEditAndButton("GPLabel4","GPButtonLabels","GPButton4","D16")
+SaveSettingsEditAndButton("GPLabel5","GPButtonLabels","GPButton5","D18")
