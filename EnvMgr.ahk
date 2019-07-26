@@ -17,6 +17,7 @@ Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
 Menu, HelpMenu, Add, &About, AboutScreen
 Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
+Menu, HelpMenu, Add, &Log, OpenLog
 
 Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
@@ -1288,6 +1289,11 @@ ButtonCountersScreen:
     Gui, 28:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
     Gui, 28:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
     Gui, 28:Show, w680 h250, Button Counters
+    Return
+
+OpenLog:
+    Run, "C:\Users\steve.rodriguez\Desktop\Files\Log.txt"
+    Return
 
 
 GPBackupsList:  ; Double clicking an option from the list box will launch it
@@ -1319,6 +1325,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
         Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%GPBackupsList%" backup`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
         return
     }
@@ -1346,6 +1353,7 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
         Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
         return
     }
 
@@ -1394,6 +1402,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
                 }
                 ifMsgBox, Yes
                 {
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Backup "%Database%" was created`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
                     IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
                     IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
                     IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
@@ -1431,6 +1440,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
         MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
         ifMsgBox, Yes
         {
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
             FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
             MsgBox,, DELETED, Database %GPBackupsList% was deleted.
             goto, ButtonRefresh
