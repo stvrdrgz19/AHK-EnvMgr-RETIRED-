@@ -852,9 +852,12 @@ ButtonCountersScreen:
     Return
 
 OpenLog:
-    Run, "C:\Users\steve.rodriguez\Desktop\Files\Log.txt"
+    Gui, 29:Destroy
+    Gui, 29:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
+    Gui, 29:Show, w560 h560, Test Log Reader
+    FileRead, Log, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+    GuiControl, 29:, Edit1, %Log%
     Return
-
 
 GPBackupsList:  ; Double clicking an option from the list box will launch it
     if (A_GuiEvent <> "DoubleClick")
