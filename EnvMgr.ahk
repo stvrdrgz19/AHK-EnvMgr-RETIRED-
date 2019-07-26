@@ -336,6 +336,18 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsEditAndButton(GPLabel5,"GPButtonLabels","GPButton5","D18")
     Return
 
+Can2:   ; Cancel the GUI screen
+    Gui, 4:Destroy
+    sleep 1000
+    GuiControl, 1:, GPBackupsList, |
+    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        Loop, %DBListDisplay%\*, 2
+        {
+            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
+        }
+        return
+    return
+
 ;--------------------------------------------------------------------------------------------------------------------------
 ; The actual Settings Screen Controls
 ;--------------------------------------------------------------------------------------------------------------------------
