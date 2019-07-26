@@ -740,7 +740,7 @@ AboutScreen:
     ;Gui, 6:Add, Text, x15 y165, Changelog:
     Gui, 6:Add, Text, x15 y225, Environment Manager Team:
     Gui, 6:Add, Text, x35 y245, stvrdrgz19 (Steve Rodriguez)
-    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\GitHubIcon.png
+    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, Icons\GitHubIcon.png
     Gui, 6:Add, Text, x0 y264 w403 0x10 ;Horizontal Line
     Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
     Gui, 6:Show, w400 h300, About
@@ -882,7 +882,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "Scripts\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
@@ -912,7 +912,7 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
         IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
         IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
         IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
         return
     }
@@ -970,7 +970,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
                     IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
                     IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
                     IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
-                    Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                    Run, "Scripts\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
                     sleep 2000
                     GuiControl, 1:, GPBackupsList, |
                     IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
@@ -1065,10 +1065,10 @@ OK:
         ifMsgBox, Yes
         {
             Gui, 2:Destroy
-            run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
+            run, "Scripts\SPInstall.bat" "%BuildLoc%"
             WinWait, C:\windows\system32\cmd.exe
             WinWaitClose
-            run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.GetGrizzlyDLL.bat" %Instl%
+            run, "Scripts\Script.GetGrizzlyDLL.bat" %Instl%
             WinWait, C:\windows\system32\cmd.exe
             WinWaitClose
             FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
@@ -1083,7 +1083,7 @@ OK:
     Else
     {
         Gui, 2:Destroy
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\SPInstall.bat" "%BuildLoc%"
+        run, "Scripts\SPInstall.bat" "%BuildLoc%"
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         SplitPath, SelectedFile,, dir
@@ -1103,7 +1103,7 @@ OK:
             }
         FilesExt = 
         dir = 
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
+        run, "Scripts\FileUnzipAndMove.bat"
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
@@ -1127,7 +1127,7 @@ OK:
             		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
             }
         FilesCust = 
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\FileUnzipAndMove.bat"
+        run, "Scripts\FileUnzipAndMove.bat"
         WinWait, C:\windows\system32\cmd.exe
         ;WinWait, CUSTOM DLL?
         WinWaitClose
@@ -1178,7 +1178,7 @@ OKMobile:
     GuiControlGet, BuildLocMobile
     Clipboard := Variable1
     Gui, 15:Destroy
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocMobile%"
+    run, "Scripts\DCSilentInstall.bat" "%BuildLocMobile%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     ;MsgBox, 0, Test, %BuildLocMobile%
@@ -1226,7 +1226,7 @@ DCOK:
     GuiControlGet, DCBuildLoc
     Clipboard := Variable1
     Gui, 14:Destroy
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%DCBuildLoc%"
+    run, "Scripts\DCSilentInstall.bat" "%DCBuildLoc%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     Sleep 4000
@@ -1272,7 +1272,7 @@ OKSC:
     GuiControlGet, BuildLocSC
     Clipboard := Variable1
     Gui, 16:Destroy
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocSC%"
+    run, "Scripts\DCSilentInstall.bat" "%BuildLocSC%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     Sleep 4000
@@ -1318,7 +1318,7 @@ OKCC:
     GuiControlGet, BuildLocCC
     Clipboard := Variable1
     Gui, 17:Destroy
-    run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\DCSilentInstall.bat" "%BuildLocCC%"
+    run, "Scripts\DCSilentInstall.bat" "%BuildLocCC%"
     WinWait, C:\windows\system32\cmd.exe
     WinWaitClose
     Sleep 4000
@@ -1454,7 +1454,7 @@ ButtonSteveRodriguez01:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %01Delete%
+        run, "Scripts\Script.DropSR01.bat" %01Delete%
         ;run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\0TestSPCName.bat" %01Delete%
         return
     }
@@ -1472,7 +1472,7 @@ ButtonSteveRodriguez02:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %02Delete%
+        run, "Scripts\Script.DropSR01.bat" %02Delete%
         return
     }
 
@@ -1489,7 +1489,7 @@ ButtonSteveRodriguez03:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %03Delete%
+        run, "Scripts\Script.DropSR01.bat" %03Delete%
         return
     }
 
@@ -1506,7 +1506,7 @@ ButtonSteveRodriguez04:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %04Delete%
+        run, "Scripts\Script.DropSR01.bat" %04Delete%
         return
     }
 
@@ -1523,7 +1523,7 @@ ButtonSteveRodriguez05:
     }
     ifMsgBox, Yes
     {
-        run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Script.DropSR01.bat" %05Delete%
+        run, "Scripts\Script.DropSR01.bat" %05Delete%
         return
     }
 
