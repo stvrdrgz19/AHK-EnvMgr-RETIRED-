@@ -284,6 +284,7 @@ SettingsScreen:
     return
 
 Save: ; Saves the Settings fields to the Settings.ini file
+    GuiControlGet, BackupPath   ; Might have to add GuiControl for other controls that are being cleared out.
     SaveSettingsEdit(BackupPath,"BackupFolder","path")
     SaveSettingsEdit(ServName,"SQLCreds","Server")
     SaveSettingsEdit(ServUN,"SQLCreds","User")
@@ -297,7 +298,7 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsEdit(GP4Loc,"GPLaunchFile","GPLaunch4")
     SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
     SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
-    SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
+    ;SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
     ;SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
     ;SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
     ;SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
