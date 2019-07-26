@@ -1,6 +1,6 @@
 SaveSettingsEdit(FieldToSave,Section,Key)
 {
-    global BackupPath, ServName ,ServUN ,ServPW ,DynamicsDB ,RegDB ,MBDB ,GP1Loc ,GP2Loc ,GP3Loc ,GP4Loc ,GP5Loc ,PromptCloseBox
+    global ;BackupPath, ServName ,ServUN ,ServPW ,DynamicsDB ,RegDB ,MBDB ,GP1Loc ,GP2Loc ,GP3Loc ,GP4Loc ,GP5Loc ,PromptCloseBox
     GuiControlGet, BackupPath, 4:
     GuiControlGet, ServName, 4:
     GuiControlGet, ServUN, 4:

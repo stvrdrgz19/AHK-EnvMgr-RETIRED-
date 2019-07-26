@@ -285,6 +285,8 @@ SettingsScreen:
 
 Save: ; Saves the Settings fields to the Settings.ini file
     GuiControlGet, BackupPath   ; Might have to add GuiControl for other controls that are being cleared out.
+    GuiControlGet, CheckRestore
+    GuiControlGet, CloudLabel01
     SaveSettingsEdit(BackupPath,"BackupFolder","path")
     SaveSettingsEdit(ServName,"SQLCreds","Server")
     SaveSettingsEdit(ServUN,"SQLCreds","User")
@@ -298,370 +300,41 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsEdit(GP4Loc,"GPLaunchFile","GPLaunch4")
     SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
     SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
-    ;SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
-    ;SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
-    ;SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
-    ;SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
-    ;SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
-    ;SaveSettingsCheckbox(DisableDC,"BuildManagement","DataCollection","BDataCollection")
-    ;SaveSettingsCheckbox(DisableSC,"BuildManagement","ShipCenter","BShipCenter")
-    ;SaveSettingsCheckbox(DisableMOB,"BuildManagement","Mobile","BMobile")
-    ;SaveSettingsCheckbox(DisableCC,"BuildManagement","CardControl","BCardControl")
-    ;SaveSettingsCheckbox(DisableAPI,"BuildManagement","API","GPAPI")
-    ;SaveSettingsCheckbox(DisableWeb,"BuildManagement","Web","GPWEB")
-    ;SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
-    ;SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
-    ;SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
-    ;SaveSettingsCheckbox(CheckDyn10,"GPButtons","Dynamics10","D10")
-    ;SaveSettingsCheckbox(CheckDyn13,"GPButtons","Dynamics13","D13")
-    ;SaveSettingsCheckbox(CheckDyn15,"GPButtons","Dynamics15","D15")
-    ;SaveSettingsCheckbox(CheckDyn16,"GPButtons","Dynamics16","D16")
-    ;SaveSettingsCheckbox(CheckDyn18,"GPButtons","Dynamics18","D18")
-    ;SaveSettingsCheckbox(CheckSPC1,"SPCButtons","Cloud1","Cloud01")
-    ;SaveSettingsCheckbox(CheckSPC2,"SPCButtons","Cloud2","Cloud02")
-    ;SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
-    ;SaveSettingsCheckbox(CheckSPC4,"SPCButtons","Cloud4","Cloud04")
-    ;SaveSettingsCheckbox(CheckSPC5,"SPCButtons","Cloud5","Cloud05")
-    ;SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
-    ;SaveSettingsEditAndButton(CloudLabel02,"CloudButtonNames","02","Cloud02")
-    ;SaveSettingsEditAndButton(CloudLabel03,"CloudButtonNames","03","Cloud03")
-    ;SaveSettingsEditAndButton(CloudLabel04,"CloudButtonNames","04","Cloud04")
-    ;SaveSettingsEditAndButton(CloudLabel05,"CloudButtonNames","05","Cloud05")
-    ;SaveSettingsEditAndButton(GPLabel1,"GPButtonLabels","GPButton1","D10")
-    ;SaveSettingsEditAndButton(GPLabel2,"GPButtonLabels","GPButton2","D13")
-    ;SaveSettingsEditAndButton(GPLabel3,"GPButtonLabels","GPButton3","D15")
-    ;SaveSettingsEditAndButton(GPLabel4,"GPButtonLabels","GPButton4","D16")
-    ;SaveSettingsEditAndButton(GPLabel5,"GPButtonLabels","GPButton5","D18")
+    SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
+    SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
+    SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
+    SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
+    SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
+    SaveSettingsCheckbox(DisableDC,"BuildManagement","DataCollection","BDataCollection")
+    SaveSettingsCheckbox(DisableSC,"BuildManagement","ShipCenter","BShipCenter")
+    SaveSettingsCheckbox(DisableMOB,"BuildManagement","Mobile","BMobile")
+    SaveSettingsCheckbox(DisableCC,"BuildManagement","CardControl","BCardControl")
+    SaveSettingsCheckbox(DisableAPI,"BuildManagement","API","GPAPI")
+    SaveSettingsCheckbox(DisableWeb,"BuildManagement","Web","GPWEB")
+    SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
+    SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
+    SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
+    SaveSettingsCheckbox(CheckDyn10,"GPButtons","Dynamics10","D10")
+    SaveSettingsCheckbox(CheckDyn13,"GPButtons","Dynamics13","D13")
+    SaveSettingsCheckbox(CheckDyn15,"GPButtons","Dynamics15","D15")
+    SaveSettingsCheckbox(CheckDyn16,"GPButtons","Dynamics16","D16")
+    SaveSettingsCheckbox(CheckDyn18,"GPButtons","Dynamics18","D18")
+    SaveSettingsCheckbox(CheckSPC1,"SPCButtons","Cloud1","Cloud01")
+    SaveSettingsCheckbox(CheckSPC2,"SPCButtons","Cloud2","Cloud02")
+    SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
+    SaveSettingsCheckbox(CheckSPC4,"SPCButtons","Cloud4","Cloud04")
+    SaveSettingsCheckbox(CheckSPC5,"SPCButtons","Cloud5","Cloud05")
+    SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
+    SaveSettingsEditAndButton(CloudLabel02,"CloudButtonNames","02","Cloud02")
+    SaveSettingsEditAndButton(CloudLabel03,"CloudButtonNames","03","Cloud03")
+    SaveSettingsEditAndButton(CloudLabel04,"CloudButtonNames","04","Cloud04")
+    SaveSettingsEditAndButton(CloudLabel05,"CloudButtonNames","05","Cloud05")
+    SaveSettingsEditAndButton(GPLabel1,"GPButtonLabels","GPButton1","D10")
+    SaveSettingsEditAndButton(GPLabel2,"GPButtonLabels","GPButton2","D13")
+    SaveSettingsEditAndButton(GPLabel3,"GPButtonLabels","GPButton3","D15")
+    SaveSettingsEditAndButton(GPLabel4,"GPButtonLabels","GPButton4","D16")
+    SaveSettingsEditAndButton(GPLabel5,"GPButtonLabels","GPButton5","D18")
     Return
-
-/*
-    GuiControlGet, BackupPath, 4:
-    IniWrite, %BackupPath%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-    GuiControlGet, ServName, 4:
-    IniWrite, %ServName%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
-    GuiControlGet, ServUN, 4:
-    IniWrite, %ServUN%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
-    GuiControlGet, ServPW, 4:
-    IniWrite, %ServPW%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
-    GuiControlGet, DynamicsDB, 4:
-    IniWrite, %DynamicsDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
-    GuiControlGet, RegDB, 4:
-    IniWrite, %RegDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
-    GuiControlGet, MBDB, 4:
-    IniWrite, %MBDB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
-
-
-    GuiControlGet, CheckRestore, 4:
-    IniWrite, %CheckRestore%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Rest
-    if CheckRestore = 1
-    {
-        GuiControl, 1:Disable, BRest
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BRest
-    }
-    GuiControlGet, CheckOverwrite, 4:
-    IniWrite, %CheckOverwrite%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Over
-    if CheckOverwrite = 1
-    {
-        GuiControl, 1:Disable, BOver
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BOver
-    }
-    GuiControlGet, CheckDelete, 4:
-    IniWrite, %CheckDelete%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, Delete
-    if CheckDelete = 1
-    {
-        GuiControl, 1:Disable, Delete
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Delete
-    }
-    GuiControlGet, CheckNew, 4:
-    IniWrite, %CheckNew%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, DBManagement, New
-    if CheckNew = 1
-    {
-        GuiControl, 1:Disable, Bak
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Bak
-    }
-
-
-
-    GuiControlGet, DisableSP, 4:
-    IniWrite, %DisableSP%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, SalesPad
-    if DisableSP = 1
-    {
-        GuiControl, 1:Disable, BDesktop
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BDesktop
-    }
-    GuiControlGet, DisableDC, 4:
-    IniWrite, %DisableDC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, DataCollection
-    if DisableDC = 1
-    {
-        GuiControl, 1:Disable, BDataCollection
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BDataCollection
-    }
-    GuiControlGet, DisableSC, 4:
-    IniWrite, %DisableSC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, ShipCenter
-    if DisableSC = 1
-    {
-        GuiControl, 1:Disable, BShipCenter
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BShipCenter
-    }
-    GuiControlGet, DisableMOB, 4:
-    IniWrite, %DisableMOB%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Mobile
-    if DisableMOB = 1
-    {
-        GuiControl, 1:Disable, BMobile
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BMobile
-    }
-    GuiControlGet, DisableCC, 4:
-    IniWrite, %DisableCC%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, CardControl
-    if DisableCC = 1
-    {
-        GuiControl, 1:Disable, BCardControl
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BCardControl
-    }
-    GuiControlGet, DisableAPI, 4:
-    IniWrite, %DisableAPI%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, API
-    if DisableAPI = 1
-    {
-        GuiControl, 1:Disable, GPAPI
-    }
-    Else
-    {
-        GuiControl, 1:Enable, GPAPI
-    }
-    GuiControlGet, DisableWeb, 4:
-    IniWrite, %DisableWeb%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Web
-    if DisableWeb = 1
-    {
-        GuiControl, 1:Disable, GPWEB
-    }
-    Else
-    {
-        GuiControl, 1:Enable, GPWEB
-    }
-    GuiControlGet, DisableLaunch, 4:
-    IniWrite, %DisableLaunch%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Launch
-    if DisableLaunch = 1
-    {
-        GuiControl, 1:Disable, BLaunch
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BLaunch
-    }
-    GuiControlGet, DisableAdd, 4:
-    IniWrite, %DisableAdd%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Add
-    if DisableAdd = 1
-    {
-        GuiControl, 1:Disable, AddDLLs
-    }
-    Else
-    {
-        GuiControl, 1:Enable, AddDLLs
-    }
-    GuiControlGet, DisableBuild, 4:
-    IniWrite, %DisableBuild%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BuildManagement, Build
-    if DisableBuild = 1
-    {
-        GuiControl, 1:Disable, BBuild
-    }
-    Else
-    {
-        GuiControl, 1:Enable, BBuild
-    }
-
-
-
-    GuiControlGet, CheckDyn10, 4:
-    IniWrite, %CheckDyn10%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics10
-    if CheckDyn10 = 1
-    {
-        GuiControl, 1:Disable, D10
-    }
-    Else
-    {
-        GuiControl, 1:Enable, D10
-    }
-    GuiControlGet, CheckDyn13, 4:
-    IniWrite, %CheckDyn13%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics13
-    if CheckDyn13 = 1
-    {
-        GuiControl, 1:Disable, D13
-    }
-    Else
-    {
-        GuiControl, 1:Enable, D13
-    }
-    GuiControlGet, CheckDyn15, 4:
-    IniWrite, %CheckDyn15%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics15
-    if CheckDyn15 = 1
-    {
-        GuiControl, 1:Disable, D15
-    }
-    Else
-    {
-        GuiControl, 1:Enable, D15
-    }
-    GuiControlGet, CheckDyn16, 4:
-    IniWrite, %CheckDyn16%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics16
-    if CheckDyn16 = 1
-    {
-        GuiControl, 1:Disable, D16
-    }
-    Else
-    {
-        GuiControl, 1:Enable, D16
-    }
-    GuiControlGet, CheckDyn18, 4:
-    IniWrite, %CheckDyn18%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtons, Dynamics18
-    if CheckDyn18 = 1
-    {
-        GuiControl, 1:Disable, D18
-    }
-    Else
-    {
-        GuiControl, 1:Enable, D18
-    }
-
-
-    
-    GuiControlGet, CheckSPC1, 4:
-    IniWrite, %CheckSPC1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud1
-    if CheckSPC1 = 1
-    {
-        GuiControl, 1:Disable, Cloud01
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Cloud01
-    }
-    GuiControlGet, CheckSPC2, 4:
-    IniWrite, %CheckSPC2%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud2
-    if CheckSPC2 = 1
-    {
-        GuiControl, 1:Disable, Cloud02
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Cloud02
-    }
-    GuiControlGet, CheckSPC3, 4:
-    IniWrite, %CheckSPC3%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud3
-    if CheckSPC3 = 1
-    {
-        GuiControl, 1:Disable, Cloud03
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Cloud03
-    }
-    GuiControlGet, CheckSPC4, 4:
-    IniWrite, %CheckSPC4%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud4
-    if CheckSPC4 = 1
-    {
-        GuiControl, 1:Disable, Cloud04
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Cloud04
-    }
-    GuiControlGet, CheckSPC5, 4:
-    IniWrite, %CheckSPC5%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SPCButtons, Cloud5
-    if CheckSPC5 = 1
-    {
-        GuiControl, 1:Disable, Cloud05
-    }
-    Else
-    {
-        GuiControl, 1:Enable, Cloud05
-    }
-
-    GuiControlGet, PromptCloseBox, 4:
-    IniWrite, %PromptCloseBox%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
-
-
-
-    GuiControlGet, CloudLabel01, 4:
-    IniWrite, %CloudLabel01%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
-    GuiControl, 1:, Cloud01, %CloudLabel01%
-    GuiControlGet, CloudLabel02, 4:
-    IniWrite, %CloudLabel02%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
-    GuiControl, 1:, Cloud02, %CloudLabel02%
-    GuiControlGet, CloudLabel03, 4:
-    IniWrite, %CloudLabel03%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
-    GuiControl, 1:, Cloud03, %CloudLabel03%
-    GuiControlGet, CloudLabel04, 4:
-    IniWrite, %CloudLabel04%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
-    GuiControl, 1:, Cloud04, %CloudLabel04%
-    GuiControlGet, CloudLabel05, 4:
-    IniWrite, %CloudLabel05%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
-    GuiControl, 1:, Cloud05, %CloudLabel05%
-
-    GuiControlGet, GPLabel1, 4:
-    IniWrite, %GPLabel1%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
-    GuiControl, 1:, D10, %GPLabel1%
-    GuiControlGet, GPLabel2, 4:
-    IniWrite, %GPLabel2%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
-    GuiControl, 1:, D13, %GPLabel2%
-    GuiControlGet, GPLabel3, 4:
-    IniWrite, %GPLabel3%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
-    GuiControl, 1:, D15, %GPLabel3%
-    GuiControlGet, GPLabel4, 4:
-    IniWrite, %GPLabel4%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
-    GuiControl, 1:, D16, %GPLabel4%
-    GuiControlGet, GPLabel5, 4:
-    IniWrite, %GPLabel5%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
-    GuiControl, 1:, D18, %GPLabel5%
-
-    GuiControlGet, GP1Loc, 4:
-    IniWrite, %GP1Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch1
-    GuiControlGet, GP2Loc, 4:
-    IniWrite, %GP2Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch2
-    GuiControlGet, GP3Loc, 4:
-    IniWrite, %GP3Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch3
-    GuiControlGet, GP4Loc, 4:
-    IniWrite, %GP4Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
-    GuiControlGet, GP5Loc, 4:
-    IniWrite, %GP5Loc%, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch5
-    Return
-*/
-
-Can2:   ; Cancel the GUI screen
-    Gui, 4:Destroy
-    sleep 1000
-    GuiControl, 1:, GPBackupsList, |
-    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-        Loop, %DBListDisplay%\*, 2
-        {
-            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
-        }
-        return
-    return
 
 ;--------------------------------------------------------------------------------------------------------------------------
 ; The actual Settings Screen Controls
