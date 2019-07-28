@@ -370,7 +370,7 @@ SQLServ:
     Gui, 8:Destroy
     Gui, 8:Add, Text, x10 y15, Enter your SQL Server Name:
     Gui, 8:Add, Edit, x10 y30 w218 vServerName, %ServName%
-    Gui, 8:Add, Button, x9 y60 w100 h25 gOK8, OK 
+    Gui, 8:Add, Button, +Default x9 y60 w100 h25 gOK8, OK 
     Gui, 8:Add, Button, x129 y60 w100 h25 gCancel8, Cancel
     Gui, 8:Show, w238 h90, SQL Server
     return
@@ -390,7 +390,7 @@ SQLUN:
     Gui, 9:Destroy
     Gui, 9:Add, Text, x10 y15, Enter your SQL Server Username:
     Gui, 9:Add, Edit, x10 y30 w218 vUserNameBox, %ServUN%
-    Gui, 9:Add, Button, x9 y60 w100 h25 gOK9, OK 
+    Gui, 9:Add, Button, +Default x9 y60 w100 h25 gOK9, OK 
     Gui, 9:Add, Button, x129 y60 w100 h25 gCancel9, Cancel
     Gui, 9:Show, w238 h90, SQL Server Username
     return
@@ -410,7 +410,7 @@ SQLPW:
     Gui, 10:Destroy
     Gui, 10:Add, Text, x10 y15, Enter your SQL Server Password:
     Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox Password, %ServPW%
-    Gui, 10:Add, Button, x9 y60 w100 h25 gOK10, OK 
+    Gui, 10:Add, Button, +Default x9 y60 w100 h25 gOK10, OK 
     Gui, 10:Add, Button, x129 y60 w100 h25 gCancel10, Cancel
     Gui, 10:Show, w238 h90, SQL Server Password
     return
@@ -430,7 +430,7 @@ DYN:
     Gui, 11:Destroy
     Gui, 11:Add, Text, x10 y15, Enter your Dynamics GP Database:
     Gui, 11:Add, Edit, x10 y30 w218 vDynamicsBox, %DynamicsDB%
-    Gui, 11:Add, Button, x9 y60 w100 h25 gOK11, OK 
+    Gui, 11:Add, Button, +Default x9 y60 w100 h25 gOK11, OK 
     Gui, 11:Add, Button, x129 y60 w100 h25 gCancel11, Cancel
     Gui, 11:Show, w238 h90, Dynamics GP Database
     return
@@ -450,7 +450,7 @@ REG:
     Gui, 12:Destroy
     Gui, 12:Add, Text, x10 y15, Enter your Non-Multibin DB:
     Gui, 12:Add, Edit, x10 y30 w218 vRegularBox, %RegDB%
-    Gui, 12:Add, Button, x9 y60 w100 h25 gOK12, OK 
+    Gui, 12:Add, Button, +Default x9 y60 w100 h25 gOK12, OK 
     Gui, 12:Add, Button, x129 y60 w100 h25 gCancel12, Cancel
     Gui, 12:Show, w238 h90, Non-Multibin
     return
@@ -470,7 +470,7 @@ MB:
     Gui, 13:Destroy
     Gui, 13:Add, Text, x10 y15, Enter your Multibin DB:
     Gui, 13:Add, Edit, x10 y30 w218 vMultiBox, %MBDB%
-    Gui, 13:Add, Button, x9 y60 w100 h25 gOK13, OK 
+    Gui, 13:Add, Button, +Default x9 y60 w100 h25 gOK13, OK 
     Gui, 13:Add, Button, x129 y60 w100 h25 gCancel13, Cancel
     Gui, 13:Show, w238 h90, Multibin
     return
@@ -490,7 +490,7 @@ SelectCloudLabel01:
     Gui, 18:Destroy
     Gui, 18:Add, Text, x10 y15, Enter the name of your 01 Tenant:
     Gui, 18:Add, Edit, x10 y30 w218 vCloudPrompt01, %CloudLabel01%
-    Gui, 18:Add, Button, x9 y60 w100 h25 gOKC01, OK 
+    Gui, 18:Add, Button, +Default x9 y60 w100 h25 gOKC01, OK 
     Gui, 18:Add, Button, x129 y60 w100 h25 gCancelC01, Cancel
     Gui, 18:Show, w238 h90, Tenant 01
     Return
@@ -510,7 +510,7 @@ SelectCloudLabel02:
     Gui, 19:Destroy
     Gui, 19:Add, Text, x10 y15, Enter the name of your 02 Tenant:
     Gui, 19:Add, Edit, x10 y30 w218 vCloudPrompt02, %CloudLabel02%
-    Gui, 19:Add, Button, x9 y60 w100 h25 gOKC02, OK 
+    Gui, 19:Add, Button, +Default x9 y60 w100 h25 gOKC02, OK 
     Gui, 19:Add, Button, x129 y60 w100 h25 gCancelC02, Cancel
     Gui, 19:Show, w238 h90, Tenant 02
     Return
@@ -530,7 +530,7 @@ SelectCloudLabel03:
     Gui, 20:Destroy
     Gui, 20:Add, Text, x10 y15, Enter the name of your 03 Tenant:
     Gui, 20:Add, Edit, x10 y30 w218 vCloudPrompt03, %CloudLabel03%
-    Gui, 20:Add, Button, x9 y60 w100 h25 gOKC03, OK 
+    Gui, 20:Add, Button, +Default x9 y60 w100 h25 gOKC03, OK 
     Gui, 20:Add, Button, x129 y60 w100 h25 gCancelC03, Cancel
     Gui, 20:Show, w238 h90, Tenant 03
     Return
@@ -550,7 +550,7 @@ SelectCloudLabel04:
     Gui, 21:Destroy
     Gui, 21:Add, Text, x10 y15, Enter the name of your 04 Tenant:
     Gui, 21:Add, Edit, x10 y30 w218 vCloudPrompt04, %CloudLabel04%
-    Gui, 21:Add, Button, x9 y60 w100 h25 gOKC04, OK 
+    Gui, 21:Add, Button, +Default x9 y60 w100 h25 gOKC04, OK 
     Gui, 21:Add, Button, x129 y60 w100 h25 gCancelC04, Cancel
     Gui, 21:Show, w238 h90, Tenant 04
     Return
@@ -570,7 +570,7 @@ SelectCloudLabel05:
     Gui, 22:Destroy
     Gui, 22:Add, Text, x10 y15, Enter the name of your 05 Tenant:
     Gui, 22:Add, Edit, x10 y30 w218 vCloudPrompt05, %CloudLabel05%
-    Gui, 22:Add, Button, x9 y60 w100 h25 gOKC05, OK 
+    Gui, 22:Add, Button, +Default x9 y60 w100 h25 gOKC05, OK 
     Gui, 22:Add, Button, x129 y60 w100 h25 gCancelC05, Cancel
     Gui, 22:Show, w238 h90, Tenant 05
     Return
@@ -625,7 +625,7 @@ SelectGPLabel1:
     Gui, 23:Destroy
     Gui, 23:Add, Text, x10 y15, Enter the name of your selected GP Instance:
     Gui, 23:Add, Edit, x10 y30 w218 vGPName1, %GPLabel1%
-    Gui, 23:Add, Button, x9 y60 w100 h25 gOKGP1, OK 
+    Gui, 23:Add, Button, +Default x9 y60 w100 h25 gOKGP1, OK 
     Gui, 23:Add, Button, x129 y60 w100 h25 gCancelGP1, Cancel
     Gui, 23:Show, w238 h90, GP 1 Button Label
     Return
@@ -645,7 +645,7 @@ SelectGPLabel2:
     Gui, 24:Destroy
     Gui, 24:Add, Text, x10 y15, Enter the name of your selected GP Instance:
     Gui, 24:Add, Edit, x10 y30 w218 vGPName2, %GPLabel2%
-    Gui, 24:Add, Button, x9 y60 w100 h25 gOKGP2, OK 
+    Gui, 24:Add, Button, +Default x9 y60 w100 h25 gOKGP2, OK 
     Gui, 24:Add, Button, x129 y60 w100 h25 gCancelGP2, Cancel
     Gui, 24:Show, w238 h90, GP 2 Button Label
     Return
@@ -665,7 +665,7 @@ SelectGPLabel3:
     Gui, 25:Destroy
     Gui, 25:Add, Text, x10 y15, Enter the name of your selected GP Instance:
     Gui, 25:Add, Edit, x10 y30 w218 vGPName3, %GPLabel3%
-    Gui, 25:Add, Button, x9 y60 w100 h25 gOKGP3, OK 
+    Gui, 25:Add, Button, +Default x9 y60 w100 h25 gOKGP3, OK 
     Gui, 25:Add, Button, x129 y60 w100 h25 gCancelGP3, Cancel
     Gui, 25:Show, w238 h90, GP 3 Button Label
     Return
@@ -685,7 +685,7 @@ SelectGPLabel4:
     Gui, 26:Destroy
     Gui, 26:Add, Text, x10 y15, Enter the name of your selected GP Instance:
     Gui, 26:Add, Edit, x10 y30 w218 vGPName4, %GPLabel4%
-    Gui, 26:Add, Button, x9 y60 w100 h25 gOKGP4, OK 
+    Gui, 26:Add, Button, +Default x9 y60 w100 h25 gOKGP4, OK 
     Gui, 26:Add, Button, x129 y60 w100 h25 gCancelGP4, Cancel
     Gui, 26:Show, w238 h90, GP 4 Button Label
     Return
@@ -705,7 +705,7 @@ SelectGPLabel5:
     Gui, 27:Destroy
     Gui, 27:Add, Text, x10 y15, Enter the name of your selected GP Instance:
     Gui, 27:Add, Edit, x10 y30 w218 vGPName5, %GPLabel5%
-    Gui, 27:Add, Button, x9 y60 w100 h25 gOKGP5, OK 
+    Gui, 27:Add, Button, +Default x9 y60 w100 h25 gOKGP5, OK 
     Gui, 27:Add, Button, x129 y60 w100 h25 gCancelGP5, Cancel
     Gui, 27:Show, w238 h90, GP 5 Button Label
     Return
@@ -1031,7 +1031,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
     Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
     Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
-    Gui, 2:Add, Button, x531 y120 w100 h25 gOK, OK
+    Gui, 2:Add, Button, +Default x531 y120 w100 h25 gOK, OK
     Gui, 2:Show, w660 h160, Install SalesPad GP
     return
 
@@ -1160,7 +1160,7 @@ ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/install
     Gui, 15:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlMobile%
     Gui, 15:Add, Edit, x30 y90 w600 vBuildLocMobile, C:\Program Files (x86)\SalesPad.GP.Mobile.Server\
     Gui, 15:Add, Button, x420 y120 w100 h25 gCanMobile, Cancel
-    Gui, 15:Add, Button, x531 y120 w100 h25 gOKMobile, OK
+    Gui, 15:Add, Button, +Default x531 y120 w100 h25 gOKMobile, OK
     Gui, 15:Show, w660 h160, Install SalesPad GP Mobile Server
     return
 
@@ -1208,7 +1208,7 @@ ButtonDataCollection:   ; Button to launch the DC selection/installer
     Gui, 14:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlDC%
     Gui, 14:Add, Edit, x30 y90 w600 vDCBuildLoc, C:\Program Files (x86)\DataCollection\
     Gui, 14:Add, Button, x420 y120 w100 h25 gDCCan, Cancel
-    Gui, 14:Add, Button, x531 y120 w100 h25 gDCOK, OK
+    Gui, 14:Add, Button, +Default x531 y120 w100 h25 gDCOK, OK
     Gui, 14:Show, w660 h160, Install DataCollection
     return
 
@@ -1254,7 +1254,7 @@ ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
     Gui, 16:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlSC%
     Gui, 16:Add, Edit, x30 y90 w600 vBuildLocSC, C:\Program Files (x86)\ShipCenter\
     Gui, 16:Add, Button, x420 y120 w100 h25 gCanSC, Cancel
-    Gui, 16:Add, Button, x531 y120 w100 h25 gOKSC, OK
+    Gui, 16:Add, Button, +Default x531 y120 w100 h25 gOKSC, OK
     Gui, 16:Show, w660 h160, Install Ship Center
     return
 
@@ -1300,7 +1300,7 @@ ButtonCardControl:  ; Button to launch the CardControl selection/installer
     Gui, 17:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlCC%
     Gui, 17:Add, Edit, x30 y90 w600 vBuildLocCC, C:\Program Files (x86)\CardControl
     Gui, 17:Add, Button, x420 y120 w100 h25 gCanCC, Cancel
-    Gui, 17:Add, Button, x531 y120 w100 h25 gOKCC, OK
+    Gui, 17:Add, Button, +Default x531 y120 w100 h25 gOKCC, OK
     Gui, 17:Show, w660 h160, Install Card Control
     return
 
