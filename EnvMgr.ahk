@@ -51,7 +51,8 @@ Gui, Add, Text, x376 y181, Existing Builds:
 Gui, Add, Button, x376 y51 w150 h25 vBDesktop, SalesPad Desktop
 Gui, Add, Button, x534 y51 w150 h25 vBMobile, SalesPad Mobile
 Gui, Add, Button, x376 y81 w150 h25 vBDataCollection, Data Collection
-Gui, Add, Button, x376 y111 w150 h25 vBShipCenter, Ship Center
+Gui, Add, Button, x376 y111 w150 h25 vCab, Windows Mobile
+Gui, Add, Button, x376 y141 w150 h25 vBShipCenter, Ship Center
 Gui, Add, Button, x534 y141 w150 h25 vBCardControl, Card Control
 Gui, Add, Button, x534 y81 w150 h25 vGPAPI, Web API
 Gui, Add, Button, x534 y111 w150 h25 vGPWEB, Web Portal 
@@ -838,6 +839,7 @@ ButtonCountersScreen:
     IniRead, Web, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
     IniRead, CC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
     IniRead, Launch, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    IniRead, CabWM, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
     IniRead, GP1CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP1
     IniRead, GP2CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP2
     IniRead, GP3CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP3
@@ -869,9 +871,11 @@ ButtonCountersScreen:
     Gui, 28:Add, Text, x335 y55, Web
     Gui, 28:Add, Text, x335 y85, CC
     Gui, 28:Add, Text, x335 y115, Launch
+    Gui, 28:Add, Text, x335 y145, Windows Mobile
     Gui, 28:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
     Gui, 28:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
     Gui, 28:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
+    Gui, 28:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
     Gui, 28:Add, Text, x470 y55, GP1
     Gui, 28:Add, Text, x470 y85, GP2
     Gui, 28:Add, Text, x470 y115, GP3
@@ -1278,6 +1282,24 @@ DCOK:
     Sleep 4000
     Run *RunAs "%DCBuildLoc%\DataCollection Extended Warehouse.exe"
     ;Run, %DCBuildLoc%
+    Return
+
+ButtonWindowsMobile:
+    IniRead, CabCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
+    CabCounter += 1
+    IniWrite, %CabCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
+    IniRead, CabDestination, Settings\Settings.ini, BuildManagement, SharedLocation
+    FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a Windows Mobile file to move, *.cab
+    if CabFile = 
+    {
+        MsgBox, 0, ERROR, Nothing was selected.
+        Return
+    }
+    if CabFile !=
+    {
+        FileCopy, %CabFile%, %CabDestination%
+        Return
+    }
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
