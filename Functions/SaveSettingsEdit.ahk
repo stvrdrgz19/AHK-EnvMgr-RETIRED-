@@ -14,6 +14,7 @@ SaveSettingsEdit(FieldToSave,Section,Key)
     GuiControlGet, GP4Loc, 4:
     GuiControlGet, GP5Loc, 4:
     GuiControlGet, PromptCloseBox, 4:
+    GuiControlGet, SharedF, 4:
     IniWrite, %FieldToSave%, Settings\Settings.ini, %Section%, %Key%
 }
 

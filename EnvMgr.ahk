@@ -170,12 +170,15 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection Button
     Gui, 4:Add, Checkbox, x30 y115 vDisableSC, Disable Ship Center Button
     Gui, 4:Add, Checkbox, x30 y145 vDisableMOB, Disable SalesPad Mobile Button
-    Gui, 4:Add, Checkbox, x30 y175 vDisableCC, Disable Card Control Button
-    Gui, 4:Add, Checkbox, x300 y55 vDisableAPI, Disable Web API Button
-    Gui, 4:Add, Checkbox, x300 y85 vDisableWeb, Disable Web Portal Button
-    Gui, 4:Add, Checkbox, x300 y115 vDisableLaunch, Disable Launch Build Button
-    Gui, 4:Add, Checkbox, x300 y145 vDisableAdd, Disable Add DLLs Button
-    Gui, 4:Add, Checkbox, x300 y175 vDisableBuild, Disable Build Folder Button
+    Gui, 4:Add, Checkbox, x260 y55 vDisableCC, Disable Card Control Button
+    Gui, 4:Add, Checkbox, x260 y85 vDisableAPI, Disable Web API Button
+    Gui, 4:Add, Checkbox, x260 y115 vDisableWeb, Disable Web Portal Button
+    Gui, 4:Add, Checkbox, x260 y145 vDisableLaunch, Disable Launch Build Button
+    Gui, 4:Add, Checkbox, x490 y55 vDisableAdd, Disable Add DLLs Button
+    Gui, 4:Add, Checkbox, x490 y85 vDisableBuild, Disable Build Folder Button
+    Gui, 4:Add, Text, x30 y181, Shared Folder:
+    Gui, 4:Add, Edit, x105 y178 w512 cGray ReadOnly vSharedF,
+    Gui, 4:Add, Button, x617 y177 w23 h23 gShared, ...
     Gui, 4:Tab, 4
     Gui, 4:Add, Text, x38 y45, Disabled
     Gui, 4:Add, Checkbox, x30 y70 vCheckDyn10, GP 2010
@@ -251,6 +254,7 @@ SettingsScreen:
     LoadSettingsScreen("GPWEBLoad","BuildManagement","Web","DisableWeb")
     LoadSettingsScreen("LaunchLoad","BuildManagement","Launch","DisableLaunch")
     LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
+    LoadSettingsScreen("SharedLoad","BuildManagement","SharedLocation","SharedF")
     LoadSettingsScreen("BuildLoad","BuildManagement","Build","DisableBuild")
     LoadSettingsScreen("Dyn10Load","GPButtons","Dynamics10","CheckDyn10")
     LoadSettingsScreen("Dyn13Load","GPButtons","Dynamics13","CheckDyn13")
@@ -301,6 +305,7 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsEdit(GP4Loc,"GPLaunchFile","GPLaunch4")
     SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
     SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
+    SaveSettingsEdit(SharedF,"BuildManagement","SharedLocation")
     SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
     SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
     SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
@@ -743,6 +748,20 @@ OKGP5:
 
 CancelGP5:
     Gui, 27:Destroy
+    Return
+
+Shared:
+    FileSelectFolder, SharedPath, C:\, 3, Select your Shared Folder location
+    if SharedPath = 
+    {
+        MsgBox, Nothing was selected.
+        return
+    }
+    Else
+    {
+        GuiControl, 4:, SharedF, %SharedPath%
+        return
+    }
     Return
 
 ;--------------------------------------------------------------------------------------------------------------------------
