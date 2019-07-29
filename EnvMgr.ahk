@@ -588,37 +588,62 @@ CancelC05:
 SelectGP1:
     FileSelectFile, ChooseGP1, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
     if ErrorLevel
-        return
-    GuiControl, 4:, GP1Loc, %ChooseGP1%
-    Return
+    {
+        Return
+    }
+    Else
+    {
+        GuiControl, 4:, GP1Loc, %ChooseGP1%
+        Return
+    }
 
 SelectGP2:
     FileSelectFile, ChooseGP2, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
     if ErrorLevel
-        return
-    GuiControl, 4:, GP2Loc, %ChooseGP2%
-    Return
+    {
+        Return
+    }
+    Else
+    {
+        GuiControl, 4:, GP2Loc, %ChooseGP2%
+        Return
+    }
 
 SelectGP3:
     FileSelectFile, ChooseGP3, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
     if ErrorLevel
-        return
-    GuiControl, 4:, GP3Loc, %ChooseGP3%
-    Return
+    {
+        Return
+    }
+    Else
+    {
+        GuiControl, 4:, GP3Loc, %ChooseGP3%
+        Return
+    }
 
 SelectGP4:
     FileSelectFile, ChooseGP4, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
     if ErrorLevel
-        return
-    GuiControl, 4:, GP4Loc, %ChooseGP4%
-    Return
+    {
+        Return
+    }
+    Else
+    {
+        GuiControl, 4:, GP4Loc, %ChooseGP4%
+        Return
+    }
 
 SelectGP5:
     FileSelectFile, ChooseGP5, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
     if ErrorLevel
-        return
-    GuiControl, 4:, GP5Loc, %ChooseGP5%
-    Return
+    {
+        Return
+    }
+    Else
+    {
+        GuiControl, 4:, GP5Loc, %ChooseGP5%
+        Return
+    }
 
 SelectGPLabel1:
     GuiControlGet, GPLabel1
