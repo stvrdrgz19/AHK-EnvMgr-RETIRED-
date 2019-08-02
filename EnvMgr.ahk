@@ -1102,7 +1102,7 @@ OK:
     FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
-    IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+    IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
     If VarCheck = 1
     {
         MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
@@ -1226,7 +1226,7 @@ CanMobile:
 
 OKMobile:
     GuiControlGet, BuildLocMobile
-    IniWrite, %InstlMobile%, Settings\Paths.ini, LastInstalledBuild, Mobile
+    IniWrite, %InstlMobile%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, Mobile
     Gui, 15:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocMobile%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1274,7 +1274,7 @@ DCCan:
 
 DCOK:
     GuiControlGet, DCBuildLoc
-    IniWrite, %InstlDC%, Settings\Paths.ini, LastInstalledBuild, DC
+    IniWrite, %InstlDC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, DC
     Gui, 14:Destroy
     run, "Scripts\DCSilentInstall.bat" "%DCBuildLoc%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1338,7 +1338,7 @@ CanSC:
 
 OKSC:
     GuiControlGet, BuildLocSC
-    IniWrite, %InstlSC%, Settings\Paths.ini, LastInstalledBuild, SC
+    IniWrite, %InstlSC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SC
     Gui, 16:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocSC%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1384,7 +1384,7 @@ CanCC:
 
 OKCC:
     GuiControlGet, BuildLocCC
-    IniWrite, %InstlCC%, Settings\Paths.ini, LastInstalledBuild, CC
+    IniWrite, %InstlCC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, CC
     Gui, 17:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocCC%"
     WinWait, C:\windows\system32\cmd.exe
