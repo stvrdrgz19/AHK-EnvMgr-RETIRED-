@@ -1394,6 +1394,9 @@ OKCC:
     Return
 
 ButtonWebAPI:
+    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
+    APICounter += 1
+    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
     FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select a WebAPI Build, *.msi
     if ErrorLevel
         return
@@ -1401,18 +1404,14 @@ ButtonWebAPI:
     If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
     {
         Run, Scripts\Uninstall.bat - Shortcut.lnk
-        WinWaitActive, SalesPad WebAPI Setup
-        Sleep 1000
-        Click, 355, 360
-        Sleep 500
-        Click, 107, 264
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        Sleep 1000
-        Click, 355, 360
-        Sleep 4500
-        Click, 355, 360
+        WinWaitActive, SalesPad WebAPI Setup, Welcome to the SalesPad WebAPI Setup Wizard
+        ControlClick, &Next, SalesPad WebAPI Setup, Welcome to the SalesPad WebAPI Setup Wizard
+        WinWaitActive, SalesPad WebAPI Setup, SalesPad WebAPI cannot be repaired
+        ControlClick, &Remove, SalesPad WebAPI Setup, SalesPad WebAPI cannot be repaired
+        WinWaitActive, SalesPad WebAPI Setup, Ready to remove SalesPad WebAPI
+        ControlClick, &Remove, SalesPad WebAPI Setup, Ready to remove SalesPad WebAPI
+        WinWaitActive, SalesPad WebAPI Setup, Completed the SalesPad WebAPI Setup Wizard
+        ControlClick, &Finish, SalesPad WebAPI Setup, Completed the SalesPad WebAPI Setup Wizard
         WinWaitClose, SalesPad WebAPI Setup
         FileDelete, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
         if FileExist("C:\inetpub\wwwroot\SalesPadWebAPI")
@@ -1422,6 +1421,31 @@ ButtonWebAPI:
         FileCreateDir, C:\inetpub\wwwroot\SalesPadWebAPI
         FileCopy, %SelectedAPI%, C:\inetpub\wwwroot\SalesPadWebAPI
         Run, C:\inetpub\wwwroot\SalesPadWebAPI\%APIInstaller%
+        WinWaitActive, SalesPad WebAPI Setup, Click Next to continue or Cancel to exit the Setup Wizard
+        ControlClick, &Next, SalesPad WebAPI Setup, Click Next to continue or Cancel to exit the Setup Wizard
+        WinWaitActive, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        ControlClick, Button1, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        ControlClick, &Next, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        WinWaitActive, SalesPad WebAPI Setup, Click Next to install to the default folder or click Change to choose another
+        ControlClick, &Next, SalesPad WebAPI Setup, Click Next to install to the default folder or click Change to choose another
+        WinWaitActive, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        ControlSend, RichEdit20W1, 10.50.0.45\SQLSERVER2016, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        ControlClick, Next, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        WinWaitActive, IIS Setup, Setup the IIS Website
+        ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
+        ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
+        ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
+        ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
+        ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        ControlClick, Next, IIS Setup, Setup the IIS Website
+        Sleep 500
+        WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
+        ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
+        /*
         WinWaitActive, SalesPad WebAPI Setup
         WinActivate, SalesPad WebAPI Setup
         Sleep 1000
@@ -1462,6 +1486,7 @@ ButtonWebAPI:
         WinWaitActive, SalesPad WebAPI Setup
         WinWaitClose, SalesPad WebAPI Setup
         MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
+        */
         Return
     }
     Else
@@ -1473,6 +1498,32 @@ ButtonWebAPI:
         FileCreateDir, C:\inetpub\wwwroot\SalesPadWebAPI
         FileCopy, %SelectedAPI%, C:\inetpub\wwwroot\SalesPadWebAPI
         Run, C:\inetpub\wwwroot\SalesPadWebAPI\%APIInstaller%
+        WinWaitActive, SalesPad WebAPI Setup, Click Next to continue or Cancel to exit the Setup Wizard
+        ControlClick, &Next, SalesPad WebAPI Setup, Click Next to continue or Cancel to exit the Setup Wizard
+        WinWaitActive, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        ControlClick, Button1, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        ControlClick, &Next, SalesPad WebAPI Setup, Please read the following license agreement carefully
+        WinWaitActive, SalesPad WebAPI Setup, Click Next to install to the default folder or click Change to choose another
+        ControlClick, &Next, SalesPad WebAPI Setup, Click Next to install to the default folder or click Change to choose another
+        WinWaitActive, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        ControlSend, RichEdit20W1, 10.50.0.45\SQLSERVER2016, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        ControlClick, Next, Web.Config Setup, Setup the connection string and service information in the Web.Config file
+        WinWaitActive, IIS Setup, Setup the IIS Website
+        ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
+        ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
+        ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
+        ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
+        ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        ControlClick, Next, IIS Setup, Setup the IIS Website
+        ;Sleep 500
+        WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
+        ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
+        /*
         WinWaitActive, SalesPad WebAPI Setup
         WinActivate, SalesPad WebAPI Setup
         Sleep 1000
@@ -1512,65 +1563,21 @@ ButtonWebAPI:
         WinWaitClose, SalesPad WebAPI Setup
         WinWaitActive, SalesPad WebAPI Setup
         WinWaitClose, SalesPad WebAPI Setup
-        MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
+        */
+        ;MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
         Return
     }
-
-/*
-    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
-    APICounter += 1
-    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
-    if GetKeyState("Shift", "P")
-        ;Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
-        MsgBox, 4, Automate API Install?, Are you sure you want to automate API Installation? Selecting yes will control your mouse momentarily, so please don't use it until the User Control prompt appears.
-        IfMsgBox, Yes
-        {
-            Run, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\SteveInstallAPI.ahk - Shortcut.lnk
-            Return
-        }
-        IfMsgBox, No
-        {
-            MsgBox, 0, CANCEL, API Was not automatically installed.
-            Return
-        }
-*/
-/*
-    Else if GetKeyState("Ctrl", "P")
-        Run, http://localhost:49403/
-        Return
-    Else
-        MsgBox, 4, API?, Are you sure you want to install a new Web API?
-        IfMsgBox Yes
-        {
-            Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.API - Shortcut.lnk"
-            Return
-        }
-        If MsgBox No
-        {
-            Return
-        }
-    Return
-*/
 
 ButtonWebPortal:
     IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
     WebCounter += 1
     IniWrite, %WebCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
-    if GetKeyState("Shift", "P")
-        Run, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP
-    Else if GetKeyState("Ctrl", "P")
-        Run, http://localhost:80/
-    Else
-        MsgBox, 4, WEB?, Are you sure you want to install a new Web Portal Web build?
-        IfMsgBox Yes
-        {
-            Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Shortcuts\Script.WEB - Shortcut.lnk"
-            Return
-        }
-        If MsgBox No
-        {
-            Return
-        }
+    FileSelectFile, SelectWeb, 1, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP, Select a GPWEB Build, *.zip
+    SplitPath, SelectWeb,, WebBuild
+    Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\Script.WEB.bat - Shortcut.lnk" %WebBuild%
+    ;WinWaitActive, C:\windows\system32\cmd.exe
+    ;WinWaitClose, C:\windows\system32\cmd.exe
+    ;MsgBox, 0, COMPLETE, %WebBuild% was successfully installed!
     Return
 
 ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs plugin
