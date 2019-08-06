@@ -119,6 +119,7 @@ LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 Gui, Color, f9f9f9
 Gui, Show, w706 h421, Environment Mananger  ; Finally showing the GUI
 
+
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Loading the list of database folders into the listbox - location pulled from Settings
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -129,7 +130,6 @@ IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-
         GuiControl,, GPBackupsList, %A_LoopFileName%
     }
     return
-
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Clicking the Settings menu option ot CTRL s > Creating the Settings GUI
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -1394,13 +1394,150 @@ OKCC:
     Return
 
 ButtonWebAPI:
+    FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select a WebAPI Build, *.msi
+    if ErrorLevel
+        return
+    SplitPath, SelectedAPI, APIInstaller
+    If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
+    {
+        Run, Scripts\Uninstall.bat - Shortcut.lnk
+        WinWaitActive, SalesPad WebAPI Setup
+        Sleep 1000
+        Click, 355, 360
+        Sleep 500
+        Click, 107, 264
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        Sleep 1000
+        Click, 355, 360
+        Sleep 4500
+        Click, 355, 360
+        WinWaitClose, SalesPad WebAPI Setup
+        FileDelete, C:\inetpub\wwwroot\SalesPadWebAPI\*.msi
+        if FileExist("C:\inetpub\wwwroot\SalesPadWebAPI")
+        {
+            FileRemoveDir, C:\inetpub\wwwroot\SalesPadWebAPI, 1
+        }
+        FileCreateDir, C:\inetpub\wwwroot\SalesPadWebAPI
+        FileCopy, %SelectedAPI%, C:\inetpub\wwwroot\SalesPadWebAPI
+        Run, C:\inetpub\wwwroot\SalesPadWebAPI\%APIInstaller%
+        WinWaitActive, SalesPad WebAPI Setup
+        WinActivate, SalesPad WebAPI Setup
+        Sleep 1000
+        Click, 354, 361
+        Sleep 500
+        Click, 34, 314
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        MouseMove, 109, 134
+        Click, 3
+        Sleep 500
+        Send, 10.50.0.45\SQLSERVER2016
+        Sleep 500
+        Click, 355, 361
+        Sleep 1000
+        MouseMove, 103, 173
+        Click, 2
+        Send, 49403
+        Send, {Tab}
+        Sleep 500
+        Send, steve.rodriguez
+        Sleep 500
+        Send, {Tab}
+        Sleep 500
+        Send, S@lespad1
+        Sleep 500
+        Send, {Tab}
+        Sleep 500
+        Send, SALESPAD
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        Click, 355, 360
+        WinWaitClose, SalesPad WebAPI Setup
+        WinWaitActive, SalesPad WebAPI Setup
+        WinWaitClose, SalesPad WebAPI Setup
+        MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
+        Return
+    }
+    Else
+    {
+        if FileExist("C:\inetpub\wwwroot\SalesPadWebAPI")
+        {
+            FileRemoveDir, C:\inetpub\wwwroot\SalesPadWebAPI, 1
+        }
+        FileCreateDir, C:\inetpub\wwwroot\SalesPadWebAPI
+        FileCopy, %SelectedAPI%, C:\inetpub\wwwroot\SalesPadWebAPI
+        Run, C:\inetpub\wwwroot\SalesPadWebAPI\%APIInstaller%
+        WinWaitActive, SalesPad WebAPI Setup
+        WinActivate, SalesPad WebAPI Setup
+        Sleep 1000
+        Click, 354, 361
+        Sleep 500
+        Click, 34, 314
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        MouseMove, 109, 134
+        Click, 3
+        Sleep 500
+        Send, 10.50.0.45\SQLSERVER2016
+        Sleep 500
+        Click, 355, 361
+        Sleep 1000
+        MouseMove, 103, 173
+        Click, 2
+        Send, 49403
+        Send, {Tab}
+        Sleep 500
+        Send, steve.rodriguez
+        Sleep 500
+        Send, {Tab}
+        Sleep 500
+        Send, S@lespad1
+        Sleep 500
+        Send, {Tab}
+        Sleep 500
+        Send, SALESPAD
+        Sleep 500
+        Click, 355, 360
+        Sleep 500
+        Click, 355, 360
+        WinWaitClose, SalesPad WebAPI Setup
+        WinWaitActive, SalesPad WebAPI Setup
+        WinWaitClose, SalesPad WebAPI Setup
+        MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
+        Return
+    }
+
+/*
     IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
     APICounter += 1
     IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
     if GetKeyState("Shift", "P")
-        Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
+        ;Run, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi
+        MsgBox, 4, Automate API Install?, Are you sure you want to automate API Installation? Selecting yes will control your mouse momentarily, so please don't use it until the User Control prompt appears.
+        IfMsgBox, Yes
+        {
+            Run, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\SteveInstallAPI.ahk - Shortcut.lnk
+            Return
+        }
+        IfMsgBox, No
+        {
+            MsgBox, 0, CANCEL, API Was not automatically installed.
+            Return
+        }
+*/
+/*
     Else if GetKeyState("Ctrl", "P")
         Run, http://localhost:49403/
+        Return
     Else
         MsgBox, 4, API?, Are you sure you want to install a new Web API?
         IfMsgBox Yes
@@ -1413,6 +1550,7 @@ ButtonWebAPI:
             Return
         }
     Return
+*/
 
 ButtonWebPortal:
     IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
