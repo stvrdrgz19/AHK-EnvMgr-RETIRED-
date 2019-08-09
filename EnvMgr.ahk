@@ -1127,6 +1127,7 @@ OK:
             run, %BuildLoc%\SalesPad.exe
             GuiControl, , CheckB, 0
             VarCheck = 0
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
             return
         }
     }
@@ -1187,6 +1188,7 @@ OK:
     NoDLL:
         Sleep, 1000
         run, %BuildLoc%\SalesPad.exe
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
         return
     }
 
@@ -1437,10 +1439,10 @@ ButtonWebAPI:
         ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
         ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
         ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
         ControlClick, Next, IIS Setup, Setup the IIS Website
         Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
@@ -1514,11 +1516,11 @@ ButtonWebAPI:
         ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
         ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
         ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
         ControlClick, Next, IIS Setup, Setup the IIS Website
         ;Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
