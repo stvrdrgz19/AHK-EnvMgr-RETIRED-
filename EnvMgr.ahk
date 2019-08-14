@@ -12,6 +12,9 @@
 #Include, Functions\SaveSettingsCheckbox.ahk
 #Include, Functions\SaveSettingsEdit.ahk
 #Include, Functions\SaveSettingsEditAndButton.ahk
+#Include, Functions\EditEntryVariableGUI.ahk
+#Include, Functions\FileSelectFile.ahk
+#Include, Functions\FileSelectFolder.ahk
 SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
@@ -359,6 +362,9 @@ Can2:   ; Cancel the GUI screen
 ; The actual Settings Screen Controls
 ;--------------------------------------------------------------------------------------------------------------------------
 BackPath:
+    ;FolderSelect("BackFolder","C:\","Select your Database Backups Folder",BackupPath)
+    ;Return
+
     FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
     if BackFolder = 
     {
@@ -372,6 +378,11 @@ BackPath:
     }
 
 SQLServ:
+    Gui, Submit, NoHide
+    GuiControlGet, ServName
+    VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
+    Return
+
     GuiControlGet, ServName
     Gui, 8:Destroy
     Gui, 8:Add, Text, x10 y15, Enter your SQL Server Name:
@@ -1078,12 +1089,12 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
     Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
     Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
-    Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
-    Gui, 2:Add, Button, +Default x531 y120 w100 h25 gOK, OK
+    Gui, 2:Add, Button, x420 y120 w100 h25 gSPGPCan, Cancel
+    Gui, 2:Add, Button, +Default x531 y120 w100 h25 gSPGPOK, OK
     Gui, 2:Show, w660 h160, Install SalesPad GP
     return
 
-Can:
+SPGPCan:
     MsgBox, 4, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
@@ -1095,7 +1106,7 @@ Can:
         return
     }
 
-OK:
+SPGPOK:
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
