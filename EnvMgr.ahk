@@ -362,7 +362,8 @@ Can2:   ; Cancel the GUI screen
 ; The actual Settings Screen Controls
 ;--------------------------------------------------------------------------------------------------------------------------
 BackPath:
-    ;FolderSelect("BackFolder","C:\","Select your Database Backups Folder",BackupPath)
+    ;Gui, Submit, NoHide
+    ;VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
     ;Return
 
     FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
@@ -379,227 +380,57 @@ BackPath:
 
 SQLServ:
     Gui, Submit, NoHide
-    GuiControlGet, ServName
     VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
     Return
 
-    GuiControlGet, ServName
-    Gui, 8:Destroy
-    Gui, 8:Add, Text, x10 y15, Enter your SQL Server Name:
-    Gui, 8:Add, Edit, x10 y30 w218 vServerName, %ServName%
-    Gui, 8:Add, Button, +Default x9 y60 w100 h25 gOK8, OK 
-    Gui, 8:Add, Button, x129 y60 w100 h25 gCancel8, Cancel
-    Gui, 8:Show, w238 h90, SQL Server
-    return
-
-Cancel8:
-    Gui, 8:Destroy
-    Return
-
-OK8:
-    GuiControlGet, ServerName
-    GuiControl, 4:, ServName, %ServerName%
-    Gui, 8:Destroy
-    return
-
 SQLUN:
-    GuiControlGet, ServUN
-    Gui, 9:Destroy
-    Gui, 9:Add, Text, x10 y15, Enter your SQL Server Username:
-    Gui, 9:Add, Edit, x10 y30 w218 vUserNameBox, %ServUN%
-    Gui, 9:Add, Button, +Default x9 y60 w100 h25 gOK9, OK 
-    Gui, 9:Add, Button, x129 y60 w100 h25 gCancel9, Cancel
-    Gui, 9:Show, w238 h90, SQL Server Username
-    return
-
-Cancel9:
-    Gui, 9:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter your SQL Server Username:","",ServUN,"SQL Server Username","ServUN")
     Return
-
-OK9:
-    GuiControlGet, UserNameBox
-    GuiControl, 4:, ServUN, %UserNameBox%
-    Gui, 9:Destroy
-    return
 
 SQLPW:
-    GuiControlGet, ServPW
-    Gui, 10:Destroy
-    Gui, 10:Add, Text, x10 y15, Enter your SQL Server Password:
-    Gui, 10:Add, Edit, x10 y30 w218 vUserPWBox Password, %ServPW%
-    Gui, 10:Add, Button, +Default x9 y60 w100 h25 gOK10, OK 
-    Gui, 10:Add, Button, x129 y60 w100 h25 gCancel10, Cancel
-    Gui, 10:Show, w238 h90, SQL Server Password
-    return
-
-Cancel10:
-    Gui, 10:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter your SQL Server Password:","Password",ServPW,"SQL Server Password","ServPW")
     Return
-
-OK10:
-    GuiControlGet, UserPWBox
-    GuiControl, 4:, ServPW, %UserPWBox%
-    Gui, 10:Destroy
-    return
 
 DYN:
-    GuiControlGet, DynamicsDB
-    Gui, 11:Destroy
-    Gui, 11:Add, Text, x10 y15, Enter your Dynamics GP Database:
-    Gui, 11:Add, Edit, x10 y30 w218 vDynamicsBox, %DynamicsDB%
-    Gui, 11:Add, Button, +Default x9 y60 w100 h25 gOK11, OK 
-    Gui, 11:Add, Button, x129 y60 w100 h25 gCancel11, Cancel
-    Gui, 11:Show, w238 h90, Dynamics GP Database
-    return
-
-Cancel11:
-    Gui, 11:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter your Dynamics GP Database:","",DynamicsDB,"Dynamics GP Database","DynamicsDB")
     Return
-
-OK11:
-    GuiControlGet, DynamicsBox
-    GuiControl, 4:, DynamicsDB, %DynamicsBox%
-    Gui, 11:Destroy
-    return
 
 REG:
-    GuiControlGet, RegDB
-    Gui, 12:Destroy
-    Gui, 12:Add, Text, x10 y15, Enter your Non-Multibin DB:
-    Gui, 12:Add, Edit, x10 y30 w218 vRegularBox, %RegDB%
-    Gui, 12:Add, Button, +Default x9 y60 w100 h25 gOK12, OK 
-    Gui, 12:Add, Button, x129 y60 w100 h25 gCancel12, Cancel
-    Gui, 12:Show, w238 h90, Non-Multibin
-    return
-
-Cancel12:
-    Gui, 12:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter your Non-Multibin DB:","",RegDB,"Non-Multibin","RegDB")
     Return
-
-OK12:
-    GuiControlGet, RegularBox
-    GuiControl, 4:, RegDB, %RegularBox%
-    Gui, 12:Destroy
-    return
 
 MB:
-    GuiControlGet, MBDB
-    Gui, 13:Destroy
-    Gui, 13:Add, Text, x10 y15, Enter your Multibin DB:
-    Gui, 13:Add, Edit, x10 y30 w218 vMultiBox, %MBDB%
-    Gui, 13:Add, Button, +Default x9 y60 w100 h25 gOK13, OK 
-    Gui, 13:Add, Button, x129 y60 w100 h25 gCancel13, Cancel
-    Gui, 13:Show, w238 h90, Multibin
-    return
-
-Cancel13: ; Cancel action
-    Gui, 13:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter your Multibin DB:","",MBDB,"Multibin","MBDB")
     Return
-
-OK13: ; OK action
-    GuiControlGet, MultiBox
-    GuiControl, 4:, MBDB, %MultiBox%
-    Gui, 13:Destroy
-    return
 
 SelectCloudLabel01:
-    GuiControlGet, CloudLabel01
-    Gui, 18:Destroy
-    Gui, 18:Add, Text, x10 y15, Enter the name of your 01 Tenant:
-    Gui, 18:Add, Edit, x10 y30 w218 vCloudPrompt01, %CloudLabel01%
-    Gui, 18:Add, Button, +Default x9 y60 w100 h25 gOKC01, OK 
-    Gui, 18:Add, Button, x129 y60 w100 h25 gCancelC01, Cancel
-    Gui, 18:Show, w238 h90, Tenant 01
-    Return
-
-OKC01:
-    GuiControlGet, CloudPrompt01
-    GuiControl, 4:, CloudLabel01, %CloudPrompt01%
-    Gui, 18:Destroy
-    Return
-
-CancelC01:
-    Gui, 18:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your 01 Tenant:","",CloudLabel01,"Tenant 01","CloudLabel01")
     Return
 
 SelectCloudLabel02:
-    GuiControlGet, CloudLabel02
-    Gui, 19:Destroy
-    Gui, 19:Add, Text, x10 y15, Enter the name of your 02 Tenant:
-    Gui, 19:Add, Edit, x10 y30 w218 vCloudPrompt02, %CloudLabel02%
-    Gui, 19:Add, Button, +Default x9 y60 w100 h25 gOKC02, OK 
-    Gui, 19:Add, Button, x129 y60 w100 h25 gCancelC02, Cancel
-    Gui, 19:Show, w238 h90, Tenant 02
-    Return
-
-OKC02:
-    GuiControlGet, CloudPrompt02
-    GuiControl, 4:, CloudLabel02, %CloudPrompt02%
-    Gui, 19:Destroy
-    Return
-
-CancelC02:
-    Gui, 19:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your 02 Tenant:","",CloudLabel02,"Tenant 02","CloudLabel02")
     Return
 
 SelectCloudLabel03:
-    GuiControlGet, CloudLabel03
-    Gui, 20:Destroy
-    Gui, 20:Add, Text, x10 y15, Enter the name of your 03 Tenant:
-    Gui, 20:Add, Edit, x10 y30 w218 vCloudPrompt03, %CloudLabel03%
-    Gui, 20:Add, Button, +Default x9 y60 w100 h25 gOKC03, OK 
-    Gui, 20:Add, Button, x129 y60 w100 h25 gCancelC03, Cancel
-    Gui, 20:Show, w238 h90, Tenant 03
-    Return
-
-OKC03:
-    GuiControlGet, CloudPrompt03
-    GuiControl, 4:, CloudLabel03, %CloudPrompt03%
-    Gui, 20:Destroy
-    Return
-
-CancelC03:
-    Gui, 20:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your 03 Tenant:","",CloudLabel03,"Tenant 03","CloudLabel03")
     Return
 
 SelectCloudLabel04:
-    GuiControlGet, CloudLabel04
-    Gui, 21:Destroy
-    Gui, 21:Add, Text, x10 y15, Enter the name of your 04 Tenant:
-    Gui, 21:Add, Edit, x10 y30 w218 vCloudPrompt04, %CloudLabel04%
-    Gui, 21:Add, Button, +Default x9 y60 w100 h25 gOKC04, OK 
-    Gui, 21:Add, Button, x129 y60 w100 h25 gCancelC04, Cancel
-    Gui, 21:Show, w238 h90, Tenant 04
-    Return
-
-OKC04:
-    GuiControlGet, CloudPrompt04
-    GuiControl, 4:, CloudLabel04, %CloudPrompt04%
-    Gui, 21:Destroy
-    Return
-
-CancelC04:
-    Gui, 21:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your 04 Tenant:","",CloudLabel04,"Tenant 04","CloudLabel04")
     Return
 
 SelectCloudLabel05:
-    GuiControlGet, CloudLabel05
-    Gui, 22:Destroy
-    Gui, 22:Add, Text, x10 y15, Enter the name of your 05 Tenant:
-    Gui, 22:Add, Edit, x10 y30 w218 vCloudPrompt05, %CloudLabel05%
-    Gui, 22:Add, Button, +Default x9 y60 w100 h25 gOKC05, OK 
-    Gui, 22:Add, Button, x129 y60 w100 h25 gCancelC05, Cancel
-    Gui, 22:Show, w238 h90, Tenant 05
-    Return
-
-OKC05:
-    GuiControlGet, CloudPrompt05
-    GuiControl, 4:, CloudLabel05, %CloudPrompt05%
-    Gui, 22:Destroy
-    Return
-
-CancelC05:
-    Gui, 22:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your 05 Tenant:","",CloudLabel05,"Tenant 05","CloudLabel05")
     Return
 
 SelectGP1:
@@ -663,103 +494,28 @@ SelectGP5:
     }
 
 SelectGPLabel1:
-    GuiControlGet, GPLabel1
-    Gui, 23:Destroy
-    Gui, 23:Add, Text, x10 y15, Enter the name of your selected GP Instance:
-    Gui, 23:Add, Edit, x10 y30 w218 vGPName1, %GPLabel1%
-    Gui, 23:Add, Button, +Default x9 y60 w100 h25 gOKGP1, OK 
-    Gui, 23:Add, Button, x129 y60 w100 h25 gCancelGP1, Cancel
-    Gui, 23:Show, w238 h90, GP 1 Button Label
-    Return
-
-OKGP1:
-    GuiControlGet, GPName1
-    GuiControl, 4:, GPLabel1, %GPName1%
-    Gui, 23:Destroy
-    Return
-
-CancelGP1:
-    Gui, 23:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your selected GP Instance:","",GPLabel1,"GP 1 Button Label","GPLabel1")
     Return
 
 SelectGPLabel2:
-    GuiControlGet, GPLabel2
-    Gui, 24:Destroy
-    Gui, 24:Add, Text, x10 y15, Enter the name of your selected GP Instance:
-    Gui, 24:Add, Edit, x10 y30 w218 vGPName2, %GPLabel2%
-    Gui, 24:Add, Button, +Default x9 y60 w100 h25 gOKGP2, OK 
-    Gui, 24:Add, Button, x129 y60 w100 h25 gCancelGP2, Cancel
-    Gui, 24:Show, w238 h90, GP 2 Button Label
-    Return
-
-OKGP2:
-    GuiControlGet, GPName2
-    GuiControl, 4:, GPLabel2, %GPName2%
-    Gui, 24:Destroy
-    Return
-
-CancelGP2:
-    Gui, 24:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your selected GP Instance:","",GPLabel2,"GP 2 Button Label","GPLabel2")
     Return
 
 SelectGPLabel3:
-    GuiControlGet, GPLabel3
-    Gui, 25:Destroy
-    Gui, 25:Add, Text, x10 y15, Enter the name of your selected GP Instance:
-    Gui, 25:Add, Edit, x10 y30 w218 vGPName3, %GPLabel3%
-    Gui, 25:Add, Button, +Default x9 y60 w100 h25 gOKGP3, OK 
-    Gui, 25:Add, Button, x129 y60 w100 h25 gCancelGP3, Cancel
-    Gui, 25:Show, w238 h90, GP 3 Button Label
-    Return
-
-OKGP3:
-    GuiControlGet, GPName3
-    GuiControl, 4:, GPLabel3, %GPName3%
-    Gui, 25:Destroy
-    Return
-
-CancelGP3:
-    Gui, 25:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your selected GP Instance:","",GPLabel3,"GP 3 Button Label","GPLabel3")
     Return
 
 SelectGPLabel4:
-    GuiControlGet, GPLabel4
-    Gui, 26:Destroy
-    Gui, 26:Add, Text, x10 y15, Enter the name of your selected GP Instance:
-    Gui, 26:Add, Edit, x10 y30 w218 vGPName4, %GPLabel4%
-    Gui, 26:Add, Button, +Default x9 y60 w100 h25 gOKGP4, OK 
-    Gui, 26:Add, Button, x129 y60 w100 h25 gCancelGP4, Cancel
-    Gui, 26:Show, w238 h90, GP 4 Button Label
-    Return
-
-OKGP4:
-    GuiControlGet, GPName4
-    GuiControl, 4:, GPLabel4, %GPName4%
-    Gui, 26:Destroy
-    Return
-
-CancelGP4:
-    Gui, 26:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your selected GP Instance:","",GPLabel4,"GP 4 Button Label","GPLabel4")
     Return
 
 SelectGPLabel5:
-    GuiControlGet, GPLabel5
-    Gui, 27:Destroy
-    Gui, 27:Add, Text, x10 y15, Enter the name of your selected GP Instance:
-    Gui, 27:Add, Edit, x10 y30 w218 vGPName5, %GPLabel5%
-    Gui, 27:Add, Button, +Default x9 y60 w100 h25 gOKGP5, OK 
-    Gui, 27:Add, Button, x129 y60 w100 h25 gCancelGP5, Cancel
-    Gui, 27:Show, w238 h90, GP 5 Button Label
-    Return
-
-OKGP5:
-    GuiControlGet, GPName5
-    GuiControl, 4:, GPLabel5, %GPName5%
-    Gui, 27:Destroy
-    Return
-
-CancelGP5:
-    Gui, 27:Destroy
+    Gui, Submit, NoHide
+    VariableGUI("Enter the name of your selected GP Instance:","",GPLabel5,"GP 5 Button Label","GPLabel5")
     Return
 
 Shared:
