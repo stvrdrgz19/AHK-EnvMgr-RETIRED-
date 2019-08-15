@@ -135,7 +135,6 @@ IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-
 ;--------------------------------------------------------------------------------------------------------------------------
 SettingsScreen:
     Gui, 4:Destroy
-    ;Gui, 4:Add, Text, x0 y10 w683 0x10 ;Horizontal Line
     Gui, 4:Add, Button, x459 y220 w100 h25 gSave, Save
     Gui, 4:Add, Button, x569 y220 w100 h25 gCan2, Exit
     Gui, 4:Add, Tab3, x10 y10 w660 h206, Connection|Desktop DBs|Build Management|Dynamics GP|SPC DBs|Other

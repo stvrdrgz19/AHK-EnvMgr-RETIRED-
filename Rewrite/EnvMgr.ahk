@@ -372,6 +372,7 @@ BackPath:
 
 SQLServ:
     Gui, Submit, NoHide
+    VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
     ;Insert VariableGUI Function
     Return
 
@@ -643,13 +644,284 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
 ;=====================================================================================================
 ;   OVERWRITE DB
 ;=====================================================================================================
+ButtonOverwriteDB:  ; Button to override the selected DB from the list
+    IniRead, OverwriteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    OverwriteCounter += 1
+    IniWrite, %OverwriteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    GuiControlGet, GPBackupsList
+    If GPBackupsList = 
+    {
+        MsgBox, Please Select a Backtup to Overwrite.
+        return
+    }
+    Else
+    {
+        MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
+        IfMsgBox, No
+            return
+        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
+        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+        Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+        return
+    }
 
 ;=====================================================================================================
 ;   NEW DB
 ;=====================================================================================================
+ButtonNewBackup:    ; Button to create a new DB and add it to the list
+    IniRead, NewCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
+    NewCounter += 1
+    IniWrite, %NewCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
+    Gui, 5:Destroy
+    Gui, 5:Add, Text, x10 y15, Enter a New Database name:
+    Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
+    Gui, 5:Add, Button, +Default x9 y60 w100 h25 gOK5, OK 
+    Gui, 5:Add, Button, x129 y60 w100 h25 gCancel5, Cancel
+    Gui, 5:Show, w238 h90, New Backup
+    return
+    
+    Cancel5:
+        MsgBox, No new Backup was created.
+        Gui, 5:Destroy
+        Return
+    
+    OK5:
+        IniRead, DBListNew, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        GuiControlGet, Database
+        if Database = 
+        {
+            MsgBox,, ERROR, No Database Name was entered.
+            return
+        }
+        Else
+        {
+            ;ifExist C:\#DBBackups\%Database%
+            ifExist %DBListNew%\%Database%
+            {
+                MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+                GuiControl,, Database, 
+                return
+            }
+            Else
+            {
+                MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+                ifMsgBox, No
+                {
+                    MsgBox,, CANCEL, No backup was created.
+                    GuiControl,, Database, 
+                    return
+                }
+                ifMsgBox, Yes
+                {
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Created "%Database%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
+                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
+                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
+                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
+                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
+                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+                    Run, "Scripts\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                    sleep 2000
+                    GuiControl, 1:, GPBackupsList, |
+                    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+                        Loop, %DBListDisplay%\*, 2
+                        {
+                            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
+                        }
+                    Gui, 5:Destroy
+                    return
+                }
+            }
+        }
 
 ;=====================================================================================================
 ;   DELETE DB
+;=====================================================================================================
+ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
+    IniRead, DeleteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    DeleteCounter += 1
+    IniWrite, %DeleteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, DBListDelete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+    GuiControlGet, GPBackupsList
+    If GPBackupsList = 
+    {
+        MsgBox, Please Select a Backtup to Delete.
+        return
+    }
+    Else
+    {
+        MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
+        ifMsgBox, Yes
+        {
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+            FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
+            MsgBox,, DELETED, Database %GPBackupsList% was deleted.
+            goto, ButtonRefresh
+            return
+        }
+        IfMsgBox, No
+        {
+            MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
+            return
+        }
+    }
+
+;=====================================================================================================
+;   INSTALLING SPGP
+;=====================================================================================================
+ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
+    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    SPGP += 1
+    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    if ErrorLevel
+        return
+    SplitPath, SelectedFile,, Instl
+    Variable1 := Instl
+    Gui, 2:Destroy
+    Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
+    Gui, 2:Add, Button, x420 y120 w100 h25 gCan, Cancel
+    Gui, 2:Add, Button, +Default x531 y120 w100 h25 gOK, OK
+    Gui, 2:Show, w660 h160, Install SalesPad GP
+    return
+
+Can:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 2:Destroy
+        return
+    }
+
+OK:
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    GuiControlGet, BuildLoc
+    GuiControlGet, CheckB
+    IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
+    If VarCheck = 1
+    {
+        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
+        ifMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            return
+        }
+        ifMsgBox, Yes
+        {
+            Gui, 2:Destroy
+            run, "Scripts\SPInstall.bat" "%BuildLoc%"
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            run, "Scripts\Script.GetGrizzlyDLL.bat" %Instl%
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+            sleep 3000
+            run, %BuildLoc%\SalesPad.exe
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+            return
+        }
+    }
+    Else
+    {
+        Gui, 2:Destroy
+        run, "Scripts\SPInstall.bat" "%BuildLoc%"
+        WinWait, C:\windows\system32\cmd.exe
+        WinWaitClose
+        SplitPath, SelectedFile,, dir
+        MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
+        ifMsgBox, No
+            Goto, CustDLL
+        Else
+            FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesExt, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesExt = 
+        dir = 
+        run, "Scripts\FileUnzipAndMove.bat"
+        WinWait, C:\windows\system32\cmd.exe
+        WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+    CustDLL:
+        SplitPath, SelectedFile,, dir
+        sleep, 2000
+        MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
+        ifMsgBox, No
+            Goto, NoDLL
+        Else
+            FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
+            Array := StrSplit(FilesCust, "`n")
+
+            for index, file in Array
+            {
+            	if index = 1
+            		Dir := file
+            	else
+            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
+            }
+        FilesCust = 
+        run, "Scripts\FileUnzipAndMove.bat"
+        WinWait, C:\windows\system32\cmd.exe
+        ;WinWait, CUSTOM DLL?
+        WinWaitClose
+        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+
+    NoDLL:
+        Sleep, 1000
+        run, %BuildLoc%\SalesPad.exe
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+        return
+    }
+    
+;=====================================================================================================
+;   INSTALLING SALESPAD MOBILE
+;=====================================================================================================
+
+;=====================================================================================================
+;   
+;=====================================================================================================
+
+;=====================================================================================================
+;   
+;=====================================================================================================
+
+;=====================================================================================================
+;   
+;=====================================================================================================
+
+;=====================================================================================================
+;   
 ;=====================================================================================================
 
 ;=====================================================================================================
