@@ -1,15 +1,15 @@
-FolderSelect(Variable,Path,Prompt,EditControl)
+FolderSelect(Path,Prompt,EditControl)
 {
     global
-    FileSelectFolder, %Variable%, %Path%, 3, %Prompt%
-    If %Variable% = 
+    FileSelectFolder, SelectedFolder, %Path%, 3, %Prompt%
+    If SelectedFolder = 
     {
         MsgBox, 0, ERROR, Nothing was selected.
         Return
     }
     Else
     {
-        GuiControl, 4:, %EditControl%, %Variable%
+        GuiControl, 4:, %EditControl%, %SelectedFolder%
         Return
     }
 }

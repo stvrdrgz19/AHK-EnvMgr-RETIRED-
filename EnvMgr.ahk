@@ -362,22 +362,10 @@ Can2:   ; Cancel the GUI screen
 ; The actual Settings Screen Controls
 ;--------------------------------------------------------------------------------------------------------------------------
 BackPath:
-    ;Gui, Submit, NoHide
-    ;VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
-    ;Return
-
-    FileSelectFolder, BackFolder, C:\, 3, Select your Database Backups Folder
-    if BackFolder = 
-    {
-        MsgBox, Nothing was selected.
-        return
-    }
-    Else
-    {
-        GuiControl, 4:, BackupPath, %BackFolder%
-        return
-    }
-
+    GuiControlGet, BackupPath
+    FolderSelect("C:\","Select your Database Backups Folder:",BackupPath)
+    Return
+    
 SQLServ:
     Gui, Submit, NoHide
     VariableGUI("Enter your SQL Server Name:","",ServName,"SQL Server","ServName")
@@ -434,64 +422,24 @@ SelectCloudLabel05:
     Return
 
 SelectGP1:
-    FileSelectFile, ChooseGP1, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
-    if ErrorLevel
-    {
-        Return
-    }
-    Else
-    {
-        GuiControl, 4:, GP1Loc, %ChooseGP1%
-        Return
-    }
-
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP1Loc)
+    Return
+    
 SelectGP2:
-    FileSelectFile, ChooseGP2, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
-    if ErrorLevel
-    {
-        Return
-    }
-    Else
-    {
-        GuiControl, 4:, GP2Loc, %ChooseGP2%
-        Return
-    }
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP2Loc)
+    Return
 
 SelectGP3:
-    FileSelectFile, ChooseGP3, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
-    if ErrorLevel
-    {
-        Return
-    }
-    Else
-    {
-        GuiControl, 4:, GP3Loc, %ChooseGP3%
-        Return
-    }
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP3Loc)
+    Return
 
 SelectGP4:
-    FileSelectFile, ChooseGP4, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
-    if ErrorLevel
-    {
-        Return
-    }
-    Else
-    {
-        GuiControl, 4:, GP4Loc, %ChooseGP4%
-        Return
-    }
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP4Loc)
+    Return
 
 SelectGP5:
-    FileSelectFile, ChooseGP5, 33, C:\Program Files (x86)\Microsoft Dynamics, Select a GP Launcher File, 
-    if ErrorLevel
-    {
-        Return
-    }
-    Else
-    {
-        GuiControl, 4:, GP5Loc, %ChooseGP5%
-        Return
-    }
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP5Loc)
+    Return
 
 SelectGPLabel1:
     Gui, Submit, NoHide
@@ -519,17 +467,8 @@ SelectGPLabel5:
     Return
 
 Shared:
-    FileSelectFolder, SharedPath, C:\, 3, Select your Shared Folder location
-    if SharedPath = 
-    {
-        MsgBox, Nothing was selected.
-        return
-    }
-    Else
-    {
-        GuiControl, 4:, SharedF, %SharedPath%
-        return
-    }
+    GuiControlGet, SharedF
+    FolderSelect("C:\","Select your Shared Folder location:",SharedF)
     Return
 
 ;--------------------------------------------------------------------------------------------------------------------------
