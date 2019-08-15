@@ -9,7 +9,7 @@ VariableGUI(Header,Option,Text,Title,Pass)
     Gui, EditGui:Show, w238 h90, %Title%
     WinWaitClose, %Title%
     return ReturnCode
-;
+
     OK:
         GuiControlGet, ReturnCode, , Edit3
         GuiControl, 4:, %Pass%, %ReturnCode%
