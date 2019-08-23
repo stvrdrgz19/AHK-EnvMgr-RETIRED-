@@ -1221,11 +1221,11 @@ ButtonWebAPI:
         ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
         ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
         ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
-        ;Send, {Tab}
-        ;Send, {Tab}
-        ;Send, {Tab}
-        ;Send, {Tab}
-        ;Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
+        Send, {Tab}
         ControlClick, Next, IIS Setup, Setup the IIS Website
         ;Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
