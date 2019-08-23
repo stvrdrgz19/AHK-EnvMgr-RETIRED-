@@ -775,6 +775,161 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
+        Return
+    SplitPath, SelectedFile,, Instl
+    Gui, 2:Destroy
+    Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
+    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, Text, x151 y120, Extended 
+    Gui, 2:Add, Text, x470 y120, Custom
+    Gui, 2:Add, ListBox, 8 x30 y140 w285 r15 vExtList
+    Gui, 2:Add, ListBox, 8 x345 y140 w285 r15 vCustList
+    Gui, 2:Add, CheckBox, x30 y350 gUpdateB vCheckB, Install with Grizzly DLLs
+    Gui, 2:Add, CheckBox, x30 y370 vTPGCheck, Install with TPG DLLs
+    Gui, 2:Add, Button, x420 y350 w100 h25 gSPGPCan, Cancel
+    Gui, 2:Add, Button, x531 y350 w100 h25 gSPGPOK, OK
+    Gui, 2:Show, w660 h400, Install SalesPad GP
+    GuiControl, 2:Disable, TPGCheck
+    Loop, %Instl%\ExtModules\WithOutCardControl\*.*
+    {
+        GuiControl, 2:, ExtList, %A_LoopFileName%
+    }
+    Loop, %Instl%\CustomModules\WithOutCardControl\*.*
+    {
+        GuiControl, 2:, CustList, %A_LoopFileName%
+    }
+    Return
+
+SPGPOK:
+    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    GuiControlGet, BuildLoc
+    GuiControlGet, CheckB
+    IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+    if VarCheck = 1
+    {
+        MsgBox, 4, GRIZZLY BUILD?, Are you installing a Grizzly Build?
+        IfMsgBox, No
+        {
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            Return
+        }
+        IfMsgBox, Yes
+        {
+            Gui, 2:Destroy
+            Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            Run, "Scripts\Script.GetGrizzlyDLL.bat" %Instl%
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+            Sleep 3000
+            Run, %BuildLoc%\SalesPad.exe
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            Return
+        }
+    }
+    Else
+    {
+        Gui, 2:Destroy
+        GuiControlGet, BuildLoc
+        GuiControlGet, val1, 2:, ExtList
+        GuiControlGet, val2, 2:, CustList
+        ; This gets the value of ext and cust list and places it into val1 and val2
+        ; Doesn't appear to be working in the below loop/parse
+        Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+        WinWait, C:\windows\system32\cmd.exe
+        WinWaitClose
+        Return
+        if val1 = 
+        {
+            if val2 = 
+            {   
+                Sleep 5000
+                Run, %BuildLoc%\SalesPad.exe
+                Return
+            }
+            if val2 != 
+            {
+                Loop, Parse, val2, |
+                {
+                    FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                }
+                run, "Scripts\FileUnzipAndMove.bat"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                Sleep 1000
+                Run, %BuildLoc%\SalesPad.exe
+                Return
+            }
+        }
+        if val1 != 
+        {
+            if val2 = 
+            {
+                Loop, Parse, val1, |
+                {
+                    FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                }
+                run, "Scripts\FileUnzipAndMove.bat"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                Sleep 1000
+                Run, %BuildLoc%\SalesPad.exe
+                Return
+            }
+            if val2 != 
+            {
+                Loop, Parse, val2, |
+                {
+                    FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                }
+                Loop, Parse, val1, |
+                {
+                    FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                }
+                run, "Scripts\FileUnzipAndMove.bat"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                Sleep 1000
+                Run, %BuildLoc%\SalesPad.exe
+                Return
+            }
+        }
+    }
+
+
+SPGPCan:
+    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    IfMsgBox, No
+    {
+        Return
+    }
+    IfMsgBox, Yes
+    {
+        Gui, 2:Destroy
+        Return
+    }
+
+/*
+    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    SPGP += 1
+    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    if ErrorLevel
         return
     SplitPath, SelectedFile,, Instl
     Variable1 := Instl
@@ -896,6 +1051,7 @@ SPGPOK:
         FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
         return
     }
+*/
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
     IniRead, MobileCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
