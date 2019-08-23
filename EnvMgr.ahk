@@ -778,18 +778,21 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
         Return
     SplitPath, SelectedFile,, Instl
     Gui, 2:Destroy
-    Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
-    Gui, 2:Add, Text, x151 y120, Extended 
-    Gui, 2:Add, Text, x470 y120, Custom
-    Gui, 2:Add, ListBox, 8 x30 y140 w285 r15 vExtList
-    Gui, 2:Add, ListBox, 8 x345 y140 w285 r15 vCustList
-    Gui, 2:Add, CheckBox, x30 y350 gUpdateB vCheckB, Install with Grizzly DLLs
-    Gui, 2:Add, CheckBox, x30 y370 vTPGCheck, Install with TPG DLLs
-    Gui, 2:Add, Button, x420 y350 w100 h25 gSPGPCan, Cancel
-    Gui, 2:Add, Button, x531 y350 w100 h25 gSPGPOK, OK
-    Gui, 2:Show, w660 h400, Install SalesPad GP
+    Gui, 2:Add, Text, x15 y15, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, cgray x15 y35 w600 ReadOnly, %Instl%
+    Gui, 2:Add, Edit, x15 y65 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, Text, x136 y95, Extended 
+    Gui, 2:Add, Text, x455 y95, Custom
+    Gui, 2:Add, ListBox, 8 x15 y115 w285 r15 vExtList
+    Gui, 2:Add, ListBox, 8 x330 y115 w285 r15 vCustList
+    Gui, 2:Add, GroupBox, x15 y325 w155 h70, Large Custom Projects
+    Gui, 2:Add, CheckBox, x30 y345 gUpdateB vCheckB, Install with Grizzly DLLs
+    Gui, 2:Add, CheckBox, x30 y365 vTPGCheck, Install with TPG DLLs
+    GUi, 2:Add, GroupBox, x185 y325 w155 h70, Build Options
+    Gui, 2:Add, Checkbox, x200 y345 vDBUpdate, Run Database Update
+    Gui, 2:Add, Button, x405 y370 w100 h25 gSPGPCan, Cancel
+    Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPOK, OK
+    Gui, 2:Show, w630 h410, Install SalesPad GP
     GuiControl, 2:Disable, TPGCheck
     Loop, %Instl%\ExtModules\WithOutCardControl\*.*
     {
