@@ -773,7 +773,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
     IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.12, Select a SalesPad Build, *.exe
     if ErrorLevel
         Return
     SplitPath, SelectedFile,, Instl
@@ -808,10 +808,10 @@ SPGPOK:
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
         FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
     FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+    ;FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
     GuiControlGet, BuildLoc
     GuiControlGet, CheckB
-    IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+    ;IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
     if VarCheck = 1
     {
         MsgBox, 4, GRIZZLY BUILD?, Are you installing a Grizzly Build?
@@ -841,27 +841,34 @@ SPGPOK:
     }
     Else
     {
-        Gui, 2:Destroy
+        ;Gui, 2:Destroy
         GuiControlGet, BuildLoc
-        GuiControlGet, val1, 2:, ExtList
-        GuiControlGet, val2, 2:, CustList
-        ; This gets the value of ext and cust list and places it into val1 and val2
-        ; Doesn't appear to be working in the below loop/parse
+        GuiControlGet, ExtList
+        GuiControlGet, CustList
+        MsgBox, 0, Test, %BuildLoc%
+        Return
         Run, "Scripts\SPInstall.bat" "%BuildLoc%"
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
-        Return
-        if val1 = 
+        ;Loop, Parse, ExtList, |
+        ;{
+        ;    FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+        ;}
+        ;Loop, Parse, CustList, |
+        ;{
+        ;    FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+        ;}
+        if ExtList = 
         {
-            if val2 = 
+            if CustList = 
             {   
                 Sleep 5000
                 Run, %BuildLoc%\SalesPad.exe
-                Return
+                Gui, 2:Destroy
             }
-            if val2 != 
+            if CustList != 
             {
-                Loop, Parse, val2, |
+                Loop, Parse, CustList, |
                 {
                     FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                 }
@@ -871,15 +878,15 @@ SPGPOK:
                 FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 Sleep 1000
-                Run, %BuildLoc%\SalesPad.exe
-                Return
+                ;Run, %BuildLoc%\SalesPad.exe
+                Gui, 2:Destroy
             }
         }
-        if val1 != 
+        if ExtList != 
         {
-            if val2 = 
+            if CustList = 
             {
-                Loop, Parse, val1, |
+                Loop, Parse, ExtList, |
                 {
                     FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                 }
@@ -889,16 +896,16 @@ SPGPOK:
                 FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 Sleep 1000
-                Run, %BuildLoc%\SalesPad.exe
-                Return
+                ;Run, %BuildLoc%\SalesPad.exe
+                Gui, 2:Destroy
             }
-            if val2 != 
+            if CustList != 
             {
-                Loop, Parse, val2, |
+                Loop, Parse, CustList, |
                 {
                     FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                 }
-                Loop, Parse, val1, |
+                Loop, Parse, ExtList, |
                 {
                     FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                 }
@@ -908,12 +915,11 @@ SPGPOK:
                 FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
                 FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                 Sleep 1000
-                Run, %BuildLoc%\SalesPad.exe
-                Return
+                ;Run, %BuildLoc%\SalesPad.exe
+                Gui, 2:Destroy
             }
         }
     }
-
 
 SPGPCan:
     MsgBox, 4, CANCEL, Are you sure you want to cancel?
