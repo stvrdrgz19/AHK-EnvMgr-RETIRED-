@@ -909,8 +909,7 @@ SPGPOK:
             FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
             Sleep 3000
             Run, %BuildLoc%\SalesPad.exe
-            GuiControl, , CheckB, 0
-            VarCheck = 0
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
             Return
         }
         If TPGValue = 1
@@ -932,6 +931,7 @@ SPGPOK:
                 {   
                     Sleep 5000
                     Run, %BuildLoc%\SalesPad.exe
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -948,6 +948,7 @@ SPGPOK:
                     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                     Sleep 5000
                     Run, %BuildLoc%\SalesPad.exe
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -967,6 +968,7 @@ SPGPOK:
                     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                     Sleep 5000
                     Run, %BuildLoc%\SalesPad.exe
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -988,6 +990,7 @@ SPGPOK:
                     FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
                     Sleep 5000
                     Run, %BuildLoc%\SalesPad.exe
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
