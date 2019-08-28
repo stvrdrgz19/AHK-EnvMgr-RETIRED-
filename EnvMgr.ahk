@@ -516,21 +516,6 @@ MenuHandler:
     goto, Exit1
     return
 
-
-
-UpdateB: ; I believe this is the Grizzly DLL checkbox
-    Gui, Submit, NoHide
-    if CheckB = 1
-    {
-        VarCheck = 1
-        return
-    }
-    Else
-    {
-        VarCheck = 0
-        return
-    }
-
 ButtonCountersScreen:
     IniRead, Restore, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
     IniRead, Overwrite, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
@@ -773,7 +758,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
     IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.12, Select a SalesPad Build, *.exe
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         Return
     SplitPath, SelectedFile,, Instl
@@ -786,7 +771,6 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, ListBox, 8 x15 y115 w285 r15 vExtList
     Gui, 2:Add, ListBox, 8 x330 y115 w285 r15 vCustList
     Gui, 2:Add, GroupBox, x15 y325 w155 h70, Large Custom Projects
-    ;Gui, 2:Add, CheckBox, x30 y345 gUpdateB vCheckB, Install with Grizzly DLLs
     Gui, 2:Add, CheckBox, x30 y345 gGrizzCheck vGrizzValue, Install with Grizzly DLLs
     Gui, 2:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
     GUi, 2:Add, GroupBox, x185 y325 w155 h70, Build Options
@@ -794,7 +778,8 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, Button, x405 y370 w100 h25 gSPGPCan, Cancel
     Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPOK, OK
     Gui, 2:Show, w630 h410, Install SalesPad GP
-    GuiControl, 2:Disable, TPGCheck
+    GuiControl, 2:Disable, TPGValue
+    GuiControl, 2:Disable, DBUpdateValue
     Loop, %Instl%\ExtModules\WithOutCardControl\*.*
     {
         GuiControl, 2:, ExtList, %A_LoopFileName%
@@ -910,7 +895,7 @@ SPGPOK:
         FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
         GuiControlGet, BuildLoc
         GuiControlGet, CheckB
-        ;IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+        IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
         if GrizzValue = 1
         {
             Gui, 2:Destroy
