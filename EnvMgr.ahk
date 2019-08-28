@@ -773,128 +773,253 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
     IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.12, Select a SalesPad Build, *.exe
     if ErrorLevel
-        return
+        Return
     SplitPath, SelectedFile,, Instl
-    Variable1 := Instl
     Gui, 2:Destroy
-    Gui, 2:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 2:Add, Edit, cgray x30 y60 w600 ReadOnly, %Instl%
-    Gui, 2:Add, Edit, x30 y90 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
-    Gui, 2:Add, CheckBox, x260 y128 gUpdateB vCheckB, Install With Grizzly DLLs
-    Gui, 2:Add, Button, x420 y120 w100 h25 gSPGPCan, Cancel
-    Gui, 2:Add, Button, +Default x531 y120 w100 h25 gSPGPOK, OK
-    Gui, 2:Show, w660 h160, Install SalesPad GP
-    return
+    Gui, 2:Add, Text, x15 y15, Please enter the location you would like to install the following build to:
+    Gui, 2:Add, Edit, cgray x15 y35 w600 ReadOnly, %Instl%
+    Gui, 2:Add, Edit, x15 y65 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+    Gui, 2:Add, Text, x136 y95, Extended 
+    Gui, 2:Add, Text, x455 y95, Custom
+    Gui, 2:Add, ListBox, 8 x15 y115 w285 r15 vExtList
+    Gui, 2:Add, ListBox, 8 x330 y115 w285 r15 vCustList
+    Gui, 2:Add, GroupBox, x15 y325 w155 h70, Large Custom Projects
+    ;Gui, 2:Add, CheckBox, x30 y345 gUpdateB vCheckB, Install with Grizzly DLLs
+    Gui, 2:Add, CheckBox, x30 y345 gGrizzCheck vGrizzValue, Install with Grizzly DLLs
+    Gui, 2:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
+    GUi, 2:Add, GroupBox, x185 y325 w155 h70, Build Options
+    Gui, 2:Add, Checkbox, x200 y345 gDBUpdateCheck vDBUpdateValue, Run Database Update
+    Gui, 2:Add, Button, x405 y370 w100 h25 gSPGPCan, Cancel
+    Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPOK, OK
+    Gui, 2:Show, w630 h410, Install SalesPad GP
+    GuiControl, 2:Disable, TPGCheck
+    Loop, %Instl%\ExtModules\WithOutCardControl\*.*
+    {
+        GuiControl, 2:, ExtList, %A_LoopFileName%
+    }
+    Loop, %Instl%\CustomModules\WithOutCardControl\*.*
+    {
+        GuiControl, 2:, CustList, %A_LoopFileName%
+    }
+    Return
+
+GrizzCheck:
+    GuiControlGet, GrizzValue
+    If GrizzValue = 1
+    {
+        MsgBox, 36, GRIZZLY BUILD?, Are you installing a build that requires Grizzly DLLs? `n`nSelecting Yes will only add the DLL's specified in the Grizzly Dlls Script, not any additional DLLs selected in the Extended and Custom Listboxes above.
+        IfMsgBox, Yes
+        {
+            GuiControlGet, TPGValue
+            GuiControlGet, DBUpdateValue
+            If TPGValue = 1
+            {
+                GuiControl,,TPGValue,0
+            }
+            if DBUpdateValue = 1
+            {
+                GuiControl,,DBUpdateValue,0
+            }
+            Return
+        }
+        IfMsgBox, No
+        {
+            GuiControl,,GrizzValue,0
+            Return
+        }
+    }
+    If GrizzValue = 0
+    {
+        Return
+    }
+
+TPGCheck:
+    GuiControlGet, TPGValue
+    If TPGValue = 1
+    {
+        MsgBox, 36, TPG BUILD?, Are you installing a build that requires TPG DLLs? `n`nSelecting Yes will only add the DLL's specified in the TPG Dlls Script, not any additional DLLs selected in the Extended and Custom Listboxes above.
+        IfMsgBox, Yes
+        {
+            GuiControlGet, GrizzValue
+            GuiControlGet, DBUpdateValue
+            If GrizzValue = 1
+            {
+                GuiControl,,GrizzValue,0
+            }
+            if DBUpdateValue = 1
+            {
+                GuiControl,,DBUpdateValue,0
+            }
+            Return
+        }
+        IfMsgBox, No
+        {
+            GuiControl,,TPGValue,0
+            Return
+        }
+    }
+    If TPGValue = 0
+    {
+        Return
+    }
+
+DBUpdateCheck:
+    GuiControlGet, DBUpdateValue
+    If DBUpdateValue = 1
+    {
+        MsgBox, 36, AUTO RUN DB UPDATE?, Are you sure you want to automatically run the Database Update on the selected build once installed? `n`nSelecting Yes will uncheck the Grizzly and TPG Checkboxes, as it's not wise to automatically run the Database Update for Grizzly or TPG. Be weary of running the Database Update automatically when adding DLLs, as they may cause the udate to fail. `n`n(NOTE: The update will be ran against the TWO Database.)
+        IfMsgBox, Yes
+        {
+            GuiControlGet, TPGValue
+            GuiControlGet, GrizzValue
+            If TPGValue = 1
+            {
+                GuiControl,,TPGValue,0
+            }
+            if GrizzValue = 1
+            {
+                GuiControl,,GrizzValue,0
+            }
+            Return
+        }
+        IfMsgBox, No
+        {
+            GuiControl,,DBUpdateValue,0
+            Return
+        }
+    }
+    If DBUpdateValue = 0
+    {
+        Return
+    }
+
+SPGPOK:
+    GuiControlGet, BuildLoc
+    if BuildLoc = C:\Program Files (x86)\SalesPad.Desktop\
+    {
+        MsgBox, 0, Test, Please update the install path to not be the root SalesPad Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
+        Return
+    }
+    Else
+    {
+        if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+            FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+        FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
+        FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+        GuiControlGet, BuildLoc
+        GuiControlGet, CheckB
+        ;IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+        if GrizzValue = 1
+        {
+            Gui, 2:Destroy
+            Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            Run, "Scripts\Script.GetGrizzlyDLL.bat" %Instl%
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+            Sleep 3000
+            Run, %BuildLoc%\SalesPad.exe
+            GuiControl, , CheckB, 0
+            VarCheck = 0
+            Return
+        }
+        If TPGValue = 1
+        {
+            MsgBox, 0, ERROR, TPG Install isn't currently set up.
+            Return
+        }
+        Else
+        {
+            GuiControlGet, BuildLoc
+            GuiControlGet, ExtList
+            GuiControlGet, CustList
+            Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            if ExtList = 
+            {
+                if CustList = 
+                {   
+                    Sleep 5000
+                    Run, %BuildLoc%\SalesPad.exe
+                    Gui, 2:Destroy
+                    Return
+                }
+                if CustList != 
+                {
+                    Loop, Parse, CustList, |
+                    {
+                        FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                    }
+                    run, "Scripts\FileUnzipAndMove.bat"
+                    WinWait, C:\windows\system32\cmd.exe
+                    WinWaitClose
+                    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                    Sleep 5000
+                    Run, %BuildLoc%\SalesPad.exe
+                    Gui, 2:Destroy
+                    Return
+                }
+            }
+            if ExtList != 
+            {
+                if CustList = 
+                {
+                    Loop, Parse, ExtList, |
+                    {
+                        FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                    }
+                    run, "Scripts\FileUnzipAndMove.bat"
+                    WinWait, C:\windows\system32\cmd.exe
+                    WinWaitClose
+                    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                    Sleep 5000
+                    Run, %BuildLoc%\SalesPad.exe
+                    Gui, 2:Destroy
+                    Return
+                }
+                if CustList != 
+                {
+                    Loop, Parse, CustList, |
+                    {
+                        FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                    }
+                    Loop, Parse, ExtList, |
+                    {
+                        FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                    }
+                    Sleep 2000
+                    run, "Scripts\FileUnzipAndMove.bat"
+                    WinWait, C:\windows\system32\cmd.exe
+                    WinWaitClose
+                    FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                    FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                    Sleep 5000
+                    Run, %BuildLoc%\SalesPad.exe
+                    Gui, 2:Destroy
+                    Return
+                }
+            }
+        }
+    }
 
 SPGPCan:
     MsgBox, 4, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
-        return
+        Return
     }
     IfMsgBox, Yes
     {
         Gui, 2:Destroy
-        return
-    }
-
-SPGPOK:
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    GuiControlGet, BuildLoc
-    GuiControlGet, CheckB
-    IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
-    If VarCheck = 1
-    {
-        MsgBox, 4, Grizzly Build?, Are you installing a Grizzly Build?
-        ifMsgBox, No
-        {
-            GuiControl, , CheckB, 0
-            VarCheck = 0
-            return
-        }
-        ifMsgBox, Yes
-        {
-            Gui, 2:Destroy
-            run, "Scripts\SPInstall.bat" "%BuildLoc%"
-            WinWait, C:\windows\system32\cmd.exe
-            WinWaitClose
-            run, "Scripts\Script.GetGrizzlyDLL.bat" %Instl%
-            WinWait, C:\windows\system32\cmd.exe
-            WinWaitClose
-            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
-            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-            sleep 3000
-            run, %BuildLoc%\SalesPad.exe
-            GuiControl, , CheckB, 0
-            VarCheck = 0
-            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
-            return
-        }
-    }
-    Else
-    {
-        Gui, 2:Destroy
-        run, "Scripts\SPInstall.bat" "%BuildLoc%"
-        WinWait, C:\windows\system32\cmd.exe
-        WinWaitClose
-        SplitPath, SelectedFile,, dir
-        MsgBox, 4, EXTENDED DLL?, Do you need any Extended DLLs?
-        ifMsgBox, No
-            Goto, CustDLL
-        Else
-            FileSelectFile, FilesExt, M3, %dir%\ExtModules\WithOutCardControl, Select any DLLs needed, *.zip
-            Array := StrSplit(FilesExt, "`n")
-
-            for index, file in Array
-            {
-            	if index = 1
-            		Dir := file
-            	else
-            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-            }
-        FilesExt = 
-        dir = 
-        run, "Scripts\FileUnzipAndMove.bat"
-        WinWait, C:\windows\system32\cmd.exe
-        WinWaitClose
-        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
-        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-    CustDLL:
-        SplitPath, SelectedFile,, dir
-        sleep, 2000
-        MsgBox, 4, CUSTOM DLL?, Do you need any Custom DLLs?
-        ifMsgBox, No
-            Goto, NoDLL
-        Else
-            FileSelectFile, FilesCust, M3, %dir%\CustomModules\WithOutCardControl, Select any DLLs needed, *.zip
-            Array := StrSplit(FilesCust, "`n")
-
-            for index, file in Array
-            {
-            	if index = 1
-            		Dir := file
-            	else
-            		FileCopy, % Dir "\" file, C:\#EnvMgr\TEMPFILES\DLLs
-            }
-        FilesCust = 
-        run, "Scripts\FileUnzipAndMove.bat"
-        WinWait, C:\windows\system32\cmd.exe
-        ;WinWait, CUSTOM DLL?
-        WinWaitClose
-        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
-        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
-
-    NoDLL:
-        Sleep, 1000
-        run, %BuildLoc%\SalesPad.exe
-        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
-        return
+        Return
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
