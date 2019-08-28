@@ -895,7 +895,7 @@ SPGPOK:
         FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
         GuiControlGet, BuildLoc
         GuiControlGet, CheckB
-        IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+        IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
         if GrizzValue = 1
         {
             Gui, 2:Destroy
