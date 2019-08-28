@@ -775,8 +775,8 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
     GUi, 2:Add, GroupBox, x185 y325 w155 h70, Build Options
     Gui, 2:Add, Checkbox, x200 y345 gDBUpdateCheck vDBUpdateValue, Run Database Update
-    Gui, 2:Add, Button, x405 y370 w100 h25 gSPGPCan, Cancel
-    Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPOK, OK
+    Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPCan, Cancel
+    Gui, 2:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
     Gui, 2:Show, w630 h410, Install SalesPad GP
     GuiControl, 2:Disable, TPGValue
     GuiControl, 2:Disable, DBUpdateValue
@@ -794,7 +794,7 @@ GrizzCheck:
     GuiControlGet, GrizzValue
     If GrizzValue = 1
     {
-        MsgBox, 36, GRIZZLY BUILD?, Are you installing a build that requires Grizzly DLLs? `n`nSelecting Yes will only add the DLL's specified in the Grizzly Dlls Script, not any additional DLLs selected in the Extended and Custom Listboxes above.
+        MsgBox, 36, GRIZZLY BUILD?, Are you installing a build that requires Grizzly DLLs? `n`nSelecting Yes will only add the DLLs specified in the Grizzly Dlls Script, not any additional DLLs selected in the Extended and Custom Listboxes above.
         IfMsgBox, Yes
         {
             GuiControlGet, TPGValue
@@ -884,7 +884,7 @@ SPGPOK:
     GuiControlGet, BuildLoc
     if BuildLoc = C:\Program Files (x86)\SalesPad.Desktop\
     {
-        MsgBox, 0, Test, Please update the install path to not be the root SalesPad Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
+        MsgBox, 16, ERROR, Please update the install path to not be the root SalesPad Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
         Return
     }
     Else
