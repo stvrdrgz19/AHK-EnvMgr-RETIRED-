@@ -23,11 +23,16 @@ SendMode Input
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
+Menu, ToolsMenu, Add, &Utilities, Utilities
+Menu, ToolsMenu, Add, &Build Origin Paths, BuildOriginPath
+Menu, ToolsMenu, Add, &Move Current Files, MoveChanges
+
 Menu, HelpMenu, Add, &About, AboutScreen
 Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
 Menu, HelpMenu, Add, &Log, OpenLog
 
 Menu, MyMenuBar, Add, &File, :FileMenu
+Menu, MyMenuBar, Add, &Tools, :ToolsMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
 Gui, Menu, MyMenuBar 
 
@@ -39,7 +44,7 @@ Gui, Add, GroupBox, x369 y5 w322 h254, Build Management
 Gui, Add, GroupBox, x15 y261 w676 h60, Dynamics GP
 Gui, Add, GroupBox, x15 y323 w676 h60, SPC SQL Database Management
 
-Gui, Add, Text, x24 y31 gUtilities, Select a Database:
+Gui, Add, Text, x24 y31, Select a Database:
 Gui, Add, Button, x145 y21 w100 h25 vRefresh, Refresh 
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x25 y52 w220 r15
 Gui, Add, Button, x253 y51 w100 h25 vBRest, Restore DB
@@ -63,22 +68,22 @@ Gui, Add, Button, x376 y197 w308 h25 vBLaunch, Launch Build
 Gui, Add, Button, x376 y227 w150 h25 vAddDLLs, Add DLLs
 Gui, Add, Button, x534 y227 w150 h25 vBBuild, Build Folder
 
-IniRead, GP01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton1
-IniRead, GP02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton2
-IniRead, GP03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton3
-IniRead, GP04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton4
-IniRead, GP05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPButtonLabels, GPButton5
+IniRead, GP01, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton1
+IniRead, GP02, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton2
+IniRead, GP03, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton3
+IniRead, GP04, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton4
+IniRead, GP05, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton5
 Gui, Add, Button, x25 y281 w125 h25 gD10 vD10, %GP01%
 Gui, Add, Button, x158 y281 w125 h25 gD13 vD13, %GP02%
 Gui, Add, Button, x291 y281 w125 h25 gD15 vD15, %GP03%
 Gui, Add, Button, x424 y281 w125 h25 gD16 vD16, %GP04%
 Gui, Add, Button, x557 y281 w125 h25 gD18 vD18, %GP05%
 
-IniRead, SPC01, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
-IniRead, SPC02, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
-IniRead, SPC03, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
-IniRead, SPC04, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
-IniRead, SPC05, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+IniRead, SPC01, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 01
+IniRead, SPC02, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 02
+IniRead, SPC03, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 03
+IniRead, SPC04, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 04
+IniRead, SPC05, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 05
 Gui, Add, Button, x25 y343 w125 h25 vCloud01, %SPC01%
 Gui, Add, Button, x158 y343 w125 h25 vCloud02, %SPC02%
 Gui, Add, Button, x291 y343 w125 h25 vCloud03, %SPC03%
@@ -127,7 +132,7 @@ Gui, Show, w706 h421, Environment Mananger  ; Finally showing the GUI
 ; Loading the list of database folders into the listbox - location pulled from Settings
 ;--------------------------------------------------------------------------------------------------------------------------
 ListBoxDisplay:
-IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+IniRead, DBListDisplay, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
     Loop, %DBListDisplay%\*, 2
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
@@ -349,7 +354,7 @@ Can2:   ; Cancel the GUI screen
     Gui, 4:Destroy
     sleep 1000
     GuiControl, 1:, GPBackupsList, |
-    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+    IniRead, DBListDisplay, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
         Loop, %DBListDisplay%\*, 2
         {
             GuiControl, 1:, GPBackupsList, %A_LoopFileName%
@@ -517,29 +522,29 @@ MenuHandler:
     return
 
 ButtonCountersScreen:
-    IniRead, Restore, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
-    IniRead, Overwrite, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
-    IniRead, New, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
-    IniRead, Delete, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
-    IniRead, Desktop, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    IniRead, Mobile, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
-    IniRead, DC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
-    IniRead, SC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
-    IniRead, API, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
-    IniRead, Web, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
-    IniRead, CC, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
-    IniRead, Launch, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    IniRead, CabWM, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
-    IniRead, GP1CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP1
-    IniRead, GP2CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP2
-    IniRead, GP3CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP3
-    IniRead, GP4CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
-    IniRead, GP5CounterScreen, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP5
-    IniRead, SPCCounterScreen1, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
-    IniRead, SPCCounterScreen2, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
-    IniRead, SPCCounterScreen3, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
-    IniRead, SPCCounterScreen4, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
-    IniRead, SPCCounterScreen5, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
+    IniRead, Restore, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
+    IniRead, Overwrite, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    IniRead, New, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, NewBackup
+    IniRead, Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, Desktop, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    IniRead, Mobile, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadMobile
+    IniRead, DC, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DataCollection
+    IniRead, SC, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, ShipCenter
+    IniRead, API, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebAPI
+    IniRead, Web, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebPortal
+    IniRead, CC, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, CardControl
+    IniRead, Launch, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    IniRead, CabWM, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
+    IniRead, GP1CounterScreen, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP1
+    IniRead, GP2CounterScreen, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP2
+    IniRead, GP3CounterScreen, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP3
+    IniRead, GP4CounterScreen, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP4
+    IniRead, GP5CounterScreen, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP5
+    IniRead, SPCCounterScreen1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC1
+    IniRead, SPCCounterScreen2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC2
+    IniRead, SPCCounterScreen3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC3
+    IniRead, SPCCounterScreen4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC4
+    IniRead, SPCCounterScreen5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC5
     Gui, 28:Add, Text, x65 y55, Restore
     Gui, 28:Add, Text, x65 y85, Overwrite
     Gui, 28:Add, Text, x65 y115, New
@@ -593,7 +598,7 @@ OpenLog:
     Gui, 29:Destroy
     Gui, 29:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
     Gui, 29:Show, w560 h560, Test Log Reader
-    FileRead, Log, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+    FileRead, Log, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
     GuiControl, 29:, Edit1, %Log%
     Return
 
@@ -602,9 +607,9 @@ GPBackupsList:  ; Double clicking an option from the list box will launch it
         return
 
 ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
-    IniRead, RestoreCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
+    IniRead, RestoreCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
     RestoreCounter += 1
-    IniWrite, %RestoreCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, RestoreDB
+    IniWrite, %RestoreCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -613,28 +618,28 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     }
     Else
     {
-        MsgBox, 4, RESTORE?, Would you like to restore the Database listed below?`n`n%GPBackupsList%
+        MsgBox, 4, RESTORE?, Are you sure you want to restore "%GPBackupsList%" over your current databases?
         IfMsgBox, No
             return
-        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
-        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
-        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
-        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
-        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
-        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+        IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
+        IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
+        IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
+        IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+        IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
+        IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
+        IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
         Run, "Scripts\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
-        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
         MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
         return
     }
 
 ButtonOverwriteDB:  ; Button to override the selected DB from the list
-    IniRead, OverwriteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    IniRead, OverwriteCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, OverwriteDB
     OverwriteCounter += 1
-    IniWrite, %OverwriteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    IniWrite, %OverwriteCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, OverwriteDB
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -643,25 +648,25 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
     Else
     {
-        MsgBox, 4, OVERWRITE?, Would you like overwrite %GPBackupsList% with your current environment?
+        MsgBox, 4, OVERWRITE?, Are you sure you want to overwrite "%GPBackupsList%" with your current setup?
         IfMsgBox, No
             return
-        IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
-        IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
-        IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
-        IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-        IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
-        IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
-        IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+        IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
+        IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
+        IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
+        IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+        IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
+        IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
+        IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
         Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
-        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
         return
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
-    IniRead, NewCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
+    IniRead, NewCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, NewBackup
     NewCounter += 1
-    IniWrite, %NewCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, NewBackup
+    IniWrite, %NewCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, NewBackup
     Gui, 5:Destroy
     Gui, 5:Add, Text, x10 y15, Enter a New Database name:
     Gui, 5:Add, Edit, x10 y30 w218 vDatabase, 
@@ -676,11 +681,11 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         Return
     
     OK5:
-        IniRead, DBListNew, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+        IniRead, DBListNew, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
         GuiControlGet, Database
         if Database = 
         {
-            MsgBox,, ERROR, No Database Name was entered.
+            MsgBox, 16, ERROR, No Database Name was entered.
             return
         }
         Else
@@ -688,7 +693,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
             ;ifExist C:\#DBBackups\%Database%
             ifExist %DBListNew%\%Database%
             {
-                MsgBox,, ALREADY EXISTS, A backup named %Database% already exists.
+                MsgBox,, ALREADY EXISTS, A backup named "%Database%" already exists.
                 GuiControl,, Database, 
                 return
             }
@@ -703,18 +708,18 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
                 }
                 ifMsgBox, Yes
                 {
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Created "%Database%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
-                    IniRead, Var1, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Server
-                    IniRead, Var2, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, User
-                    IniRead, Var3, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, SQLCreds, Password
-                    IniRead, Var4, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
-                    IniRead, Var5, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Dynamics
-                    IniRead, Var6, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company1
-                    IniRead, Var7, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, Databases, Company2
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Created "%Database%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
+                    IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
+                    IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
+                    IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
+                    IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                    IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
+                    IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
+                    IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
                     Run, "Scripts\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
                     sleep 2000
                     GuiControl, 1:, GPBackupsList, |
-                    IniRead, DBListDisplay, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+                    IniRead, DBListDisplay, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
                         Loop, %DBListDisplay%\*, 2
                         {
                             GuiControl, 1:, GPBackupsList, %A_LoopFileName%
@@ -726,10 +731,10 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
 
 ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
-    IniRead, DeleteCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, DeleteCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DeleteBackup
     DeleteCounter += 1
-    IniWrite, %DeleteCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DeleteBackup
-    IniRead, DBListDelete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+    IniWrite, %DeleteCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, DBListDelete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -741,7 +746,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
         MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
         ifMsgBox, Yes
         {
-            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, C:\Users\steve.rodriguez\Desktop\Files\Log.txt
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
             FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
             MsgBox,, DELETED, Database %GPBackupsList% was deleted.
             goto, ButtonRefresh
@@ -755,9 +760,9 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     }
 
 ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
-    IniRead, SPGP, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    IniRead, SPGP, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
-    IniWrite, %SPGP%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    IniWrite, %SPGP%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
     if ErrorLevel
         Return
@@ -902,7 +907,7 @@ SPGPOK:
             GuiControlGet, GrizzValue
             GuiControlGet, TPGValue
             GuiControlGet, DBUpdateValue
-            IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
+            IniWrite, %Instl%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, SPGP
             if GrizzValue = 1
             {
                 Gui, 2:Destroy
@@ -919,12 +924,12 @@ SPGPOK:
                     Sleep 250
                 }
                 Run, %BuildLoc%\SalesPad.exe
-                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                 Return
             }
             If TPGValue = 1
             {
-                MsgBox, 0, ERROR, TPG Install isn't currently set up.
+                MsgBox, 16, ERROR, TPG Install isn't currently set up.
                 Return
             }
             Else
@@ -943,9 +948,8 @@ SPGPOK:
                         {
                             Sleep 250
                         }
-                        ;Sleep 1000
                         Run, %BuildLoc%\SalesPad.exe
-                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                         Gui, 2:Destroy
                         Return
                     }
@@ -965,7 +969,7 @@ SPGPOK:
                             Sleep 250
                         }
                         Run, %BuildLoc%\SalesPad.exe
-                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                         Gui, 2:Destroy
                         Return
                     }
@@ -988,7 +992,7 @@ SPGPOK:
                             Sleep 250
                         }
                         Run, %BuildLoc%\SalesPad.exe
-                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                         Gui, 2:Destroy
                         Return
                     }
@@ -1013,7 +1017,7 @@ SPGPOK:
                             Sleep 250
                         }
                         Run, %BuildLoc%\SalesPad.exe
-                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                         Gui, 2:Destroy
                         Return
                     }
@@ -1034,7 +1038,7 @@ SPGPOK:
         FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
         GuiControlGet, BuildLoc
         GuiControlGet, CheckB
-        IniWrite, %Instl%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SPGP
+        IniWrite, %Instl%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, SPGP
         if GrizzValue = 1
         {
             Gui, 2:Destroy
@@ -1051,12 +1055,12 @@ SPGPOK:
                 Sleep 250
             }
             Run, %BuildLoc%\SalesPad.exe
-            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
             Return
         }
         If TPGValue = 1
         {
-            MsgBox, 0, ERROR, TPG Install isn't currently set up.
+            MsgBox, 16, ERROR, TPG Install isn't currently set up.
             Return
         }
         Else
@@ -1075,9 +1079,8 @@ SPGPOK:
                     {
                         Sleep 250
                     }
-                    ;Sleep 1000
                     Run, %BuildLoc%\SalesPad.exe
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -1097,7 +1100,7 @@ SPGPOK:
                         Sleep 250
                     }
                     Run, %BuildLoc%\SalesPad.exe
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -1120,7 +1123,7 @@ SPGPOK:
                         Sleep 250
                     }
                     Run, %BuildLoc%\SalesPad.exe
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -1145,7 +1148,7 @@ SPGPOK:
                         Sleep 250
                     }
                     Run, %BuildLoc%\SalesPad.exe
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, C:\Users\steve.rodriguez\Desktop\Files\SPGPInstallLog.txt
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                     Gui, 2:Destroy
                     Return
                 }
@@ -1166,9 +1169,9 @@ SPGPCan:
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
-    IniRead, MobileCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
+    IniRead, MobileCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadMobile
     MobileCounter += 1
-    IniWrite, %MobileCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SalesPadMobile
+    IniWrite, %MobileCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadMobile
     FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
@@ -1201,7 +1204,7 @@ CanMobile:
 
 OKMobile:
     GuiControlGet, BuildLocMobile
-    IniWrite, %InstlMobile%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, Mobile
+    IniWrite, %InstlMobile%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, Mobile
     Gui, 15:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocMobile%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1214,9 +1217,9 @@ OKMobile:
     Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
-    IniRead, DCCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
+    IniRead, DCCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DataCollection
     DCCounter += 1
-    IniWrite, %DCCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, DataCollection
+    IniWrite, %DCCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DataCollection
     FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
@@ -1249,7 +1252,7 @@ DCCan:
 
 DCOK:
     GuiControlGet, DCBuildLoc
-    IniWrite, %InstlDC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, DC
+    IniWrite, %InstlDC%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, DC
     Gui, 14:Destroy
     run, "Scripts\DCSilentInstall.bat" "%DCBuildLoc%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1260,14 +1263,14 @@ DCOK:
     Return
 
 ButtonWindowsMobile:
-    IniRead, CabCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
+    IniRead, CabCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
     CabCounter += 1
-    IniWrite, %CabCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, Cab
-    IniRead, CabDestination, Settings\Settings.ini, BuildManagement, SharedLocation
+    IniWrite, %CabCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
+    IniRead, CabDestination, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BuildManagement, SharedLocation
     FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a Windows Mobile file to move, *.cab
     if CabFile = 
     {
-        MsgBox, 0, ERROR, Nothing was selected.
+        MsgBox, 16, ERROR, Nothing was selected.
         Return
     }
     if CabFile !=
@@ -1278,9 +1281,9 @@ ButtonWindowsMobile:
     Return
 
 ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
-    IniRead, ShipCenterCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
+    IniRead, ShipCenterCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, ShipCenter
     ShipCenterCounter += 1
-    IniWrite, %ShipCenterCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, ShipCenter
+    IniWrite, %ShipCenterCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, ShipCenter
     FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
@@ -1313,7 +1316,7 @@ CanSC:
 
 OKSC:
     GuiControlGet, BuildLocSC
-    IniWrite, %InstlSC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, SC
+    IniWrite, %InstlSC%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, SC
     Gui, 16:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocSC%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1324,9 +1327,9 @@ OKSC:
     Return
 
 ButtonCardControl:  ; Button to launch the CardControl selection/installer
-    IniRead, CardControlCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
+    IniRead, CardControlCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, CardControl
     CardControlCounter += 1
-    IniWrite, %CardControlCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, CardControl
+    IniWrite, %CardControlCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, CardControl
     FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
     if ErrorLevel
         return
@@ -1359,7 +1362,7 @@ CanCC:
 
 OKCC:
     GuiControlGet, BuildLocCC
-    IniWrite, %InstlCC%, C:\Users\steve.rodriguez\Desktop\Files\Paths.ini, LastInstalledBuild, CC
+    IniWrite, %InstlCC%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Paths.ini, LastInstalledBuild, CC
     Gui, 17:Destroy
     run, "Scripts\DCSilentInstall.bat" "%BuildLocCC%"
     WinWait, C:\windows\system32\cmd.exe
@@ -1369,9 +1372,9 @@ OKCC:
     Return
 
 ButtonWebAPI:
-    IniRead, APICounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
+    IniRead, APICounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebAPI
     APICounter += 1
-    IniWrite, %APICounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebAPI
+    IniWrite, %APICounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebAPI
     FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select a WebAPI Build, *.msi
     if ErrorLevel
         return
@@ -1544,9 +1547,9 @@ ButtonWebAPI:
     }
 
 ButtonWebPortal:
-    IniRead, WebCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
+    IniRead, WebCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebPortal
     WebCounter += 1
-    IniWrite, %WebCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, WebPortal
+    IniWrite, %WebCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebPortal
     FileSelectFile, SelectWeb, 1, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP, Select a GPWEB Build, *.zip
     SplitPath, SelectWeb,, WebBuild
     Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\Script.WEB.bat - Shortcut.lnk" %WebBuild%
@@ -1568,21 +1571,14 @@ ButtonBuildFolder:  ; Launches the SP install folder
 
 
 ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
-    IniRead, LaunchBuildCounter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    IniRead, LaunchBuildCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, LaunchBuild
     LaunchBuildCounter += 1
-    IniWrite, %LaunchBuildCounter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    if GetKeyState("Shift", "P")
-        MsgBox, 4, DB UPDATE?, Do you want to select an installed build to run a database update on?
-            ifMsgBox, Yes
-                Return
-            IfMsgBox, No
-                Return
-    Else
-        FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
-        if ErrorLevel
-            return
-        run, %SelectedFile%
+    IniWrite, %LaunchBuildCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+    if ErrorLevel
         return
+    run, %SelectedFile%
+    return
 
 ButtonRefresh:  ; Refreshes the Listbox
     GuiControl,, GPBackupsList, |
@@ -1590,7 +1586,7 @@ ButtonRefresh:  ; Refreshes the Listbox
     Return
 
 ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
-    IniRead, DBListFolder, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, BackupFolder, path
+    IniRead, DBListFolder, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
     MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
         return
@@ -1607,10 +1603,10 @@ D15:
     return
 
 D16:    ; Launches GP 2016
-    IniRead, GP4Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
+    IniRead, GP4Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP4
     GP4Counter += 1
-    IniWrite, %GP4Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, GP4
-    IniRead, D16Location, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, GPLaunchFile, GPLaunch4
+    IniWrite, %GP4Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, GP4
+    IniRead, D16Location, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPLaunchFile, GPLaunch4
     if GetKeyState("Shift","P")
         Run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016"
     else
@@ -1630,10 +1626,10 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
-    IniRead, SPC01Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
+    IniRead, SPC01Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC1
     SPC01Counter += 1
-    IniWrite, %SPC01Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC1
-    IniRead, 01Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 01
+    IniWrite, %SPC01Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC1
+    IniRead, 01Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 01
     MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
     {
@@ -1648,10 +1644,10 @@ ButtonSteveRodriguez01:
     }
 
 ButtonSteveRodriguez02:
-    IniRead, SPC02Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
+    IniRead, SPC02Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC2
     SPC02Counter += 1
-    IniWrite, %SPC02Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC2
-    IniRead, 02Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 02
+    IniWrite, %SPC02Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC2
+    IniRead, 02Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 02
     MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
     {
@@ -1665,10 +1661,10 @@ ButtonSteveRodriguez02:
     }
 
 ButtonSteveRodriguez03:
-    IniRead, SPC03Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
+    IniRead, SPC03Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC3
     SPC03Counter += 1
-    IniWrite, %SPC03Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC3
-    IniRead, 03Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 03
+    IniWrite, %SPC03Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC3
+    IniRead, 03Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 03
     MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
     {
@@ -1682,10 +1678,10 @@ ButtonSteveRodriguez03:
     }
 
 ButtonSteveRodriguez04:
-    IniRead, SPC04Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
+    IniRead, SPC04Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC4
     SPC04Counter += 1
-    IniWrite, %SPC04Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC4
-    IniRead, 04Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 04
+    IniWrite, %SPC04Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC4
+    IniRead, 04Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 04
     MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
     {
@@ -1699,10 +1695,10 @@ ButtonSteveRodriguez04:
     }
 
 ButtonSteveRodriguez05:
-    IniRead, SPC05Counter, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
+    IniRead, SPC05Counter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC5
     SPC05Counter += 1
-    IniWrite, %SPC05Counter%, C:\Users\steve.rodriguez\Desktop\Files\ButtonCounters.ini, ButtonCounters, SPC5
-    IniRead, 05Delete, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, CloudButtonNames, 05
+    IniWrite, %SPC05Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC5
+    IniRead, 05Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 05
     MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
     {
@@ -1716,12 +1712,52 @@ ButtonSteveRodriguez05:
     }
 
 Utilities:
-    run, "C:\Users\steve.rodriguez\Desktop\Scripts\SteveUtilities.ahk"
-    return
+    If A_UserName = steve.rodriguez
+    {
+        run, "C:\Users\steve.rodriguez\Desktop\Scripts\SteveUtilities.ahk"
+        return
+    }
+    Else
+    {
+        MsgBox, 16, ERROR, You don't have access to this feature.
+        Return
+    }
+
+
+BuildOriginPath:
+    Run, "C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Build Origin Paths\BuildOriginPaths.ahk"
+    Return
+
+MoveChanges:
+    If A_UserName = steve.rodriguez
+    {
+        MsgBox, 4, MOVE CHANGES?, Are you sure you want to pull the current branch files to Environment Manager?
+        IfMsgBox, Yes
+        {
+            if FileExist("C:\Environment Manager")
+            {
+                FileRemoveDir, C:\Environment Manager, 1
+            }
+            FileCreateDir, C:\Environment Manager
+            FileCopyDir, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-, C:\Environment Manager, 1
+            MsgBox, 0, MOVED, Files were moved.
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
+    Else
+    {
+        MsgBox, 16, ERROR, You don't have access to this feature.
+        Return
+    }
+
 
 GuiClose:
 Exit1:
-    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
+    IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
     if PromptToClose = 1
     {
         MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
