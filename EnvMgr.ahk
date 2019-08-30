@@ -23,8 +23,8 @@ SendMode Input
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
-Menu, ToolsMenu, Add, &Utilities, Utilities
 Menu, ToolsMenu, Add, &Build Origin Paths, BuildOriginPath
+Menu, ToolsMenu, Add, &Utilities, Utilities
 Menu, ToolsMenu, Add, &Move Current Files, MoveChanges
 
 Menu, HelpMenu, Add, &About, AboutScreen
@@ -34,7 +34,14 @@ Menu, HelpMenu, Add, &Log, OpenLog
 Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Tools, :ToolsMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
+
 Gui, Menu, MyMenuBar 
+
+If A_UserName != steve.rodriguez
+{
+    Menu, HelpMenu, Disable, &Utilities
+    Menu, HelpMenu, Disable, &Move Current Files
+}
 
 Gui, Add, Button, x592 y387 w100 h30 gExit1 vExit1, Exit
 Gui, Add, Text, x15 y395 gIPText, IP Address: 
@@ -613,7 +620,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, Please Select a Backtup to Restore.
+        MsgBox, 16, ERROR, Please select a Backtup to Restore.
         return
     }
     Else
@@ -643,7 +650,7 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, Please Select a Backtup to Overwrite.
+        MsgBox, 16, ERROR, Please select a Backtup to Overwrite.
         return
     }
     Else
@@ -738,7 +745,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, Please Select a Backtup to Delete.
+        MsgBox, 16, ERROR, Please select a Backtup to Delete.
         return
     }
     Else
@@ -784,7 +791,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
     Gui, 2:Show, w630 h410, Install SalesPad GP
     GuiControl, 2:Disable, TPGValue
-    GuiControl, 2:Disable, DBUpdateValue
+    ;GuiControl, 2:Disable, DBUpdateValue
     Loop, %Instl%\ExtModules\WithOutCardControl\*.*
     {
         GuiControl, 2:, ExtList, %A_LoopFileName%
@@ -887,6 +894,8 @@ DBUpdateCheck:
 
 SPGPOK:
     GuiControlGet, GrizzValue
+    GuiControlGet, TPGValue
+    GuiControlGet, DBUpdateValue
     GuiControlGet, BuildLoc
     if BuildLoc = C:\Program Files (x86)\SalesPad.Desktop\
     {
@@ -895,7 +904,7 @@ SPGPOK:
     }
     if FileExist(BuildLoc)
     {
-        MsgBox, 4, EXISTS, SalesPad is already installed in the specified location, do you want to override this install?
+        MsgBox, 20, EXISTS, SalesPad is already installed in the specified location, do you want to override this install?
         IfMsgBox, Yes
         {
             FileRemoveDir, %BuildLoc%, 1
@@ -932,6 +941,157 @@ SPGPOK:
                 MsgBox, 16, ERROR, TPG Install isn't currently set up.
                 Return
             }
+            If DBUpdateValue = 1
+            {
+                GuiControlGet, BuildLoc
+                GuiControlGet, ExtList
+                GuiControlGet, CustList
+                Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                if ExtList = 
+                {
+                    if CustList = 
+                    {
+                        While ! FileExist(BuildLoc "\SalesPad.exe")
+                        {
+                            Sleep 250
+                        }
+                        Run, C:\Users\steve.rodriguez\Desktop\Scripts\Test\DBUPDATE Testing\DB Update.bat "%BuildLoc%\SalesPad.exe" "%BuildLoc%"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        Run, %BuildLoc%\SalesPad.exe
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
+                        Gui, 2:Destroy
+                        if FileExist(BuildLoc "\fail_log_TWO_*.txt")
+                        {
+                            MsgBox, 20, UPDATE FAILED, The Database Update for the following build has failed. Would you like open the crash log?`n`n%BuildLoc%
+                            IfMsgBox, Yes
+                            {
+                                Loop, %BuildLoc%\fail_log_TWO_*.txt
+                                {
+                                    Run %A_LoopFileName%
+                                    Return
+                                }
+                            }
+                        }
+                        Return
+                    }
+                    if CustList != 
+                    {
+                        Loop, Parse, CustList, |
+                        {
+                            FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                        }
+                        run, "Scripts\FileUnzipAndMove.bat"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                        While ! FileExist(BuildLoc "\SalesPad.exe")
+                        {
+                            Sleep 250
+                        }
+                        Run, C:\Users\steve.rodriguez\Desktop\Scripts\Test\DBUPDATE Testing\DB Update.bat "%BuildLoc%\SalesPad.exe" "%BuildLoc%"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        Run, %BuildLoc%\SalesPad.exe
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
+                        Gui, 2:Destroy
+                        if FileExist(BuildLoc "\fail_log_TWO_*.txt")
+                        {
+                            MsgBox, 20, UPDATE FAILED, The Database Update for the following build has failed. Would you like open the crash log?`n`n%BuildLoc%
+                            IfMsgBox, Yes
+                            {
+                                Loop, %BuildLoc%\fail_log_TWO_*.txt
+                                {
+                                    Run %A_LoopFileName%
+                                    Return
+                                }
+                            }
+                        }
+                        Return
+                    }
+                }
+                if ExtList != 
+                {
+                    if CustList = 
+                    {
+                        Loop, Parse, ExtList, |
+                        {
+                            FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                        }
+                        run, "Scripts\FileUnzipAndMove.bat"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                        While ! FileExist(BuildLoc "\SalesPad.exe")
+                        {
+                            Sleep 250
+                        }
+                        Run, C:\Users\steve.rodriguez\Desktop\Scripts\Test\DBUPDATE Testing\DB Update.bat "%BuildLoc%\SalesPad.exe" "%BuildLoc%"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        Run, %BuildLoc%\SalesPad.exe
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
+                        Gui, 2:Destroy
+                        if FileExist(BuildLoc "\fail_log_TWO_*.txt")
+                        {
+                            MsgBox, 20, UPDATE FAILED, The Database Update for the following build has failed. Would you like open the crash log?`n`n%BuildLoc%
+                            IfMsgBox, Yes
+                            {
+                                Loop, %BuildLoc%\fail_log_TWO_*.txt
+                                {
+                                    Run %A_LoopFileName%
+                                    Return
+                                }
+                            }
+                        }
+                        Return
+                    }
+                    if CustList != 
+                    {
+                        Loop, Parse, CustList, |
+                        {
+                            FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                        }
+                        Loop, Parse, ExtList, |
+                        {
+                            FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                        }
+                        Sleep 2000
+                        run, "Scripts\FileUnzipAndMove.bat"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                        FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                        While ! FileExist(BuildLoc "\SalesPad.exe")
+                        {
+                            Sleep 250
+                        }
+                        Run, C:\Users\steve.rodriguez\Desktop\Scripts\Test\DBUPDATE Testing\DB Update.bat "%BuildLoc%\SalesPad.exe" "%BuildLoc%"
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        Run, %BuildLoc%\SalesPad.exe
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
+                        Gui, 2:Destroy
+                        if FileExist(BuildLoc "\fail_log_TWO_*.txt")
+                        {
+                            MsgBox, 20, UPDATE FAILED, The Database Update for the following build has failed. Would you like open the crash log?`n`n%BuildLoc%
+                            IfMsgBox, Yes
+                            {
+                                Loop, %BuildLoc%\fail_log_TWO_*.txt
+                                {
+                                    Run %A_LoopFileName%
+                                    Return
+                                }
+                            }
+                        }
+                        Return
+                    }
+                }
+            }
             Else
             {
                 GuiControlGet, BuildLoc
@@ -943,7 +1103,7 @@ SPGPOK:
                 if ExtList = 
                 {
                     if CustList = 
-                    {   
+                    {
                         While ! FileExist(BuildLoc "\SalesPad.exe")
                         {
                             Sleep 250
