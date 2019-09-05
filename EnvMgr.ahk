@@ -1,4 +1,4 @@
-; AutoHotkey Version:   1.1.30.01
+; AutoHotkey Version:   1.1.30.03
 ; Platform:             Win10
 ; Author:               Steve Rodriguez
 ;
@@ -19,6 +19,11 @@ SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
 ;--------------------------------------------------------------------------------------------------------------------------
+
+If A_IsAdmin = 0
+{
+    Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
+}
 
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
@@ -43,6 +48,7 @@ If A_UserName != steve.rodriguez
     Menu, HelpMenu, Disable, &Move Current Files
 }
 
+;Gui, +Resize
 Gui, Add, Button, x592 y387 w100 h30 gExit1 vExit1, Exit
 Gui, Add, Text, x15 y395 gIPText, IP Address: 
 Gui, Add, Edit, cgray x75 y392 w100 ReadOnly vIP, %A_IPAddress1%
@@ -770,7 +776,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     IniRead, SPGP, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
     SPGP += 1
     IniWrite, %SPGP%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP, Select a SalesPad Build, *.exe
+    FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\, Select a SalesPad Build, *.exe
     if ErrorLevel
         Return
     SplitPath, SelectedFile,, Instl
@@ -938,7 +944,21 @@ SPGPOK:
             }
             If TPGValue = 1
             {
-                MsgBox, 16, ERROR, TPG Install isn't currently set up.
+                Gui, 2:Destroy
+                Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                Run, "Scripts\Script.GetTPGDLL.bat" %Instl%
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                While ! FileExist(BuildLoc "\SalesPad.exe")
+                {
+                    Sleep 250
+                }
+                Run, %BuildLoc%\SalesPad.exe
+                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\SPGPInstallLog.txt
                 Return
             }
             If DBUpdateValue = 1
@@ -947,6 +967,9 @@ SPGPOK:
                 GuiControlGet, ExtList
                 GuiControlGet, CustList
                 Run, "Scripts\SPInstall.bat" "%BuildLoc%"
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                Run, C:\Users\steve.rodriguez\Desktop\Scripts\sppresetdatabase.bat
                 WinWait, C:\windows\system32\cmd.exe
                 WinWaitClose
                 if ExtList = 
@@ -1332,7 +1355,7 @@ ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/install
     IniRead, MobileCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadMobile
     MobileCounter += 1
     IniWrite, %MobileCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SalesPadMobile
-    FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server, Select a SalesPad Server Build, *.exe
+    FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server\, Select a SalesPad Server Build, *.exe
     if ErrorLevel
         return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
@@ -1380,7 +1403,7 @@ ButtonDataCollection:   ; Button to launch the DC selection/installer
     IniRead, DCCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DataCollection
     DCCounter += 1
     IniWrite, %DCCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, DataCollection
-    FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a DataCollection Build, *.exe
+    FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a DataCollection Build, *.exe
     if ErrorLevel
         return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
@@ -1423,11 +1446,16 @@ DCOK:
     Return
 
 ButtonWindowsMobile:
+    IniRead, CabDestination, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BuildManagement, SharedLocation
+    If FileExist(CabDestination "\DCSetup.Motorola.*.CAB")
+    {
+        MsgBox, 0, Test, Motorola cab file already exists. Would you like to remove the existing Motorola cab file?
+        Return
+    }
     IniRead, CabCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
     CabCounter += 1
     IniWrite, %CabCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
-    IniRead, CabDestination, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BuildManagement, SharedLocation
-    FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection, Select a Windows Mobile file to move, *.cab
+    FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a Windows Mobile file to move, *.cab
     if CabFile = 
     {
         MsgBox, 16, ERROR, Nothing was selected.
@@ -1444,7 +1472,7 @@ ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
     IniRead, ShipCenterCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, ShipCenter
     ShipCenterCounter += 1
     IniWrite, %ShipCenterCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, ShipCenter
-    FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter, Select a ShipCenter Build, *.exe
+    FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter\, Select a ShipCenter Build, *.exe
     if ErrorLevel
         return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
@@ -1490,7 +1518,7 @@ ButtonCardControl:  ; Button to launch the CardControl selection/installer
     IniRead, CardControlCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, CardControl
     CardControlCounter += 1
     IniWrite, %CardControlCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, CardControl
-    FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares, Select a Card Control Build, *.exe
+    FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares\, Select a Card Control Build, *.exe
     if ErrorLevel
         return
     if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
@@ -1535,7 +1563,7 @@ ButtonWebAPI:
     IniRead, APICounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebAPI
     APICounter += 1
     IniWrite, %APICounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebAPI
-    FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi, Select a WebAPI Build, *.msi
+    FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi\, Select a WebAPI Build, *.msi
     if ErrorLevel
         return
     SplitPath, SelectedAPI, APIInstaller
@@ -1710,7 +1738,7 @@ ButtonWebPortal:
     IniRead, WebCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebPortal
     WebCounter += 1
     IniWrite, %WebCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, WebPortal
-    FileSelectFile, SelectWeb, 1, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP, Select a GPWEB Build, *.zip
+    FileSelectFile, SelectWeb, 1, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP\, Select a GPWEB Build, *.zip
     SplitPath, SelectWeb,, WebBuild
     Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\Script.WEB.bat - Shortcut.lnk" %WebBuild%
     ;WinWaitActive, C:\windows\system32\cmd.exe
@@ -1734,7 +1762,7 @@ ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose 
     IniRead, LaunchBuildCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, LaunchBuild
     LaunchBuildCounter += 1
     IniWrite, %LaunchBuildCounter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop, Select a Build, *.exe
+    FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop\, Select a Build, *.exe
     if ErrorLevel
         return
     run, %SelectedFile%
