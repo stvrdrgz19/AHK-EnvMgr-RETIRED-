@@ -1449,8 +1449,15 @@ ButtonWindowsMobile:
     IniRead, CabDestination, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BuildManagement, SharedLocation
     If FileExist(CabDestination "\DCSetup.Motorola.*.CAB")
     {
-        MsgBox, 0, Test, Motorola cab file already exists. Would you like to remove the existing Motorola cab file?
-        Return
+        MsgBox, 20, EXISTING CAB, Motorola CAB file already exists. Would you like to remove the existing Motorola CAB file?
+        IfMsgBox, Yes
+        {
+            FileDelete, %CabDestination%\DCSetup.Motorola.*.CAB
+        }
+        IfMsgBox, No
+        {
+            MsgBox, 0, CANCEL, CAB file was NOT deleted.
+        }
     }
     IniRead, CabCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, Cab
     CabCounter += 1
