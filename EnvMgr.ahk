@@ -908,6 +908,16 @@ GrizzCheck:
             {
                 GuiControl,,DBUpdateValue,0
             }
+            GuiControl,, ExtList, |
+            GuiControl,, CustList, |
+            Loop, %Instl%\ExtModules\WithOutCardControl\*.*
+            {
+                GuiControl, 2:, ExtList, %A_LoopFileName%
+            }
+            Loop, %Instl%\CustomModules\WithOutCardControl\*.*
+            {
+                GuiControl, 2:, CustList, %A_LoopFileName%
+            }
             Return
         }
         IfMsgBox, No
