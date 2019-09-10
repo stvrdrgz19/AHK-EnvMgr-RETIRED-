@@ -1413,12 +1413,12 @@ ButtonDataCollection:   ; Button to launch the DC selection/installer
     SplitPath, SelectedFileDC,, InstlDC
     Variable1 := InstlDC
     Gui, 14:Destroy
-    Gui, 14:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 14:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlDC%
-    Gui, 14:Add, Edit, x30 y90 w600 vDCBuildLoc, C:\Program Files (x86)\DataCollection\
-    Gui, 14:Add, Button, x420 y120 w100 h25 gDCCan, Cancel
-    Gui, 14:Add, Button, +Default x531 y120 w100 h25 gDCOK, OK
-    Gui, 14:Show, w660 h160, Install DataCollection
+    Gui, 14:Add, Text, x15 y15, Please enter the location you would like to install the following build to:
+    Gui, 14:Add, Edit, cgray x15 y35 w600 ReadOnly, %InstlDC%
+    Gui, 14:Add, Edit, x15 y65 w600 vDCBuildLoc, C:\Program Files (x86)\DataCollection\
+    Gui, 14:Add, Button, +Default x400 y95 w100 h25 gDCOK, OK
+    Gui, 14:Add, Button, x515 y95 w100 h25 gDCCan, Cancel
+    Gui, 14:Show, w630 h125, Install DataCollection
     return
 
 DCCan:
@@ -1618,48 +1618,6 @@ ButtonWebAPI:
         Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
         ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
-        /*
-        WinWaitActive, SalesPad WebAPI Setup
-        WinActivate, SalesPad WebAPI Setup
-        Sleep 1000
-        Click, 354, 361
-        Sleep 500
-        Click, 34, 314
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        MouseMove, 109, 134
-        Click, 3
-        Sleep 500
-        Send, 10.50.0.45\SQLSERVER2016
-        Sleep 500
-        Click, 355, 361
-        Sleep 1000
-        MouseMove, 103, 173
-        Click, 2
-        Send, 49403
-        Send, {Tab}
-        Sleep 500
-        Send, steve.rodriguez
-        Sleep 500
-        Send, {Tab}
-        Sleep 500
-        Send, S@lespad1
-        Sleep 500
-        Send, {Tab}
-        Sleep 500
-        Send, SALESPAD
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        Click, 355, 360
-        WinWaitClose, SalesPad WebAPI Setup
-        WinWaitActive, SalesPad WebAPI Setup
-        WinWaitClose, SalesPad WebAPI Setup
-        MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
-        */
         Return
     }
     Else
@@ -1696,48 +1654,6 @@ ButtonWebAPI:
         ;Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
         ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
-        /*
-        WinWaitActive, SalesPad WebAPI Setup
-        WinActivate, SalesPad WebAPI Setup
-        Sleep 1000
-        Click, 354, 361
-        Sleep 500
-        Click, 34, 314
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        MouseMove, 109, 134
-        Click, 3
-        Sleep 500
-        Send, 10.50.0.45\SQLSERVER2016
-        Sleep 500
-        Click, 355, 361
-        Sleep 1000
-        MouseMove, 103, 173
-        Click, 2
-        Send, 49403
-        Send, {Tab}
-        Sleep 500
-        Send, steve.rodriguez
-        Sleep 500
-        Send, {Tab}
-        Sleep 500
-        Send, S@lespad1
-        Sleep 500
-        Send, {Tab}
-        Sleep 500
-        Send, SALESPAD
-        Sleep 500
-        Click, 355, 360
-        Sleep 500
-        Click, 355, 360
-        WinWaitClose, SalesPad WebAPI Setup
-        WinWaitActive, SalesPad WebAPI Setup
-        WinWaitClose, SalesPad WebAPI Setup
-        */
-        ;MsgBox, 0, SUCCESSFUL, %APIInstaller% was successfully installed!
         Return
     }
 
