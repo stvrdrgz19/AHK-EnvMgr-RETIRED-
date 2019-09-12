@@ -10,6 +10,7 @@
 #Include, Functions\LoadFromSettings.ahk
 #Include, Functions\LoadSettingsScreen.ahk
 #Include, Functions\SaveSettingsCheckbox.ahk
+#Include, Functions\SaveSettingsCheckbox2.ahk
 #Include, Functions\SaveSettingsEdit.ahk
 #Include, Functions\SaveSettingsEditAndButton.ahk
 #Include, Functions\EditEntryVariableGUI.ahk
@@ -51,19 +52,25 @@ If A_UserName != steve.rodriguez
 ;Gui, +Resize
 ;Gui, Add, Button, x592 y387 w100 h30 gExit1 vExit1, Exit
 
-Gui, Add, GroupBox, x15 y5 w640 h256, Database Management
+;Gui, Add, Picture,,C:\Users\steve.rodriguez\Downloads\taco2.jpg
+Gui, Font, s10
+Gui, Add, GroupBox, x15 y5 w640 h256 cblue, Database Management
+Gui, Font, s9
 Gui, Add, Text, x134 y31, Select a Database:
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x135 y52 w220 r15
 Gui, Add, Text, x369 y31, Backup Description:
-Gui, Add, Edit, ReadOnly cGray vDBDescEdit x370 y52 w275 h199
+Gui, Add, Edit, ReadOnly cGray vDBDescEdit x370 y52 w275 h199, ====================================`nSelect a Database Backup to load it's description.
 Gui, Add, Button, x25 y51 w100 h25 vRefresh, Refresh 
 Gui, Add, Button, x25 y81 w100 h25 vBRest, Restore DB
 Gui, Add, Button, x25 y111 w100 h25 vBOver, Overwrite DB
 Gui, Add, Button, x25 y141 w100 h25 vBak, New Backup
 Gui, Add, Button, x25 y171 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x25 y227 w100 h25 vBakFolder, Backups Folder
+Gui, Add, Button, x546 y25 w100 h25 gAddDesc, Add Description
 
-Gui, Add, GroupBox, x15 y263 w340 h256, Build Management
+Gui, Font, s10
+Gui, Add, GroupBox, x15 y263 w340 h256 cblue, Build Management
+Gui, Font, s9
 Gui, Add, Text, x25 y289, Select a SalesPad Product to Install:
 Gui, Add, Button, x25 y309 w155 h25 vBDesktop, SalesPad Desktop
 Gui, Add, Button, x25 y339 w155 h25 vBDataCollection, Data Collection
@@ -85,7 +92,9 @@ IniRead, GP02, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager
 IniRead, GP03, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton3
 IniRead, GP04, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton4
 IniRead, GP05, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, GPButtonLabels, GPButton5
-Gui, Add, GroupBox, x370 y263 w285 h200, Dynamics/Cloud
+Gui, Font, s10
+Gui, Add, GroupBox, x370 y263 w285 h200 cblue, Dynamics/Cloud
+Gui, Font, s9
 Gui, Add, Text, x380 y289, Launch GP:
 Gui, Add, Button, x380 y309 w126 h25 gD10 vD10, %GP01%
 Gui, Add, Button, x380 y339 w126 h25 gD13 vD13, %GP02%
@@ -105,7 +114,7 @@ Gui, Add, Button, x517 y369 w126 h25 vCloud03, %SPC03%
 Gui, Add, Button, x517 y399 w126 h25 vCloud04, %SPC04%
 Gui, Add, Button, x517 y429 w126 h25 vCloud05, %SPC05%
 
-Gui, Add, Text, x430 y484 gIPText, IP Address: 
+Gui, Add, Text, x430 y484 gIPText vIPText, IP Address: 
 Gui, Add, Edit, cgray x490 y481 w100 ReadOnly vIP, %A_IPAddress1%
 
 ;GuiControl, Disable, AddDLLs ;Disabling controls
@@ -143,7 +152,7 @@ LoadFromSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
 LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
 Gui, Color, f9f9f9 ;FFFFFF is pure white
-Gui, Show,, Environment Mananger  ; Finally showing the GUI
+Gui, Show, w670 h534, Environment Mananger  ; Finally showing the GUI
 
 
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -203,8 +212,11 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x490 y55 vDisableAdd, Disable Add DLLs Button
     Gui, 4:Add, Checkbox, x490 y85 vDisableBuild, Disable Build Folder Button
     Gui, 4:Add, Text, x30 y181, Shared Folder:
-    Gui, 4:Add, Edit, x105 y178 w512 cGray ReadOnly vSharedF,
-    Gui, 4:Add, Button, x617 y177 w23 h23 gShared, ...
+    Gui, 4:Add, Edit, x105 y178 w312 cGray ReadOnly vSharedF,
+    Gui, 4:Add, Button, x417 y177 w23 h23 gShared, ...
+    Gui, 4:Add, Checkbox, x490 y115 vDisableGrizz, Disable Grizzly Checkbox
+    Gui, 4:Add, Checkbox, x490 y145 vDisableTPG, Disable TPG Checkbox
+    Gui, 4:Add, Checkbox, x490 y175 vDisableDB, Disable DBUpdate Checkbox
     Gui, 4:Tab, 4
     Gui, 4:Add, Text, x38 y45, Disabled
     Gui, 4:Add, Checkbox, x30 y70 vCheckDyn10, GP 2010
@@ -282,6 +294,9 @@ SettingsScreen:
     LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
     LoadSettingsScreen("SharedLoad","BuildManagement","SharedLocation","SharedF")
     LoadSettingsScreen("BuildLoad","BuildManagement","Build","DisableBuild")
+    LoadSettingsScreen("GrizzLoad","BuildManagement","Grizz","DisableGrizz")
+    LoadSettingsScreen("TPGLoad","BuildManagement","TPG","DisableTPG")
+    LoadSettingsScreen("DBUpdateLoad","BuildManagement","DBUpdate","DisableDBUpdate")
     LoadSettingsScreen("Dyn10Load","GPButtons","Dynamics10","CheckDyn10")
     LoadSettingsScreen("Dyn13Load","GPButtons","Dynamics13","CheckDyn13")
     LoadSettingsScreen("Dyn15Load","GPButtons","Dynamics15","CheckDyn15")
@@ -356,6 +371,9 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
     SaveSettingsCheckbox(CheckSPC4,"SPCButtons","Cloud4","Cloud04")
     SaveSettingsCheckbox(CheckSPC5,"SPCButtons","Cloud5","Cloud05")
+    SaveSettingsCheckboxNoButton(DisableGrizz,"BuildManagement","Grizz")
+    SaveSettingsCheckboxNoButton(DisableTPG,"BuildManagement","TPG")
+    SaveSettingsCheckboxNoButton(DisableDBUpdate,"BuildManagement","DBUpdate")
     SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
     SaveSettingsEditAndButton(CloudLabel02,"CloudButtonNames","02","Cloud02")
     SaveSettingsEditAndButton(CloudLabel03,"CloudButtonNames","03","Cloud03")
@@ -497,24 +515,26 @@ Shared:
 ; GUI for the about screen
 ;--------------------------------------------------------------------------------------------------------------------------
 AboutScreen:
+    Gui, 6:Add, Progress, x0 y0 w400 h260 BackgroundFFFFFF Disabled,
+    Gui, 6:Add, Progress, x0 y261 w400 h40 BackgroundF0F0F0 Disabled,
     Gui, 6:Add, GroupBox, x15 y45 w370 h53, 
     Gui, 6:Font, s15
-    Gui, 6:Add, Text, x15 y15, Environment Manager v0.0.1
+    Gui, 6:Add, Text, +BackgroundTrans x15 y15, Environment Manager v0.0.1
     Gui, 6:Font, s9
-    Gui, 6:Add, Text, x23 y55, Environment Manager is a tool that was created to help with time efficiency. `nIt was designed to quicken the database backup/restore/management `nprocess, as well as provide quick deployment of SalesPad Products.
-    Gui, 6:Add, Text, x15 y115, Product Page: 
+    Gui, 6:Add, Text, +BackgroundTrans x23 y55, Environment Manager is a tool that was created to help with time efficiency. `nIt was designed to quicken the database backup/restore/management `nprocess, as well as provide quick deployment of SalesPad Products.
+    Gui, 6:Add, Text, +BackgroundTrans x15 y115, Product Page: 
     Gui, 6:Font, Underline cBlue
-    Gui, 6:Add, Text, x85 y115 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+    Gui, 6:Add, Text, +BackgroundTrans x85 y115 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
     Gui, 6:Font
-    Gui, 6:Add, Text, x15 y130, Issues:
+    Gui, 6:Add, Text, +BackgroundTrans x15 y130, Issues:
     Gui, 6:Font, Underline cBlue
-    Gui, 6:Add, Text, x50 y130 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+    Gui, 6:Add, Text, +BackgroundTrans x50 y130 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
     Gui, 6:Font
     ;Gui, 6:Add, Text, x15 y165, Changelog:
-    Gui, 6:Add, Text, x15 y225, Environment Manager Team:
-    Gui, 6:Add, Text, x35 y245, stvrdrgz19 (Steve Rodriguez)
+    Gui, 6:Add, Text, +BackgroundTrans x15 y225, Environment Manager Team:
+    Gui, 6:Add, Text, +BackgroundTrans x35 y245, stvrdrgz19 (Steve Rodriguez)
     Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, Icons\GitHubIcon.png
-    Gui, 6:Add, Text, x0 y264 w403 0x10 ;Horizontal Line
+    ;Gui, 6:Add, Text, +BackgroundTrans x0 y264 w403 0x10 ;Horizontal Line
     Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
     Gui, 6:Show, w400 h300, About
     return
@@ -621,10 +641,19 @@ OpenLog:
     Return
 
 GPBackupsList:
-    GuiControlGet, ListBox1
-    FileRead, SelectedX, C:\#DBBackups\%ListBox1%\Description.txt
-    GuiControl,, DBDescEdit, %SelectedX%
-    Return
+    GuiControlGet, GPBackupsList
+    FileRead, SelectedX, C:\#DBBackups\%GPBackupsList%\Description.txt
+    If FileExist("C:\#DBBackups\" GPBackupsList "\Description.txt")
+    {
+        GuiControl,, DBDescEdit, %SelectedX%
+        Return
+    }
+    Else
+    {
+        GuiControl,, DBDescEdit, This Database Backup has no description.`n`nTo add a description, select a Database Backup from the listbox and then click the "Add Description" button above.
+        Return
+    }
+
 
 ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     IniRead, RestoreCounter, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
@@ -700,6 +729,8 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
                 IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
                 FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
                 FileAppend, `n`n====================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%GPBackupsList%\Description.txt
+                FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                GuiControl, 1:, DBDescEdit, %TestXD% 
                 Return
             }
             if OverCheck = 1
@@ -728,27 +759,14 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
                     IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
                     FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
                     FileAppend, `n`n====================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%GPBackupsList%\Description.txt
+                    FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                    GuiControl, 1:, DBDescEdit, %TestXD% 
                     Return
 
                 OverCancel:
                     Gui, OVERWRITEDESC:Destroy
                     Return
             }
-/*
-        MsgBox, 4, OVERWRITE?, Are you sure you want to overwrite "%GPBackupsList%" with your current setup?
-        IfMsgBox, No
-            return
-        IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
-        IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
-        IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
-        IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-        IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
-        IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
-        IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
-        Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
-        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-        return
-        */
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
@@ -879,7 +897,7 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Gui, 2:Add, Button, x516 y370 w100 h25 gSPGPCan, Cancel
     Gui, 2:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
     Gui, 2:Show, w630 h410, Install SalesPad GP
-    GuiControl, 2:Disable, TPGValue
+    ;GuiControl, 2:Disable, TPGValue
     ;GuiControl, 2:Disable, DBUpdateValue
     Loop, %Instl%\ExtModules\WithOutCardControl\*.*
     {
@@ -888,6 +906,21 @@ ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install th
     Loop, %Instl%\CustomModules\WithOutCardControl\*.*
     {
         GuiControl, 2:, CustList, %A_LoopFileName%
+    }
+    IniRead, GrizzDisable, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\steve.rodriguez\Settings.ini, BuildManagement, Grizz
+    IniRead, TPGDisable, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\steve.rodriguez\Settings.ini, BuildManagement, TPG
+    IniRead, DBUpdateDisable, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\steve.rodriguez\Settings.ini, BuildManagement, DBUpdate
+    If GrizzDisable = 1
+    {
+        GuiControl, 2:Disable, GrizzValue
+    }
+    If TPGDisable = 1
+    {
+        GuiControl, 2:Disable, TPGValue
+    }
+    If DBUpdateDisable = 1
+    {
+        GuiControl, 2:Disable, DBUpdateValue
     }
     Return
 
@@ -1797,6 +1830,107 @@ ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- 
     Run, %DBListFolder%
     Return
 
+AddDesc:
+    GuiControlGet, GPBackupsList
+    If GPBackupsList = 
+    {
+        MsgBox, 0, ERROR, Please select a Database Backup.
+        Return
+    }
+    If FileExist("C:\#DBBackups\" GPBackupsList "\Description.txt")
+    {
+        Gui, Desc:Destroy
+        Gui, Desc:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
+        Gui, Desc:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+        Gui, Desc:Add, Text, +BackgroundTrans x15 y15 w350, A description for the selected Backup exists. Do you want to overwrite the existing description? Or add to it? 
+        Gui, Desc:Add, Button, x136 y67 w75 h23 gDescOverwrite, Overwrite
+        Gui, Desc:Add, Button, x223 y67 w75 h23 gDescAdd, Add
+        Gui, Desc:Add, Button, x310 y67 w75 H23 gDescCancel, Cancel
+        Gui, Desc:Show, w400 h100, ERROR
+        Return
+
+        DescOverwrite:
+            Gui, Desc:Destroy
+            Gui, DESCOVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+            Gui, DESCOVERWRITEDESC:Add, Edit, x15 y15 w300 r10 vOverDesc,
+            Gui, DESCOVERWRITEDESC:Add, Button, x100 y160 w100 h25 +Default gDescOverOK, OK
+            Gui, DESCOVERWRITEDESC:Add, Button, x215 y160 w100 h25 gDescOverCancel, Cancel
+            Gui, DESCOVERWRITEDESC:Show, w330 h190, Overwrite Description
+            Return
+
+            DescOverOK:
+                GuiControlGet, OverDesc
+                Gui, DESCOVERWRITEDESC:Destroy
+                IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                If FileExist(DBPath "\" GPBackupsList "\Description.txt")
+                {
+                    FileDelete, %DBPath%\%GPBackupsList%\Description.txt
+                    FileAppend, ====================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%OverDesc%, %DBPath%\%GPBackupsList%\Description.txt
+                    FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                    GuiControl, 1:, DBDescEdit, %TestXD% 
+                    Return
+                }
+                Else
+                {
+                    MsgBox, 0, ERROR, ERROR - Description to overwrite didn't exist.
+                    Return
+                }
+
+            DescOverCancel:
+                Gui, DESCOVERWRITEDESC:Destroy
+                Return
+
+        DescAdd:
+            Gui, Desc:Destroy
+            Gui, DESCADDDESC:Add, Text, x15 y15, Enter Description/Notes:
+            Gui, DESCADDDESC:Add, Edit, x15 y15 w300 r10 vAddDesc,
+            Gui, DESCADDDESC:Add, Button, x100 y160 w100 h25 +Default gDescAddOK, OK
+            Gui, DESCADDDESC:Add, Button, x215 y160 w100 h25 gDescAddCancel, Cancel
+            Gui, DESCADDDESC:Show, w330 h190, Append description
+            Return
+
+            DescAddOK:
+                GuiControlGet, AddDesc
+                Gui, DESCADDDESC:Destroy
+                IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                FileAppend, `n`n====================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%AddDesc%, %DBPath%\%GPBackupsList%\Description.txt
+                FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                GuiControl, 1:, DBDescEdit, %TestXD% 
+                Return
+
+            DescAddCancel:
+                Gui, DESCADDDESC:Destroy
+                Return
+
+        DescCancel:
+            Gui, Desc:Destroy
+            Return
+    }
+    Else
+    {
+        Gui, Desc:Destroy
+        Gui, NEWDESC:Destroy
+        Gui, NEWDESC:Add, Text, x15 y15, Enter Description/Notes:
+        Gui, NEWDESC:Add, Edit, x15 y15 w300 r10 vNewDesc,
+        Gui, NEWDESC:Add, Button, x100 y160 w100 h25 +Default gDescNewOK, OK
+        Gui, NEWDESC:Add, Button, x215 y160 w100 h25 gDescNewCancel, Cancel
+        Gui, NEWDESC:Show, w330 h190, New description
+        Return
+
+        DescNewOK:
+            GuiControlGet, NewDesc
+            Gui, NEWDESC:Destroy
+            IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+            FileAppend, ====================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%NewDesc%, %DBPath%\%GPBackupsList%\Description.txt
+            FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+            GuiControl, 1:, DBDescEdit, %TestXD% 
+            Return
+
+        DescNewCancel:
+            Gui, NEWDESC:Destroy
+            Return
+    }
+
 D10:
     return
 
@@ -1823,6 +1957,11 @@ D18:
 
 IPText:
     GuiControl,, IP, %A_IPAddress1%
+    GuiControl, +cblue +Redraw, IPText
+    GuiControl, +cblue +Redraw, IP
+    sleep 100
+    GuiControl, +cblack +Redraw, IPText
+    GuiControl, +cgray +Redraw, IP
     ;MsgBox, 0, test, this is a test %A_IPAddress1%
     return
 

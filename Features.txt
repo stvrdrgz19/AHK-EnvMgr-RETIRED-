@@ -1,0 +1,31 @@
+Features
+
+Datase Management=========
+A listbox that displays your database backup folders
+	The path for this list is configurable in Settings
+Restore database backups from the listbox
+Create new backups
+	Able to add descriptions to these backups, description will be displayed
+Overwrite existing database backups with existing dataset
+	Able to update descriptions of databases being overwritten
+Delete existing database backups
+Launch the selected Database Backup folder for manual inspection
+View descriptions of selected backups
+
+Build Management==========
+Install SPGP Builds
+Install SP Mobile Builds
+Install Datacollection Builds
+Install Windows Mobile Cab files
+Install Web API
+Install GPWEB
+Install Ship Center
+Install Card Control
+Launch existing installed builds
+Add DLLs to existing SPGP builds
+Launch the install location
+
+Dynamics/Cloud===========
+Launch existing installations of Dynamics GP
+	Hopefully will be adding the ability to auto install different GP versions
+Delete specified Cloud Tenant Databases
