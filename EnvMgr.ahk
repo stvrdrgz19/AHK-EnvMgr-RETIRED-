@@ -1964,7 +1964,7 @@ IPText:
     GuiControl,, IP, %A_IPAddress1%
     GuiControl, +cblue +Redraw, IPText
     GuiControl, +cblue +Redraw, IP
-    sleep 100
+    sleep 50
     GuiControl, +cblack +Redraw, IPText
     GuiControl, +cgray +Redraw, IP
     ;MsgBox, 0, test, this is a test %A_IPAddress1%
