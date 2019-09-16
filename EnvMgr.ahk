@@ -573,8 +573,24 @@ HubIcon:
     return
 
 MenuHandler:
-    goto, Exit1
-    return
+    ;IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
+    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
+    if PromptToClose = 1
+    {
+        MsgBox, 36, CLOSE?, Are you sure you want to close Environment Manager?
+        IfMsgBox, No
+        {
+            Return
+        }
+        IfMsgBox, Yes
+        {
+            ExitApp
+        }
+    }
+    if PromptToClose = 0
+    {
+        ExitApp
+    }
 
 ButtonCountersScreen:
     IniRead, Restore, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
@@ -684,7 +700,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     }
     Else
     {
-        MsgBox, 4, RESTORE?, Are you sure you want to restore "%GPBackupsList%" over your current databases?
+        MsgBox, 36, RESTORE?, Are you sure you want to restore "%GPBackupsList%" over your current databases?
         IfMsgBox, No
             return
         IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
@@ -698,7 +714,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
         WinWait, C:\windows\system32\cmd.exe
         WinWaitClose
         FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-        MsgBox,, COMPLETED, Database %GPBackupsList% was restored successfully.
+        MsgBox, 0, COMPLETED, Database %GPBackupsList% was restored successfully.
         return
     }
 
@@ -714,55 +730,28 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
     Else
     {
-        Gui, OVERWRITE:Destroy
-        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
-        Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
-        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "DATABASE" with your current setup?
-        Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
-        Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
-        Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
-        Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
-        Return
-
-        OverwriteNo:
+        MsgBox, 36, OVERWRITE?, Are you sure you want to overwrite "%GPBackupsList%" with your current dataset? 
+        IfMsgBox, Yes
+        {
             Gui, OVERWRITE:Destroy
+            Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
+            Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+            Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "DATABASE" with your current setup?
+            Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
+            Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
+            Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
+            Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
             Return
 
-        OverwriteYes:
-            GuiControlGet, OverCheck
-            If OverCheck = 0
-            {
+            OverwriteNo:
                 Gui, OVERWRITE:Destroy
-                IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
-                IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
-                IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
-                IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-                IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
-                IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
-                IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
-                Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
-                WinWait, C:\windows\system32\cmd.exe
-                WinWaitClose
-                IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-                FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%GPBackupsList%\Description.txt
-                FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
-                GuiControl, 1:, DBDescEdit, %TestXD% 
-                Return
-            }
-            if OverCheck = 1
-            {
-                Gui, OVERWRITE:Destroy
-                Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
-                Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
-                Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
-                Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
-                Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
                 Return
 
-                OverOK:
-                    GuiControlGet, DBDescription
-                    Gui, OVERWRITEDESC:Destroy
+            OverwriteYes:
+                GuiControlGet, OverCheck
+                If OverCheck = 0
+                {
+                    Gui, OVERWRITE:Destroy
                     IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
                     IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
                     IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
@@ -775,15 +764,50 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
                     WinWaitClose
                     IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
                     FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-                    FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%GPBackupsList%\Description.txt
+                    FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%GPBackupsList%\Description.txt
                     FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
                     GuiControl, 1:, DBDescEdit, %TestXD% 
                     Return
-
-                OverCancel:
-                    Gui, OVERWRITEDESC:Destroy
+                }
+                if OverCheck = 1
+                {
+                    Gui, OVERWRITE:Destroy
+                    Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+                    Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
+                    Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
+                    Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
+                    Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
                     Return
-            }
+
+                    OverOK:
+                        GuiControlGet, DBDescription
+                        Gui, OVERWRITEDESC:Destroy
+                        IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
+                        IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
+                        IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
+                        IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                        IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
+                        IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
+                        IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
+                        Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
+                        FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%GPBackupsList%\Description.txt
+                        FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                        GuiControl, 1:, DBDescEdit, %TestXD% 
+                        Return
+
+                    OverCancel:
+                        Gui, OVERWRITEDESC:Destroy
+                        Return
+                }
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
@@ -802,8 +826,8 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
     return
     
     Cancel5:
-        MsgBox, No new Backup was created.
         Gui, 5:Destroy
+        MsgBox, 16, CANCEL, No new Backup was created.
         Return
     
     OK5:
@@ -819,16 +843,16 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
             ;ifExist C:\#DBBackups\%Database%
             ifExist %DBListNew%\%Database%
             {
-                MsgBox,, ALREADY EXISTS, A backup named "%Database%" already exists.
+                MsgBox, 16, ALREADY EXISTS, A backup named "%Database%" already exists.
                 GuiControl,, Database, 
                 return
             }
             Else
             {
-                MsgBox, 4, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+                MsgBox, 36, CREATE BACKUP?, Are you sure you want to create backup %Database%?
                 ifMsgBox, No
                 {
-                    MsgBox,, CANCEL, No backup was created.
+                    MsgBox, 16, CANCEL, No backup was created.
                     GuiControl,, Database, 
                     return
                 }
@@ -874,18 +898,18 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     }
     Else
     {
-        MsgBox, 4, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
+        MsgBox, 36, DELETE?, Are you sure you want to delete backup %GPBackupsList%?
         ifMsgBox, Yes
         {
             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
             FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
-            MsgBox,, DELETED, Database %GPBackupsList% was deleted.
+            MsgBox, 48, DELETED, Database %GPBackupsList% was deleted.
             goto, ButtonRefresh
             return
         }
         IfMsgBox, No
         {
-            MsgBox,, CANCEL, Backup %GPBackupsList% was not deleted.
+            MsgBox, 16, CANCEL, Backup %GPBackupsList% was not deleted.
             return
         }
     }
@@ -1353,7 +1377,7 @@ SPGPOK:
         }
         IfMsgBox, No
         {
-            MsgBox, 0, CANCEL, Install was canceled, existing install was not removed.
+            MsgBox, 16, CANCEL, Install was canceled, existing install was not removed.
             Return
         }
     }
@@ -1484,7 +1508,7 @@ SPGPOK:
     }
 
 SPGPCan:
-    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    MsgBox, 36, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
         Return
@@ -1518,7 +1542,7 @@ ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/install
     return
 
 CanMobile:
-    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    MsgBox, 36, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
         return
@@ -1566,7 +1590,7 @@ ButtonDataCollection:   ; Button to launch the DC selection/installer
     return
 
 DCCan:
-    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    MsgBox, 36, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
         return
@@ -1642,7 +1666,7 @@ ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
     return
 
 CanSC:
-    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    MsgBox, 36, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
         return
@@ -1688,7 +1712,7 @@ ButtonCardControl:  ; Button to launch the CardControl selection/installer
     return
 
 CanCC:
-    MsgBox, 4, CANCEL, Are you sure you want to cancel?
+    MsgBox, 36, CANCEL, Are you sure you want to cancel?
     IfMsgBox, No
     {
         return
@@ -1818,7 +1842,7 @@ ButtonAddDLLs: ; Button to ADD Dlls -- needs work, should pull from the Get DLLs
     return
 
 ButtonBuildFolder:  ; Launches the SP install folder
-    MsgBox, 4, OPEN FOLDER, Do you want to open the Builds Folder?
+    MsgBox, 36, OPEN FOLDER, Do you want to open the Builds Folder?
     IfMsgBox, No
         return
     Run, C:\Program Files (x86)\SalesPad.Desktop
@@ -1842,7 +1866,7 @@ ButtonRefresh:  ; Refreshes the Listbox
 
 ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
     IniRead, DBListFolder, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-    MsgBox, 4, OPEN FOLDER, Do you want to open the Database Backups Folder?
+    MsgBox, 36, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
         return
     Run, %DBListFolder%
@@ -1852,7 +1876,7 @@ AddDesc:
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
-        MsgBox, 0, ERROR, Please select a Database Backup.
+        MsgBox, 16, ERROR, Please select a Database Backup.
         Return
     }
     If FileExist("C:\#DBBackups\" GPBackupsList "\Description.txt")
@@ -1890,7 +1914,7 @@ AddDesc:
                 }
                 Else
                 {
-                    MsgBox, 0, ERROR, ERROR - Description to overwrite didn't exist.
+                    MsgBox, 16, ERROR, ERROR - Description to overwrite didn't exist.
                     Return
                 }
 
@@ -1991,10 +2015,10 @@ ButtonSteveRodriguez01:
     SPC01Counter += 1
     IniWrite, %SPC01Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC1
     IniRead, 01Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 01
-    MsgBox, 4, RUN, Do you want to Delete %01Delete% tables?
+    MsgBox, 36, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, 0, CANCEL, Tables were not deleted.
+        MsgBox, 16, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -2009,10 +2033,10 @@ ButtonSteveRodriguez02:
     SPC02Counter += 1
     IniWrite, %SPC02Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC2
     IniRead, 02Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 02
-    MsgBox, 4, RUN, Do you want to Delete %02Delete% tables?
+    MsgBox, 36, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, 0, CANCEL, Tables were not deleted.
+        MsgBox, 16, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -2026,10 +2050,10 @@ ButtonSteveRodriguez03:
     SPC03Counter += 1
     IniWrite, %SPC03Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC3
     IniRead, 03Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 03
-    MsgBox, 4, RUN, Do you want to Delete %03Delete% tables?
+    MsgBox, 36, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, 0, CANCEL, Tables were not deleted.
+        MsgBox, 16, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -2043,10 +2067,10 @@ ButtonSteveRodriguez04:
     SPC04Counter += 1
     IniWrite, %SPC04Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC4
     IniRead, 04Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 04
-    MsgBox, 4, RUN, Do you want to Delete %04Delete% tables?
+    MsgBox, 36, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, 0, CANCEL, Tables were not deleted.
+        MsgBox, 16, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -2060,10 +2084,10 @@ ButtonSteveRodriguez05:
     SPC05Counter += 1
     IniWrite, %SPC05Counter%, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, SPC5
     IniRead, 05Delete, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, CloudButtonNames, 05
-    MsgBox, 4, RUN, Do you want to Delete %05Delete% tables?
+    MsgBox, 36, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No
     {
-        MsgBox, 0, CANCEL, Tables were not deleted.
+        MsgBox, 16, CANCEL, Tables were not deleted.
         return
     }
     ifMsgBox, Yes
@@ -2092,7 +2116,7 @@ BuildOriginPath:
 MoveChanges:
     If A_UserName = steve.rodriguez
     {
-        MsgBox, 4, MOVE CHANGES?, Are you sure you want to pull the current branch files to Environment Manager?
+        MsgBox, 36, MOVE CHANGES?, Are you sure you want to pull the current branch files to Environment Manager?
         IfMsgBox, Yes
         {
             if FileExist("C:\Environment Manager")
@@ -2116,7 +2140,7 @@ MoveChanges:
     }
 
 sppResetDB:
-    MsgBox, 4, RESET DATABASE?, Are you sure you want to run the sppResetDatabase proc against TWO?
+    MsgBox, 36, RESET DATABASE?, Are you sure you want to run the sppResetDatabase proc against TWO?
     IfMsgBox, Yes
     {
         Run, C:\Users\steve.rodriguez\Desktop\Scripts\sppresetdatabase.bat
@@ -2128,11 +2152,11 @@ sppResetDB:
     }
 
 GuiClose:
-Exit1:
-    IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
+    ;IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
+    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
     if PromptToClose = 1
     {
-        MsgBox, 4, CLOSE?, Are you sure you want to close Environment Manager?
+        MsgBox, 36, CLOSE?, Are you sure you want to close Environment Manager?
         IfMsgBox, No
         {
             Return
