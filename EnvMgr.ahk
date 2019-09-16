@@ -67,7 +67,7 @@ Gui, Add, Button, x25 y111 w100 h25 vBOver, Overwrite DB
 Gui, Add, Button, x25 y141 w100 h25 vBak, New Backup
 Gui, Add, Button, x25 y171 w100 h25 vDelete, Delete Backup
 Gui, Add, Button, x25 y227 w100 h25 vBakFolder, Backups Folder
-Gui, Add, Button, x600 y25 w100 h25 gAddDesc, Add Description
+Gui, Add, Button, x600 y25 w100 h25 vAddDesc gAddDesc, Add Description
 
 Gui, Font, s10
 Gui, Add, GroupBox, x15 y263 w341 h256 cblue, Build Management
@@ -127,10 +127,14 @@ Gui, Add, Edit, cgray x517 y481 w100 ReadOnly vIP, %A_IPAddress1%
 ;--------------------------------------------------------------------------------------------------------------------------
 ; This loads the settings from the Settings.ini file
 ;--------------------------------------------------------------------------------------------------------------------------
+;LoadFromSettings(IniReadOutput,IniSection,IniKey,vCheckboxName,vButtonName)
 LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
 LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
 LoadFromSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
 LoadFromSettings("NewLoad","DBManagement","New","CheckNew","Bak")
+LoadFromSettings("RefreshLoad","DBManagement","Refresh","CheckRefresh","Refresh")
+LoadFromSettings("BackupsFolderLoad","DBManagement","BackupsFolder","CheckBackupsFolder","BakFolder")
+LoadFromSettings("AddDescriptionLoad","DBManagement","AddDescription","CheckAddDesc","AddDesc")
 
 LoadFromSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
 LoadFromSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
@@ -204,6 +208,9 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y85 vCheckOverwrite, Disable Overwrite DB Button
     Gui, 4:Add, Checkbox, x30 y115 vCheckNew, Disable New Backup Button
     Gui, 4:Add, Checkbox, x30 y145 vCheckDelete, Disable Delete Backup Button
+    Gui, 4:Add, Checkbox, x260 y55 vCheckRefresh, Disable Refresh Button
+    Gui, 4:Add, Checkbox, x260 y85 vCheckBackupsFolder, Disable Backups Folder Button
+    Gui, 4:Add, Checkbox, x260 y115 vCheckAddDesc, Disable Add Description Button
     Gui, 4:Tab, 3
     Gui, 4:Add, Checkbox, x30 y55 vDisableSP, Disable SalesPad Desktop Button
     Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection Button
@@ -223,11 +230,11 @@ SettingsScreen:
     ;Gui, 4:Add, Checkbox, x490 y175 vDisableDB, Disable DBUpdate Checkbox
     Gui, 4:Tab, 4
     Gui, 4:Add, Text, x38 y45, Disabled
-    Gui, 4:Add, Checkbox, x30 y70 vCheckDyn10, GP 2010
-    Gui, 4:Add, Checkbox, x30 y100 vCheckDyn13, GP 2013
-    Gui, 4:Add, Checkbox, x30 y130 vCheckDyn15, GP 2015
-    Gui, 4:Add, Checkbox, x30 y160 vCheckDyn16, GP 2016
-    Gui, 4:Add, Checkbox, x30 y190 vCheckDyn18, GP 2018
+    Gui, 4:Add, Checkbox, x50 y70 vCheckDyn10
+    Gui, 4:Add, Checkbox, x50 y100 vCheckDyn13
+    Gui, 4:Add, Checkbox, x50 y130 vCheckDyn15
+    Gui, 4:Add, Checkbox, x50 y160 vCheckDyn16
+    Gui, 4:Add, Checkbox, x50 y190 vCheckDyn18
     Gui, 4:Add, Text, x140 y45, Button Labels
     Gui, 4:Add, Edit, x110 y65 w120 cGray ReadOnly vGPLabel1,
     Gui, 4:Add, Edit, x110 y95 w120 cGray ReadOnly vGPLabel2,
@@ -252,11 +259,11 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectGP5, ...
     Gui, 4:Tab, 5
     Gui, 4:Add, Text, x70 y45, Disabled
-    Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable SPC Sql Server 01
-    Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable SPC Sql Server 02
-    Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable SPC Sql Server 03
-    Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable SPC Sql Server 04
-    Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable SPC Sql Server 05
+    Gui, 4:Add, Checkbox, x30 y70 vCheckSPC1, Disable Cloud Tenant 01
+    Gui, 4:Add, Checkbox, x30 y100 vCheckSPC2, Disable Cloud Tenant 02
+    Gui, 4:Add, Checkbox, x30 y130 vCheckSPC3, Disable Cloud Tenant 03
+    Gui, 4:Add, Checkbox, x30 y160 vCheckSPC4, Disable Cloud Tenant 04
+    Gui, 4:Add, Checkbox, x30 y190 vCheckSPC5, Disable Cloud Tenant 05
     Gui, 4:Add, Text, x300 y45, Please enter the name of your tenants (Ex. SteveRodriguez01)
     Gui, 4:Add, Edit, x250 y65 w380 cGray ReadOnly vCloudLabel01, 
     Gui, 4:Add, Edit, x250 y95 w380 cGray ReadOnly vCloudLabel02, 
@@ -275,7 +282,7 @@ SettingsScreen:
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Loading the Settings values from the Settings.ini file
 ;--------------------------------------------------------------------------------------------------------------------------
-    ; > Calling Functions
+    ;LoadSettingsScreen(IniReadInput,IniSection,IniKey,FieldToControl)
     LoadSettingsScreen("BackPathLoad","BackupFolder","path","BackupPath")
     LoadSettingsScreen("ServLoad","SQLCreds","Server","ServName")
     LoadSettingsScreen("UserLoad","SQLCreds","User","ServUN")
@@ -287,6 +294,9 @@ SettingsScreen:
     LoadSettingsScreen("OverwriteLoad","DBManagement","Over","CheckOverwrite")
     LoadSettingsScreen("DeleteLoad","DBManagement","Delete","CheckDelete")
     LoadSettingsScreen("NewLoad","DBManagement","New","CheckNew")
+    LoadSettingsScreen("RefreshLoad","DBManagement","Refresh","CheckRefresh")
+    LoadSettingsScreen("BackupsFolderLoad","DBManagement","BackupsFolder","CheckBackupsFolder")
+    LoadSettingsScreen("AddDescriptionLoad","DBManagement","AddDescription","CheckAddDesc")
     LoadSettingsScreen("DesktopLoad","BuildManagement","SalesPad","DisableSP")
     LoadSettingsScreen("MobileLoad","BuildManagement","Mobile","DisableMOB")
     LoadSettingsScreen("DataCollectionLoad","BuildManagement","DataCollection","DisableDC")
@@ -355,6 +365,9 @@ Save: ; Saves the Settings fields to the Settings.ini file
     SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
     SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
     SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
+    SaveSettingsCheckbox(CheckRefresh,"DBManagement","Refresh","Refresh")
+    SaveSettingsCheckbox(CheckBackupsFolder,"DBManagement","BackupsFolder","BakFolder")
+    SaveSettingsCheckbox(CheckAddDesc,"DBManagement","AddDescription","AddDesc")
     SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
     SaveSettingsCheckbox(DisableDC,"BuildManagement","DataCollection","BDataCollection")
     SaveSettingsCheckbox(DisableSC,"BuildManagement","ShipCenter","BShipCenter")
