@@ -16,6 +16,7 @@
 #Include, Functions\EditEntryVariableGUI.ahk
 #Include, Functions\FileSelectFile.ahk
 #Include, Functions\FileSelectFolder.ahk
+#Include, Functions\EnvMgrClose.ahk
 SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
@@ -573,24 +574,8 @@ HubIcon:
     return
 
 MenuHandler:
-    ;IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
-    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
-    if PromptToClose = 1
-    {
-        MsgBox, 36, CLOSE?, Are you sure you want to close Environment Manager?
-        IfMsgBox, No
-        {
-            Return
-        }
-        IfMsgBox, Yes
-        {
-            ExitApp
-        }
-    }
-    if PromptToClose = 0
-    {
-        ExitApp
-    }
+    EnvMgrClose()
+    Return
 
 ButtonCountersScreen:
     IniRead, Restore, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\ButtonCounters.ini, ButtonCounters, RestoreDB
@@ -2152,21 +2137,5 @@ sppResetDB:
     }
 
 GuiClose:
-    ;IniRead, PromptToClose, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, PromptClose, Close
-    IniRead, PromptToClose, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Settings\Settings.ini, PromptClose, Close
-    if PromptToClose = 1
-    {
-        MsgBox, 36, CLOSE?, Are you sure you want to close Environment Manager?
-        IfMsgBox, No
-        {
-            Return
-        }
-        IfMsgBox, Yes
-        {
-            ExitApp
-        }
-    }
-    if PromptToClose = 0
-    {
-        ExitApp
-    }
+    EnvMgrClose()
+    Return
