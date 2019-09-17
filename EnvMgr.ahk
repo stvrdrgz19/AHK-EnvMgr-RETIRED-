@@ -653,7 +653,7 @@ ButtonCountersScreen:
 OpenLog:
     Gui, 29:Destroy
     Gui, 29:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
-    Gui, 29:Show, w560 h560, Test Log Reader
+    Gui, 29:Show, w560 h560, Database Management Log
     FileRead, Log, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
     GuiControl, 29:, Edit1, %Log%
     Return
@@ -1146,7 +1146,8 @@ SPGPOK:
                             {
                                 Loop, %BuildLoc%\fail_log_TWO_*.txt
                                 {
-                                    Run %A_LoopFileName%
+                                    ;Run %A_LoopFileName%
+                                    Run %A_LoopFileLongPath%
                                     Return
                                 }
                             }
