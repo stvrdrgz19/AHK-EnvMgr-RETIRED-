@@ -715,28 +715,55 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
     Else
     {
-        MsgBox, 36, OVERWRITE?, Are you sure you want to overwrite "%GPBackupsList%" with your current dataset? 
-        IfMsgBox, Yes
-        {
+        Gui, OVERWRITE:Destroy
+        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
+        Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "%GPBackupsList%" with your current setup?
+        Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
+        Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
+        Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
+        Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
+        Return
+
+        OverwriteNo:
             Gui, OVERWRITE:Destroy
-            Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
-            Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
-            Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "DATABASE" with your current setup?
-            Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
-            Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
-            Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
-            Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
             Return
 
-            OverwriteNo:
+        OverwriteYes:
+            GuiControlGet, OverCheck
+            If OverCheck = 0
+            {
                 Gui, OVERWRITE:Destroy
+                IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
+                IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
+                IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
+                IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
+                IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
+                IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
+                Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
+                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
+                FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%GPBackupsList%\Description.txt
+                FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
+                GuiControl, 1:, DBDescEdit, %TestXD% 
+                Return
+            }
+            if OverCheck = 1
+            {
+                Gui, OVERWRITE:Destroy
+                Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+                Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
+                Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
+                Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
+                Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
                 Return
 
-            OverwriteYes:
-                GuiControlGet, OverCheck
-                If OverCheck = 0
-                {
-                    Gui, OVERWRITE:Destroy
+                OverOK:
+                    GuiControlGet, DBDescription
+                    Gui, OVERWRITEDESC:Destroy
                     IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
                     IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
                     IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
@@ -749,50 +776,15 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
                     WinWaitClose
                     IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
                     FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-                    FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%GPBackupsList%\Description.txt
+                    FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%GPBackupsList%\Description.txt
                     FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
                     GuiControl, 1:, DBDescEdit, %TestXD% 
                     Return
-                }
-                if OverCheck = 1
-                {
-                    Gui, OVERWRITE:Destroy
-                    Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
-                    Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
-                    Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
-                    Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
-                    Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
+                    
+                OverCancel:
+                    Gui, OVERWRITEDESC:Destroy
                     Return
-
-                    OverOK:
-                        GuiControlGet, DBDescription
-                        Gui, OVERWRITEDESC:Destroy
-                        IniRead, Var1, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Server
-                        IniRead, Var2, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, User
-                        IniRead, Var3, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, SQLCreds, Password
-                        IniRead, Var4, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-                        IniRead, Var5, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Dynamics
-                        IniRead, Var6, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company1
-                        IniRead, Var7, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, Databases, Company2
-                        Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%GPBackupsList%" %Var5% %Var6% %Var7%,, UseErrorLevel
-                        WinWait, C:\windows\system32\cmd.exe
-                        WinWaitClose
-                        IniRead, DBPath, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Settings.ini, BackupFolder, path
-                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%GPBackupsList%" backup.`n, \\sp-fileserv-01\Shares\Shared Folders\SteveR\Environment Manager\Files\%A_UserName%\Log.txt
-                        FileAppend, `n`n===================================================`nBACKUP - %GPBackupsList%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%GPBackupsList%\Description.txt
-                        FileRead, TestXD, %DBPath%\%GPBackupsList%\Description.txt
-                        GuiControl, 1:, DBDescEdit, %TestXD% 
-                        Return
-
-                    OverCancel:
-                        Gui, OVERWRITEDESC:Destroy
-                        Return
-                }
-        }
-        IfMsgBox, No
-        {
-            Return
-        }
+            }
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
