@@ -206,3 +206,8 @@
 {2019-09-19 09:19:49}: Deleted "z1" backup.
 {2019-09-19 09:20:12}: Created "z2" backup.
 {2019-09-19 09:20:22}: Deleted "z2" backup.
+{2019-09-19 12:17:41}: Overwrote "SOL-7056 PMSI SOP to POP Stuff" backup.
+{2019-09-19 12:18:02}: Restored "#MASTER" backup.
+{2019-09-19 12:21:00}: Restored "MASTER" backup.
+{2019-09-19 12:22:36}: Restored "#MASTER" backup.
+{2019-09-19 12:24:47}: Restored "MASTER" backup.

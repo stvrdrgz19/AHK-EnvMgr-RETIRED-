@@ -18,6 +18,7 @@
 #Include, Functions\FileSelectFolder.ahk
 #Include, Functions\EnvMgrClose.ahk
 #Include, Functions\SPGPInstall.ahk
+#Include, Functions\InstallBuilds.ahk
 SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
@@ -882,13 +883,13 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
         {
             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, Settings\Log.txt
             FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
-            MsgBox, 48, DELETED, Database %GPBackupsList% was deleted.
+            MsgBox, 48, DELETED, Database "%GPBackupsList%" was deleted.
             goto, ButtonRefresh
             return
         }
         IfMsgBox, No
         {
-            MsgBox, 16, CANCEL, Backup %GPBackupsList% was not deleted.
+            MsgBox, 16, CANCEL, Backup "%GPBackupsList%" was not deleted.
             return
         }
     }
@@ -1496,97 +1497,19 @@ SPGPCan:
     }
 
 ButtonSalesPadMobile:   ; Button to launch the SalesPad Mobile selection/installer
-    IniRead, MobileCounter, Settings\ButtonCounters.ini, ButtonCounters, SalesPadMobile
-    MobileCounter += 1
-    IniWrite, %MobileCounter%, Settings\ButtonCounters.ini, ButtonCounters, SalesPadMobile
-    FileSelectFile, SelectedFileMobile, 1, \\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server\, Select a SalesPad Server Build, *.exe
-    if ErrorLevel
-        return
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFileMobile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    SplitPath, SelectedFileMobile,, InstlMobile
-    Variable1 := InstlMobile
-    Gui, 15:Destroy
-    Gui, 15:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 15:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlMobile%
-    Gui, 15:Add, Edit, x30 y90 w600 vBuildLocMobile, C:\Program Files (x86)\SalesPad.GP.Mobile.Server\
-    Gui, 15:Add, Button, x420 y120 w100 h25 gCanMobile, Cancel
-    Gui, 15:Add, Button, +Default x531 y120 w100 h25 gOKMobile, OK
-    Gui, 15:Show, w660 h160, Install SalesPad GP Mobile Server
-    return
-
-CanMobile:
-    MsgBox, 36, CANCEL, Are you sure you want to cancel?
-    IfMsgBox, No
-    {
-        return
-    }
-    IfMsgBox, Yes
-    {
-        Gui, 15:Destroy
-        return
-    }
-
-OKMobile:
-    GuiControlGet, BuildLocMobile
-    IniWrite, %InstlMobile%, Settings\Paths.ini, LastInstalledBuild, Mobile
-    Gui, 15:Destroy
-    run, "Scripts\DCSilentInstall.bat" "%BuildLocMobile%"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    ;MsgBox, 0, Test, %BuildLocMobile%
-    Sleep 4000
-    Run *RunAs "%BuildLocMobile%\SalesPad.GP.Mobile.Server.exe" ;Looks like Run *RunAs only prompts if the program it's triggered from isn't running as admin
-    ;MsgBox, 0, Test, "%BuildLocMobile%\SalesPad.GP.Mobile.Server.exe"
-    ;Run, %BuildLocMobile%
+    InstallBuilds("SalesPadMobile","\\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server\","Select a SalesPad Mobile Server Build:","C:\Program Files (x86)\SalesPad.GP.Mobile.Server\","Install SalesPad GP Mobile Server","SalesPad.GP.Mobile.Server.exe")
     Return
 
 ButtonDataCollection:   ; Button to launch the DC selection/installer
-    IniRead, DCCounter, Settings\ButtonCounters.ini, ButtonCounters, DataCollection
-    DCCounter += 1
-    IniWrite, %DCCounter%, Settings\ButtonCounters.ini, ButtonCounters, DataCollection
-    FileSelectFile, SelectedFileDC, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a DataCollection Build, *.exe
-    if ErrorLevel
-        return
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFileDC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    SplitPath, SelectedFileDC,, InstlDC
-    Variable1 := InstlDC
-    Gui, 14:Destroy
-    Gui, 14:Add, Text, x15 y15, Please enter the location you would like to install the following build to:
-    Gui, 14:Add, Edit, cgray x15 y35 w600 ReadOnly, %InstlDC%
-    Gui, 14:Add, Edit, x15 y65 w600 vDCBuildLoc, C:\Program Files (x86)\DataCollection\
-    Gui, 14:Add, Button, +Default x400 y95 w100 h25 gDCOK, OK
-    Gui, 14:Add, Button, x515 y95 w100 h25 gDCCan, Cancel
-    Gui, 14:Show, w630 h125, Install DataCollection
-    return
+    InstallBuilds("DataCollection","\\sp-fileserv-01\Shares\Builds\Ares\DataCollection\","Select a DataCollection Build:","C:\Program Files (x86)\DataCollection\","Install DataCollection","DataCollection Extended Warehouse.exe")
+    Return
 
-DCCan:
-    MsgBox, 36, CANCEL, Are you sure you want to cancel?
-    IfMsgBox, No
-    {
-        return
-    }
-    IfMsgBox, Yes
-    {
-        Gui, 14:Destroy
-        return
-    }
+ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
+    InstallBuilds("ShipCenter","\\sp-fileserv-01\Shares\Builds\ShipCenter\","Select a ShipCenter Build:","C:\Program Files (x86)\ShipCenter\","Install Ship Center","SalesPad.ShipCenter.exe")
+    Return
 
-DCOK:
-    GuiControlGet, DCBuildLoc
-    IniWrite, %InstlDC%, Settings\Paths.ini, LastInstalledBuild, DC
-    Gui, 14:Destroy
-    run, "Scripts\DCSilentInstall.bat" "%DCBuildLoc%"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    Sleep 4000
-    Run *RunAs "%DCBuildLoc%\DataCollection Extended Warehouse.exe"
-    ;Run, %DCBuildLoc%
+ButtonCardControl:  ; Button to launch the CardControl selection/installer
+    InstallBuilds("CardControl","\\sp-fileserv-01\Shares\Builds\Ares\","Select a Card Control Build:","C:\Program Files (x86)\CardControl\","Install Card Control","CardControl.exe")
     Return
 
 ButtonWindowsMobile:
@@ -1617,97 +1540,6 @@ ButtonWindowsMobile:
         FileCopy, %CabFile%, %CabDestination%
         Return
     }
-    Return
-
-ButtonShipCenter:   ; Button to launch the ShipCenter selection/installer
-    IniRead, ShipCenterCounter, Settings\ButtonCounters.ini, ButtonCounters, ShipCenter
-    ShipCenterCounter += 1
-    IniWrite, %ShipCenterCounter%, Settings\ButtonCounters.ini, ButtonCounters, ShipCenter
-    FileSelectFile, SelectedFileSC, 1, \\sp-fileserv-01\Shares\Builds\ShipCenter\, Select a ShipCenter Build, *.exe
-    if ErrorLevel
-        return
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFileSC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    SplitPath, SelectedFileSC,, InstlSC
-    Variable1 := InstlSC
-    Gui, 16:Destroy
-    Gui, 16:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 16:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlSC%
-    Gui, 16:Add, Edit, x30 y90 w600 vBuildLocSC, C:\Program Files (x86)\ShipCenter\
-    Gui, 16:Add, Button, x420 y120 w100 h25 gCanSC, Cancel
-    Gui, 16:Add, Button, +Default x531 y120 w100 h25 gOKSC, OK
-    Gui, 16:Show, w660 h160, Install Ship Center
-    return
-
-CanSC:
-    MsgBox, 36, CANCEL, Are you sure you want to cancel?
-    IfMsgBox, No
-    {
-        return
-    }
-    IfMsgBox, Yes
-    {
-        Gui, 16:Destroy
-        return
-    }
-
-OKSC:
-    GuiControlGet, BuildLocSC
-    IniWrite, %InstlSC%, Settings\Paths.ini, LastInstalledBuild, SC
-    Gui, 16:Destroy
-    run, "Scripts\DCSilentInstall.bat" "%BuildLocSC%"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    Sleep 4000
-    Run *RunAs "%BuildLocSC%\SalesPad.ShipCenter.exe"
-    ;Run, %BuildLocSC%
-    Return
-
-ButtonCardControl:  ; Button to launch the CardControl selection/installer
-    IniRead, CardControlCounter, Settings\ButtonCounters.ini, ButtonCounters, CardControl
-    CardControlCounter += 1
-    IniWrite, %CardControlCounter%, Settings\ButtonCounters.ini, ButtonCounters, CardControl
-    FileSelectFile, SelectedFileCC, 1, \\sp-fileserv-01\Shares\Builds\Ares\, Select a Card Control Build, *.exe
-    if ErrorLevel
-        return
-    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
-        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
-    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS\
-    FileCopy, %SelectedFileCC%, C:\#EnvMgr\TEMPFILES\INSTALLERS
-    SplitPath, SelectedFileCC,, InstlCC
-    Variable1 := InstlCC
-    Gui, 17:Destroy
-    Gui, 17:Add, Text, x30 y40, Please enter the location you would like to install the following build to:
-    Gui, 17:Add, Edit, cgray x30 y60 w600 ReadOnly, %InstlCC%
-    Gui, 17:Add, Edit, x30 y90 w600 vBuildLocCC, C:\Program Files (x86)\CardControl
-    Gui, 17:Add, Button, x420 y120 w100 h25 gCanCC, Cancel
-    Gui, 17:Add, Button, +Default x531 y120 w100 h25 gOKCC, OK
-    Gui, 17:Show, w660 h160, Install Card Control
-    return
-
-CanCC:
-    MsgBox, 36, CANCEL, Are you sure you want to cancel?
-    IfMsgBox, No
-    {
-        return
-    }
-    IfMsgBox, Yes
-    {
-        Gui, 17:Destroy
-        return
-    }
-
-OKCC:
-    GuiControlGet, BuildLocCC
-    IniWrite, %InstlCC%, Settings\Paths.ini, LastInstalledBuild, CC
-    Gui, 17:Destroy
-    run, "Scripts\DCSilentInstall.bat" "%BuildLocCC%"
-    WinWait, C:\windows\system32\cmd.exe
-    WinWaitClose
-    Sleep 4000
-    Run, "%BuildLocCC%\CardControl.exe"
     Return
 
 ButtonWebAPI:
