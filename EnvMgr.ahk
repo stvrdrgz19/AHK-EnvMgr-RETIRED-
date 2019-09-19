@@ -852,6 +852,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
                     GuiControlGet, DBDescription
                     FileAppend, ===================================================`nBACKUP - %Database%`nCREATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Database%\Description.txt
                     GuiControl, 1:, GPBackupsList, |
+                    GuiControl, 1:, DBDescEdit, ===================================================`nSelect a Database Backup to load it's description.
                     IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
                         Loop, %DBListDisplay%\*, 2
                         {
@@ -1835,8 +1836,13 @@ ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose 
     return
 
 ButtonRefresh:  ; Refreshes the Listbox
+    GuiControl,, DBDescEdit, ===================================================`nSelect a Database Backup to load it's description.
     GuiControl,, GPBackupsList, |
-    goto, ListBoxDisplay
+    IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
+    Loop, %DBListDisplay%\*, 2
+    {
+        GuiControl,, GPBackupsList, %A_LoopFileName%
+    }
     Return
 
 ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
