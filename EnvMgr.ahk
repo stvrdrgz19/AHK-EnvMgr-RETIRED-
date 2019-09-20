@@ -179,7 +179,16 @@ IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
     }
-    return
+
+IniRead, OpenVar, Settings\Settings.ini, HasOpened, Opened
+If OpenVar = 0
+{
+    OpenVar := 1
+    IniWrite, %OpenVar%, Settings\Settings.ini, HasOpened, Opened
+    Goto, SettingsScreen
+    ;MsgBox, 0, Test, This is the first time this thing has been set up.
+}
+Return
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Clicking the Settings menu option ot CTRL s > Creating the Settings GUI
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -486,23 +495,23 @@ SelectCloudLabel05:
     Return
 
 SelectGP1:
-    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP1Loc)
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File","GP1Loc")
     Return
     
 SelectGP2:
-    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP2Loc)
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File","GP2Loc")
     Return
 
 SelectGP3:
-    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP3Loc)
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File","GP3Loc")
     Return
 
 SelectGP4:
-    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP4Loc)
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File","GP4Loc")
     Return
 
 SelectGP5:
-    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File",GP5Loc)
+    FileSelect("C:\Program Files (x86)\Microsoft Dynamics","Select a GP Launcher File","GP5Loc")
     Return
 
 SelectGPLabel1:

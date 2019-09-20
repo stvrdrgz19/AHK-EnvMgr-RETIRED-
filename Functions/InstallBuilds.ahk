@@ -25,17 +25,33 @@ InstallBuilds(Product,Path,Prompt,SaveTo,Title,Launcher)
 
     InstallOK:
         GuiControlGet, Edit4
+        If Edit4 = %SaveTo%
+        {
+            MsgBox, 16, ERROR, Please update the install path to not be the root %Product% Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
+            Return
+        }
         Gui, Installer:Destroy
         IniWrite, %PathWithoutFile%, Settings\Paths.ini, LastInstalledBuild, %Product%
         Loop, C:\#EnvMgr\TEMPFILES\INSTALLERS\*
         {
             Run, %A_LoopFileLongPath% /S /D=%Edit4%
         }
+        ;MsgBox, 0, Test, %Edit4%\%Launcher%
         While ! FileExist(Edit4 "\" Launcher)
         {
             Sleep 250
         }
+        If %Product% = DataCollection
+        {  
+            Sleep 5000
+        }
+        If %Product% = CardControl
+        {
+            Sleep 5000
+        }
+        ;MsgBox, 0, Test, If you see this, it detected the install somehow
         Run *RunAs "%Edit4%\%Launcher%"
+        ;MsgBox, 0, Test, If you see this, ahk attempted to run the install as admin
         Return
 
     InstallCancel:
