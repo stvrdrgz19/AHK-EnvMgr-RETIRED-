@@ -30,6 +30,19 @@ InstallBuilds(Product,Path,Prompt,SaveTo,Title,Launcher)
             MsgBox, 16, ERROR, Please update the install path to not be the root %Product% Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
             Return
         }
+        If FileExist(Edit4)
+        {
+            MsgBox, 20, EXISTS, An installation of %Product% already exists at this location. Do you want to overwrite this install?
+            IfMsgBox, Yes
+            {
+                FileRemoveDir, %Edit4%, 1
+            }
+            IfMsgBox, No
+            {
+                MsgBox, 16, CANCEL, Install was canceled, existing install was not removed.
+                Return
+            }
+        }
         Gui, Installer:Destroy
         IniWrite, %PathWithoutFile%, Settings\Paths.ini, LastInstalledBuild, %Product%
         Loop, C:\#EnvMgr\TEMPFILES\INSTALLERS\*

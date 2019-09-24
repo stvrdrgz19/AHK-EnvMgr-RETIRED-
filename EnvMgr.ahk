@@ -1565,7 +1565,8 @@ ButtonWebAPI:
     SplitPath, SelectedAPI, APIInstaller
     If FileExist("C:\inetpub\wwwroot\SalesPadWebAPI\*.msi")
     {
-        Run, Scripts\Uninstall.bat - Shortcut.lnk
+        Run *RunAs Scripts\Uninstall.bat - Shortcut.lnk
+        ;Run, Scripts\Uninstall.bat - Shortcut.lnk
         WinWaitActive, SalesPad WebAPI Setup, Welcome to the SalesPad WebAPI Setup Wizard
         ControlClick, &Next, SalesPad WebAPI Setup, Welcome to the SalesPad WebAPI Setup Wizard
         WinWaitActive, SalesPad WebAPI Setup, SalesPad WebAPI cannot be repaired
@@ -1594,16 +1595,21 @@ ButtonWebAPI:
         ControlSend, RichEdit20W1, 10.50.0.45\SQLSERVER2016, Web.Config Setup, Setup the connection string and service information in the Web.Config file
         ControlClick, Next, Web.Config Setup, Setup the connection string and service information in the Web.Config file
         WinWaitActive, IIS Setup, Setup the IIS Website
-        ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
-        ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
-        ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
-        ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
-        ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
+        Send, {CtrlDown}a{CtrlUp}SalesPad WebAPI{Tab}
+        Send, {CtrlDown}a{CtrlUp}49403{Tab}
+        Send, {CtrlDown}a{CtrlUp}steve.rodriguez{Tab}
+        Send, {CtrlDown}a{CtrlUp}S@lespad1{Tab}
+        Send, {CtrlDown}a{CtrlUp}SALESPAD{Enter}
+        ;ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
+        ;ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
+        ;ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
+        ;ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
+        ;ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
         ;Send, {Tab}
         ;Send, {Tab}
         ;Send, {Tab}
         ;Send, {Tab}
-        ControlClick, Next, IIS Setup, Setup the IIS Website
+        ;ControlClick, Next, IIS Setup, Setup the IIS Website
         Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
         ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
@@ -1629,17 +1635,22 @@ ButtonWebAPI:
         ControlSend, RichEdit20W1, 10.50.0.45\SQLSERVER2016, Web.Config Setup, Setup the connection string and service information in the Web.Config file
         ControlClick, Next, Web.Config Setup, Setup the connection string and service information in the Web.Config file
         WinWaitActive, IIS Setup, Setup the IIS Website
-        ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
-        ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
-        ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
-        ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
-        ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        Send, {Tab}
-        ControlClick, Next, IIS Setup, Setup the IIS Website
+        Send, {CtrlDown}a{CtrlUp}SalesPad WebAPI{Tab}
+        Send, {CtrlDown}a{CtrlUp}49403{Tab}
+        Send, {CtrlDown}a{CtrlUp}steve.rodriguez{Tab}
+        Send, {CtrlDown}a{CtrlUp}S@lespad1{Tab}
+        Send, {CtrlDown}a{CtrlUp}SALESPAD{Enter}
+        ;ControlSetText, RichEdit20W2, 49403, IIS Setup, Setup the IIS Website
+        ;ControlSend, RichEdit20W3, steve.rodriguez, IIS Setup, Setup the IIS Website
+        ;ControlSend, Edit1, S@lespad1, IIS Setup, Setup the IIS Website
+        ;ControlSend, RichEdit20W4, SALESPAD, IIS Setup, Setup the IIS Website
+        ;ControlClick, RichEdit20W1, IIS Setup, Setup the IIS Website
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;Send, {Tab}
+        ;ControlClick, Next, IIS Setup, Setup the IIS Website
         ;Sleep 500
         WinWaitActive, SalesPad WebAPI Setup, Click Cancel to exit the wizard
         ControlClick, &Install, SalesPad WebAPI Setup, Click Cancel to exit the wizard
