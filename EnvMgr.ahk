@@ -186,7 +186,6 @@ If OpenVar = 0
     OpenVar := 1
     IniWrite, %OpenVar%, Settings\Settings.ini, HasOpened, Opened
     Goto, SettingsScreen
-    ;MsgBox, 0, Test, This is the first time this thing has been set up.
 }
 Return
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -548,28 +547,30 @@ Shared:
 ; GUI for the about screen
 ;--------------------------------------------------------------------------------------------------------------------------
 AboutScreen:
-    Gui, 6:Add, Progress, x0 y0 w400 h260 BackgroundFFFFFF Disabled,
-    Gui, 6:Add, Progress, x0 y261 w400 h40 BackgroundF0F0F0 Disabled,
-    Gui, 6:Add, GroupBox, x15 y45 w370 h53, 
+    Gui, 6:Add, Progress, x0 y0 w400 h310 BackgroundFFFFFF Disabled,
+    Gui, 6:Add, Progress, x0 y311 w400 h40 BackgroundF0F0F0 Disabled,
+    Gui, 6:Add, Progress, x0 y0 w400 h45 BackGroundF0F0F0 Disabled,
     Gui, 6:Font, s15
     Gui, 6:Add, Text, +BackgroundTrans x15 y15, Environment Manager v0.0.1
     Gui, 6:Font, s9
-    Gui, 6:Add, Text, +BackgroundTrans x23 y55, Environment Manager is a tool that was created to help with time efficiency. `nIt was designed to quicken the database backup/restore/management `nprocess, as well as provide quick deployment of SalesPad Products.
-    Gui, 6:Add, Text, +BackgroundTrans x15 y115, Product Page: 
+    Gui, 6:Add, Text, +BackgroundTrans x15 y55 w370, Environment Manager is a tool designed to quicken both the database and build management process. With Environment Manager, the user is able to quickly Backup/Restore/Overwrite database backups, as well as install and launch SalesPad Products. Some additional features are:
+    Gui, 6:Add, Text, +BackgroundTrans x15 y115, - Adding/Listing DLLs`n- Launching Dynamics GP`n- Clearing out Cloud Tenant Databases`n- Displaying the current IP Address
+    Gui, 6:Add, Text, +BackgroundTrans x15 y180, Possible future features:`n- Installing different GP/SQL versions`n- Deploying SPC Builds
+    Gui, 6:Add, Text, +BackgroundTrans x15 y240, Product Page: 
     Gui, 6:Font, Underline cBlue
-    Gui, 6:Add, Text, +BackgroundTrans x85 y115 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+    Gui, 6:Add, Text, +BackgroundTrans x85 y240 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
     Gui, 6:Font
-    Gui, 6:Add, Text, +BackgroundTrans x15 y130, Issues:
+    Gui, 6:Add, Text, +BackgroundTrans x15 y255, Issues:
     Gui, 6:Font, Underline cBlue
-    Gui, 6:Add, Text, +BackgroundTrans x50 y130 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+    Gui, 6:Add, Text, +BackgroundTrans x50 y255 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
     Gui, 6:Font
     ;Gui, 6:Add, Text, x15 y165, Changelog:
-    Gui, 6:Add, Text, +BackgroundTrans x15 y225, Environment Manager Team:
-    Gui, 6:Add, Text, +BackgroundTrans x35 y245, stvrdrgz19 (Steve Rodriguez)
-    Gui, 6:Add, Picture, x15 y245 w15 h15 gHubIcon, Icons\GitHubIcon.png
+    Gui, 6:Add, Text, +BackgroundTrans x15 y275, Environment Manager Team:
+    Gui, 6:Add, Text, +BackgroundTrans x35 y290, stvrdrgz19 (Steve Rodriguez)
+    Gui, 6:Add, Picture, x15 y290 w15 h15 gHubIcon, Icons\GitHubIcon.png
     ;Gui, 6:Add, Text, +BackgroundTrans x0 y264 w403 0x10 ;Horizontal Line
-    Gui, 6:Add, Button, x295 y270 w100 h25 gClose1, Close 
-    Gui, 6:Show, w400 h300, About
+    Gui, 6:Add, Button, x295 y320 w100 h25 gClose1, Close 
+    Gui, 6:Show, w400 h350, About
     return
 
 Close1: ; Close the about screen
