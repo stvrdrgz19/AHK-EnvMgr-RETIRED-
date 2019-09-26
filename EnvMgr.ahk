@@ -19,6 +19,7 @@
 #Include, Functions\EnvMgrClose.ahk
 #Include, Functions\SPGPInstall.ahk
 #Include, Functions\InstallBuilds.ahk
+#Include, Functions\GuiButtonIcon.ahk
 SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
@@ -64,22 +65,28 @@ If A_UserName != steve.rodriguez
 Gui, Font, s10
 Gui, Add, GroupBox, x15 y5 w694 h256 cblue, Database Management
 Gui, Font, s9
-Gui, Add, Text, x134 y31, Select a Database:
+Gui, Add, Text, x134 y37, Select a Database:
 Gui, Add, ListBox, vGPBackupsList gGPBackupsList x135 y52 w220 r15
-Gui, Add, Text, x369 y31, Backup Description:
+Gui, Add, Text, x369 y37, Backup Description:
 Gui, Add, Edit, ReadOnly cGray vDBDescEdit x370 y52 w329 h199, ===================================================`nSelect a Database Backup to load it's description.
-Gui, Add, Button, x25 y51 w100 h25 vRefresh, Refresh 
+Gui, Add, Button, x25 y51 w100 h25 vRefresh gRefresh, Refresh 
 Gui, Add, Button, x25 y81 w100 h25 vBRest, Restore DB
 Gui, Add, Button, x25 y111 w100 h25 vBOver, Overwrite DB
 Gui, Add, Button, x25 y141 w100 h25 vBak, New Backup
 Gui, Add, Button, x25 y171 w100 h25 vDelete, Delete Backup
-Gui, Add, Button, x25 y227 w100 h25 vBakFolder, Backups Folder
+Gui, Add, Button, x25 y227 w100 h25 vBakFolder gBakFolder, Backups Folder
 Gui, Add, Button, x600 y25 w100 h25 vAddDesc gAddDesc, Add Description
+;Gui, Add, Button, x329 y24 w26 h26 gZipAndBak hwndIconZipBak
+;GuiButtonIcon(IconZipBak, "imageres.dll", 166, "s20")
+;Gui, Add, Button, x25 y51 w100 h25 vRefresh gRefresh hwndIconRefresh, Refresh
+;GuiButtonIcon(IconRefresh, "shell32.dll", 239, "s19 a0 L1")
+;Gui, Add, Button, x25 y227 w100 h25 vBakFolder gBakFolder hwndIconBakFolder, Backups Folder
+;GuiButtonIcon(IconBakFolder, "shell32.dll", 46, "s19 a0 L1")
 
 Gui, Font, s10
 Gui, Add, GroupBox, x15 y263 w341 h256 cblue, Build Management
 Gui, Font, s9
-Gui, Add, Text, x25 y289, Select a SalesPad Product to Install:
+Gui, Add, Text, x25 y293, Select a SalesPad Product to Install:
 Gui, Add, Button, x25 y309 w155 h25 vBDesktop, SalesPad Desktop
 Gui, Add, Button, x25 y339 w155 h25 vBDataCollection, Data Collection
 Gui, Add, Button, x25 y369 w155 h25 vCab, Windows Mobile
@@ -103,12 +110,17 @@ IniRead, GP05, Settings\Settings.ini, GPButtonLabels, GPButton5
 Gui, Font, s10
 Gui, Add, GroupBox, x370 y263 w162 h200 cblue, Dynamics
 Gui, Font, s9
-Gui, Add, Text, x380 y289, Launch GP:
-Gui, Add, Button, x380 y309 w141 h25 gD10 vD10, %GP01%
-Gui, Add, Button, x380 y339 w141 h25 gD13 vD13, %GP02%
-Gui, Add, Button, x380 y369 w141 h25 gD15 vD15, %GP03%
-Gui, Add, Button, x380 y399 w141 h25 gD16 vD16, %GP04%
-Gui, Add, Button, x380 y429 w141 h25 gD18 vD18, %GP05%
+Gui, Add, Text, x380 y293, Launch GP:
+Gui, Add, Button, x380 y309 w141 h25 gD10 vD10 hwndIconGP1, %GP01%
+GuiButtonIcon(IconGP1, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159, "s19 a0 L1")
+Gui, Add, Button, x380 y339 w141 h25 gD13 vD13 hwndIconGP2, %GP02%
+GuiButtonIcon(IconGP2, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159, "s19 a0 L1")
+Gui, Add, Button, x380 y369 w141 h25 gD15 vD15 hwndIconGP3, %GP03%
+GuiButtonIcon(IconGP3, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159, "s19 a0 L1")
+Gui, Add, Button, x380 y399 w141 h25 gD16 vD16 hwndIconGP4, %GP04%
+GuiButtonIcon(IconGP4, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159, "s19 a0 L1")
+Gui, Add, Button, x380 y429 w141 h25 gD18 vD18 hwndIconGP5, %GP05%
+GuiButtonIcon(IconGP5, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159, "s19 a0 L1")
 
 IniRead, SPC01, Settings\Settings.ini, CloudButtonNames, 01
 IniRead, SPC02, Settings\Settings.ini, CloudButtonNames, 02
@@ -118,12 +130,17 @@ IniRead, SPC05, Settings\Settings.ini, CloudButtonNames, 05
 Gui, Font, s10
 Gui, Add, GroupBox, x547 y263 w162 h200 cblue, Cloud
 Gui, Font, s9
-Gui, Add, Text, x557 y289, Delete Cloud DB:
-Gui, Add, Button, x557 y309 w141 h25 vCloud01, %SPC01%
-Gui, Add, Button, x557 y339 w141 h25 vCloud02, %SPC02%
-Gui, Add, Button, x557 y369 w141 h25 vCloud03, %SPC03%
-Gui, Add, Button, x557 y399 w141 h25 vCloud04, %SPC04%
-Gui, Add, Button, x557 y429 w141 h25 vCloud05, %SPC05%
+Gui, Add, Text, x557 y293, Delete Cloud DB:
+Gui, Add, Button, x557 y309 w141 h25 vCloud01 hwndIconCloud1, %SPC01%
+GuiButtonIcon(IconCloud1, "imageres.dll", 232, "s19 a0 L1")                 ;221 is also a cloud icon
+Gui, Add, Button, x557 y339 w141 h25 vCloud02 hwndIconCloud2, %SPC02%
+GuiButtonIcon(IconCloud2, "imageres.dll", 232, "s19 a0 L1")
+Gui, Add, Button, x557 y369 w141 h25 vCloud03 hwndIconCloud3, %SPC03%
+GuiButtonIcon(IconCloud3, "imageres.dll", 232, "s19 a0 L1")
+Gui, Add, Button, x557 y399 w141 h25 vCloud04 hwndIconCloud4, %SPC04%
+GuiButtonIcon(IconCloud4, "imageres.dll", 232, "s19 a0 L1")
+Gui, Add, Button, x557 y429 w141 h25 vCloud05 hwndIconCloud5, %SPC05%
+GuiButtonIcon(IconCloud5, "imageres.dll", 232, "s19 a0 L1")
 
 Gui, Add, Text, x457 y484 gIPText vIPText, IP Address: 
 Gui, Add, Edit, cgray x517 y481 w100 ReadOnly vIP, %A_IPAddress1%
@@ -167,7 +184,9 @@ LoadFromSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
 LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
 Gui, Color, f9f9f9 ;FFFFFF is pure white
-Gui, Show, w724 h534, Environment Mananger  ; Finally showing the GUI
+IniRead, xP, Settings\Settings.ini, Position, xPOS
+IniRead, yP, Settings\Settings.ini, Position, yPOS
+Gui, Show, w724 h534 x%xP% y%yP%, Environment Mananger  ; Finally showing the GUI
 
 
 ;--------------------------------------------------------------------------------------------------------------------------
@@ -898,7 +917,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%GPBackupsList%" backup.`n, Settings\Log.txt
             FileRemoveDir, %DBListDelete%\%GPBackupsList%, 1
             MsgBox, 48, DELETED, Database "%GPBackupsList%" was deleted.
-            goto, ButtonRefresh
+            goto, Refresh
             return
         }
         IfMsgBox, No
@@ -1692,7 +1711,17 @@ ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose 
     run, %SelectedFile%
     return
 
-ButtonRefresh:  ; Refreshes the Listbox
+;ButtonRefresh:  ; Refreshes the Listbox
+;    GuiControl,, DBDescEdit, ===================================================`nSelect a Database Backup to load it's description.
+;    GuiControl,, GPBackupsList, |
+;    IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
+;    Loop, %DBListDisplay%\*, 2
+;    {
+;        GuiControl,, GPBackupsList, %A_LoopFileName%
+;    }
+;    Return
+
+Refresh:
     GuiControl,, DBDescEdit, ===================================================`nSelect a Database Backup to load it's description.
     GuiControl,, GPBackupsList, |
     IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
@@ -1702,7 +1731,8 @@ ButtonRefresh:  ; Refreshes the Listbox
     }
     Return
 
-ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
+;ButtonBackupsFolder:    ; Launches the folder the DB backups are restored in -- needs update, should pull location from Settings.ini
+BakFolder:
     IniRead, DBListFolder, Settings\Settings.ini, BackupFolder, path
     MsgBox, 36, OPEN FOLDER, Do you want to open the Database Backups Folder?
     IfMsgBox, No
@@ -1810,6 +1840,23 @@ AddDesc:
             Gui, NEWDESC:Destroy
             Return
     }
+
+;ZipAndBak:
+;    GuiControlGet, GPBackupsList
+;    IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
+;    If GPBackupsList = 
+;    {
+;        MsgBox, 16, ERROR, Please select a backup to zip and move.
+;        Return
+;    }
+;    FileCopyDir, %DBListDisplay%\%GPBackupsList%, C:\#TEMPFILES\Baks\%GPBackupsList%, 1
+;    While ! FileExist("C:\#TEMPFILES\Baks\" GPBackupsList)
+;    {
+;        Sleep 250
+;    }
+;    Sleep 1000
+;    Run, "Scripts\Zip.bat" ;%BackupBackupPathArg%
+;    Return
 
 D10:
     return

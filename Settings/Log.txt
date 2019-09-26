@@ -216,3 +216,17 @@
 {2019-09-23 15:44:37}: Restored "MASTER" backup.
 {2019-09-24 08:38:27}: Restored "MASTER" backup.
 {2019-09-24 08:41:57}: Restored "EDI" backup.
+{2019-09-25 08:44:36}: Restored "MASTER" backup.
+{2019-09-25 11:40:59}: Restored "MASTER" backup.
+{2019-09-25 12:34:34}: Restored "MASTER" backup.
+{2019-09-25 12:53:01}: Restored "MASTER" backup.
+{2019-09-25 15:50:03}: Restored "MASTER" backup.
+{2019-09-26 08:15:10}: Created "MANUFACTURING" backup.
+{2019-09-26 08:42:25}: Restored "MANUFACTURING" backup.
+{2019-09-26 09:05:57}: Restored "MFG" backup.
+{2019-09-26 09:09:51}: Deleted "MFG" backup.
+{2019-09-26 09:10:45}: Created "Z-MFG BROKE" backup.
+{2019-09-26 09:12:20}: Restored "MFG" backup.
+{2019-09-26 09:12:36}: Deleted "MFG" backup.
+{2019-09-26 11:10:08}: Created "MANUFACTURING" backup.
+{2019-09-26 11:39:25}: Restored "MASTER" backup.
