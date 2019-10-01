@@ -230,3 +230,11 @@
 {2019-09-26 09:12:36}: Deleted "MFG" backup.
 {2019-09-26 11:10:08}: Created "MANUFACTURING" backup.
 {2019-09-26 11:39:25}: Restored "MASTER" backup.
+{2019-09-27 14:05:43}: Restored "MASTER" backup.
+{2019-09-27 14:08:49}: Overwrote "MASTER" backup.
+{2019-09-30 06:59:02}: Restored "MASTER" backup.
+{2019-09-30 07:25:43}: Restored "MASTER" backup.
+{2019-09-30 14:02:11}: Restored "MASTER" backup.
+{2019-09-30 14:49:42}: Restored "MASTER" backup.
+{2019-10-01 07:32:43}: Restored "MASTER" backup.
+{2019-10-01 07:51:22}: Restored "MASTER" backup.
