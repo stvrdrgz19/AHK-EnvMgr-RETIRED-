@@ -20,6 +20,7 @@
 #Include, Functions\SPGPInstall.ahk
 #Include, Functions\InstallBuilds.ahk
 #Include, Functions\GuiButtonIcon.ahk
+#Include, Functions\ButtonCounters.ahk
 SendMode Input
 ;--------------------------------------------------------------------------------------------------------------------------
 ; Creating the first GUI
@@ -721,9 +722,7 @@ GPBackupsList:
 
 
 ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
-    IniRead, RestoreCounter, Settings\ButtonCounters.ini, ButtonCounters, RestoreDB
-    RestoreCounter += 1
-    IniWrite, %RestoreCounter%, Settings\ButtonCounters.ini, ButtonCounters, RestoreDB
+    ButtonCounters("RestoreDB")
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -751,9 +750,7 @@ ButtonRestoreDB:    ; Button to restore the selected DB from the listbox
     }
 
 ButtonOverwriteDB:  ; Button to override the selected DB from the list
-    IniRead, OverwriteCounter, Settings\ButtonCounters.ini, ButtonCounters, OverwriteDB
-    OverwriteCounter += 1
-    IniWrite, %OverwriteCounter%, Settings\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    ButtonCounters("OverwriteDB")
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
     {
@@ -835,9 +832,7 @@ ButtonOverwriteDB:  ; Button to override the selected DB from the list
     }
 
 ButtonNewBackup:    ; Button to create a new DB and add it to the list
-    IniRead, NewCounter, Settings\ButtonCounters.ini, ButtonCounters, NewBackup
-    NewCounter += 1
-    IniWrite, %NewCounter%, Settings\ButtonCounters.ini, ButtonCounters, NewBackup
+    ButtonCounters("NewBackup")
     Gui, 5:Destroy
     Gui, 5:Add, Text, x15 y15, Database name:
     Gui, 5:Add, Edit, x15 y30 w300 vDatabase, 
@@ -911,9 +906,7 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
 
 ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
-    IniRead, DeleteCounter, Settings\ButtonCounters.ini, ButtonCounters, DeleteBackup
-    DeleteCounter += 1
-    IniWrite, %DeleteCounter%, Settings\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    ButtonCounters("DeleteBackup")
     IniRead, DBListDelete, Settings\Settings.ini, BackupFolder, path
     GuiControlGet, GPBackupsList
     If GPBackupsList = 
@@ -940,9 +933,7 @@ ButtonDeleteBackup: ; Button to delete the selected DB from the listbox
     }
 
 ButtonSalesPadDesktop:  ; Button to launch the SPGP build lookup/auto install the build
-    IniRead, SPGP, Settings\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    SPGP += 1
-    IniWrite, %SPGP%, Settings\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    ButtonCounters("SalesPadDesktop")
     FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\, Select a SalesPad Build, *.exe
     if ErrorLevel
         Return
@@ -1600,9 +1591,7 @@ ButtonWindowsMobile:
             MsgBox, 0, CANCEL, CAB file was NOT deleted.
         }
     }
-    IniRead, CabCounter, Settings\ButtonCounters.ini, ButtonCounters, Cab
-    CabCounter += 1
-    IniWrite, %CabCounter%, Settings\ButtonCounters.ini, ButtonCounters, Cab
+    ButtonCounters("Cab")
     FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a Windows Mobile file to move, *.cab
     if CabFile = 
     {
@@ -1617,9 +1606,7 @@ ButtonWindowsMobile:
     Return
 
 ButtonWebAPI:
-    IniRead, APICounter, Settings\ButtonCounters.ini, ButtonCounters, WebAPI
-    APICounter += 1
-    IniWrite, %APICounter%, Settings\ButtonCounters.ini, ButtonCounters, WebAPI
+    ButtonCounters("WebAPI")
     FileSelectFile, SelectedAPI , 1, \\sp-fileserv-01\Shares\Builds\SalesPad.WebApi\, Select a WebAPI Build, *.msi
     if ErrorLevel
         return
@@ -1719,9 +1706,7 @@ ButtonWebAPI:
     }
 
 ButtonWebPortal:
-    IniRead, WebCounter, Settings\ButtonCounters.ini, ButtonCounters, WebPortal
-    WebCounter += 1
-    IniWrite, %WebCounter%, Settings\ButtonCounters.ini, ButtonCounters, WebPortal
+    ButtonCounters("WebPortal")
     FileSelectFile, SelectWeb, 1, \\sp-fileserv-01\Shares\Builds\Web-Portal\GP\, Select a GPWEB Build, *.zip
     SplitPath, SelectWeb,, WebBuild
     Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Scripts\Script.WEB.bat - Shortcut.lnk" %WebBuild%
@@ -1743,9 +1728,7 @@ ButtonBuildFolder:  ; Launches the SP install folder
 
 
 ButtonLaunchBuild:  ; Opens a fileselectfile window allowing the user to choose an installed build to launch
-    IniRead, LaunchBuildCounter, Settings\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    LaunchBuildCounter += 1
-    IniWrite, %LaunchBuildCounter%, Settings\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    ButtonCounters("LaunchBuild")
     FileSelectFile, SelectedFile, 1, C:\Program Files (x86)\SalesPad.Desktop\, Select a Build, *.exe
     if ErrorLevel
         return
@@ -1909,9 +1892,7 @@ D15:
     return
 
 D16:    ; Launches GP 2016
-    IniRead, GP4Counter, Settings\ButtonCounters.ini, ButtonCounters, GP4
-    GP4Counter += 1
-    IniWrite, %GP4Counter%, Settings\ButtonCounters.ini, ButtonCounters, GP4
+    ButtonCounters("GP4")
     IniRead, D16Location, Settings\Settings.ini, GPLaunchFile, GPLaunch4
     if GetKeyState("Shift","P")
         Run, "C:\Program Files (x86)\Microsoft Dynamics\GP2016"
@@ -1937,9 +1918,7 @@ IPText:
 ; Delete the DB files for local tenants
 ;--------------------------------------------------------------------------------------------------------------------------
 ButtonSteveRodriguez01:
-    IniRead, SPC01Counter, Settings\ButtonCounters.ini, ButtonCounters, SPC1
-    SPC01Counter += 1
-    IniWrite, %SPC01Counter%, Settings\ButtonCounters.ini, ButtonCounters, SPC1
+    ButtonCounters("SPC1")
     IniRead, 01Delete, Settings\Settings.ini, CloudButtonNames, 01
     MsgBox, 36, RUN, Do you want to Delete %01Delete% tables?
     ifMsgBox, No
@@ -1955,9 +1934,7 @@ ButtonSteveRodriguez01:
     }
 
 ButtonSteveRodriguez02:
-    IniRead, SPC02Counter, Settings\ButtonCounters.ini, ButtonCounters, SPC2
-    SPC02Counter += 1
-    IniWrite, %SPC02Counter%, Settings\ButtonCounters.ini, ButtonCounters, SPC2
+    ButtonCounters("SPC2")
     IniRead, 02Delete, Settings\Settings.ini, CloudButtonNames, 02
     MsgBox, 36, RUN, Do you want to Delete %02Delete% tables?
     ifMsgBox, No
@@ -1972,9 +1949,7 @@ ButtonSteveRodriguez02:
     }
 
 ButtonSteveRodriguez03:
-    IniRead, SPC03Counter, Settings\ButtonCounters.ini, ButtonCounters, SPC3
-    SPC03Counter += 1
-    IniWrite, %SPC03Counter%, Settings\ButtonCounters.ini, ButtonCounters, SPC3
+    ButtonCounters("SPC3")
     IniRead, 03Delete, Settings\Settings.ini, CloudButtonNames, 03
     MsgBox, 36, RUN, Do you want to Delete %03Delete% tables?
     ifMsgBox, No
@@ -1989,9 +1964,7 @@ ButtonSteveRodriguez03:
     }
 
 ButtonSteveRodriguez04:
-    IniRead, SPC04Counter, Settings\ButtonCounters.ini, ButtonCounters, SPC4
-    SPC04Counter += 1
-    IniWrite, %SPC04Counter%, Settings\ButtonCounters.ini, ButtonCounters, SPC4
+    ButtonCounters("SPC4")
     IniRead, 04Delete, Settings\Settings.ini, CloudButtonNames, 04
     MsgBox, 36, RUN, Do you want to Delete %04Delete% tables?
     ifMsgBox, No
@@ -2006,9 +1979,7 @@ ButtonSteveRodriguez04:
     }
 
 ButtonSteveRodriguez05:
-    IniRead, SPC05Counter, Settings\ButtonCounters.ini, ButtonCounters, SPC5
-    SPC05Counter += 1
-    IniWrite, %SPC05Counter%, Settings\ButtonCounters.ini, ButtonCounters, SPC5
+    ButtonCounters("SPC5")
     IniRead, 05Delete, Settings\Settings.ini, CloudButtonNames, 05
     MsgBox, 36, RUN, Do you want to Delete %05Delete% tables?
     ifMsgBox, No

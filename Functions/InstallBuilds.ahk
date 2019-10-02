@@ -1,9 +1,7 @@
 InstallBuilds(Product,Path,Prompt,SaveTo,Title,Launcher)
 {
     global
-    IniRead, Counter, Settings\ButtonCounters.ini, ButtonCounters, %Product%
-    Counter += 1
-    IniWrite, %Counter%, Settings\ButtonCounters.ini, ButtonCounters, %Product%
+    ButtonCounters(Product)
     FileSelectFile, SelectInstaller, 1, %Path%, %Prompt%, *.exe
     if ErrorLevel
         Return
