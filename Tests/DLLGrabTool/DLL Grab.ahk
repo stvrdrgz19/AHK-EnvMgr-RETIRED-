@@ -11,16 +11,19 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 
-Gui, Add, Text, x30 y30, From Location ;Please select a SalesPad Build to pull DLLs from:
-Gui, Add, Text, x30 y50, Example: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
-Gui, Add, Edit, ReadOnly x30 y70 w498 vFromBuild, ;\\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
-Gui, Add, Button, x528 y69 w23 h23 gFrom, ...
-Gui, Add, Text, x125 y100, Extended
-Gui, Add, Text, x400 y100, Custom
-Gui, Add, ListBox, 8 vExtList gExtList x30 y120 w250 r15
-Gui, Add, ListBox, 8 vCustList gCustList x300 y120 w250 r15
-Gui, Add, Button, x240 y340 w100 h25 gMove, Move DLLs
-Gui, Show, w580 h380, DLL Grab
+Gui, Add, Text, x15 y15 , From Location: ;Please select a SalesPad Build to pull DLLs from:
+;Gui, Add, Text, x15 y35, Example: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.6
+Gui, Add, Edit, ReadOnly x15 y30 w498 vFromBuild, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\
+Gui, Add, Button, x513 y29 w23 h23 gFrom, ...
+Gui, Add, Text, x15 y60, To Location:
+Gui, Add, Edit, ReadOnly x15 y75 w498 vToBuild, C:\Program Files (x86)\SalesPad.Desktop\
+Gui, Add, Button, x513 y74 w23 h23 gTo, ...
+Gui, Add, Text, x110 y105, Extended
+Gui, Add, Text, x385 y105, Custom
+Gui, Add, ListBox, 8 vExtList gExtList x15 y125 w250 r15
+Gui, Add, ListBox, 8 vCustList gCustList x285 y125 w250 r15
+Gui, Add, Button, x225 y335 w100 h25 gMove, Move DLLs
+Gui, Show, w550 h370, DLL Grab
 Return
 
 From:
@@ -58,6 +61,9 @@ From:
         }
         Return
     }
+
+To:
+    Return
 
 Move:
     if FileExist("C:\#DLLs")

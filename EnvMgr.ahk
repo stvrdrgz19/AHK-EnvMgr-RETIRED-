@@ -34,28 +34,40 @@ If A_IsAdmin = 0
         Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
 }
 
-Menu, FileMenu, Add, E&xit, MenuHandler
-Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
-
-Menu, ToolsMenu, Add, &Build Origin Paths, BuildOriginPath
-Menu, ToolsMenu, Add, &Utilities, Utilities
-Menu, ToolsMenu, Add, &Move Current Files, MoveChanges
-Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
-
-Menu, HelpMenu, Add, &About, AboutScreen
-Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
-Menu, HelpMenu, Add, &Log, OpenLog
-
-Menu, MyMenuBar, Add, &File, :FileMenu
-Menu, MyMenuBar, Add, &Tools, :ToolsMenu
-Menu, MyMenuBar, Add, &Help, :HelpMenu
-
-Gui, Menu, MyMenuBar 
-
-If A_UserName != steve.rodriguez
+If A_UserName != steve.rodriguez    ; Toolbar that appears for non steve.rodriguez users
 {
-    Menu, HelpMenu, Disable, &Utilities
-    Menu, HelpMenu, Disable, &Move Current Files
+    Menu, FileMenu, Add, E&xit, MenuHandler
+    Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
+
+    Menu, HelpMenu, Add, &About, AboutScreen
+    Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
+    Menu, HelpMenu, Add, &Log, OpenLog
+
+    Menu, MyMenuBar, Add, &File, :FileMenu
+    Menu, MyMenuBar, Add, &Help, :HelpMenu
+
+    Gui, Menu, MyMenuBar 
+}
+
+If A_UserName = steve.rodriguez     ; Toolbar that appears for steve.rodriguez user
+{
+    Menu, FileMenu, Add, E&xit, MenuHandler
+    Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
+
+    Menu, ToolsMenu, Add, &Build Origin Paths, BuildOriginPath
+    Menu, ToolsMenu, Add, &Utilities, Utilities
+    Menu, ToolsMenu, Add, &Move Current Files, MoveChanges
+    Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
+
+    Menu, HelpMenu, Add, &About, AboutScreen
+    Menu, HelpMenu, Add, &Counters, ButtonCountersScreen
+    Menu, HelpMenu, Add, &Log, OpenLog
+
+    Menu, MyMenuBar, Add, &File, :FileMenu
+    Menu, MyMenuBar, Add, &Tools, :ToolsMenu
+    Menu, MyMenuBar, Add, &Help, :HelpMenu
+
+    Gui, Menu, MyMenuBar 
 }
 
 ;Gui, +Resize
@@ -1406,7 +1418,7 @@ SPGPOK:
         FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
         FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
         GuiControl, Prog:, ProgressBar, 40
-        GuiControl, Prog:, ProgressText, Installing build...
+        GuiControl, Prog:, ProgressText, Grabbing DLLs...
         GuiControlGet, BuildLoc
         GuiControlGet, CheckB
         IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
@@ -1437,7 +1449,7 @@ SPGPOK:
         Else
         {
             GuiControl, Prog:, ProgressBar, 70
-            GuiControl, Prog:, ProgressText, Grabbing dlls if specified...
+            GuiControl, Prog:, ProgressText, Installing SalesPad...
             GuiControlGet, BuildLoc
             GuiControlGet, ExtList
             GuiControlGet, CustList
