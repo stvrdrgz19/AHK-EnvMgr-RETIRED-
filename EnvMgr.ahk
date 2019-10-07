@@ -22,9 +22,6 @@
 #Include, Functions\GuiButtonIcon.ahk
 #Include, Functions\ButtonCounters.ahk
 SendMode Input
-;--------------------------------------------------------------------------------------------------------------------------
-; Creating the first GUI
-;--------------------------------------------------------------------------------------------------------------------------
 
 If A_IsAdmin = 0
 {
@@ -35,6 +32,19 @@ If A_IsAdmin = 0
         Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
 }
 
+;==========================================================================================================================
+; RE-LAUNCH ENVIRONMENT MANAGER
+;==========================================================================================================================
+;F9::
+;    ExitApp
+;    if A_IsCompiled
+;        Run *RunAs "%A_ScriptFullPath%"
+;    else
+;        Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
+
+;--------------------------------------------------------------------------------------------------------------------------
+; Creating the first GUI
+;--------------------------------------------------------------------------------------------------------------------------
 If A_UserName != steve.rodriguez    ; Toolbar that appears for non steve.rodriguez users
 {
     Menu, FileMenu, Add, E&xit, MenuHandler
