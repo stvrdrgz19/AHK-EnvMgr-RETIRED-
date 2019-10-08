@@ -59,9 +59,9 @@ Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||SalesPad
 Gui, Add, Button, x24 y300 w100 h25 gLaunchBuild, Launch Build
 Gui, Add, Button, x129 y300 w100 h25 gAddDLL, Add DLLs 
 Gui, Add, Button, x234 y300 w100 h25 gBuildFolder, Build Folder
-Gui, Font, s9 bold
+;Gui, Font, s9 bold
 Gui, Add, Button, x339 y300 w100 h25 gInstall, Install
-Gui, Font, s9 norm
+;Gui, Font, s9 norm
 
 IniRead, GP1, Settings\Settings.ini, GPButtonLabels, GPButton1
 IniRead, GP2, Settings\Settings.ini, GPButtonLabels, GPButton2
@@ -128,7 +128,7 @@ AboutScreen:
     Return
 
 ;=================================================================================================================================
-;   GUIButtons
+;   DATABASE MANAGEMENT
 ;=================================================================================================================================
 Combo1:
     GuiControlGet, Combo1
@@ -210,29 +210,154 @@ Overwrite:
     MsgBox, 20, OVERWRITE, Are you sure you want to overwrite "%Combo1%" with your current dataset?
     IfMsgBox, Yes
     {
-        MsgBox, 0, test, Yes
+        Gui, OVERWRITE:Destroy
+        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
+        Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "%Combo1%" with your current setup?
+        Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
+        Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
+        Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
+        Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
         Return
+
+        OverwriteNo:
+            Gui, OVERWRITE:Destroy
+            Return
+
+        OverwriteYes:
+            GuiControlGet, OverCheck
+            IniRead, Var1, Settings\Settings.ini, SQLCreds, Server
+            IniRead, Var2, Settings\Settings.ini, SQLCreds, User
+            IniRead, Var3, Settings\Settings.ini, SQLCreds, Password
+            IniRead, Var4, Settings\Settings.ini, BackupFolder, path
+            IniRead, Var5, Settings\Settings.ini, Databases, Dynamics
+            IniRead, Var6, Settings\Settings.ini, Databases, Company1
+            IniRead, Var7, Settings\Settings.ini, Databases, Company2
+            If OverCheck = 0
+            {
+                Gui, OVERWRITE:Destroy
+                Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                WinWait, C:\windows\system32\cmd.exe
+                WinWaitClose
+                IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%Combo1%" backup.`n, Settings\Log.txt
+                FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%Combo1%\Description.txt
+                FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+                GuiControl, 1:, DBDesc, %TestXD% 
+                Return
+            }
+            if OverCheck = 1
+            {
+                Gui, OVERWRITE:Destroy
+                Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+                Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
+                Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
+                Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
+                Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
+                Return
+
+                OverOK:
+                    GuiControlGet, DBDescription
+                    Gui, OVERWRITEDESC:Destroy
+                    Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                    WinWait, C:\windows\system32\cmd.exe
+                    WinWaitClose
+                    IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%Combo1%" backup.`n, Settings\Log.txt
+                    FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Combo1%\Description.txt
+                    FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+                    GuiControl, 1:, DBDesc, %TestXD% 
+                    Return
+                    
+                OverCancel:
+                    Gui, OVERWRITEDESC:Destroy
+                    Return
+            }
     }
     IfMsgBox, No
     {
-        MsgBox, 0, test, No
         Return
     }
-    Return
 
 NewDB:
     MsgBox, 20, NEW BACKUP, Are you sure you want to create a new database backup?
     IfMsgBox, Yes
     {
-        MsgBox, 0, test, Yes
+        ButtonCounters("NewBackup")
+        Gui, NewDB:Destroy
+        Gui, NewDB:Add, Text, x15 y15, Database name:
+        Gui, NewDB:Add, Edit, x15 y30 w300 vDatabase, 
+        Gui, NewDB:Add, Text, x15 y60, Description/Notes:
+        Gui, NewDB:Add, Edit, x15 y75 w300 r10 vDBDescription,
+        Gui, NewDB:Add, Button, x100 y220 w100 h25 +Default gOKNewDB, OK
+        Gui, NewDB:Add, Button, x215 y220 w100 h25 gCancelNewDB, Cancel
+        Gui, NewDB:Show, w330 h250, New Database
         Return
+
+        OKNewDB:
+            IniRead, DBListNew, Settings\Settings.ini, BackupFolder, path
+            GuiControlGet, Database
+            if Database = 
+            {
+                MsgBox, 16, ERROR, No Database Name was entered.
+                return
+            }
+            Else
+            {
+                ifExist %DBListNew%\%Database%
+                {
+                    MsgBox, 16, ALREADY EXISTS, A backup named "%Database%" already exists.
+                    GuiControl,, Database, 
+                    return
+                }
+                Else
+                {
+                    MsgBox, 36, CREATE BACKUP?, Are you sure you want to create backup %Database%?
+                    ifMsgBox, No
+                    {
+                        MsgBox, 16, CANCEL, No backup was created.
+                        GuiControl,, Database, 
+                        return
+                    }
+                    ifMsgBox, Yes
+                    {
+                        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Created "%Database%" backup.`n, Settings\Log.txt
+                        IniRead, Var1, Settings\Settings.ini, SQLCreds, Server
+                        IniRead, Var2, Settings\Settings.ini, SQLCreds, User
+                        IniRead, Var3, Settings\Settings.ini, SQLCreds, Password
+                        IniRead, Var4, Settings\Settings.ini, BackupFolder, path
+                        IniRead, Var5, Settings\Settings.ini, Databases, Dynamics
+                        IniRead, Var6, Settings\Settings.ini, Databases, Company1
+                        IniRead, Var7, Settings\Settings.ini, Databases, Company2
+                        Run, "Scripts\Script.DBBackup.bat" %Var1% %Var2% %Var3% %Var4% "%Database%" %Var5% %Var6% %Var7%,, UseErrorLevel
+                        WinWait, C:\windows\system32\cmd.exe
+                        WinWaitClose
+                        IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+                        GuiControlGet, Database
+                        GuiControlGet, DBDescription
+                        FileAppend, =================================================================`nBACKUP - %Database%`nCREATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Database%\Description.txt
+                        GuiControl, 1:, DBDesc, =================================================================`nSelect a Database Backup to load it's description.
+                        IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
+                        GuiControl, 1:, Combo1, |
+                        GuiControl, 1:, Combo1, Select a Database ||
+                        Loop, %DBListDisplay%\*, 2
+                        {
+                            GuiControl, 1:, Combo1, %A_LoopFileName%
+                        }
+                        Gui, NewDB:Destroy
+                        Return
+                    }
+                }
+            }
+        CancelNewDB:
+            Gui, NewDB:Destroy
+            MsgBox, 16, CANCEL, No new Backup was created.
+            Return
     }
     IfMsgBox, No
     {
-        MsgBox, 0, test, No
         Return
     }
-    Return
 
 Delete:
     GuiControlGet, Combo1
@@ -249,7 +374,13 @@ Delete:
         FileRemoveDir, %DBListDelete%\%Combo1%, 1
         MsgBox, 48, DELETED, Database "%Combo1%" was deleted.
         ButtonCounters("DeleteBackup")
-        Gosub, LoadDBList
+        GuiControl, 1:, Combo1, |
+        GuiControl, 1:, Combo1, Select a Database ||
+        Loop, %DBListDisplay%\*, 2
+        {
+            GuiControl, 1:, Combo1, %A_LoopFileName%
+        }
+        GuiControl, 1:, DBDesc, =================================================================`nSelect a Database Backup to load it's description.
         Return
     }
     IfMsgBox, No
@@ -258,6 +389,9 @@ Delete:
         Return
     }
 
+;=================================================================================================================================
+;   BUILD MANAGEMENT
+;=================================================================================================================================
 Install:
     GuiControlGet, Combo2
     If Combo2 = Select a Product to Install
@@ -393,6 +527,9 @@ BuildFolder:
         Return
     }
 
+;=================================================================================================================================
+;   GP MANAGEMENT
+;=================================================================================================================================
 GPFolder:
     MsgBox, 36, GP FOLDER, Are you sure you want to launch the Dynamics GP folder?
     IfMsgBox, Yes
@@ -455,6 +592,9 @@ LaunchGP:
     }
     Return
 
+;=================================================================================================================================
+;   CLOUD MANAGEMENT
+;=================================================================================================================================
 Octopush:
     MsgBox, 36, OCTOPUSH, Are you sure you want to launch Octopush?
     IfMsgBox, Yes
@@ -555,6 +695,9 @@ DeleteCloud:
         }
     }
 
+;=================================================================================================================================
+;   FOOTER STUFF
+;=================================================================================================================================
 IPText:
     GuiControl,, IP, %A_IPAddress1%
     GuiControl, +cblue +Redraw, IPText
