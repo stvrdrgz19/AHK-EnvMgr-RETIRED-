@@ -12,6 +12,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 #Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\GuiButtonIcon.ahk
+#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\ButtonCounters.ahk
 
 If A_IsAdmin = 0
 {
@@ -46,10 +47,10 @@ Gui, Add, Button, x129 y202 w100 h25 gOverwrite, Overwrite DB
 Gui, Add, Button, x234 y202 w100 h25 gNewDB, New Backup
 Gui, Add, Button, x339 y202 w100 h25 gDelete, Delete Backup
 Gui, Add, Edit, ReadOnly cGray x25 y55 w413 r10 vDBDesc, =================================================================`nSelect a Database Backup to load it's description.
-Gui, Add, Button, x386 y28 w26 h26 gDBFolder hwndIconDBFolder,
-GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s26")
-Gui, Add, Button, x413 y28 w26 h26 gAddDesc hwndIconAdd,
-GuiButtonIcon(IconAdd, "imageres.dll", 278, "s26")
+Gui, Add, Button, x386 y28 w25 h25 gDBFolder hwndIconDBFolder,
+GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
+Gui, Add, Button, x413 y28 w25 h25 gAddDesc hwndIconAdd,
+GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
 Gui, Font, s10
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
@@ -72,6 +73,8 @@ Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
 Gui, Font, s9
 Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||%GP1%|%GP2%|%GP3%|%GP4%|%GP5%
 Gui, Add, Button, x110 y390 w100 h25 gLaunchGP, Launch
+Gui, Add, Button, x80 y390 w25 h25 gGPFolder hwndIconGP
+GuiButtonIcon(IconGP, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159,"s21")
 
 IniRead, SPC1, Settings\Settings.ini, CloudButtonNames, 01
 IniRead, SPC2, Settings\Settings.ini, CloudButtonNames, 02
@@ -83,12 +86,14 @@ Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
 Gui, Font, s9
 Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud to Delete||%SPC1%|%SPC2%|%SPC3%|%SPC4%|%SPC5%
 Gui, Add, Button, x339 y390 w100 h25 gDeleteCloud, Delete
+Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
+GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
 
 Gui, Add, Checkbox, x12 y430 vAlways gAlways, Always On Top
 Gui, Add, Text, x294 y430 gIPText vIPText, IP Address:
 Gui, Add, Edit, x354 y427 w100 vIP cgray ReadOnly, %A_IPAddress1%
 Gui, Color, f9f9f9 ;FFFFFF is pure white
-Gui, Show
+Gui, Show,, Environment Manager
 
 LoadDBList:
     IniRead, DBBakPath, Settings\Settings.ini, BackupFolder, path
@@ -163,24 +168,37 @@ AddDesc:
 
 Restore:
     GuiControlGet, Combo1
+    ButtonCounters("RestoreDB")
     If Combo1 = Select a Database
     {
         MsgBox, 16, ERROR, Please select a database backup to restore.
         Return
     }
-    MsgBox, 36, RESTORE, Are you sure you want to restore "%Combo1%" over your current dataset?
-    IfMsgBox, Yes
+    Else
     {
-        MsgBox, 0, test, Yes
-        Return
+        MsgBox, 36, RESTORE?, Are you sure you want to restore "%Combo1%" over your current databases?
+        IfMsgBox, Yes
+        {
+            IniRead, Var1, Settings\Settings.ini, SQLCreds, Server
+            IniRead, Var2, Settings\Settings.ini, SQLCreds, User
+            IniRead, Var3, Settings\Settings.ini, SQLCreds, Password
+            IniRead, Var4, Settings\Settings.ini, BackupFolder, path
+            IniRead, Var5, Settings\Settings.ini, Databases, Dynamics
+            IniRead, Var6, Settings\Settings.ini, Databases, Company1
+            IniRead, Var7, Settings\Settings.ini, Databases, Company2
+            Run, "Scripts\Script.DBRestore.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%Combo1%" backup.`n, Settings\Log.txt
+            MsgBox, 0, COMPLETED, Database %Combo1% was restored successfully.
+            ButtonCounters("RestoreDB")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
     }
-    IfMsgBox, No
-    {
-        ;RestoreDB()
-        ;ButtonCounters("RestoreDB")
-        Return
-    }
-    Return
 
 Overwrite:
     GuiControlGet, Combo1
@@ -226,15 +244,19 @@ Delete:
     MsgBox, 20, DELETE, Are you sure you want to delete "%Combo1%"?
     IfMsgBox, Yes
     {
-        MsgBox, 0, test, Yes
+        IniRead, DBListDelete, Settings\Settings.ini, BackupFolder, path
+        FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%Combo1%" backup.`n, Settings\Log.txt
+        FileRemoveDir, %DBListDelete%\%Combo1%, 1
+        MsgBox, 48, DELETED, Database "%Combo1%" was deleted.
+        ButtonCounters("DeleteBackup")
+        Gosub, LoadDBList
         Return
     }
     IfMsgBox, No
     {
-        MsgBox, 0, test, No
+        MsgBox, 16, CANCEL, Backup "%Combo1%" was not deleted.
         Return
     }
-    Return
 
 Install:
     GuiControlGet, Combo2
@@ -256,19 +278,70 @@ Install:
     }
 
 LaunchBuild:
-    MsgBox, 0, test, Add FileSelectFile to all options but the default.
-    Return
+    GuiControlGet, Combo2
+    ButtonCounters("LaunchBuild")
+    IniRead, LocSPGP, Settings\Settings.ini, InstallPaths, LSPGP
+    IniRead, LocSPM, Settings\Settings.ini, InstallPaths, LSPM
+    IniRead, LocDC, Settings\Settings.ini, InstallPaths, LDC
+    IniRead, LocSC, Settings\Settings.ini, InstallPaths, LSC
+    IniRead, LocCC, Settings\Settings.ini, InstallPaths, LCC
+    If Combo2 = Select a Product to Install
+    {
+        MsgBox, 16, ERROR, Please select a Product to launch.
+        Return
+    }
+    If Combo2 = SalesPad Desktop
+    {
+        FileSelectFile, SelectedFile, 1, %LocSPGP%\, Select a Build, *.exe
+        If ErrorLevel
+            Return
+        Run, %SelectedFile%
+        Return
+    }
+    If Combo2 = SalesPad Mobile
+    {
+        FileSelectFile, SelectedFile, 1, %LocSPM%\, Select a Build, *.exe
+        If ErrorLevel
+            Return
+        Run, %SelectedFile%
+        Return
+    }
+    If Combo2 = DataCollection
+    {
+        FileSelectFile, SelectedFile, 1, %LocDC%\, Select a Build, *.exe
+        If ErrorLevel
+            Return
+        Run, %SelectedFile%
+        Return
+    }
+    If Combo2 = Ship Center
+    {
+        FileSelectFile, SelectedFile, 1, %LocSC%\, Select a Build, *.exe
+        If ErrorLevel
+            Return
+        Run, %SelectedFile%
+        Return
+    }
+    If Combo2 = Card Control
+    {
+        FileSelectFile, SelectedFile, 1, %LocCC%\, Select a Build, *.exe
+        If ErrorLevel
+            Return
+        Run, %SelectedFile%
+        Return
+    }
 
 AddDLL:
     GuiControlGet, Combo2
     If Combo2 = Select a Product to Install
     {
-        MsgBox, 16, ERROR, Please select a SalesPad Product to install.
+        MsgBox, 16, ERROR, Please select a Product to add DLLs to.
         Return
     }
     If Combo2 = SalesPad Desktop
     {
-        MsgBox, 0, test, Run the ADD DLLs app.
+        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\DLLGrabTool\DLL Grab.exe"
+        ;MsgBox, 0, test, Run the ADD DLLs app.
         Return
     }
     If Combo2 != SalesPad Desktop & Combo2 != Select a Product to Install
@@ -279,6 +352,11 @@ AddDLL:
 
 BuildFolder:
     GuiControlGet, Combo2
+    IniRead, LocSPGP, Settings\Settings.ini, InstallPaths, LSPGP
+    IniRead, LocSPM, Settings\Settings.ini, InstallPaths, LSPM
+    IniRead, LocDC, Settings\Settings.ini, InstallPaths, LDC
+    IniRead, LocSC, Settings\Settings.ini, InstallPaths, LSC
+    IniRead, LocCC, Settings\Settings.ini, InstallPaths, LCC
     If Combo2 = Select a Product to Install
     {
         MsgBox, 16, ERROR, Please select a SalesPad Product whose install folder you would like to launch.
@@ -286,17 +364,17 @@ BuildFolder:
     }
     If Combo2 = SalesPad Desktop
     {
-        Run, C:\Program Files (x86)\SalesPad.Desktop
+        Run, %LocSPGP%
         Return
     }
     If Combo2 = SalesPad Mobile
     {
-        Run, C:\Program Files (x86)\SalesPad.GP.Mobile.Server
+        Run, %LocSPM%
         Return
     }
     If Combo2 = DataCollection
     {
-        Run, C:\Program Files (x86)\DataCollection
+        Run, %LocDC%
         Return
     }
     If Combo2 = Windows Mobile
@@ -306,12 +384,24 @@ BuildFolder:
     }
     If Combo2 = Ship Center
     {
-        Run, C:\Program Files (x86)\ShipCenter
+        Run, %LocSC%
         Return
     }
     If Combo2 = Card Control
     {
-        Run, C:\Program Files (x86)\CardControl
+        Run, %LocCC%
+        Return
+    }
+
+GPFolder:
+    MsgBox, 36, GP FOLDER, Are you sure you want to launch the Dynamics GP folder?
+    IfMsgBox, Yes
+    {
+        Run, "C:\Program Files (x86)\Microsoft Dynamics"
+        Return
+    }
+    IfMsgBox, No
+    {
         Return
     }
 
@@ -334,31 +424,48 @@ LaunchGP:
     IniRead, GPLaunchPath5, Settings\Settings.ini, GPLaunchFile, GPLaunch5
     If Combo3 = %GPLabel1%
     {
-        Run, %GPLaunchPath1%
+        Run, "%GPLaunchPath1%"
+        ButtonCounters("GP1")
         Return
     }
     If Combo3 = %GPLabel2%
     {
-        Run, %GPLaunchPath2%
+        Run, "%GPLaunchPath2%"
+        ButtonCounters("GP2")
         Return
     }
     If Combo3 = %GPLabel3%
     {
-        Run, %GPLaunchPath3%
+        Run, "%GPLaunchPath3%"
+        ButtonCounters("GP3")
         Return
     }
     If Combo3 = %GPLabel4%
     {
-        MsgBox, 0, test, %GPLabel4%`n%GPLaunchPath4%
-        Run, %GPLaunchPath4%
+        ;MsgBox, 0, test, %GPLabel4%`n%GPLaunchPath4%
+        Run, "%GPLaunchPath4%"
+        ButtonCounters("GP4")
         Return
     }
     If Combo3 = %GPLabel5%
     {
-        Run, %GPLaunchPath5%
+        Run, "%GPLaunchPath5%"
+        ButtonCounters("GP5")
         Return
     }
     Return
+
+Octopush:
+    MsgBox, 36, OCTOPUSH, Are you sure you want to launch Octopush?
+    IfMsgBox, Yes
+    {
+        Run, chrome.exe https://deploy.salespad.com
+        Return
+    }
+    IfMsgBox, No
+    {
+        Return
+    }
 
 DeleteCloud:
     GuiControlGet, Combo4
@@ -367,8 +474,86 @@ DeleteCloud:
         MsgBox, 16, ERROR, Please select a Cloud Tenant to clear tables.
         Return
     }
-    MsgBox, 0, test, %Combo4%
-    Return
+    IniRead, CloudLab1, Settings\Settings.ini, CloudButtonNames, 01
+    IniRead, CloudLab2, Settings\Settings.ini, CloudButtonNames, 02
+    IniRead, CloudLab3, Settings\Settings.ini, CloudButtonNames, 03
+    IniRead, CloudLab4, Settings\Settings.ini, CloudButtonNames, 04
+    IniRead, CloudLab5, Settings\Settings.ini, CloudButtonNames, 05
+    If Combo4 = %CloudLab1%
+    {
+        MsgBox, 36, DELETE TENANT 01, Are you sure you want to delete the tables for Cloud Tenant %CloudLab1%?
+        IfMsgBox, Yes
+        {
+            ;MsgBox, 0, test, Delete %CloudLab1%.
+            Run, "Scripts\Script.DropSR01.bat" %CloudLab1%
+            ButtonCounters("SPC1")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
+    If Combo4 = %CloudLab2%
+    {
+        MsgBox, 36, DELETE TENANT 02, Are you sure you want to delete the tables for Cloud Tenant %CloudLab2%?
+        IfMsgBox, Yes
+        {
+            ;MsgBox, 0, test, Delete %CloudLab2%.
+            Run, "Scripts\Script.DropSR01.bat" %CloudLab2%
+            ButtonCounters("SPC2")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
+    If Combo4 = %CloudLab3%
+    {
+        MsgBox, 36, DELETE TENANT 03, Are you sure you want to delete the tables for Cloud Tenant %CloudLab3%?
+        IfMsgBox, Yes
+        {
+            ;MsgBox, 0, test, Delete %CloudLab3%.
+            Run, "Scripts\Script.DropSR01.bat" %CloudLab3%
+            ButtonCounters("SPC3")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
+    If Combo4 = %CloudLab4%
+    {
+        MsgBox, 36, DELETE TENANT 04, Are you sure you want to delete the tables for Cloud Tenant %CloudLab4%?
+        IfMsgBox, Yes
+        {
+            ;MsgBox, 0, test, Delete %CloudLab4%.
+            Run, "Scripts\Script.DropSR01.bat" %CloudLab4%
+            ButtonCounters("SPC4")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
+    If Combo4 = %CloudLab5%
+    {
+        MsgBox, 36, DELETE TENANT 05, Are you sure you want to delete the tables for Cloud Tenant %CloudLab5%?
+        IfMsgBox, Yes
+        {
+            ;MsgBox, 0, test, Delete %CloudLab5%.
+            Run, "Scripts\Script.DropSR01.bat" %CloudLab5%
+            ButtonCounters("SPC5")
+            Return
+        }
+        IfMsgBox, No
+        {
+            Return
+        }
+    }
 
 IPText:
     GuiControl,, IP, %A_IPAddress1%

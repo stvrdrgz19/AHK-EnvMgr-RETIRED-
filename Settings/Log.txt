@@ -253,3 +253,5 @@
 {2019-10-04 10:56:58}: Restored "MASTER" backup.
 {2019-10-07 07:56:22}: Restored "MASTER" backup.
 {2019-10-07 08:15:52}: Restored "MASTER" backup.
+{2019-10-08 12:38:06}: Restored "EDI" backup.
+{2019-10-08 12:40:44}: Restored "MASTER" backup.
