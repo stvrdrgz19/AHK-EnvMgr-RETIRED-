@@ -13,6 +13,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\GuiButtonIcon.ahk
 #Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\ButtonCounters.ahk
+#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\EnvMgrClose.ahk
 
 If A_IsAdmin = 0
 {
@@ -107,24 +108,148 @@ Return
 ;   FILEMENU STUFF
 ;=================================================================================================================================
 MenuHandler:
-    Return
-
-SettingsScreen:
+    EnvMgrClose()
     Return
 
 Utilities:
-    Return
-
-sppResetDB:
-    Return
-
-ButtonCounters:
+    Run, "C:\Users\steve.rodriguez\Desktop\Scripts\SteveUtilities.ahk"
     Return
 
 Log:
+    Gui, DBLog:Destroy
+    Gui, DBLog:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
+    Gui, DBLog:Show, w560 h560, Database Management Log
+    FileRead, Log, Settings\Log.txt
+    GuiControl, DBLog:, Edit1, %Log%
+    Return
+
+sppResetDB:
+    MsgBox, 36, RESET DATABASE?, Are you sure you want to run the sppResetDatabase proc against TWO?
+    IfMsgBox, Yes
+    {
+        Run, C:\Users\steve.rodriguez\Desktop\Scripts\sppresetdatabase.bat
+        Return
+    }
+    IfMsgBox, No
+    {
+        Return
+    }
+
+ButtonCounters:
+    IniRead, Restore, Settings\ButtonCounters.ini, ButtonCounters, RestoreDB
+    IniRead, Overwrite, Settings\ButtonCounters.ini, ButtonCounters, OverwriteDB
+    IniRead, New, Settings\ButtonCounters.ini, ButtonCounters, NewBackup
+    IniRead, Delete, Settings\ButtonCounters.ini, ButtonCounters, DeleteBackup
+    IniRead, Desktop, Settings\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
+    IniRead, Mobile, Settings\ButtonCounters.ini, ButtonCounters, SalesPadMobile
+    IniRead, DC, Settings\ButtonCounters.ini, ButtonCounters, DataCollection
+    IniRead, SC, Settings\ButtonCounters.ini, ButtonCounters, ShipCenter
+    IniRead, API, Settings\ButtonCounters.ini, ButtonCounters, WebAPI
+    IniRead, Web, Settings\ButtonCounters.ini, ButtonCounters, WebPortal
+    IniRead, CC, Settings\ButtonCounters.ini, ButtonCounters, CardControl
+    IniRead, Launch, Settings\ButtonCounters.ini, ButtonCounters, LaunchBuild
+    IniRead, CabWM, Settings\ButtonCounters.ini, ButtonCounters, Cab
+    IniRead, GP1CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP1
+    IniRead, GP2CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP2
+    IniRead, GP3CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP3
+    IniRead, GP4CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP4
+    IniRead, GP5CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP5
+    IniRead, SPCCounterScreen1, Settings\ButtonCounters.ini, ButtonCounters, SPC1
+    IniRead, SPCCounterScreen2, Settings\ButtonCounters.ini, ButtonCounters, SPC2
+    IniRead, SPCCounterScreen3, Settings\ButtonCounters.ini, ButtonCounters, SPC3
+    IniRead, SPCCounterScreen4, Settings\ButtonCounters.ini, ButtonCounters, SPC4
+    IniRead, SPCCounterScreen5, Settings\ButtonCounters.ini, ButtonCounters, SPC5
+    Gui, ButtonC:Add, Text, x65 y55, Restore
+    Gui, ButtonC:Add, Text, x65 y85, Overwrite
+    Gui, ButtonC:Add, Text, x65 y115, New
+    Gui, ButtonC:Add, Text, x65 y145, Delete
+    Gui, ButtonC:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
+    Gui, ButtonC:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
+    Gui, ButtonC:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
+    Gui, ButtonC:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
+    Gui, ButtonC:Add, Text, x200 y55, Desktop
+    Gui, ButtonC:Add, Text, x200 y85, Mobile
+    Gui, ButtonC:Add, Text, x200 y115, DC
+    Gui, ButtonC:Add, Text, x200 y145, SC
+    Gui, ButtonC:Add, Text, x200 y175, API
+    Gui, ButtonC:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
+    Gui, ButtonC:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
+    Gui, ButtonC:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
+    Gui, ButtonC:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
+    Gui, ButtonC:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
+    Gui, ButtonC:Add, Text, x335 y55, Web
+    Gui, ButtonC:Add, Text, x335 y85, CC
+    Gui, ButtonC:Add, Text, x335 y115, Launch
+    Gui, ButtonC:Add, Text, x335 y145, Windows Mobile
+    Gui, ButtonC:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
+    Gui, ButtonC:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
+    Gui, ButtonC:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
+    Gui, ButtonC:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
+    Gui, ButtonC:Add, Text, x470 y55, GP1
+    Gui, ButtonC:Add, Text, x470 y85, GP2
+    Gui, ButtonC:Add, Text, x470 y115, GP3
+    Gui, ButtonC:Add, Text, x470 y145, GP4
+    Gui, ButtonC:Add, Text, x470 y175, GP5
+    Gui, ButtonC:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
+    Gui, ButtonC:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
+    Gui, ButtonC:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
+    Gui, ButtonC:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
+    Gui, ButtonC:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
+    Gui, ButtonC:Add, Text, x605 y55, SCP1
+    Gui, ButtonC:Add, Text, x605 y85, SCP2
+    Gui, ButtonC:Add, Text, x605 y115, SCP3
+    Gui, ButtonC:Add, Text, x605 y145, SCP4
+    Gui, ButtonC:Add, Text, x605 y175, SCP5
+    Gui, ButtonC:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
+    Gui, ButtonC:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
+    Gui, ButtonC:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
+    Gui, ButtonC:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
+    Gui, ButtonC:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
+    Gui, ButtonC:Show, w680 h250, Button Counters
     Return
 
 AboutScreen:
+    Gui, ABOUTS:Add, Progress, x0 y0 w400 h310 BackgroundFFFFFF Disabled,
+    Gui, ABOUTS:Add, Progress, x0 y311 w400 h40 BackgroundF0F0F0 Disabled,
+    Gui, ABOUTS:Add, Progress, x0 y0 w400 h45 BackGroundF0F0F0 Disabled,
+    Gui, ABOUTS:Font, s15
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y15, Environment Manager v0.0.1
+    Gui, ABOUTS:Font, s9
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y55 w370, Environment Manager is a tool designed to quicken both the database and build management process. With Environment Manager, the user is able to quickly Backup/Restore/Overwrite database backups, as well as install and launch SalesPad Products. Some additional features are:
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y115, - Adding/Listing DLLs`n- Launching Dynamics GP`n- Clearing out Cloud Tenant Databases`n- Displaying the current IP Address
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y180, Possible future features:`n- Installing different GP/SQL versions`n- Deploying SPC Builds
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y240, Product Page: 
+    Gui, ABOUTS:Font, Underline cBlue
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x85 y240 glink1, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+    Gui, ABOUTS:Font
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y255, Issues:
+    Gui, ABOUTS:Font, Underline cBlue
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x50 y255 glink2, https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+    Gui, ABOUTS:Font
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y275, Environment Manager Team:
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x35 y290, stvrdrgz19 (Steve Rodriguez)
+    Gui, ABOUTS:Add, Picture, x15 y290 w15 h15 gHubIcon, Icons\GitHubIcon.png
+    Gui, ABOUTS:Add, Button, x295 y320 w100 h25 gClose1, Close 
+    Gui, ABOUTS:Show, w400 h350, About
+    Return
+
+    Close1: ; Close the about screen
+        Gui, ABOUTS:Destroy
+        Return
+    
+    link1:
+        Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
+        Return
+    
+    link2:
+        Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
+        Return
+    
+    HubIcon:
+        Run, chrome.exe https://github.com/stvrdrgz19
+        Return
+
+SettingsScreen:
     Return
 
 ;=================================================================================================================================
@@ -244,6 +369,7 @@ Overwrite:
                 FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%Combo1%\Description.txt
                 FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
                 GuiControl, 1:, DBDesc, %TestXD% 
+                ButtonCounters("OverwriteDB")
                 Return
             }
             if OverCheck = 1
@@ -267,6 +393,7 @@ Overwrite:
                     FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Combo1%\Description.txt
                     FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
                     GuiControl, 1:, DBDesc, %TestXD% 
+                    ButtonCounters("OverwriteDB")
                     Return
                     
                 OverCancel:
@@ -283,7 +410,6 @@ NewDB:
     MsgBox, 20, NEW BACKUP, Are you sure you want to create a new database backup?
     IfMsgBox, Yes
     {
-        ButtonCounters("NewBackup")
         Gui, NewDB:Destroy
         Gui, NewDB:Add, Text, x15 y15, Database name:
         Gui, NewDB:Add, Edit, x15 y30 w300 vDatabase, 
@@ -345,6 +471,7 @@ NewDB:
                             GuiControl, 1:, Combo1, %A_LoopFileName%
                         }
                         Gui, NewDB:Destroy
+                        ButtonCounters("NewBackup")
                         Return
                     }
                 }
@@ -475,7 +602,6 @@ AddDLL:
     If Combo2 = SalesPad Desktop
     {
         Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\DLLGrabTool\DLL Grab.exe"
-        ;MsgBox, 0, test, Run the ADD DLLs app.
         Return
     }
     If Combo2 != SalesPad Desktop & Combo2 != Select a Product to Install
@@ -724,4 +850,5 @@ Always:
 ;   END
 ;=================================================================================================================================
 GuiClose:
-    ExitApp
+    EnvMgrClose()
+    Return
