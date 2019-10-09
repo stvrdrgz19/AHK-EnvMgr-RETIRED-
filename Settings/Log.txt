@@ -270,3 +270,12 @@
 {2019-10-08 14:56:16}: Overwrote "zzzzq" backup.
 {2019-10-08 14:57:16}: Overwrote "zzzzq" backup.
 {2019-10-08 14:57:21}: Deleted "zzzzq" backup.
+{2019-10-08 15:33:23}: Restored "MASTER" backup.
+{2019-10-08 15:51:27}: Restored "MASTER" backup.
+{2019-10-09 07:35:34}: Restored "MASTER" backup.
+{2019-10-09 07:38:10}: Restored "MASTER" backup.
+{2019-10-09 07:58:05}: Restored "MASTER" backup.
+{2019-10-09 09:41:57}: Created "SPGP-2724 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-09 09:44:05}: Restored "MASTER" backup.
+{2019-10-09 10:07:27}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-09 11:41:06}: Restored "CONFIGURATOR" backup.

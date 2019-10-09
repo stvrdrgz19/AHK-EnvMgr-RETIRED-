@@ -29,7 +29,7 @@ Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 Menu, ToolsMenu, Add, &Utilities, Utilities
 Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
 Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
-Menu, ToolsMenu, Add, &Install Log, Log
+Menu, ToolsMenu, Add, &Database Log, Log
 
 Menu, HelpMenu, Add, &About, AboutScreen
 
@@ -236,15 +236,15 @@ AboutScreen:
     Close1: ; Close the about screen
         Gui, ABOUTS:Destroy
         Return
-    
+
     link1:
         Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-
         Return
-    
+
     link2:
         Run, chrome.exe https://github.com/stvrdrgz19/AHK-EnvMgr-RETIRED-/projects/1
         Return
-    
+
     HubIcon:
         Run, chrome.exe https://github.com/stvrdrgz19
         Return
