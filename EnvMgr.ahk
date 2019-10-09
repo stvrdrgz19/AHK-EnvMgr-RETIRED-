@@ -85,7 +85,6 @@ If A_UserName = steve.rodriguez     ; Toolbar that appears for steve.rodriguez u
 ;Gui, Add, Button, x592 y387 w100 h30 gExit1 vExit1, Exit
 
 ;Gui, Add, Picture,,C:\Users\steve.rodriguez\Downloads\taco2.jpg
-Gui, Font, s10
 Gui, Add, GroupBox, x15 y5 w694 h256 cblue, Database Management
 Gui, Font, s9
 Gui, Add, Text, x134 y37, Select a Database:
@@ -217,7 +216,7 @@ Gui, Show, w724 h534 x%xP% y%yP%, Environment Mananger  ; Finally showing the GU
 ;--------------------------------------------------------------------------------------------------------------------------
 ListBoxDisplay:
 IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
-    Loop, %DBListDisplay%\*, 2
+    Loop, %DBListDisplay%, 2
     {
         GuiControl,, GPBackupsList, %A_LoopFileName%
     }
@@ -869,7 +868,6 @@ ButtonNewBackup:    ; Button to create a new DB and add it to the list
         }
         Else
         {
-            ;ifExist C:\#DBBackups\%Database%
             ifExist %DBListNew%\%Database%
             {
                 MsgBox, 16, ALREADY EXISTS, A backup named "%Database%" already exists.

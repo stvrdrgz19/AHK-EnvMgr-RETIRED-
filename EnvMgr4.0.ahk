@@ -11,9 +11,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 
-#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\GuiButtonIcon.ahk
-#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\ButtonCounters.ahk
-#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\EnvMgrClose.ahk
+;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\GuiButtonIcon.ahk
+;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\ButtonCounters.ahk
+;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\EnvMgrClose.ahk
+
+;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\GuiButtonIcon.ahk
+;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\ButtonCounters.ahk
+;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\EnvMgrClose.ahk
+#Include, Functions\GuiButtonIcon.ahk
+#Include, Functions\ButtonCounters.ahk
+#Include, Functions\EnvMgrClose.ahk
 
 If A_IsAdmin = 0
 {
@@ -705,7 +712,6 @@ LaunchGP:
     }
     If Combo3 = %GPLabel4%
     {
-        ;MsgBox, 0, test, %GPLabel4%`n%GPLaunchPath4%
         Run, "%GPLaunchPath4%"
         ButtonCounters("GP4")
         Return
@@ -750,7 +756,6 @@ DeleteCloud:
         MsgBox, 36, DELETE TENANT 01, Are you sure you want to delete the tables for Cloud Tenant %CloudLab1%?
         IfMsgBox, Yes
         {
-            ;MsgBox, 0, test, Delete %CloudLab1%.
             Run, "Scripts\Script.DropSR01.bat" %CloudLab1%
             ButtonCounters("SPC1")
             Return
@@ -765,7 +770,6 @@ DeleteCloud:
         MsgBox, 36, DELETE TENANT 02, Are you sure you want to delete the tables for Cloud Tenant %CloudLab2%?
         IfMsgBox, Yes
         {
-            ;MsgBox, 0, test, Delete %CloudLab2%.
             Run, "Scripts\Script.DropSR01.bat" %CloudLab2%
             ButtonCounters("SPC2")
             Return
@@ -780,7 +784,6 @@ DeleteCloud:
         MsgBox, 36, DELETE TENANT 03, Are you sure you want to delete the tables for Cloud Tenant %CloudLab3%?
         IfMsgBox, Yes
         {
-            ;MsgBox, 0, test, Delete %CloudLab3%.
             Run, "Scripts\Script.DropSR01.bat" %CloudLab3%
             ButtonCounters("SPC3")
             Return
@@ -795,7 +798,6 @@ DeleteCloud:
         MsgBox, 36, DELETE TENANT 04, Are you sure you want to delete the tables for Cloud Tenant %CloudLab4%?
         IfMsgBox, Yes
         {
-            ;MsgBox, 0, test, Delete %CloudLab4%.
             Run, "Scripts\Script.DropSR01.bat" %CloudLab4%
             ButtonCounters("SPC4")
             Return
@@ -810,7 +812,6 @@ DeleteCloud:
         MsgBox, 36, DELETE TENANT 05, Are you sure you want to delete the tables for Cloud Tenant %CloudLab5%?
         IfMsgBox, Yes
         {
-            ;MsgBox, 0, test, Delete %CloudLab5%.
             Run, "Scripts\Script.DropSR01.bat" %CloudLab5%
             ButtonCounters("SPC5")
             Return
