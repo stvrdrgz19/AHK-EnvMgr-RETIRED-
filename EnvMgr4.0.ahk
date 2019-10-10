@@ -30,6 +30,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\EditEntryVariableGUI.ahk
 #Include, Functions\FileSelectFile.ahk
 #Include, Functions\FileSelectFolder.ahk
+#Include, Functions\LoadGPDisabled.ahk
 
 If A_IsAdmin = 0
 {
@@ -141,6 +142,7 @@ LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
 ; Needs to be replaced by new Funct ;LoadFromSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
 ; Needs to be replaced by new Funct ;LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
+;LoadGPDisabled()
 IniRead, xLoc, Settings\Settings.ini, Position, xPOS
 IniRead, yLoc, Settings\Settings.ini, Position, yPOS
 Gui, Color, f9f9f9 ;FFFFFF is pure white
