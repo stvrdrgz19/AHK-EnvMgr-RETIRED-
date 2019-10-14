@@ -15,161 +15,130 @@ LoadGPDisabled()
     If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton3%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton4%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||Dynamcis 1|%GPButton3%|%GPButton4%
-        Return
     }
-    If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||Dynamcis 2|%GPButton5%
-        Return
     }
-    If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+    Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%
-        Return
     }
-    If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+    Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%|%GPButton5%
-        Return
     }
-    If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+    Else (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
     {
         GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton5%
-        Return
     }
+    Return
 }

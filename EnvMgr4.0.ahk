@@ -64,7 +64,7 @@ Gui, Add, Button, x24 y202 w100 h25 gRestore, Restore DB
 Gui, Add, Button, x129 y202 w100 h25 gOverwrite, Overwrite DB
 Gui, Add, Button, x234 y202 w100 h25 gNewDB, New Backup
 Gui, Add, Button, x339 y202 w100 h25 gDelete, Delete Backup
-Gui, Add, Edit, ReadOnly cGray x25 y55 w413 r10 vDBDesc, =================================================================`nSelect a Database Backup to load it's description.
+Gui, Add, Edit, ReadOnly cGray x25 y55 w413 r10 vDBDesc, =================================================================`n========SELECT A DATABASE BACKUP TO LOAD A DESCRIPTION========`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================
 Gui, Add, Button, x386 y28 w25 h25 gDBFolder hwndIconDBFolder,
 GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
 Gui, Add, Button, x413 y28 w25 h25 gAddDesc hwndIconAdd,
@@ -111,12 +111,12 @@ Gui, Add, Checkbox, x12 y430 vAlways gAlways, Always On Top
 Gui, Add, Text, x294 y430 gIPText vIPText, IP Address:
 Gui, Add, Edit, x354 y427 w100 vIP cgray ReadOnly, %A_IPAddress1%
 
-LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","BRest")
-LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","BOver")
+LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","Restore")
+LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","Overwrite")
 LoadFromSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
-LoadFromSettings("NewLoad","DBManagement","New","CheckNew","Bak")
+LoadFromSettings("NewLoad","DBManagement","New","CheckNew","NewDB")
 ; The refresh button no longer exists ;LoadFromSettings("RefreshLoad","DBManagement","Refresh","CheckRefresh","Refresh")
-LoadFromSettings("BackupsFolderLoad","DBManagement","BackupsFolder","CheckBackupsFolder","BakFolder")
+LoadFromSettings("BackupsFolderLoad","DBManagement","BackupsFolder","CheckBackupsFolder","DBFolder")
 LoadFromSettings("AddDescriptionLoad","DBManagement","AddDescription","CheckAddDesc","AddDesc")
 
 ; Needs to be replaced by new Funct ;LoadFromSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
@@ -126,9 +126,9 @@ LoadFromSettings("AddDescriptionLoad","DBManagement","AddDescription","CheckAddD
 ; Needs to be replaced by new Funct ;LoadFromSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
 ; Needs to be replaced by new Funct ;LoadFromSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
 ; Needs to be replaced by new Funct ;LoadFromSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
-LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","BLaunch")
-LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLLs")
-LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
+LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","LaunchBuild")
+LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLL")
+LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BuildFolder")
 
 ; Needs to be replaced by new Funct ;LoadFromSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
 ; Needs to be replaced by new Funct ;LoadFromSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
@@ -143,6 +143,147 @@ LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BBuild")
 ; Needs to be replaced by new Funct ;LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
 
 ;LoadGPDisabled()
+/*
+IniRead, GP1, Settings\Settings.ini, GPButtons, Dynamics10
+IniRead, GP2, Settings\Settings.ini, GPButtons, Dynamics13
+IniRead, GP3, Settings\Settings.ini, GPButtons, Dynamics15
+IniRead, GP4, Settings\Settings.ini, GPButtons, Dynamics16
+IniRead, GP5, Settings\Settings.ini, GPButtons, Dynamics18
+IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton1
+IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton2
+IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton3
+IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton4
+IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton5
+GuiControl,, Combo3, |
+If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton3%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton4%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||Dynamcis 1|%GPButton3%|%GPButton4%
+}
+Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||Dynamcis 2|%GPButton5%
+}
+Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%
+}
+Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton5%
+}
+Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%|%GPButton5%
+}
+Else (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
+{
+    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton5%
+}
+*/
 IniRead, xLoc, Settings\Settings.ini, Position, xPOS
 IniRead, yLoc, Settings\Settings.ini, Position, yPOS
 Gui, Color, f9f9f9 ;FFFFFF is pure white
@@ -260,7 +401,7 @@ ButtonCounters:
     Gui, ButtonC:Show, w680 h250, Button Counters
     Return
 
-AboutScreen:
+AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
     Gui, ABOUTS:Add, Progress, x0 y0 w400 h310 BackgroundFFFFFF Disabled,
     Gui, ABOUTS:Add, Progress, x0 y311 w400 h40 BackgroundF0F0F0 Disabled,
     Gui, ABOUTS:Add, Progress, x0 y0 w400 h45 BackGroundF0F0F0 Disabled,
@@ -652,7 +793,7 @@ Combo1:
     GuiControlGet, Combo1
     If Combo1 = Select a Database
     {
-        GuiControl,, DBDesc, =================================================================`nSelect a Database Backup to load it's description.
+        GuiControl,, DBDesc, =================================================================`n========SELECT A DATABASE BACKUP TO LOAD A DESCRIPTION========`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================
         Return
     }
     If FileExist("C:\#DBBackups\" Combo1 "\Description.txt")

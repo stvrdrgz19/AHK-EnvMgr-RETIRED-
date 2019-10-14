@@ -1096,6 +1096,7 @@ SPGPOK:
     GuiControlGet, DBUpdateValue
     GuiControlGet, BuildLoc
 
+    Gui, Prog:Destroy
     Gui, Prog:Add, Text, x15 y15 vProgressText, Copying installer from network...
     Gui, Prog:Add, Progress, w400 h20 x15 y35 cBlue vProgressBar, 1
 
