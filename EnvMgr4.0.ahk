@@ -870,13 +870,13 @@ Overwrite:
     IfMsgBox, Yes
     {
         Gui, OVERWRITE:Destroy
-        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
-        Gui, OVERWRITE:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
-        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25, Are you sure you want to overwrite "%Combo1%" with your current setup?
-        Gui, OVERWRITE:Add, Button, x223 y67 w75 h23 gOverwriteYes, Yes
-        Gui, OVERWRITE:Add, Button, x310 y67 w75 H23 gOverwriteNo, No
-        Gui, OVERWRITE:Add, Checkbox, x15 y73 vOverCheck, Update Backup Description 
-        Gui, OVERWRITE:Show, w400 h100, OVERWRITE?
+        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h80 BackgroundFFFFFF Disabled, ; TOP WHITE
+        Gui, OVERWRITE:Add, Progress, x0 y81 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25 w370 h110, Are you sure you want to overwrite "%Combo1%" with your current setup?
+        Gui, OVERWRITE:Add, Button, x223 y87 w75 h23 gOverwriteYes, Yes
+        Gui, OVERWRITE:Add, Button, x310 y87 w75 H23 gOverwriteNo, No
+        Gui, OVERWRITE:Add, Checkbox, x15 y93 vOverCheck, Update Backup Description 
+        Gui, OVERWRITE:Show, w400 h120, OVERWRITE?
         Return
 
         OverwriteNo:

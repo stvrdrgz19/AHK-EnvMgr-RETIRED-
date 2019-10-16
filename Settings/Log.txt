@@ -291,3 +291,28 @@
 {2019-10-14 10:26:48}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
 {2019-10-14 14:34:20}: Restored "MASTER" backup.
 {2019-10-14 15:03:01}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-15 07:30:27}: Restored "MASTER" backup.
+{2019-10-15 08:03:19}: Created "SOL-7520 Quick Pick Maintenance CDE - Security Groups" backup.
+{2019-10-15 08:04:29}: Restored "MASTER" backup.
+{2019-10-15 08:20:46}: Restored "SOL-7520 Quick Pick Maintenance CDE - Security Groups" backup.
+{2019-10-15 12:27:49}: Restored "MASTER" backup.
+{2019-10-15 14:38:53}: Restored "SOL-7520 Quick Pick Maintenance CDE - Security Groups" backup.
+{2019-10-16 07:14:36}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-16 07:59:07}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-16 08:14:38}: Restored "SPGP-2687 - Packaging Unit Maintenance Revamp NO EDI" backup.
+{2019-10-16 08:39:12}: Restored "MASTER" backup.
+{2019-10-16 09:10:31}: Created "SPGP-2849 - RMA Report stuff" backup.
+{2019-10-16 09:10:56}: Overwrote "SPGP-2849 - RMA Report stuff" backup.
+{2019-10-16 09:17:20}: Restored "SPGP-2849 - RMA Report stuff" backup.
+{2019-10-16 09:21:09}: Restored "SPGP-2849 - RMA Report stuff" backup.
+{2019-10-16 09:23:26}: Restored "MASTER" backup.
+{2019-10-16 09:34:21}: Restored "MASTER" backup.
+{2019-10-16 09:35:27}: Restored "MASTER" backup.
+{2019-10-16 11:36:58}: Restored "MASTER" backup.
+{2019-10-16 11:53:11}: Restored "MASTER" backup.
+{2019-10-16 12:13:12}: Restored "MASTER" backup.
+{2019-10-16 12:23:32}: Restored "MASTER" backup.
+{2019-10-16 12:40:36}: Restored "MASTER" backup.
+{2019-10-16 14:03:45}: Restored "MASTER" backup.
+{2019-10-16 15:07:59}: Restored "MASTER" backup.
+{2019-10-16 15:19:22}: Restored "MASTER" backup.

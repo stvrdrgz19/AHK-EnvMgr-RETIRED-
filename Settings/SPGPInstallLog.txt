@@ -158,3 +158,13 @@
 {2019-10-10 10:51:12}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Ryan_Gole\SPGP-2754\4.6.4.15.17
 {2019-10-14 08:41:11}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2645\4.6.4.14.1
 {2019-10-14 10:29:15}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2687\4.6.4.16.48
+{2019-10-15 07:29:31}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\CDE\SOL-7520\4.6.4.16.26
+{2019-10-16 07:28:09}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2687\4.6.4.16.43
+{2019-10-16 09:12:04}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2849\4.6.4.17.1
+{2019-10-16 09:34:54}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
+{2019-10-16 11:43:51}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2846\4.6.4.16.23
+{2019-10-16 11:59:32}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.7
+{2019-10-16 12:10:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.8
+{2019-10-16 12:24:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2874\4.6.4.16.10
+{2019-10-16 12:41:19}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
+{2019-10-16 12:49:20}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2873\4.6.4.17.4
