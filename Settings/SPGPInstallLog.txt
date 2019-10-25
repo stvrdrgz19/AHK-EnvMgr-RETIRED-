@@ -168,3 +168,48 @@
 {2019-10-16 12:24:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2874\4.6.4.16.10
 {2019-10-16 12:41:19}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
 {2019-10-16 12:49:20}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2873\4.6.4.17.4
+{2019-10-17 08:08:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
+{2019-10-17 08:08:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
+{2019-10-17 08:22:31}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2544\4.6.4.16.8
+{2019-10-17 10:02:53}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2687\4.6.4.17.41
+{2019-10-17 10:29:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2475\4.6.4.4.1
+{2019-10-17 11:57:48}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2873\4.6.4.17.5
+{2019-10-17 12:00:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2873\4.6.4.17.5
+{2019-10-22 11:03:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\CDE\SOL-7520\4.6.4.17.15
+{2019-10-23 07:32:37}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Charter\SOL-7632\4.6.4.16.22
+{2019-10-23 07:43:19}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Charter\SOL-7632\4.6.4.16.22
+{2019-10-23 11:37:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\SinisaMalbasa\SPGP-2698\4.6.4.17.6
+{2019-10-23 14:15:51}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2544\4.6.4.16.9
+{2019-10-24 08:07:33}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2689\4.6.4.17.54
+{2019-10-24 09:28:50}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
+{2019-10-24 10:57:16}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2689\4.6.4.17.55
+{2019-10-24 12:06:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2689\4.6.4.17.56
+{2019-10-24 14:12:56}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2879\4.6.4.16.16
+{2019-10-25 07:20:45}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2775\4.6.4.17.75
+{2019-10-25 09:38:10}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+{2019-10-25 09:39:12}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.SalesPadEDI.4.6.4.15.Zip
+{2019-10-25 09:40:36}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.Cawley.4.6.4.15.Zip
+{2019-10-25 09:42:22}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.Agru.4.6.4.15.Zip
+	SalesPad.Module.ArdentMills.4.6.4.15.Zip
+	SalesPad.Module.AutomationAgent.4.6.4.15.Zip
+	SalesPad.Module.BlueMoonAdvancedUDF.4.6.4.15.Zip
+{2019-10-25 09:44:14}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+{2019-10-25 09:45:14}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.Dispatch.4.6.4.15.Zip
+{2019-10-25 09:46:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.Agru.4.6.4.15.Zip
+{2019-10-25 09:47:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	SalesPad.Module.AccentWire.4.6.4.15.Zip
+	SalesPad.Module.Grizzly.4.6.4.15.Zip
+	SalesPad.Module.AutomationAgentService.4.6.4.15.Zip
+	SalesPad.Module.CaseTracker.4.6.4.15.Zip
+{2019-10-25 09:52:38}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.15
+	Custom - SalesPad.Module.AccentWire.4.6.4.15.Zip
+	Custom - SalesPad.Module.ElgenManufacturing.4.6.4.15.Zip
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.15.Zip
+	Extended - SalesPad.Module.CaseTracker.4.6.4.15.Zip
+{2019-10-25 10:20:04}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2877\4.6.4.16.26
+{2019-10-25 11:33:01}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2877\4.6.4.16.27

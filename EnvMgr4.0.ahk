@@ -31,6 +31,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\FileSelectFile.ahk
 #Include, Functions\FileSelectFolder.ahk
 #Include, Functions\LoadGPDisabled.ahk
+#Include, Functions\SPGPInstall.ahk
 
 If A_IsAdmin = 0
 {
@@ -56,9 +57,9 @@ Menu, MyMenuBar, Add, &Help, :HelpMenu
 
 Gui, Menu, MyMenuBar
 
-Gui, Font, s10
-Gui, Add, GroupBox, w443 h235 cBlue, Database Management
-Gui, Font, s9
+;Gui, Font, s10
+Gui, Add, GroupBox, x12 w443 h235 cBlue, Database Management
+;Gui, Font, s9
 Gui, Add, ComboBox, x25 y30 w359 vCombo1 gCombo1, Select a Database||
 Gui, Add, Button, x24 y202 w100 h25 gRestore, Restore DB
 Gui, Add, Button, x129 y202 w100 h25 gOverwrite, Overwrite DB
@@ -70,9 +71,9 @@ GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
 Gui, Add, Button, x413 y28 w25 h25 gAddDesc hwndIconAdd,
 GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
-Gui, Font, s10
+;Gui, Font, s10
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
-Gui, Font, s9
+;Gui, Font, s9
 Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||SalesPad Desktop|SalesPad Mobile|DataCollection|Windows Mobile|Ship Center|Card Control ;|Web API|Web Portal
 Gui, Add, Button, x24 y300 w100 h25 gLaunchBuild, Launch Build
 Gui, Add, Button, x129 y300 w100 h25 gAddDLL, Add DLLs 
@@ -86,9 +87,9 @@ IniRead, GP2, Settings\Settings.ini, GPButtonLabels, GPButton2
 IniRead, GP3, Settings\Settings.ini, GPButtonLabels, GPButton3
 IniRead, GP4, Settings\Settings.ini, GPButtonLabels, GPButton4
 IniRead, GP5, Settings\Settings.ini, GPButtonLabels, GPButton5
-Gui, Font, s10
+;Gui, Font, s10
 Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
-Gui, Font, s9
+;Gui, Font, s9
 Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||%GP1%|%GP2%|%GP3%|%GP4%|%GP5%
 Gui, Add, Button, x110 y390 w100 h25 gLaunchGP, Launch
 Gui, Add, Button, x80 y390 w25 h25 gGPFolder hwndIconGP
@@ -99,9 +100,9 @@ IniRead, SPC2, Settings\Settings.ini, CloudButtonNames, 02
 IniRead, SPC3, Settings\Settings.ini, CloudButtonNames, 03
 IniRead, SPC4, Settings\Settings.ini, CloudButtonNames, 04
 IniRead, SPC5, Settings\Settings.ini, CloudButtonNames, 05
-Gui, Font, s10
+;Gui, Font, s10
 Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
-Gui, Font, s9
+;Gui, Font, s9
 Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud to Delete||%SPC1%|%SPC2%|%SPC3%|%SPC4%|%SPC5%
 Gui, Add, Button, x339 y390 w100 h25 gDeleteCloud, Delete
 Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
@@ -1063,8 +1064,357 @@ Install:
     MsgBox, 36, INSTALL, Are you sure you want to install a %Combo2% build?
     IfMsgBox, Yes
     {
-        MsgBox, 0, test, Yes was selected`n`nInstalling %Combo2%
-        Return
+        If Combo2 = SalesPad Desktop
+        {
+            ButtonCounters("SalesPadDesktop")
+            FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\, Select a SalesPad Build, *.exe
+            if ErrorLevel
+                Return
+            SplitPath, SelectedFile,, Instl
+            Gui, SPGP:Destroy
+            Gui, SPGP:Add, Text, x15 y15, Please enter the location you would like to install the following build to:
+            Gui, SPGP:Add, Edit, cgray x15 y35 w600 ReadOnly, %Instl%
+            Gui, SPGP:Add, Edit, x15 y65 w600 vBuildLoc, C:\Program Files (x86)\SalesPad.Desktop\
+            Gui, SPGP:Add, Text, x136 y95, Extended 
+            Gui, SPGP:Add, Text, x455 y95, Custom
+            Gui, SPGP:Add, ListBox, 8 x15 y115 w285 r15 vExtList
+            Gui, SPGP:Add, ListBox, 8 x330 y115 w285 r15 vCustList
+            Gui, SPGP:Add, GroupBox, x15 y325 w155 h70, Large Custom Projects
+            Gui, SPGP:Add, CheckBox, x30 y345 gGrizzCheck vGrizzValue, Install with Grizzly DLLs
+            Gui, SPGP:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
+            GUi, SPGP:Add, GroupBox, x185 y325 w155 h70, Build Options
+            Gui, SPGP:Add, Checkbox, x200 y345 gDBUpdateCheck vDBUpdateValue, Run Database Update
+            Gui, SPGP:Add, Button, x516 y370 w100 h25 gSPGPCan, Cancel
+            Gui, SPGP:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
+            Gui, SPGP:Show, w630 h410, Install SalesPad GP
+            GuiControl, SPGP:Disable, TPGValue
+            GuiControl, SPGP:Disable, DBUpdateValue
+            GuiControl, SPGP:Disable, GrizzValue
+            Loop, %Instl%\ExtModules\WithOutCardControl\*.*
+            {
+                GuiControl, SPGP:, ExtList, %A_LoopFileName%
+            }
+            Loop, %Instl%\CustomModules\WithOutCardControl\*.*
+            {
+                GuiControl, SPGP:, CustList, %A_LoopFileName%
+            }
+            Return
+
+            GrizzCheck:
+                Return
+
+            TPGCheck:
+                Return
+
+            DBUpdateCheck:
+                Return
+
+            SPGPCan:
+            SPGPGuiClose:
+                MsgBox, 36, CANCEL, Are you sure you want to cancel?
+                IfMsgBox, No
+                {
+                    Return
+                }
+                IfMsgBox, Yes
+                {
+                    Gui, SPGP:Destroy
+                    Return
+                }
+            
+            SPGPOK:
+                GuiControlGet, BuildLoc
+                Gui, Prog:Destroy
+                Gui, Prog:Add, Text, x15 y15 vProgressText, Copying installer from network...
+                Gui, Prog:Add, Progress, w400 h20 x15 y35 cBlue vProgressBar, 1
+                if BuildLoc = C:\Program Files (x86)\SalesPad.Desktop\
+                {
+                    MsgBox, 16, ERROR, Please update the install path to not be the root SalesPad Install path.`n`nFor reference, you can add the branch\buildnumber to the end of the path, easier to sort through your installed builds this way.
+                    Return
+                }
+                If FileExist(BuildLoc)
+                {
+                    MsgBox, 20, EXISTS, SalesPad is already installed in the specified location, do you want to override this install?
+                    IfMsgBox, Yes
+                    {
+                        Gui, Prog:Show,, Progress...
+                        FileRemoveDir, %BuildLoc%, 1
+                        if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+                            FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+                        FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
+                        FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+                        GuiControlGet, BuildLoc
+                        IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+                        GuiControlGet, BuildLoc
+                        GuiControlGet, ExtList
+                        GuiControlGet, CustList
+                        SPGPInstall()
+                        if ExtList = 
+                        {
+                            if CustList = 
+                            {
+                                While ! FileExist(BuildLoc "\SalesPad.exe")
+                                {
+                                    Sleep 250
+                                }
+                                GuiControl, Prog:, ProgressBar, 100
+                                GuiControl, Prog:, ProgressText, Complete!
+                                Sleep 1000
+                                Gui, Prog: Destroy
+                                Run, %BuildLoc%\SalesPad.exe
+                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                Gui, SPGP:Destroy
+                                Return
+                            }
+                            if CustList != 
+                            {
+                                Loop, Parse, CustList, |
+                                {
+                                    FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                                }
+                                run, "Scripts\FileUnzipAndMove.bat"
+                                WinWait, C:\windows\system32\cmd.exe
+                                WinWaitClose
+                                While ! FileExist(BuildLoc "\SalesPad.exe")
+                                {
+                                    Sleep 250
+                                }
+                                GuiControl, Prog:, ProgressBar, 85
+                                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                                GuiControl, Prog:, ProgressBar, 100
+                                GuiControl, Prog:, ProgressText, Complete!
+                                Sleep 1000
+                                Gui, Prog: Destroy
+                                Run, %BuildLoc%\SalesPad.exe
+                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                Loop, Parse, CustList, `|
+                                {
+                                    FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                }
+                                Gui, SPGP:Destroy
+                                Return
+                            }
+                        }
+                        if ExtList != 
+                        {
+                            if CustList = 
+                            {
+                                Loop, Parse, ExtList, |
+                                {
+                                    FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                                }
+                                run, "Scripts\FileUnzipAndMove.bat"
+                                WinWait, C:\windows\system32\cmd.exe
+                                WinWaitClose
+                                While ! FileExist(BuildLoc "\SalesPad.exe")
+                                {
+                                    Sleep 250
+                                }
+                                GuiControl, Prog:, ProgressBar, 85
+                                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                                GuiControl, Prog:, ProgressBar, 100
+                                GuiControl, Prog:, ProgressText, Complete!
+                                Sleep 1000
+                                Gui, Prog: Destroy
+                                Run, %BuildLoc%\SalesPad.exe
+                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                Loop, Parse, ExtList, `|
+                                {
+                                    FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                }
+                                Gui, SPGP:Destroy
+                                Return
+                            }
+                            if CustList != 
+                            {
+                                Loop, Parse, CustList, |
+                                {
+                                    FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                                }
+                                Loop, Parse, ExtList, |
+                                {
+                                    FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                                }
+                                Sleep 2000
+                                run, "Scripts\FileUnzipAndMove.bat"
+                                WinWait, C:\windows\system32\cmd.exe
+                                WinWaitClose
+                                While ! FileExist(BuildLoc "\SalesPad.exe")
+                                {
+                                    Sleep 250
+                                }
+                                GuiControl, Prog:, ProgressBar, 85
+                                FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                                FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                                GuiControl, Prog:, ProgressBar, 100
+                                GuiControl, Prog:, ProgressText, Complete!
+                                Sleep 1000
+                                Gui, Prog: Destroy
+                                Run, %BuildLoc%\SalesPad.exe
+                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                Loop, Parse, CustList, `|
+                                {
+                                    FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                }
+                                Loop, Parse, ExtList, `|
+                                {
+                                    FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                }
+                                Gui, SPGP:Destroy
+                                Return
+                            }
+                        }
+                    }
+                    IfMsgBox, No
+                    {
+                        MsgBox, 16, CANCEL, Install was canceled, existing install was not removed.
+                        Return
+                    }
+                }
+                Else
+                {
+                    Gui, Prog:Show,, Progress...
+                    if FileExist("C:\#EnvMgr\TEMPFILES\INSTALLERS")
+                        FileRemoveDir, C:\#EnvMgr\TEMPFILES\INSTALLERS, 1
+                    FileCreateDir, C:\#EnvMgr\TEMPFILES\INSTALLERS
+                    FileCopy, %SelectedFile%, C:\#EnvMgr\TEMPFILES\INSTALLERS
+                    GuiControl, Prog:, ProgressBar, 40
+                    GuiControl, Prog:, ProgressText, Grabbing DLLs...
+                    GuiControlGet, BuildLoc
+                    GuiControlGet, CheckB
+                    IniWrite, %Instl%, Settings\Paths.ini, LastInstalledBuild, SPGP
+                    GuiControl, Prog:, ProgressBar, 70
+                    GuiControl, Prog:, ProgressText, Installing SalesPad...
+                    GuiControlGet, BuildLoc
+                    GuiControlGet, ExtList
+                    GuiControlGet, CustList
+                    SPGPInstall()
+                    if ExtList = 
+                    {
+                        if CustList = 
+                        {
+                            While ! FileExist(BuildLoc "\SalesPad.exe")
+                            {
+                                Sleep 250
+                            }
+                            GuiControl, Prog:, ProgressBar, 100
+                            GuiControl, Prog:, ProgressText, Complete!
+                            Sleep 1000
+                            Gui, Prog: Destroy
+                            Run, %BuildLoc%\SalesPad.exe
+                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            Gui, SPGP:Destroy
+                            Return
+                        }
+                        if CustList != 
+                        {
+                            Loop, Parse, CustList, |
+                            {
+                                FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                            }
+                            run, "Scripts\FileUnzipAndMove.bat"
+                            WinWait, C:\windows\system32\cmd.exe
+                            WinWaitClose
+                            While ! FileExist(BuildLoc "\SalesPad.exe")
+                            {
+                                Sleep 250
+                            }
+                            GuiControl, Prog:, ProgressBar, 85
+                            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                            GuiControl, Prog:, ProgressBar, 100
+                            GuiControl, Prog:, ProgressText, Complete!
+                            Sleep 1000
+                            Gui, Prog: Destroy
+                            Run, %BuildLoc%\SalesPad.exe
+                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            Loop, Parse, CustList, `|
+                            {
+                                FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                            }
+                            Gui, SPGP:Destroy
+                            Return
+                        }
+                    }
+                    if ExtList != 
+                    {
+                        if CustList = 
+                        {
+                            Loop, Parse, ExtList, |
+                            {
+                                FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                            }
+                            run, "Scripts\FileUnzipAndMove.bat"
+                            WinWait, C:\windows\system32\cmd.exe
+                            WinWaitClose
+                            While ! FileExist(BuildLoc "\SalesPad.exe")
+                            {
+                                Sleep 250
+                            }
+                            GuiControl, Prog:, ProgressBar, 85
+                            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                            GuiControl, Prog:, ProgressBar, 100
+                            GuiControl, Prog:, ProgressText, Complete!
+                            Sleep 1000
+                            Gui, Prog: Destroy
+                            Run, %BuildLoc%\SalesPad.exe
+                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            Loop, Parse, ExtList, `|
+                            {
+                                FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                            }
+                            Gui, SPGP:Destroy
+                            Return
+                        }
+                        if CustList != 
+                        {
+                            Loop, Parse, CustList, |
+                            {
+                                FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                            }
+                            Loop, Parse, ExtList, |
+                            {
+                                FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
+                            }
+                            Sleep 2000
+                            run, "Scripts\FileUnzipAndMove.bat"
+                            WinWait, C:\windows\system32\cmd.exe
+                            WinWaitClose
+                            While ! FileExist(BuildLoc "\SalesPad.exe")
+                            {
+                                Sleep 250
+                            }
+                            GuiControl, Prog:, ProgressBar, 85
+                            FileCopy, C:\#EnvMgr\TEMPFILES\DLLs\*.*, %BuildLoc%
+                            FileDelete, C:\#EnvMgr\TEMPFILES\DLLs\*.*
+                            GuiControl, Prog:, ProgressBar, 100
+                            GuiControl, Prog:, ProgressText, Complete!
+                            Sleep 1000
+                            Gui, Prog: Destroy
+                            Run, %BuildLoc%\SalesPad.exe
+                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            Loop, Parse, CustList, `|
+                            {
+                                FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                            }
+                            Loop, Parse, ExtList, `|
+                            {
+                                FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                            }
+                            Gui, SPGP:Destroy
+                            Return
+                        }
+                    }
+                }
+        }
+        If ((Combo2 = "SalesPad Mobile") || (Combo2 = "DataCollection") || (Combo2 = "Windows Mobile") || (Combo2 = "Ship Center") || (Combo2 = "Card Control"))
+        {
+            MsgBox, 0, test, SalesPad Desktop wasn't selected
+            Return
+        }
     }
     IfMsgBox, No
     {
@@ -1365,11 +1715,13 @@ Always:
     GuiControlGet, Always
     If Always = 0
     {
+        GuiControl, +cRed +Redraw, Always
         Gui, -AlwaysOnTop
         Return
     }
     If Always = 1
     {
+        GuiControl, +cBlack +Redraw, Always
         Gui, +AlwaysOnTop
         Return
     }
