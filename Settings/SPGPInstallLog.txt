@@ -221,3 +221,9 @@
 {2019-10-28 09:26:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-2775\4.6.4.17.76
 {2019-10-28 10:07:37}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
 {2019-10-28 14:49:45}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2928\4.6.4.16.117
+{2019-10-29 14:08:14}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.17.Zip
+{2019-10-29 14:23:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\SPGP-2792\4.6.4.16.22
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.16.Zip
+{2019-10-29 15:04:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2928\4.6.4.16.117
+	Extended - SalesPad.Module.CaseTracker.4.6.4.16.Zip

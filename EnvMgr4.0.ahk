@@ -109,6 +109,12 @@ Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
 GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
 
 Gui, Add, Checkbox, x12 y430 vAlways gAlways, Always On Top
+If A_UserName = steve.rodriguez
+{
+    Gui, Font, Underline cBlue
+    Gui, Add, Text, x216 y430 vF8Utils gF8Utils, Utilities
+    Gui, Font
+}
 Gui, Add, Text, x294 y430 gIPText vIPText, IP Address:
 Gui, Add, Edit, x354 y427 w100 vIP cgray ReadOnly, %A_IPAddress1%
 
@@ -1725,6 +1731,26 @@ Always:
         Gui, +AlwaysOnTop
         Return
     }
+
+F8Utils:
+    Gui, F8Script:Add, ComboBox, x15 y15 w200 vF8Combo, Select a script to run||
+    Gui, F8Script:Add, Button, x14 y36 w202 h23 gF8Run, Run
+    Gui, F8Script:Show,, Run Script 
+
+    Loop, C:\Users\steve.rodriguez\Desktop\Scripts\*.ahk
+    {
+        ;GuiControl, F8Script:, F8Combo, RTrim(%A_LoopFileName%, ".ahk")
+        GuiControl, F8Script:, F8Combo, RegExMatch(A_LoopFileName, ".ahk", Output)
+        ;GuiControl, F8Script:, F8Combo, %A_LoopFileName%
+    }
+    Return
+
+    F8Run:
+        Return
+
+    F8ScriptGuiClose:
+        Gui, F8Script:Destroy
+        Return
 
 ;=================================================================================================================================
 ;   END
