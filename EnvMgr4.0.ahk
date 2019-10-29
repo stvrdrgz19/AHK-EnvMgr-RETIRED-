@@ -75,12 +75,12 @@ GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
 ;Gui, Font, s9
 Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||SalesPad Desktop|SalesPad Mobile|DataCollection|Windows Mobile|Ship Center|Card Control ;|Web API|Web Portal
-Gui, Add, Button, x24 y300 w100 h25 gLaunchBuild, Launch Build
-Gui, Add, Button, x129 y300 w100 h25 gAddDLL, Add DLLs 
-Gui, Add, Button, x234 y300 w100 h25 gBuildFolder, Build Folder
 ;Gui, Font, s9 bold
-Gui, Add, Button, x339 y300 w100 h25 gInstall, Install
+Gui, Add, Button, x24 y300 w100 h25 gInstall, Install
 ;Gui, Font, s9 norm
+Gui, Add, Button, x129 y300 w100 h25 gLaunchBuild, Launch Build
+Gui, Add, Button, x234 y300 w100 h25 gAddDLL, Add DLLs 
+Gui, Add, Button, x339 y300 w100 h25 gBuildFolder, Build Folder
 
 IniRead, GP1, Settings\Settings.ini, GPButtonLabels, GPButton1
 IniRead, GP2, Settings\Settings.ini, GPButtonLabels, GPButton2
