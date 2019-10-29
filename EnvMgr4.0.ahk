@@ -1740,7 +1740,7 @@ F8Utils:
     Loop, C:\Users\steve.rodriguez\Desktop\Scripts\*.ahk
     {
         ;GuiControl, F8Script:, F8Combo, RTrim(%A_LoopFileName%, ".ahk")
-        GuiControl, F8Script:, F8Combo, RegExMatch(A_LoopFileName, ".ahk", Output)
+        GuiControl, F8Script:, F8Combo, RegExMatch(A_LoopFileName, ".ahk", Output) ; might need to move regexmatch out of the guicontrol, and guicontrol the Output variable
         ;GuiControl, F8Script:, F8Combo, %A_LoopFileName%
     }
     Return
