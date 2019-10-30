@@ -1196,7 +1196,8 @@ Install:
                                 FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
-                                    FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                    CDLL := Rtrim(A_LoopField, ".Zip")
+                                    FileAppend, %A_Tab%Custom - %CDLL%`n, Settings\SPGPInstallLog.txt
                                 }
                                 Gui, SPGP:Destroy
                                 Return
@@ -1228,7 +1229,8 @@ Install:
                                 FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, ExtList, `|
                                 {
-                                    FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                    EDLL := Rtrim(A_LoopField, ".Zip")
+                                    FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                                 }
                                 Gui, SPGP:Destroy
                                 Return
@@ -1262,11 +1264,13 @@ Install:
                                 FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
-                                    FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                    CDLL := Rtrim(A_LoopField, ".Zip")
+                                    FileAppend, %A_Tab%Custom - %CDLL%`n, Settings\SPGPInstallLog.txt
                                 }
                                 Loop, Parse, ExtList, `|
                                 {
-                                    FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                    EDLL := Rtrim(A_LoopField, ".Zip")
+                                    FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                                 }
                                 Gui, SPGP:Destroy
                                 Return
@@ -1338,7 +1342,8 @@ Install:
                             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
-                                FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                CDLL := Rtrim(A_LoopField, ".Zip")
+                                FileAppend, %A_Tab%Custom - %CDLL%`n, Settings\SPGPInstallLog.txt
                             }
                             Gui, SPGP:Destroy
                             Return
@@ -1370,7 +1375,8 @@ Install:
                             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, ExtList, `|
                             {
-                                FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                EDLL := Rtrim(A_LoopField, ".Zip")
+                                FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                             }
                             Gui, SPGP:Destroy
                             Return
@@ -1404,11 +1410,13 @@ Install:
                             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
-                                FileAppend, %A_Tab%Custom - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                CDLL := Rtrim(A_LoopField, ".Zip")
+                                FileAppend, %A_Tab%Custom - %CDLL%`n, Settings\SPGPInstallLog.txt
                             }
                             Loop, Parse, ExtList, `|
                             {
-                                FileAppend, %A_Tab%Extended - %A_LoopField%`n, Settings\SPGPInstallLog.txt
+                                EDLL := Rtrim(A_LoopField, ".Zip")
+                                FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                             }
                             Gui, SPGP:Destroy
                             Return
@@ -1737,15 +1745,29 @@ F8Utils:
     Gui, F8Script:Add, Button, x14 y36 w202 h23 gF8Run, Run
     Gui, F8Script:Show,, Run Script 
 
-    Loop, C:\Users\steve.rodriguez\Desktop\Scripts\*.ahk
+    Loop, C:\Users\steve.rodriguez\Desktop\Scripts\F8Scripts\*.ahk
     {
-        ;GuiControl, F8Script:, F8Combo, RTrim(%A_LoopFileName%, ".ahk")
-        GuiControl, F8Script:, F8Combo, RegExMatch(A_LoopFileName, ".ahk", Output) ; might need to move regexmatch out of the guicontrol, and guicontrol the Output variable
-        ;GuiControl, F8Script:, F8Combo, %A_LoopFileName%
+        Result := RTrim(A_LoopFileName, ".ahk")
+        GuiControl, F8Script:, F8Combo, %Result%
     }
     Return
 
     F8Run:
+        GuiControlGet, F8Combo
+        If F8Combo = Select a script to run
+        {
+            MsgBox, 16, ERROR, Please select a script to run.
+            Return
+        }
+        IniRead, F8ScriptPID, Settings\Settings.ini, F8Scripts, PID
+        Process, Close, %F8ScriptPID%
+        If ErrorLevel = 0
+        {
+            MsgBox, 16, ERROR, A process with a PID value of %F8ScriptPID% is not currently running, or could not be closed. Please check manually if a F8 Script is running.
+        }
+        Run, C:\Users\steve.rodriguez\Desktop\Scripts\F8Scripts\%F8Combo%.ahk,,, F8PID
+        IniWrite, %F8PID%, Settings\Settings.ini, F8Scripts, PID
+        Gui, F8Script:Destroy
         Return
 
     F8ScriptGuiClose:

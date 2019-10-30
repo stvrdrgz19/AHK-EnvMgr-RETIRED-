@@ -227,3 +227,11 @@
 	Extended - SalesPad.Module.SalesPadEDI.4.6.4.16.Zip
 {2019-10-29 15:04:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2928\4.6.4.16.117
 	Extended - SalesPad.Module.CaseTracker.4.6.4.16.Zip
+{2019-10-30 08:32:43}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+{2019-10-30 08:48:32}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SOL-2942\4.6.4.17.21
+	Extended - SalesPad.Module.PayFabricMigrator.4.6.4.17.Zip
+{2019-10-30 10:53:56}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+	Custom - SalesPad.Module.AccentWire.4.6.4.17
+	Custom - SalesPad.Module.Beekley.4.6.4.17
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.17
+	Extended - SalesPad.Module.CaseTracker.4.6.4.17
