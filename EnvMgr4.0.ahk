@@ -48,6 +48,7 @@ Menu, ToolsMenu, Add, &Utilities, Utilities
 Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
 Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
 Menu, ToolsMenu, Add, &Database Log, Log
+Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
 
 Menu, HelpMenu, Add, &About, AboutScreen
 
@@ -447,6 +448,72 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
 
     HubIcon:
         Run, chrome.exe https://github.com/stvrdrgz19
+        Return
+
+GetInstalledDLLs:
+    Gui, InstlDLL:Add, Text, x15 y15, Select a build to display the DLLs for:
+    Gui, InstlDLL:Add, Edit, x15 y35 w400 ReadOnly vE1, 
+    Gui, InstlDLL:Add, Button, x415 y34 w23 h23 gSelectFolder, ...
+    Gui, InstlDLL:Add, ListBox, Multi x15 y65 w422 r15 vLB1,
+    Gui, InstlDLL:Add, Button, x338 y275 w100 h25 gCopy, Copy DLL Label(s)
+    Gui, InstlDLL:Show, w452 h310, Get Installed DLL(s)
+    Return
+
+    SelectFolder:
+        FileSelectFolder, InstalledBuild,  C:\Program Files (x86)\SalesPad.Desktop, 3, Select an install folder:
+        If InstalledBuild = 
+        {
+            MsgBox, 16, ERROR, Nothing was selected!
+            Return
+        }
+        GuiControl, InstlDLL:, E1, %InstalledBuild%
+        Loop, %InstalledBuild%\SalesPad.Module.*.dll
+        {
+            If(A_LoopFileName != "SalesPad.Module.App.dll")
+            If(A_LoopFileName != "SalesPad.Module.ARTransactionEntry.dll")
+            If(A_LoopFileName != "SalesPad.Module.AvaTax.dll")
+            If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOffice.dll")
+            If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOnlineWS.dll")
+            If(A_LoopFileName != "SalesPad.Module.Ccp.dll")
+            If(A_LoopFileName != "SalesPad.Module.CRM.dll")
+            If(A_LoopFileName != "SalesPad.Module.Dashboard.dll")
+            If(A_LoopFileName != "SalesPad.Module.DistributionBOM.dll")
+            If(A_LoopFileName != "SalesPad.Module.DocumentManagement.dll")
+            If(A_LoopFileName != "SalesPad.Module.EquipmentManagement.dll")
+            If(A_LoopFileName != "SalesPad.Module.FedExServiceManager.dll")
+            If(A_LoopFileName != "SalesPad.Module.GP2010.dll")
+            If(A_LoopFileName != "SalesPad.Module.GP2010SP2.dll")
+            If(A_LoopFileName != "SalesPad.Module.GP2013.dll")
+            If(A_LoopFileName != "SalesPad.Module.GP2013R2.dll")
+            If(A_LoopFileName != "SalesPad.Module.Inventory.dll")
+            If(A_LoopFileName != "SalesPad.Module.NodusPayFabric.dll")
+            If(A_LoopFileName != "SalesPad.Module.Printing.dll")
+            If(A_LoopFileName != "SalesPad.Module.Purchasing.dll")
+            If(A_LoopFileName != "SalesPad.Module.QuickReports.dll")
+            If(A_LoopFileName != "SalesPad.Module.Reporting.dll")
+            If(A_LoopFileName != "SalesPad.Module.ReturnsManagement.dll")
+            If(A_LoopFileName != "SalesPad.Module.Sales.dll")
+            If(A_LoopFileName != "SalesPad.Module.SalesEntryQuickPick.dll")
+            If(A_LoopFileName != "SalesPad.Module.SignaturePad.dll")
+                GuiControl,, LB1, %A_LoopFileName%`n
+        }
+        Return
+
+    Copy:
+        GuiControlGet, LB1
+        If LB1 = 
+        {
+            MsgBox, 16, ERROR, Please select a DLL to copy.
+            Return
+        }
+        OutputValue := StrReplace(LB1, "|", "")
+        OutputValue := Trim(OutputValue, "`r`n")
+        Clipboard = %OutputValue%
+        MsgBox, 0, COPIED, Selected DLLs have been copied to the Clipboard., 1
+        Return
+
+    InstlDLLGuiClose:
+        Gui, InstlDLL:Destroy
         Return
 
 SettingsScreen:
