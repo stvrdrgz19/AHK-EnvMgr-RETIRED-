@@ -32,6 +32,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\FileSelectFolder.ahk
 #Include, Functions\LoadGPDisabled.ahk
 #Include, Functions\SPGPInstall.ahk
+#Include, Functions\LaunchBuild.ahk
+#Include, Functions\LaunchBuildFolder.ahk
 
 If A_IsAdmin = 0
 {
@@ -1506,56 +1508,18 @@ Install:
 LaunchBuild:
     GuiControlGet, Combo2
     ButtonCounters("LaunchBuild")
-    IniRead, LocSPGP, Settings\Settings.ini, InstallPaths, LSPGP
-    IniRead, LocSPM, Settings\Settings.ini, InstallPaths, LSPM
-    IniRead, LocDC, Settings\Settings.ini, InstallPaths, LDC
-    IniRead, LocSC, Settings\Settings.ini, InstallPaths, LSC
-    IniRead, LocCC, Settings\Settings.ini, InstallPaths, LCC
     If Combo2 = Select a Product to Install
     {
-        MsgBox, 16, ERROR, Please select a Product to launch.
+        MsgBox, 16, ERROR, Please select a product to launch.
         Return
     }
-    If Combo2 = SalesPad Desktop
+    If Combo2 = Windows Mobile
     {
-        FileSelectFile, SelectedFile, 1, %LocSPGP%\, Select a Build, *.exe
-        If ErrorLevel
-            Return
-        Run, %SelectedFile%
+        MsgBox, 16, ERROR, Windows Mobile is not yet supported as an option here.
         Return
     }
-    If Combo2 = SalesPad Mobile
-    {
-        FileSelectFile, SelectedFile, 1, %LocSPM%\, Select a Build, *.exe
-        If ErrorLevel
-            Return
-        Run, %SelectedFile%
-        Return
-    }
-    If Combo2 = DataCollection
-    {
-        FileSelectFile, SelectedFile, 1, %LocDC%\, Select a Build, *.exe
-        If ErrorLevel
-            Return
-        Run, %SelectedFile%
-        Return
-    }
-    If Combo2 = Ship Center
-    {
-        FileSelectFile, SelectedFile, 1, %LocSC%\, Select a Build, *.exe
-        If ErrorLevel
-            Return
-        Run, %SelectedFile%
-        Return
-    }
-    If Combo2 = Card Control
-    {
-        FileSelectFile, SelectedFile, 1, %LocCC%\, Select a Build, *.exe
-        If ErrorLevel
-            Return
-        Run, %SelectedFile%
-        Return
-    }
+    LaunchBuild(Combo2)
+    Return
 
 AddDLL:
     GuiControlGet, Combo2
@@ -1587,36 +1551,13 @@ BuildFolder:
         MsgBox, 16, ERROR, Please select a SalesPad Product whose install folder you would like to launch.
         Return
     }
-    If Combo2 = SalesPad Desktop
-    {
-        Run, %LocSPGP%
-        Return
-    }
-    If Combo2 = SalesPad Mobile
-    {
-        Run, %LocSPM%
-        Return
-    }
-    If Combo2 = DataCollection
-    {
-        Run, %LocDC%
-        Return
-    }
     If Combo2 = Windows Mobile
     {
         MsgBox, 16, ERROR, There is no %Combo2% folder to run.
         Return
     }
-    If Combo2 = Ship Center
-    {
-        Run, %LocSC%
-        Return
-    }
-    If Combo2 = Card Control
-    {
-        Run, %LocCC%
-        Return
-    }
+    LaunchBuildFolder(Combo2)
+    Return
 
 ;=================================================================================================================================
 ;   GP MANAGEMENT

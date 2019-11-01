@@ -359,3 +359,13 @@
 {2019-10-30 09:57:23}: Restored "SPGP-2480 - Bus Obj Workflow testing" backup.
 {2019-10-30 12:47:24}: Restored "MASTER" backup.
 {2019-10-30 14:46:24}: Restored "MASTER" backup.
+{2019-10-30 14:55:10}: Created "GPWEB-219 - Commas in auto filter row throws errors" backup.
+{2019-10-31 10:09:30}: Restored "MASTER" backup.
+{2019-10-31 10:25:05}: Restored "AVATAX" backup.
+{2019-10-31 11:01:43}: Created "SPGP-2810 - Avatax Certification" backup.
+{2019-10-31 11:03:00}: Restored "AVATAX" backup.
+{2019-10-31 11:36:00}: Restored "MASTER" backup.
+{2019-10-31 12:29:38}: Restored "SPGP-2810 - Avatax Certification" backup.
+{2019-11-01 08:25:50}: Restored "MASTER" backup.
+{2019-11-01 08:44:54}: Restored "MASTER" backup.
+{2019-11-01 09:40:11}: Restored "MASTER" backup.
