@@ -34,6 +34,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\SPGPInstall.ahk
 #Include, Functions\LaunchBuild.ahk
 #Include, Functions\LaunchBuildFolder.ahk
+#Include, Functions\InstallBuilds.ahk
 
 If A_IsAdmin = 0
 {
@@ -1493,11 +1494,60 @@ Install:
                     }
                 }
         }
-        If ((Combo2 = "SalesPad Mobile") || (Combo2 = "DataCollection") || (Combo2 = "Windows Mobile") || (Combo2 = "Ship Center") || (Combo2 = "Card Control"))
+        If Combo2 = SalesPad Mobile
         {
-            MsgBox, 0, test, SalesPad Desktop wasn't selected
+            InstallBuilds("SalesPadMobile","\\sp-fileserv-01\Shares\Builds\Ares\Mobile-Server\","Select a SalesPad Mobile Server Build:","C:\Program Files (x86)\SalesPad.GP.Mobile.Server\","Install SalesPad GP Mobile Server","SalesPad.GP.Mobile.Server.exe")
             Return
         }
+        If Combo2 = DataCollection
+        {
+            InstallBuilds("DataCollection","\\sp-fileserv-01\Shares\Builds\Ares\DataCollection\","Select a DataCollection Build:","C:\Program Files (x86)\DataCollection\","Install DataCollection","DataCollection Extended Warehouse.exe")
+            Return
+        }
+        If Combo2 = Ship Center
+        {
+            InstallBuilds("ShipCenter","\\sp-fileserv-01\Shares\Builds\ShipCenter\","Select a ShipCenter Build:","C:\Program Files (x86)\ShipCenter\","Install Ship Center","SalesPad.ShipCenter.exe")
+            Return
+        }
+        If Combo2 = Card Control
+        {
+            InstallBuilds("CardControl","\\sp-fileserv-01\Shares\Builds\Ares\","Select a Card Control Build:","C:\Program Files (x86)\CardControl\","Install Card Control","CardControl.exe")
+            Return
+        }
+        If Combo2 = Windows Mobile
+        {
+            IniRead, CabDestination, Settings\Settings.ini, BuildManagement, SharedLocation
+            If FileExist(CabDestination "\DCSetup.Motorola.*.CAB")
+            {
+                MsgBox, 20, EXISTING CAB, Motorola CAB file already exists. Would you like to remove the existing Motorola CAB file?
+                IfMsgBox, Yes
+                {
+                    FileDelete, %CabDestination%\DCSetup.Motorola.*.CAB
+                }
+                IfMsgBox, No
+                {
+                    MsgBox, 0, CANCEL, CAB file was NOT deleted.
+                }
+            }
+            ButtonCounters("Cab")
+            FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a Windows Mobile file to move, *.cab
+            if CabFile = 
+            {
+                MsgBox, 16, ERROR, Nothing was selected.
+                Return
+            }
+            if CabFile !=
+            {
+                FileCopy, %CabFile%, %CabDestination%
+                Return
+            }
+            Return
+        }
+        ;If ((Combo2 = "SalesPad Mobile") || (Combo2 = "DataCollection") || (Combo2 = "Windows Mobile") || (Combo2 = "Ship Center") || (Combo2 = "Card Control"))
+        ;{
+        ;    MsgBox, 0, test, SalesPad Desktop wasn't selected
+        ;    Return
+        ;}
     }
     IfMsgBox, No
     {
