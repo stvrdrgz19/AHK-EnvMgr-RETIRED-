@@ -246,3 +246,25 @@
 {2019-11-01 15:20:33}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Apet\SPGP-2524\4.6.4.4.226
 	Extended - SalesPad.Module.SalesPadEDI.4.6.4.4
 {2019-11-04 08:32:04}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2965\4.6.4.18.8
+{2019-11-05 07:59:18}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\Customers\CoachGlass\SPGP-2925\4.6.4.4.146
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.4
+{2019-11-05 08:35:10}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Ryan_Gole\SOL-7914\4.6.4.18.7
+{2019-11-05 08:59:33}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Ryan_Gole\SOL-7914\4.6.4.18.7
+	Extended - SalesPad.Module.ThomsonReuters.4.6.4.18
+{2019-11-05 10:58:23}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\Customers\CoachGlass\SPGP-2925\4.6.4.4.148
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.4
+{2019-11-05 15:47:28}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2480\4.6.4.16.112
+	Extended - SalesPad.Module.CaseTracker.4.6.4.16
+{2019-11-05 15:49:17}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2480\4.6.4.16.113
+	Extended - SalesPad.Module.CaseTracker.4.6.4.16
+{2019-11-06 11:21:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.17
+{2019-11-06 14:45:36}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.17
+{2019-11-07 07:27:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\BusObjWorkflow\SPGP-2480\4.6.4.16.114
+	Extended - SalesPad.Module.CaseTracker.4.6.4.16
+{2019-11-07 08:46:32}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SOL-7852\4.6.4.18.5
+{2019-11-07 09:36:54}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+{2019-11-07 10:34:42}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.17
+{2019-11-07 12:03:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Joseph_Bentley\SPGP-3040\4.6.4.18.25
+{2019-11-07 15:51:46}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2894\4.6.4.18.5

@@ -30,11 +30,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\EditEntryVariableGUI.ahk
 #Include, Functions\FileSelectFile.ahk
 #Include, Functions\FileSelectFolder.ahk
-#Include, Functions\LoadGPDisabled.ahk
+#Include, Functions\LoadGPEnabled.ahk
 #Include, Functions\SPGPInstall.ahk
 #Include, Functions\LaunchBuild.ahk
 #Include, Functions\LaunchBuildFolder.ahk
 #Include, Functions\InstallBuilds.ahk
+#Include, Functions\LoadSPCEnabled.ahk
+#Include, Functions\LoadProductEnabled.ahk
+#Include, Functions\SaveSettingsGPCheckbox.ahk
 
 If A_IsAdmin = 0
 {
@@ -78,7 +81,7 @@ GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 ;Gui, Font, s10
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
 ;Gui, Font, s9
-Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||SalesPad Desktop|SalesPad Mobile|DataCollection|Windows Mobile|Ship Center|Card Control ;|Web API|Web Portal
+Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||
 ;Gui, Font, s9 bold
 Gui, Add, Button, x24 y300 w100 h25 gInstall, Install
 ;Gui, Font, s9 norm
@@ -86,28 +89,18 @@ Gui, Add, Button, x129 y300 w100 h25 gLaunchBuild, Launch Build
 Gui, Add, Button, x234 y300 w100 h25 gAddDLL, Add DLLs 
 Gui, Add, Button, x339 y300 w100 h25 gBuildFolder, Build Folder
 
-IniRead, GP1, Settings\Settings.ini, GPButtonLabels, GPButton1
-IniRead, GP2, Settings\Settings.ini, GPButtonLabels, GPButton2
-IniRead, GP3, Settings\Settings.ini, GPButtonLabels, GPButton3
-IniRead, GP4, Settings\Settings.ini, GPButtonLabels, GPButton4
-IniRead, GP5, Settings\Settings.ini, GPButtonLabels, GPButton5
 ;Gui, Font, s10
 Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
 ;Gui, Font, s9
-Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||%GP1%|%GP2%|%GP3%|%GP4%|%GP5%
+Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||
 Gui, Add, Button, x110 y390 w100 h25 gLaunchGP, Launch
 Gui, Add, Button, x80 y390 w25 h25 gGPFolder hwndIconGP
 GuiButtonIcon(IconGP, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159,"s21")
 
-IniRead, SPC1, Settings\Settings.ini, CloudButtonNames, 01
-IniRead, SPC2, Settings\Settings.ini, CloudButtonNames, 02
-IniRead, SPC3, Settings\Settings.ini, CloudButtonNames, 03
-IniRead, SPC4, Settings\Settings.ini, CloudButtonNames, 04
-IniRead, SPC5, Settings\Settings.ini, CloudButtonNames, 05
 ;Gui, Font, s10
 Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
 ;Gui, Font, s9
-Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud to Delete||%SPC1%|%SPC2%|%SPC3%|%SPC4%|%SPC5%
+Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud to Delete||
 Gui, Add, Button, x339 y390 w100 h25 gDeleteCloud, Delete
 Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
 GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
@@ -126,175 +119,15 @@ LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","Restore")
 LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","Overwrite")
 LoadFromSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
 LoadFromSettings("NewLoad","DBManagement","New","CheckNew","NewDB")
-; The refresh button no longer exists ;LoadFromSettings("RefreshLoad","DBManagement","Refresh","CheckRefresh","Refresh")
 LoadFromSettings("BackupsFolderLoad","DBManagement","BackupsFolder","CheckBackupsFolder","DBFolder")
 LoadFromSettings("AddDescriptionLoad","DBManagement","AddDescription","CheckAddDesc","AddDesc")
-
-; Needs to be replaced by new Funct ;LoadFromSettings("DesktopLoad","BuildManagement","SalesPad","DisableSP","BDesktop")
-; Needs to be replaced by new Funct ;LoadFromSettings("MobileLoad","BuildManagement","Mobile","DisableMOB","BMobile")
-; Needs to be replaced by new Funct ;LoadFromSettings("DataCollectionLoad","BuildManagement","DataCollection","DisableDC","BDataCollection")
-; Needs to be replaced by new Funct ;LoadFromSettings("ShipCenterLoad","BuildManagement","ShipCenter","DisableSC","BShipCenter")
-; Needs to be replaced by new Funct ;LoadFromSettings("CardControlLoad","BuildManagement","CardControl","DisableCC","BCardControl")
-; Needs to be replaced by new Funct ;LoadFromSettings("GPAPILoad","BuildManagement","API","DisableAPI","GPAPI")
-; Needs to be replaced by new Funct ;LoadFromSettings("GPWEBLoad","BuildManagement","Web","DisableWeb","GPWEB")
 LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","LaunchBuild")
 LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLL")
 LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BuildFolder")
+LoadGPEnabled()
+LoadSPCEnabled()
+LoadProductEnabled()
 
-; Needs to be replaced by new Funct ;LoadFromSettings("Dyn10Load","GPButtons","Dynamics10","CheckDyn10","D10")
-; Needs to be replaced by new Funct ;LoadFromSettings("Dyn13Load","GPButtons","Dynamics13","CheckDyn13","D13")
-; Needs to be replaced by new Funct ;LoadFromSettings("Dyn15Load","GPButtons","Dynamics15","CheckDyn15","D15")
-; Needs to be replaced by new Funct ;LoadFromSettings("Dyn16Load","GPButtons","Dynamics16","CheckDyn16","D16")
-; Needs to be replaced by new Funct ;LoadFromSettings("Dyn18Load","GPButtons","Dynamics18","CheckDyn18","D18")
-
-; Needs to be replaced by new Funct ;LoadFromSettings("Cloud01Load","SPCButtons","Cloud1","CheckSPC1","Cloud01")
-; Needs to be replaced by new Funct ;LoadFromSettings("Cloud02Load","SPCButtons","Cloud2","CheckSPC2","Cloud02")
-; Needs to be replaced by new Funct ;LoadFromSettings("Cloud03Load","SPCButtons","Cloud3","CheckSPC3","Cloud03")
-; Needs to be replaced by new Funct ;LoadFromSettings("Cloud04Load","SPCButtons","Cloud4","CheckSPC4","Cloud04")
-; Needs to be replaced by new Funct ;LoadFromSettings("Cloud05Load","SPCButtons","Cloud5","CheckSPC5","Cloud05")
-
-;LoadGPDisabled()
-/*
-IniRead, GP1, Settings\Settings.ini, GPButtons, Dynamics10
-IniRead, GP2, Settings\Settings.ini, GPButtons, Dynamics13
-IniRead, GP3, Settings\Settings.ini, GPButtons, Dynamics15
-IniRead, GP4, Settings\Settings.ini, GPButtons, Dynamics16
-IniRead, GP5, Settings\Settings.ini, GPButtons, Dynamics18
-IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton1
-IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton2
-IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton3
-IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton4
-IniRead, GPLab, Settings\Settings.ini, GPButtonLabels, GPButton5
-GuiControl,, Combo3, |
-If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton3%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton4%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton3%|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||Dynamcis 1|%GPButton3%|%GPButton4%
-}
-Else If (GP1 = 1 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton2%|%GPButton4%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 0 && GP4 = 1 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton4%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||Dynamcis 2|%GPButton5%
-}
-Else If (GP1 = 1 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 0 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton1%|%GPButton3%
-}
-Else If (GP1 = 0 && GP2 = 0 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton3%|%GPButton5%
-}
-Else If (GP1 = 0 && GP2 = 1 && GP3 = 0 && GP4 = 1 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton4%|%GPButton5%
-}
-Else (GP1 = 0 && GP2 = 1 && GP3 = 1 && GP4 = 0 && GP5 = 1 )
-{
-    GuiControl,, Combo3, Select GP to Launch||%GPButton2%|%GPButton3%|%GPButton5%
-}
-*/
 IniRead, xLoc, Settings\Settings.ini, Position, xPOS
 IniRead, yLoc, Settings\Settings.ini, Position, yPOS
 Gui, Color, f9f9f9 ;FFFFFF is pure white
@@ -551,20 +384,19 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x30 y85 vCheckOverwrite, Disable Overwrite DB Button
     Gui, 4:Add, Checkbox, x30 y115 vCheckNew, Disable New Backup Button
     Gui, 4:Add, Checkbox, x30 y145 vCheckDelete, Disable Delete Backup Button
-    Gui, 4:Add, Checkbox, x260 y55 vCheckRefresh, Disable Refresh Button
-    Gui, 4:Add, Checkbox, x260 y85 vCheckBackupsFolder, Disable Backups Folder Button
-    Gui, 4:Add, Checkbox, x260 y115 vCheckAddDesc, Disable Add Description Button
+    Gui, 4:Add, Checkbox, x260 y55 vCheckBackupsFolder, Disable Backups Folder Button
+    Gui, 4:Add, Checkbox, x260 y85 vCheckAddDesc, Disable Add Description Button
     Gui, 4:Tab, 3
-    Gui, 4:Add, Checkbox, x30 y55 vDisableSP, Disable SalesPad Desktop Button
-    Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection Button
-    Gui, 4:Add, Checkbox, x30 y115 vDisableSC, Disable Ship Center Button
-    Gui, 4:Add, Checkbox, x30 y145 vDisableMOB, Disable SalesPad Mobile Button
-    Gui, 4:Add, Checkbox, x260 y55 vDisableCC, Disable Card Control Button
-    Gui, 4:Add, Checkbox, x260 y85 vDisableAPI, Disable Web API Button
-    Gui, 4:Add, Checkbox, x260 y115 vDisableWeb, Disable Web Portal Button
-    Gui, 4:Add, Checkbox, x260 y145 vDisableLaunch, Disable Launch Build Button
-    Gui, 4:Add, Checkbox, x490 y55 vDisableAdd, Disable Add DLLs Button
-    Gui, 4:Add, Checkbox, x490 y85 vDisableBuild, Disable Build Folder Button
+    Gui, 4:Add, Checkbox, x30 y55 vDisableSP, Disable SalesPad Desktop
+    Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection
+    Gui, 4:Add, Checkbox, x30 y115 vDisableSC, Disable Ship Center
+    Gui, 4:Add, Checkbox, x30 y145 vDisableMOB, Disable SalesPad Mobile
+    Gui, 4:Add, Checkbox, x260 y55 vDisableCC, Disable Card Control
+    Gui, 4:Add, Checkbox, x260 y85 vDisableAPI, Disable Web API
+    Gui, 4:Add, Checkbox, x260 y115 vDisableWeb, Disable Web Portal
+    Gui, 4:Add, Checkbox, x490 y55 vDisableLaunch, Disable Launch Build Button
+    Gui, 4:Add, Checkbox, x490 y85 vDisableAdd, Disable Add DLLs Button
+    Gui, 4:Add, Checkbox, x490 y115 vDisableBuild, Disable Build Folder Button
     Gui, 4:Add, Text, x30 y181, Shared Folder:
     Gui, 4:Add, Edit, x105 y178 w312 cGray ReadOnly vSharedF,
     Gui, 4:Add, Button, x417 y177 w23 h23 gShared, ...
@@ -700,7 +532,6 @@ SettingsScreen:
         SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
         SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
         SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
-        ; There is no longer a refresh button ;SaveSettingsCheckbox(CheckRefresh,"DBManagement","Refresh","Refresh")
         SaveSettingsCheckbox(CheckBackupsFolder,"DBManagement","BackupsFolder","BakFolder")
         SaveSettingsCheckbox(CheckAddDesc,"DBManagement","AddDescription","AddDesc")
         ; Replace with new Funct ;SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
@@ -713,11 +544,8 @@ SettingsScreen:
         SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
         SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
         SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckDyn10,"GPButtons","Dynamics10","D10")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckDyn13,"GPButtons","Dynamics13","D13")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckDyn15,"GPButtons","Dynamics15","D15")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckDyn16,"GPButtons","Dynamics16","D16")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckDyn18,"GPButtons","Dynamics18","D18")
+        SaveSettingsGPCheckbox()
+
         ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC1,"SPCButtons","Cloud1","Cloud01")
         ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC2,"SPCButtons","Cloud2","Cloud02")
         ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
@@ -736,6 +564,7 @@ SettingsScreen:
         SaveSettingsEditAndButton(GPLabel3,"GPButtonLabels","GPButton3","D15")
         SaveSettingsEditAndButton(GPLabel4,"GPButtonLabels","GPButton4","D16")
         SaveSettingsEditAndButton(GPLabel5,"GPButtonLabels","GPButton5","D18")
+        MsgBox, 48, RELOAD, You may have to reload the application to see changes.
         Return
 
     Can2:   ; Cancel the GUI screen

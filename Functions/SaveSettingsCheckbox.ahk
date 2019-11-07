@@ -18,11 +18,6 @@ SaveSettingsCheckbox(FieldToSave,Section,Key,ButtonName)
     GuiControlGet, DisableLaunch, 4:
     GuiControlGet, DisableAdd, 4:
     GuiControlGet, DisableBuild, 4:
-    GuiControlGet, CheckDyn10, 4:
-    GuiControlGet, CheckDyn13, 4:
-    GuiControlGet, CheckDyn15, 4:
-    GuiControlGet, CheckDyn16, 4:
-    GuiControlGet, CheckDyn18, 4:
     GuiControlGet, CheckSPC1, 4:
     GuiControlGet, CheckSPC2, 4:
     GuiControlGet, CheckSPC3, 4:
