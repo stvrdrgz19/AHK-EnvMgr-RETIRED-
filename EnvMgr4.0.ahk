@@ -38,6 +38,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\LoadSPCEnabled.ahk
 #Include, Functions\LoadProductEnabled.ahk
 #Include, Functions\SaveSettingsGPCheckbox.ahk
+#Include, Functions\SaveSettingsProductCheckbox.ahk
+#Include, Functions\SaveSettingsSPCCheckbox.ahk
 
 If A_IsAdmin = 0
 {
@@ -100,7 +102,7 @@ GuiButtonIcon(IconGP, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.
 ;Gui, Font, s10
 Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
 ;Gui, Font, s9
-Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud to Delete||
+Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud Tenant to Delete||
 Gui, Add, Button, x339 y390 w100 h25 gDeleteCloud, Delete
 Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
 GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
@@ -388,12 +390,13 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x260 y85 vCheckAddDesc, Disable Add Description Button
     Gui, 4:Tab, 3
     Gui, 4:Add, Checkbox, x30 y55 vDisableSP, Disable SalesPad Desktop
-    Gui, 4:Add, Checkbox, x30 y85 vDisableDC, Disable DataCollection
-    Gui, 4:Add, Checkbox, x30 y115 vDisableSC, Disable Ship Center
-    Gui, 4:Add, Checkbox, x30 y145 vDisableMOB, Disable SalesPad Mobile
-    Gui, 4:Add, Checkbox, x260 y55 vDisableCC, Disable Card Control
-    Gui, 4:Add, Checkbox, x260 y85 vDisableAPI, Disable Web API
-    Gui, 4:Add, Checkbox, x260 y115 vDisableWeb, Disable Web Portal
+    Gui, 4:Add, Checkbox, x30 y85 vDisableMOB, Disable SalesPad Mobile
+    Gui, 4:Add, Checkbox, x30 y115 vDisableDC, Disable DataCollection
+    Gui, 4:Add, Checkbox, x30 y145 vDisableDCMOB, Disable Windows Mobile
+    Gui, 4:Add, Checkbox, x260 y55 vDisableSC, Disable Ship Center
+    Gui, 4:Add, Checkbox, x260 y85 vDisableCC, Disable Card Control
+    Gui, 4:Add, Checkbox, x260 y115 vDisableAPI, Disable Web API
+    Gui, 4:Add, Checkbox, x260 y145 vDisableWeb, Disable Web Portal
     Gui, 4:Add, Checkbox, x490 y55 vDisableLaunch, Disable Launch Build Button
     Gui, 4:Add, Checkbox, x490 y85 vDisableAdd, Disable Add DLLs Button
     Gui, 4:Add, Checkbox, x490 y115 vDisableBuild, Disable Build Folder Button
@@ -534,23 +537,12 @@ SettingsScreen:
         SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
         SaveSettingsCheckbox(CheckBackupsFolder,"DBManagement","BackupsFolder","BakFolder")
         SaveSettingsCheckbox(CheckAddDesc,"DBManagement","AddDescription","AddDesc")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableSP,"BuildManagement","SalesPad","BDesktop")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableDC,"BuildManagement","DataCollection","BDataCollection")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableSC,"BuildManagement","ShipCenter","BShipCenter")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableMOB,"BuildManagement","Mobile","BMobile")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableCC,"BuildManagement","CardControl","BCardControl")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableAPI,"BuildManagement","API","GPAPI")
-        ; Replace with new Funct ;SaveSettingsCheckbox(DisableWeb,"BuildManagement","Web","GPWEB")
+        SaveSettingsProductCheckbox()
         SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
         SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
         SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
         SaveSettingsGPCheckbox()
-
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC1,"SPCButtons","Cloud1","Cloud01")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC2,"SPCButtons","Cloud2","Cloud02")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC3,"SPCButtons","Cloud3","Cloud03")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC4,"SPCButtons","Cloud4","Cloud04")
-        ; Replace with new Funct ;SaveSettingsCheckbox(CheckSPC5,"SPCButtons","Cloud5","Cloud05")
+        SaveSettingsSPCCheckbox()
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableGrizz,"BuildManagement","Grizz")
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableTPG,"BuildManagement","TPG")
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableDBUpdate,"BuildManagement","DBUpdate")
@@ -1519,7 +1511,7 @@ Octopush:
 
 DeleteCloud:
     GuiControlGet, Combo4
-    If Combo4 = Select Cloud to Delete
+    If Combo4 = Select Cloud Tenant to Delete
     {
         MsgBox, 16, ERROR, Please select a Cloud Tenant to clear tables.
         Return

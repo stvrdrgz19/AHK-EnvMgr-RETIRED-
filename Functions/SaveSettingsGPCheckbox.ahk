@@ -1,6 +1,6 @@
 SaveSettingsGPCheckbox()
 {
-    Global
+    global
     GuiControlGet, CheckDyn10, 4:
     GuiControlGet, CheckDyn13, 4:
     GuiControlGet, CheckDyn15, 4:
