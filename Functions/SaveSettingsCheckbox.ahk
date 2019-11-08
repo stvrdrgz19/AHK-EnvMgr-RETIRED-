@@ -5,16 +5,9 @@ SaveSettingsCheckbox(FieldToSave,Section,Key,ButtonName)
     GuiControlGet, CheckOverwrite, 4:
     GuiControlGet, CheckDelete, 4:
     GuiControlGet, CheckNew, 4:
-    GuiControlGet, CheckRefresh, 4:    
     GuiControlGet, CheckBackupsFolder, 4:
     GuiControlGet, CheckAddDesc, 4:
-    GuiControlGet, DisableSP, 4:
-    GuiControlGet, DisableDC, 4:
-    GuiControlGet, DisableSC, 4:
-    GuiControlGet, DisableMOB, 4:
-    GuiControlGet, DisableCC, 4:
-    GuiControlGet, DisableAPI, 4:
-    GuiControlGet, DisableWeb, 4:
+    GuiControlGet, DisableInstall, 4:
     GuiControlGet, DisableLaunch, 4:
     GuiControlGet, DisableAdd, 4:
     GuiControlGet, DisableBuild, 4:

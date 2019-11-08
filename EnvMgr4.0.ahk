@@ -70,14 +70,14 @@ Gui, Menu, MyMenuBar
 Gui, Add, GroupBox, x12 w443 h235 cBlue, Database Management
 ;Gui, Font, s9
 Gui, Add, ComboBox, x25 y30 w359 vCombo1 gCombo1, Select a Database||
-Gui, Add, Button, x24 y202 w100 h25 gRestore, Restore DB
-Gui, Add, Button, x129 y202 w100 h25 gOverwrite, Overwrite DB
-Gui, Add, Button, x234 y202 w100 h25 gNewDB, New Backup
-Gui, Add, Button, x339 y202 w100 h25 gDelete, Delete Backup
+Gui, Add, Button, x24 y202 w100 h25 vRestore gRestore, Restore DB
+Gui, Add, Button, x129 y202 w100 h25 vOverwrite gOverwrite, Overwrite DB
+Gui, Add, Button, x234 y202 w100 h25 vNewDB gNewDB, New Backup
+Gui, Add, Button, x339 y202 w100 h25 vDelete gDelete, Delete Backup
 Gui, Add, Edit, ReadOnly cGray x25 y55 w413 r10 vDBDesc, =================================================================`n========SELECT A DATABASE BACKUP TO LOAD A DESCRIPTION========`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================
-Gui, Add, Button, x386 y28 w25 h25 gDBFolder hwndIconDBFolder,
+Gui, Add, Button, x386 y28 w25 h25 vDBFolder gDBFolder hwndIconDBFolder,
 GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
-Gui, Add, Button, x413 y28 w25 h25 gAddDesc hwndIconAdd,
+Gui, Add, Button, x413 y28 w25 h25 vAddDesc gAddDesc hwndIconAdd,
 GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
 ;Gui, Font, s10
@@ -85,26 +85,26 @@ Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
 ;Gui, Font, s9
 Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||
 ;Gui, Font, s9 bold
-Gui, Add, Button, x24 y300 w100 h25 gInstall, Install
+Gui, Add, Button, x24 y300 w100 h25 vInstall gInstall, Install
 ;Gui, Font, s9 norm
-Gui, Add, Button, x129 y300 w100 h25 gLaunchBuild, Launch Build
-Gui, Add, Button, x234 y300 w100 h25 gAddDLL, Add DLLs 
-Gui, Add, Button, x339 y300 w100 h25 gBuildFolder, Build Folder
+Gui, Add, Button, x129 y300 w100 h25 vLaunchBuild gLaunchBuild, Launch Build
+Gui, Add, Button, x234 y300 w100 h25 vAddDLL gAddDLL, Add DLLs 
+Gui, Add, Button, x339 y300 w100 h25 vBuildFolder gBuildFolder, Build Folder
 
 ;Gui, Font, s10
 Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
 ;Gui, Font, s9
 Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||
-Gui, Add, Button, x110 y390 w100 h25 gLaunchGP, Launch
-Gui, Add, Button, x80 y390 w25 h25 gGPFolder hwndIconGP
+Gui, Add, Button, x110 y390 w100 h25 vLaunchGP gLaunchGP, Launch
+Gui, Add, Button, x80 y390 w25 h25 vGPFolder gGPFolder hwndIconGP
 GuiButtonIcon(IconGP, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159,"s21")
 
 ;Gui, Font, s10
 Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
 ;Gui, Font, s9
 Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud Tenant to Delete||
-Gui, Add, Button, x339 y390 w100 h25 gDeleteCloud, Delete
-Gui, Add, Button, x309 y390 w25 h25 gOctopush hwndIconSPC
+Gui, Add, Button, x339 y390 w100 h25 vDeleteCloud gDeleteCloud, Delete
+Gui, Add, Button, x309 y390 w25 h25 vOctopush gOctopush hwndIconSPC
 GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
 
 Gui, Add, Checkbox, x12 y430 vAlways gAlways, Always On Top
@@ -116,7 +116,7 @@ If A_UserName = steve.rodriguez
 }
 Gui, Add, Text, x294 y430 gIPText vIPText, IP Address:
 Gui, Add, Edit, x354 y427 w100 vIP cgray ReadOnly, %A_IPAddress1%
-
+;LoadFromSettings("IniReadVariable","Section","Key","SettingsCheckboxName","MainGuiButtonName")
 LoadFromSettings("RestoreLoad","DBManagement","Rest","CheckRestore","Restore")
 LoadFromSettings("OverwriteLoad","DBManagement","Over","CheckOverwrite","Overwrite")
 LoadFromSettings("DeleteLoad","DBManagement","Delete","CheckDelete","Delete")
@@ -126,6 +126,7 @@ LoadFromSettings("AddDescriptionLoad","DBManagement","AddDescription","CheckAddD
 LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","LaunchBuild")
 LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLL")
 LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BuildFolder")
+LoadFromSettings("InstallLoad","BuildManagement","Install","DisableInstall","Install")
 LoadGPEnabled()
 LoadSPCEnabled()
 LoadProductEnabled()
@@ -397,9 +398,10 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x260 y85 vDisableCC, Disable Card Control
     Gui, 4:Add, Checkbox, x260 y115 vDisableAPI, Disable Web API
     Gui, 4:Add, Checkbox, x260 y145 vDisableWeb, Disable Web Portal
-    Gui, 4:Add, Checkbox, x490 y55 vDisableLaunch, Disable Launch Build Button
-    Gui, 4:Add, Checkbox, x490 y85 vDisableAdd, Disable Add DLLs Button
-    Gui, 4:Add, Checkbox, x490 y115 vDisableBuild, Disable Build Folder Button
+    Gui, 4:Add, Checkbox, x490 y55 vDisableInstall, Disable Install Button
+    Gui, 4:Add, Checkbox, x490 y85 vDisableLaunch, Disable Launch Build Button
+    Gui, 4:Add, Checkbox, x490 y115 vDisableAdd, Disable Add DLLs Button
+    Gui, 4:Add, Checkbox, x490 y145 vDisableBuild, Disable Build Folder Button
     Gui, 4:Add, Text, x30 y181, Shared Folder:
     Gui, 4:Add, Edit, x105 y178 w312 cGray ReadOnly vSharedF,
     Gui, 4:Add, Button, x417 y177 w23 h23 gShared, ...
@@ -478,6 +480,7 @@ SettingsScreen:
     LoadSettingsScreen("CardControlLoad","BuildManagement","CardControl","DisableCC")
     LoadSettingsScreen("GPAPILoad","BuildManagement","API","DisableAPI")
     LoadSettingsScreen("GPWEBLoad","BuildManagement","Web","DisableWeb")
+    LoadSettingsScreen("InstallLoad","BuildManagement","Install","DisableInstall")
     LoadSettingsScreen("LaunchLoad","BuildManagement","Launch","DisableLaunch")
     LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
     LoadSettingsScreen("SharedLoad","BuildManagement","SharedLocation","SharedF")
@@ -531,18 +534,20 @@ SettingsScreen:
         SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
         SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
         SaveSettingsEdit(SharedF,"BuildManagement","SharedLocation")
-        SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","BRest")
-        SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","BOver")
+        SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","Restore")
+        SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","Overwrite")
         SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
-        SaveSettingsCheckbox(CheckNew,"DBManagement","New","Bak")
-        SaveSettingsCheckbox(CheckBackupsFolder,"DBManagement","BackupsFolder","BakFolder")
+        SaveSettingsCheckbox(CheckNew,"DBManagement","New","NewDB")
+        SaveSettingsCheckbox(CheckBackupsFolder,"DBManagement","BackupsFolder","DBFolder")
         SaveSettingsCheckbox(CheckAddDesc,"DBManagement","AddDescription","AddDesc")
         SaveSettingsProductCheckbox()
-        SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","BLaunch")
-        SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLLs")
-        SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BBuild")
+        SaveSettingsCheckbox(DisableInstall,"BuildManagement","Install","Install")
+        SaveSettingsCheckbox(DisableLaunch,"BuildManagement","Launch","LaunchBuild")
+        SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLL")
+        SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BuildFolder")
         SaveSettingsGPCheckbox()
         SaveSettingsSPCCheckbox()
+
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableGrizz,"BuildManagement","Grizz")
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableTPG,"BuildManagement","TPG")
         ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableDBUpdate,"BuildManagement","DBUpdate")
