@@ -158,7 +158,10 @@ Utilities:
 Log:
     Gui, DBLog:Destroy
     Gui, DBLog:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
-    Gui, DBLog:Show, w560 h560, Database Management Log
+    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    xVarEnv -= 44
+    yVarEnv -= 28
+    Gui, DBLog:Show, x%xVarEnv% y%yVarEnv% w560 h560, Database Management Log
     FileRead, Log, Settings\Log.txt
     GuiControl, DBLog:, Edit1, %Log%
     Return
@@ -245,7 +248,10 @@ ButtonCounters:
     Gui, ButtonC:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
     Gui, ButtonC:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
     Gui, ButtonC:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
-    Gui, ButtonC:Show, w680 h250, Button Counters
+    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    xVarEnv -= 105
+    yVarEnv += 126
+    Gui, ButtonC:Show, x%xVarEnv% y%yVarEnv% w680 h250, Button Counters
     Return
 
 AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
@@ -270,7 +276,10 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
     Gui, ABOUTS:Add, Text, +BackgroundTrans x35 y290, stvrdrgz19 (Steve Rodriguez)
     Gui, ABOUTS:Add, Picture, x15 y290 w15 h15 gHubIcon, Icons\GitHubIcon.png
     Gui, ABOUTS:Add, Button, x295 y320 w100 h25 gClose1, Close 
-    Gui, ABOUTS:Show, w400 h350, About
+    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    xVarEnv += 35
+    yVarEnv += 76
+    Gui, ABOUTS:Show, x%xVarEnv% y%yVarEnv% w400 h350, About
     Return
 
     Close1: ; Close the about screen
@@ -295,7 +304,10 @@ GetInstalledDLLs:
     Gui, InstlDLL:Add, Button, x415 y34 w23 h23 gSelectFolder, ...
     Gui, InstlDLL:Add, ListBox, Multi x15 y65 w422 r15 vLB1,
     Gui, InstlDLL:Add, Button, x338 y275 w100 h25 gCopy, Copy DLL Label(s)
-    Gui, InstlDLL:Show, w452 h310, Get Installed DLL(s)
+    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    xVarEnv += 9
+    yVarEnv += 96
+    Gui, InstlDLL:Show, x%xVarEnv% y%yVarEnv% w452 h310, Get Installed DLL(s)
     Return
 
     SelectFolder:
@@ -457,7 +469,10 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectCloudLabel05, ...
     Gui, 4:Tab, 6
     Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt user when closing Environment Manager 
-    Gui, 4:Show, w680 h250, Settings
+    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    xVarEnv -= 104
+    yVarEnv += 126
+    Gui, 4:Show, x%xVarEnv% y%yVarEnv% w680 h250, Settings
 
     LoadSettingsScreen("BackPathLoad","BackupFolder","path","BackupPath")
     LoadSettingsScreen("ServLoad","SQLCreds","Server","ServName")
@@ -986,12 +1001,17 @@ Install:
             Gui, SPGP:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
             GUi, SPGP:Add, GroupBox, x185 y325 w155 h70, Build Options
             Gui, SPGP:Add, Checkbox, x200 y345 gDBUpdateCheck vDBUpdateValue, Run Database Update
+            Gui, SPGP:Add, Checkbox, x200 y365 gRunBuild vRunBuild, Run Build after Install
             Gui, SPGP:Add, Button, x516 y370 w100 h25 gSPGPCan, Cancel
             Gui, SPGP:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
-            Gui, SPGP:Show, w630 h410, Install SalesPad GP
+            WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+            xVarEnv -= 79
+            yVarEnv += 46
+            Gui, SPGP:Show, x%xVarEnv% y%yVarEnv% w630 h410, Install SalesPad GP
             GuiControl, SPGP:Disable, TPGValue
             GuiControl, SPGP:Disable, DBUpdateValue
             GuiControl, SPGP:Disable, GrizzValue
+            GuiControl, SPGP:Disable, RunBuild
             Loop, %Instl%\ExtModules\WithOutCardControl\*.*
             {
                 GuiControl, SPGP:, ExtList, %A_LoopFileName%
@@ -1009,6 +1029,9 @@ Install:
                 Return
 
             DBUpdateCheck:
+                Return
+
+            RunBuild:
                 Return
 
             SPGPCan:
@@ -1625,6 +1648,7 @@ Always:
     }
 
 F8Utils:
+    Gui, F8Script:Destroy
     Gui, F8Script:Add, ComboBox, x15 y15 w200 vF8Combo, Select a script to run||
     Gui, F8Script:Add, Button, x14 y36 w202 h23 gF8Run, Run
     Gui, F8Script:Show,, Run Script 
