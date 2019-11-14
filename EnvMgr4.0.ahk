@@ -57,6 +57,8 @@ Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
 Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
 Menu, ToolsMenu, Add, &Database Log, Log
 Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
+Menu, ToolsMenu, Add, &Tool Metrics, ToolMetrics
+Menu, ToolsMenu, Add, &Update Projects, UpdateProjects
 
 Menu, HelpMenu, Add, &About, AboutScreen
 
@@ -366,6 +368,14 @@ GetInstalledDLLs:
     InstlDLLGuiClose:
         Gui, InstlDLL:Destroy
         Return
+
+ToolMetrics:
+    Run, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Metrics\Metrics.ahk
+    Return
+
+UpdateProjects:
+    Run, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Core Projects\#Project Updater\Updater.ahk
+    Return
 
 SettingsScreen:
     Gui, 4:Destroy

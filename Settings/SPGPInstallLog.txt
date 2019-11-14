@@ -281,3 +281,17 @@
 	Extended - SalesPad.Module.Dispatch.4.6.4.18
 {2019-11-11 15:20:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3046\4.6.4.18.19
 	Extended - SalesPad.Module.Dispatch.4.6.4.18
+{2019-11-12 07:55:27}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Charter\MAIN\4.6.4.18.36
+{2019-11-13 08:53:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.18
+{2019-11-14 10:06:27}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.18
+	Custom - SalesPad.Module.Millborn.4.6.4.18
+{2019-11-14 10:23:15}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Joseph_Bentley\SPGP-2884\4.6.4.18.24
+	Custom - SalesPad.Module.Millborn.4.6.4.18
+{2019-11-14 13:45:26}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.18
+	Custom - SalesPad.Module.Apet.4.6.4.18
+	Custom - SalesPad.Module.Baileigh.4.6.4.18
+	Custom - SalesPad.Module.BlueRhino.4.6.4.18
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.18
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.18
+	Extended - SalesPad.Module.CaseTracker.4.6.4.18
+	Extended - SalesPad.Module.Dispatch.4.6.4.18
