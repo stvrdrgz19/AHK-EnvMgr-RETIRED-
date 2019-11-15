@@ -52,13 +52,24 @@ If A_IsAdmin = 0
 Menu, FileMenu, Add, E&xit, MenuHandler
 Menu, FileMenu, Add, Settings`tCtrl+S, SettingsScreen
 
-Menu, ToolsMenu, Add, &Utilities, Utilities
-Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
-Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
-Menu, ToolsMenu, Add, &Database Log, Log
+If A_UserName = steve.rodriguez
+{
+    Menu, ToolsMenu, Add, &F8 Scripts, F8Utils
+    Menu, ToolsMenu, Add, &Utilities, Utilities
+    Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
+    Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
+    Menu, ToolsMenu, Add, &Database Log, Log
+}
+Menu, ToolsMenu, Add, &Add Dll(s), AddDLLs
 Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
-Menu, ToolsMenu, Add, &Tool Metrics, ToolMetrics
-Menu, ToolsMenu, Add, &Update Projects, UpdateProjects
+Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager 
+Menu, ToolsMenu, Add, &Ticket Hyperlink Maker (THM), THM 
+
+If A_UserName = steve.rodriguez
+{
+    Menu, ToolsMenu, Add, &Tool Metrics, ToolMetrics
+    Menu, ToolsMenu, Add, &Update Projects, UpdateProjects
+}
 
 Menu, HelpMenu, Add, &About, AboutScreen
 
@@ -110,12 +121,6 @@ Gui, Add, Button, x309 y390 w25 h25 vOctopush gOctopush hwndIconSPC
 GuiButtonIcon(IconSPC, "imageres.dll", 232,"s21")
 
 Gui, Add, Checkbox, x12 y430 vAlways gAlways, Always On Top
-If A_UserName = steve.rodriguez
-{
-    Gui, Font, Underline cBlue
-    Gui, Add, Text, x216 y430 vF8Utils gF8Utils, Utilities
-    Gui, Font
-}
 Gui, Add, Text, x294 y430 gIPText vIPText, IP Address:
 Gui, Add, Edit, x354 y427 w100 vIP cgray ReadOnly, %A_IPAddress1%
 ;LoadFromSettings("IniReadVariable","Section","Key","SettingsCheckboxName","MainGuiButtonName")
@@ -300,74 +305,33 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
         Run, chrome.exe https://github.com/stvrdrgz19
         Return
 
-GetInstalledDLLs:
-    Gui, InstlDLL:Add, Text, x15 y15, Select a build to display the DLLs for:
-    Gui, InstlDLL:Add, Edit, x15 y35 w400 ReadOnly vE1, 
-    Gui, InstlDLL:Add, Button, x415 y34 w23 h23 gSelectFolder, ...
-    Gui, InstlDLL:Add, ListBox, Multi x15 y65 w422 r15 vLB1,
-    Gui, InstlDLL:Add, Button, x338 y275 w100 h25 gCopy, Copy DLL Label(s)
-    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
-    xVarEnv += 9
-    yVarEnv += 96
-    Gui, InstlDLL:Show, x%xVarEnv% y%yVarEnv% w452 h310, Get Installed DLL(s)
+AddDLLs:
+    Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
     Return
 
-    SelectFolder:
-        FileSelectFolder, InstalledBuild,  C:\Program Files (x86)\SalesPad.Desktop, 3, Select an install folder:
-        If InstalledBuild = 
-        {
-            MsgBox, 16, ERROR, Nothing was selected!
-            Return
-        }
-        GuiControl, InstlDLL:, E1, %InstalledBuild%
-        Loop, %InstalledBuild%\SalesPad.Module.*.dll
-        {
-            If(A_LoopFileName != "SalesPad.Module.App.dll")
-            If(A_LoopFileName != "SalesPad.Module.ARTransactionEntry.dll")
-            If(A_LoopFileName != "SalesPad.Module.AvaTax.dll")
-            If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOffice.dll")
-            If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOnlineWS.dll")
-            If(A_LoopFileName != "SalesPad.Module.Ccp.dll")
-            If(A_LoopFileName != "SalesPad.Module.CRM.dll")
-            If(A_LoopFileName != "SalesPad.Module.Dashboard.dll")
-            If(A_LoopFileName != "SalesPad.Module.DistributionBOM.dll")
-            If(A_LoopFileName != "SalesPad.Module.DocumentManagement.dll")
-            If(A_LoopFileName != "SalesPad.Module.EquipmentManagement.dll")
-            If(A_LoopFileName != "SalesPad.Module.FedExServiceManager.dll")
-            If(A_LoopFileName != "SalesPad.Module.GP2010.dll")
-            If(A_LoopFileName != "SalesPad.Module.GP2010SP2.dll")
-            If(A_LoopFileName != "SalesPad.Module.GP2013.dll")
-            If(A_LoopFileName != "SalesPad.Module.GP2013R2.dll")
-            If(A_LoopFileName != "SalesPad.Module.Inventory.dll")
-            If(A_LoopFileName != "SalesPad.Module.NodusPayFabric.dll")
-            If(A_LoopFileName != "SalesPad.Module.Printing.dll")
-            If(A_LoopFileName != "SalesPad.Module.Purchasing.dll")
-            If(A_LoopFileName != "SalesPad.Module.QuickReports.dll")
-            If(A_LoopFileName != "SalesPad.Module.Reporting.dll")
-            If(A_LoopFileName != "SalesPad.Module.ReturnsManagement.dll")
-            If(A_LoopFileName != "SalesPad.Module.Sales.dll")
-            If(A_LoopFileName != "SalesPad.Module.SalesEntryQuickPick.dll")
-            If(A_LoopFileName != "SalesPad.Module.SignaturePad.dll")
-                GuiControl,, LB1, %A_LoopFileName%`n
-        }
-        Return
+GetInstalledDLLs:
+    Loop, \\sp-fileserv-01\Team QA\Tools\Get Installed DLLs\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
+    Return
 
-    Copy:
-        GuiControlGet, LB1
-        If LB1 = 
-        {
-            MsgBox, 16, ERROR, Please select a DLL to copy.
-            Return
-        }
-        OutputValue := StrReplace(LB1, "|", "")
-        OutputValue := Trim(OutputValue, "`r`n")
-        Clipboard = %OutputValue%
-        MsgBox, 0, COPIED, Selected DLLs have been copied to the Clipboard., 1
-        Return
+OneSourceManager:
+    Loop, \\sp-fileserv-01\Team QA\Tools\OneSource Management\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
+    Return
 
-    InstlDLLGuiClose:
-        Gui, InstlDLL:Destroy
-        Return
+THM:
+    Loop, \\sp-fileserv-01\Team QA\Tools\Ticket Hyperlink Maker\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
+    Return
 
 ToolMetrics:
     Run, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Metrics\Metrics.ahk
@@ -1439,7 +1403,10 @@ AddDLL:
     }
     If Combo2 = SalesPad Desktop
     {
-        Run, "C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Tests\DLLGrabTool\DLL Grab.exe"
+        Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
+        {
+            Run *RunAs %A_LoopFilePath%
+        }
         Return
     }
     If Combo2 != SalesPad Desktop & Combo2 != Select a Product to Install
