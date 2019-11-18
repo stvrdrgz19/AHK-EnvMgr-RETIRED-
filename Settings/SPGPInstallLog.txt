@@ -300,3 +300,14 @@
 {2019-11-15 08:54:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3049\4.6.4.19.1
 {2019-11-15 11:35:54}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3061\4.6.4.19.4
 {2019-11-15 15:33:01}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2845\4.6.4.18.20
+{2019-11-18 09:39:17}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.18
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.18
+{2019-11-18 09:48:36}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SPGP-2958\4.6.4.18.20
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.18
+{2019-11-18 10:32:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-3014\4.6.4.19.4
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.19
+{2019-11-18 11:08:31}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-2845\4.6.4.18.21
+{2019-11-18 11:50:38}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3103\4.6.4.19.16
+{2019-11-18 14:42:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.0.8
+{2019-11-18 14:42:57}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.0.8
+	Extended - SalesPad.Module.SalesPadEDI.4.6.0.8

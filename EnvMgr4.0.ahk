@@ -262,11 +262,12 @@ ButtonCounters:
     Return
 
 AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
+    Iniread, VersionX, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Core Projects\#Project Updater\Versions.ini, Versions, EnvMgr
     Gui, ABOUTS:Add, Progress, x0 y0 w400 h310 BackgroundFFFFFF Disabled,
     Gui, ABOUTS:Add, Progress, x0 y311 w400 h40 BackgroundF0F0F0 Disabled,
     Gui, ABOUTS:Add, Progress, x0 y0 w400 h45 BackGroundF0F0F0 Disabled,
     Gui, ABOUTS:Font, s15
-    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y15, Environment Manager v0.0.1
+    Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y15, Environment Manager v%VersionX%
     Gui, ABOUTS:Font, s9
     Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y55 w370, Environment Manager is a tool designed to quicken both the database and build management process. With Environment Manager, the user is able to quickly Backup/Restore/Overwrite database backups, as well as install and launch SalesPad Products. Some additional features are:
     Gui, ABOUTS:Add, Text, +BackgroundTrans x15 y115, - Adding/Listing DLLs`n- Launching Dynamics GP`n- Clearing out Cloud Tenant Databases`n- Displaying the current IP Address
