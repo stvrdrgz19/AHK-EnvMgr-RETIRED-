@@ -311,3 +311,16 @@
 {2019-11-18 14:42:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.0.8
 {2019-11-18 14:42:57}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.0.8
 	Extended - SalesPad.Module.SalesPadEDI.4.6.0.8
+{2019-11-19 07:37:03}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\SinisaMalbasa\SPGP-2694\4.6.4.17.17
+{2019-11-19 11:08:53}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-3042\4.6.4.19.2
+	Custom - SalesPad.Module.ThePondGuy.4.6.4.19
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.19
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.19
+{2019-11-19 14:44:03}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-3042\4.6.4.20.6
+	Custom - SalesPad.Module.ThePondGuy.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-11-21 07:28:47}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+{2019-11-21 07:32:11}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\master\4.6.4.20.6
+{2019-11-22 11:54:53}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-2870\4.6.4.20.3
+{2019-11-22 12:56:51}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Knightwatch\SOL-7744\4.6.4.19.15

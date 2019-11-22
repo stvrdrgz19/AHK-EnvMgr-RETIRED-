@@ -87,7 +87,7 @@ Gui, Add, Button, x24 y202 w100 h25 vRestore gRestore, Restore DB
 Gui, Add, Button, x129 y202 w100 h25 vOverwrite gOverwrite, Overwrite DB
 Gui, Add, Button, x234 y202 w100 h25 vNewDB gNewDB, New Backup
 Gui, Add, Button, x339 y202 w100 h25 vDelete gDelete, Delete Backup
-Gui, Add, Edit, ReadOnly cGray x25 y55 w413 r10 vDBDesc, =================================================================`n========SELECT A DATABASE BACKUP TO LOAD A DESCRIPTION========`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================
+Gui, Add, Edit, ReadOnly x25 y55 w413 r10 vDBDesc, =================================================================`n========SELECT A DATABASE BACKUP TO LOAD A DESCRIPTION========`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================`n=================================================================
 Gui, Add, Button, x386 y28 w25 h25 vDBFolder gDBFolder hwndIconDBFolder,
 GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
 Gui, Add, Button, x413 y28 w25 h25 vAddDesc gAddDesc hwndIconAdd,
@@ -1390,6 +1390,12 @@ LaunchBuild:
     If Combo2 = Windows Mobile
     {
         MsgBox, 16, ERROR, Windows Mobile is not yet supported as an option here.
+        Return
+    }
+    If GetKeyState("Shift", "P")
+    {
+        IniRead, Launch, Settings\Settings.ini, LastLaunchedBuild, %Combo2%
+        Run, %Launch%
         Return
     }
     LaunchBuild(Combo2)
