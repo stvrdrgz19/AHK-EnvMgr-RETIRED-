@@ -557,11 +557,11 @@ SettingsScreen:
     Can2:   ; Cancel the GUI screen
         Gui, 4:Destroy
         sleep 1000
-        GuiControl, 1:, GPBackupsList, |
+        GuiControl, 1:, Combo1, |
         IniRead, DBListDisplay, Settings\Settings.ini, BackupFolder, path
         Loop, %DBListDisplay%\*, 2
         {
-            GuiControl, 1:, GPBackupsList, %A_LoopFileName%
+            GuiControl, 1:, Combo1, %A_LoopFileName%
         }
         Return
 
@@ -715,7 +715,105 @@ DBFolder:
     }
 
 AddDesc:
-    MsgBox, 0, test, Add desc.
+    GuiControlGet, Combo1
+    If Combo1 = Select a Database
+    {
+        MsgBox, 16, ERROR, Please select a Database Backup.
+        Return
+    }
+    If FileExist("C:\#DBBackups\" Combo1 "\Description.txt")
+    {
+        Gui, Desc:Destroy
+        Gui, Desc:Add, Progress, x0 y0 w400 h60 BackgroundFFFFFF Disabled, ; TOP WHITE
+        Gui, Desc:Add, Progress, x0 y61 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+        Gui, Desc:Add, Text, +BackgroundTrans x15 y15 w350, A description for the selected Backup exists. Do you want to overwrite the existing description? Or add to it? 
+        Gui, Desc:Add, Button, x136 y67 w75 h23 gDescOverwrite, Overwrite
+        Gui, Desc:Add, Button, x223 y67 w75 h23 gDescAdd, Add
+        Gui, Desc:Add, Button, x310 y67 w75 H23 gDescCancel, Cancel
+        Gui, Desc:Show, w400 h100, ERROR
+        Return
+
+        DescOverwrite:
+            Gui, Desc:Destroy
+            Gui, DESCOVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+            Gui, DESCOVERWRITEDESC:Add, Edit, x15 y15 w300 r10 vOverDesc,
+            Gui, DESCOVERWRITEDESC:Add, Button, x100 y160 w100 h25 +Default gDescOverOK, OK
+            Gui, DESCOVERWRITEDESC:Add, Button, x215 y160 w100 h25 gDescOverCancel, Cancel
+            Gui, DESCOVERWRITEDESC:Show, w330 h190, Overwrite Description
+            Return
+
+            DescOverOK:
+                GuiControlGet, OverDesc
+                Gui, DESCOVERWRITEDESC:Destroy
+                IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+                If FileExist(DBPath "\" Combo1 "\Description.txt")
+                {
+                    FileDelete, %DBPath%\%Combo1%\Description.txt
+                    FileAppend, =================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%OverDesc%, %DBPath%\%Combo1%\Description.txt
+                    FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+                    GuiControl, 1:, DBDesc, %TestXD% 
+                    Return
+                }
+                Else
+                {
+                    MsgBox, 16, ERROR, ERROR - Description to overwrite didn't exist.
+                    Return
+                }
+
+            DescOverCancel:
+                Gui, DESCOVERWRITEDESC:Destroy
+                Return
+
+        DescAdd:
+            Gui, Desc:Destroy
+            Gui, DESCADDDESC:Add, Text, x15 y15, Enter Description/Notes:
+            Gui, DESCADDDESC:Add, Edit, x15 y15 w300 r10 vAddDesc,
+            Gui, DESCADDDESC:Add, Button, x100 y160 w100 h25 +Default gDescAddOK, OK
+            Gui, DESCADDDESC:Add, Button, x215 y160 w100 h25 gDescAddCancel, Cancel
+            Gui, DESCADDDESC:Show, w330 h190, Append description
+            Return
+
+            DescAddOK:
+                GuiControlGet, AddDesc
+                Gui, DESCADDDESC:Destroy
+                IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+                FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%AddDesc%, %DBPath%\%Combo1%\Description.txt
+                FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+                GuiControl, 1:, DBDesc, %TestXD% 
+                Return
+
+            DescAddCancel:
+                Gui, DESCADDDESC:Destroy
+                Return
+
+        DescCancel:
+            Gui, Desc:Destroy
+            Return
+    }
+    Else
+    {
+        Gui, Desc:Destroy
+        Gui, NEWDESC:Destroy
+        Gui, NEWDESC:Add, Text, x15 y15, Enter Description/Notes:
+        Gui, NEWDESC:Add, Edit, x15 y15 w300 r10 vNewDesc,
+        Gui, NEWDESC:Add, Button, x100 y160 w100 h25 +Default gDescNewOK, OK
+        Gui, NEWDESC:Add, Button, x215 y160 w100 h25 gDescNewCancel, Cancel
+        Gui, NEWDESC:Show, w330 h190, New description
+        Return
+
+        DescNewOK:
+            GuiControlGet, NewDesc
+            Gui, NEWDESC:Destroy
+            IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+            FileAppend, =================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%NewDesc%, %DBPath%\%Combo1%\Description.txt
+            FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+            GuiControl, 1:, DBDesc, %TestXD% 
+            Return
+
+        DescNewCancel:
+            Gui, NEWDESC:Destroy
+            Return
+    }
     Return
 
 Restore:
@@ -1363,6 +1461,7 @@ Install:
             if CabFile !=
             {
                 FileCopy, %CabFile%, %CabDestination%
+                IniWrite, %CabFile%, Settings\Paths.ini, LastInstalledBuild, Cab
                 Return
             }
             Return

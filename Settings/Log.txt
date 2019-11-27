@@ -476,3 +476,36 @@
 {2019-11-22 11:29:22}: Restored "MASTER" backup.
 {2019-11-22 12:56:27}: Restored "MASTER" backup.
 {2019-11-22 14:41:49}: Restored "MASTER" backup.
+{2019-11-25 11:49:47}: Restored "MASTER" backup.
+{2019-11-25 15:16:52}: Restored "MASTER" backup.
+{2019-11-26 07:04:11}: Restored "MASTER" backup.
+{2019-11-26 07:14:13}: Restored "MASTER" backup.
+{2019-11-26 07:16:16}: Restored "MASTER" backup.
+{2019-11-26 07:16:43}: Restored "MASTER" backup.
+{2019-11-26 07:30:38}: Created "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 07:44:50}: Restored "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 07:58:23}: Restored "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 08:02:58}: Restored "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 08:05:42}: Restored "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 08:17:51}: Restored "SPGP-3086 - Price Level Import" backup.
+{2019-11-26 08:23:40}: Restored "MASTER" backup.
+{2019-11-26 08:59:50}: Restored "MASTER" backup.
+{2019-11-26 10:35:50}: Restored "MASTER" backup.
+{2019-11-26 14:57:39}: Restored "MASTER" backup.
+{2019-11-27 07:33:18}: Restored "MASTER" backup.
+{2019-11-27 08:27:40}: Restored "MASTER" backup.
+{2019-11-27 08:43:45}: Restored "MASTER" backup.
+{2019-11-27 09:17:06}: Restored "MASTER" backup.
+{2019-11-27 09:35:05}: Restored "MASTER" backup.
+{2019-11-27 09:46:56}: Restored "MASTER" backup.
+{2019-11-27 09:59:01}: Created "SPGP-3106 Purchasing Advisor backorder and reorder lines" backup.
+{2019-11-27 10:01:50}: Restored "MASTER" backup.
+{2019-11-27 10:10:03}: Created "SPGP-3065 - Release backup " backup.
+{2019-11-27 10:11:51}: Created "SPGP-3106 Release Backup" backup.
+{2019-11-27 10:23:46}: Restored "SPGP-3106 Release Backup" backup.
+{2019-11-27 10:56:25}: Restored "SPGP-3106 Release Backup" backup.
+{2019-11-27 11:11:33}: Restored "SPGP-3106 Purchasing Advisor backorder and reorder lines" backup.
+{2019-11-27 11:31:30}: Restored "MASTER" backup.
+{2019-11-27 11:32:51}: Restored "EDI" backup.
+{2019-11-27 11:41:28}: Restored "EDI" backup.
+{2019-11-27 13:40:56}: Restored "EDI" backup.

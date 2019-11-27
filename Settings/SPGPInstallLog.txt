@@ -324,3 +324,13 @@
 {2019-11-21 07:32:11}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\master\4.6.4.20.6
 {2019-11-22 11:54:53}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-2870\4.6.4.20.3
 {2019-11-22 12:56:51}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Knightwatch\SOL-7744\4.6.4.19.15
+{2019-11-25 12:27:23}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-1800\4.6.4.19.16
+{2019-11-26 07:56:19}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3086\4.6.4.19.16
+{2019-11-26 08:47:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Features\SPGP-2858\4.6.4.19.16
+{2019-11-26 09:30:35}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3135\4.6.4.20.11
+{2019-11-26 11:07:29}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3065\4.6.4.20.2
+{2019-11-27 08:45:02}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3106\4.6.4.20.11
+{2019-11-27 11:32:36}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.19
+{2019-11-27 11:41:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.10
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.10

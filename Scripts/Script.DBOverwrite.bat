@@ -1,5 +1,6 @@
 @ECHO OFF 
-COLOR 0A
+REM COLOR 0A
+COLOR 05
 cls
 
 SET SqlServer=%1
