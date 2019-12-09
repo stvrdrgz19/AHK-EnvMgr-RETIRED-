@@ -334,3 +334,73 @@
 	Extended - SalesPad.Module.SalesPadEDI.4.6.4.19
 {2019-11-27 11:41:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.10
 	Extended - SalesPad.Module.SalesPadEDI.4.6.4.10
+{2019-12-02 08:25:48}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-3016\4.6.4.20.19
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.20
+{2019-12-02 09:12:34}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.19
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.19
+{2019-12-02 09:23:28}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3140\4.6.4.20.12
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-02 11:57:34}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\Customers\CoachGlass\SPGP-3045\4.6.4.19.6
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.19
+{2019-12-02 15:43:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+{2019-12-02 15:53:54}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SPGP-3033\4.6.4.19.3
+	Extended - SalesPad.Module.PayFabricMigrator.4.6.4.19
+{2019-12-03 07:37:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2788\4.6.4.20.22
+{2019-12-03 11:02:24}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2788\4.6.4.20.22
+	Extended - SalesPad.Module.CaseTracker.4.6.4.20
+{2019-12-03 14:16:38}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+	Extended - SalesPad.Module.CaseTracker.4.6.4.19
+{2019-12-04 07:13:37}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2788\4.6.4.20.23
+	Extended - SalesPad.Module.CaseTracker.4.6.4.20
+{2019-12-04 07:57:45}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3129\4.6.4.20.12
+{2019-12-04 08:36:41}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-2788\4.6.4.20.24
+	Extended - SalesPad.Module.CaseTracker.4.6.4.20
+{2019-12-04 10:26:41}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3076\4.6.4.19.19
+{2019-12-04 11:58:58}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3110\4.6.4.20.14
+{2019-12-04 14:04:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2779\4.6.4.18.34
+{2019-12-05 07:59:47}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\SinisaMalbasa\SPGP-3051\4.6.4.20.25
+{2019-12-05 08:47:47}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3112\4.6.4.20.14
+{2019-12-05 09:20:45}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-3034\4.6.4.20.112
+{2019-12-05 11:04:10}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-3042\4.6.4.20.11
+	Custom - SalesPad.Module.ThePondGuy.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-05 15:05:22}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2779\4.6.4.18.34
+	Extended - SalesPad.Module.RemoteLibrary.4.6.4.18
+{2019-12-05 15:06:39}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-3042\4.6.4.20.6
+	Custom - SalesPad.Module.ThePondGuy.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-06 09:17:25}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+	Extended - SalesPad.Module.RemoteLibrary.4.6.4.19
+{2019-12-06 10:16:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\Hacks\SPGP-1294\4.6.4.18.45
+	Extended - SalesPad.Module.RemoteLibrary.4.6.4.18
+{2019-12-06 11:06:41}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-2779\4.6.4.20.61
+	Extended - SalesPad.Module.RemoteLibrary.4.6.4.20
+{2019-12-06 14:11:36}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3115\4.6.4.20.27
+{2019-12-06 14:34:17}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3076\4.6.4.19.20
+{2019-12-06 14:34:18}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3076\4.6.4.19.20
+{2019-12-06 14:36:11}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3076\4.6.4.19.20
+{2019-12-09 07:08:01}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\Customers\Knightwatch\SOL-7746\4.6.4.19.615
+{2019-12-09 08:01:00}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+{2019-12-09 10:44:08}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.0
+{2019-12-09 10:48:02}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.3.0
+{2019-12-09 10:51:20}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.2.0
+{2019-12-09 10:55:57}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.1.0
+{2019-12-09 10:58:50}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.5.0.0
+{2019-12-09 11:12:43}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+{2019-12-09 11:15:02}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+{2019-12-09 11:32:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.18
+{2019-12-09 11:33:59}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.19
+{2019-12-09 11:58:40}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+{2019-12-09 11:58:42}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+{2019-12-09 12:10:34}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-3205\4.6.4.20.31
+{2019-12-09 12:25:47}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-3205\4.6.4.20.31
+{2019-12-09 12:29:57}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\CoachGlass\MAIN\4.6.4.20.32
+{2019-12-09 14:03:14}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-3205\4.6.4.20.32
+{2019-12-09 14:31:40}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-3042\4.6.4.20.11
+	Custom - SalesPad.Module.ThePondGuy.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20

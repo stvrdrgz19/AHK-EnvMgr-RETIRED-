@@ -40,6 +40,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\SaveSettingsGPCheckbox.ahk
 #Include, Functions\SaveSettingsProductCheckbox.ahk
 #Include, Functions\SaveSettingsSPCCheckbox.ahk
+#Include, Functions\InstallLogs.ahk
 
 If A_IsAdmin = 0
 {
@@ -1160,7 +1161,8 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                InstallLog(Instl,BuildLoc)
+                                ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Gui, SPGP:Destroy
                                 Return
                             }
@@ -1185,7 +1187,8 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                InstallLog(Instl,BuildLoc)
+                                ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
                                     CDLL := Rtrim(A_LoopField, ".Zip")
@@ -1218,7 +1221,8 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                InstallLog(Instl,BuildLoc)
+                                ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, ExtList, `|
                                 {
                                     EDLL := Rtrim(A_LoopField, ".Zip")
@@ -1253,7 +1257,8 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                                InstallLog(Instl,BuildLoc)
+                                ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
                                     CDLL := Rtrim(A_LoopField, ".Zip")
@@ -1306,7 +1311,8 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            InstallLog(Instl,BuildLoc)
+                            ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Gui, SPGP:Destroy
                             Return
                         }
@@ -1331,7 +1337,8 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            InstallLog(Instl,BuildLoc)
+                            ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
                                 CDLL := Rtrim(A_LoopField, ".Zip")
@@ -1364,7 +1371,8 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            InstallLog(Instl,BuildLoc)
+                            ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, ExtList, `|
                             {
                                 EDLL := Rtrim(A_LoopField, ".Zip")
@@ -1399,7 +1407,8 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
+                            InstallLog(Instl,BuildLoc)
+                            ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
                                 CDLL := Rtrim(A_LoopField, ".Zip")

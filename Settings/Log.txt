@@ -509,3 +509,87 @@
 {2019-11-27 11:32:51}: Restored "EDI" backup.
 {2019-11-27 11:41:28}: Restored "EDI" backup.
 {2019-11-27 13:40:56}: Restored "EDI" backup.
+{2019-12-02 07:00:47}: Restored "EDI" backup.
+{2019-12-02 07:14:38}: Restored "EDI" backup.
+{2019-12-02 07:22:01}: Restored "EDI" backup.
+{2019-12-02 07:59:32}: Restored "EDI" backup.
+{2019-12-02 08:18:56}: Restored "EDI" backup.
+{2019-12-02 08:24:35}: Restored "EDI" backup.
+{2019-12-02 08:42:21}: Restored "MASTER" backup.
+{2019-12-02 09:10:05}: Restored "MASTER" backup.
+{2019-12-02 09:12:51}: Restored "MASTER" backup.
+{2019-12-02 09:28:04}: Created "SPGP-3140 AA Partial Invoicing" backup.
+{2019-12-02 09:29:47}: Restored "SPGP-3140 AA Partial Invoicing" backup.
+{2019-12-02 10:15:59}: Restored "EDI" backup.
+{2019-12-02 11:28:23}: Restored "EDI" backup.
+{2019-12-02 12:13:57}: Restored "EDI" backup.
+{2019-12-02 14:13:07}: Restored "MASTER" backup.
+{2019-12-02 15:42:01}: Restored "MASTER" backup.
+{2019-12-03 07:18:39}: Restored "MASTER" backup.
+{2019-12-03 08:25:00}: Restored "MASTER" backup.
+{2019-12-03 08:31:35}: Overwrote "MASTER" backup.
+{2019-12-03 14:15:16}: Created "SPGP-2788 - Email Template Setup" backup.
+{2019-12-03 14:15:43}: Restored "MASTER" backup.
+{2019-12-03 15:00:36}: Created "SPGP-2788 - Release Testing" backup.
+{2019-12-03 15:01:04}: Overwrote "SPGP-3106 Release Backup" backup.
+{2019-12-03 15:01:19}: Restored "SPGP-3106 Purchasing Advisor backorder and reorder lines" backup.
+{2019-12-03 15:03:45}: Restored "SPGP-2788 - Email Template Setup" backup.
+{2019-12-03 15:13:46}: Restored "SPGP-3106 Release Backup" backup.
+{2019-12-03 15:28:21}: Restored "SPGP-2788 - Email Template Setup" backup.
+{2019-12-04 07:48:26}: Overwrote "SPGP-2788 - Email Template Setup" backup.
+{2019-12-04 07:48:50}: Restored "MASTER" backup.
+{2019-12-04 08:33:31}: Restored "MASTER" backup.
+{2019-12-04 08:37:56}: Restored "SPGP-2788 - Email Template Setup" backup.
+{2019-12-04 10:09:43}: Restored "MASTER" backup.
+{2019-12-04 10:22:23}: Created "SPGP-3076 - Invioces Posted" backup.
+{2019-12-04 10:26:09}: Restored "SPGP-3076 - Invioces Posted" backup.
+{2019-12-04 10:36:02}: Restored "SPGP-3076 - Invioces Posted" backup.
+{2019-12-04 10:43:35}: Restored "SPGP-3076 - Invioces Posted" backup.
+{2019-12-04 10:48:07}: Restored "MASTER" backup.
+{2019-12-04 11:49:17}: Created "SPGP-1800 - Opportunity and Prospect - Created and Updated by" backup.
+{2019-12-04 11:52:08}: Restored "MASTER" backup.
+{2019-12-04 12:12:41}: Restored "MASTER" backup.
+{2019-12-04 14:03:59}: Restored "MASTER" backup.
+{2019-12-04 15:06:37}: Restored "SPGP-2370 Distribution stuff" backup.
+{2019-12-05 06:55:55}: Restored "SPGP-2370 Distribution stuff" backup.
+{2019-12-05 07:13:15}: Restored "MASTER" backup.
+{2019-12-05 07:29:40}: Created "MULTICURRENCY" backup.
+{2019-12-05 08:09:22}: Restored "MULTICURRENCY" backup.
+{2019-12-05 08:19:48}: Restored "MASTER" backup.
+{2019-12-05 09:17:32}: Restored "MASTER" backup.
+{2019-12-05 09:26:53}: Restored "SOL-7520 Quick Pick Maintenance CDE - Security Groups" backup.
+{2019-12-05 09:58:27}: Restored "SOL-7520 Quick Pick Maintenance CDE - Security Groups" backup.
+{2019-12-05 10:03:39}: Created "LICENSE PLATES" backup.
+{2019-12-05 10:18:14}: Restored "LICENSE PLATES" backup.
+{2019-12-05 10:21:19}: Restored "LICENSE PLATES" backup.
+{2019-12-05 10:27:15}: Restored "LICENSE PLATES" backup.
+{2019-12-05 11:02:25}: Created "SPGP-3034 - License Plate Packaging Unit Maintenance changes" backup.
+{2019-12-05 11:03:08}: Restored "SPGP-3042 - Out of Memory Exceptions via AA" backup.
+{2019-12-05 11:14:29}: Restored "SPGP-3042 - Out of Memory Exceptions via AA" backup.
+{2019-12-05 14:57:37}: Restored "MASTER" backup.
+{2019-12-05 15:07:06}: Restored "SPGP-3042 - Out of Memory Exceptions via AA" backup.
+{2019-12-05 15:07:56}: Restored "MASTER" backup.
+{2019-12-06 09:16:26}: Restored "MASTER" backup.
+{2019-12-06 09:30:13}: Restored "MASTER" backup.
+{2019-12-06 11:24:02}: Restored "MASTER" backup.
+{2019-12-06 11:44:19}: Restored "MASTER" backup.
+{2019-12-06 14:24:27}: Restored "SPGP-3076 - Invioces Posted" backup.
+{2019-12-09 07:07:06}: Restored "MASTER" backup.
+{2019-12-09 07:17:05}: Restored "MASTER" backup.
+{2019-12-09 08:00:27}: Restored "MASTER" backup.
+{2019-12-09 08:18:35}: Restored "MASTER" backup.
+{2019-12-09 08:41:51}: Restored "MASTER" backup.
+{2019-12-09 08:43:23}: Restored "MASTER" backup.
+{2019-12-09 08:47:33}: Restored "MASTER" backup.
+{2019-12-09 10:43:15}: Restored "MASTER" backup.
+{2019-12-09 10:46:51}: Restored "MASTER" backup.
+{2019-12-09 10:50:53}: Restored "MASTER" backup.
+{2019-12-09 10:55:30}: Restored "MASTER" backup.
+{2019-12-09 10:58:29}: Restored "MASTER" backup.
+{2019-12-09 11:00:53}: Restored "MASTER" backup.
+{2019-12-09 11:11:44}: Restored "MASTER" backup.
+{2019-12-09 12:06:46}: Restored "MASTER" backup.
+{2019-12-09 12:47:04}: Restored "MASTER" backup.
+{2019-12-09 14:30:27}: Restored "MASTER" backup.
+{2019-12-09 14:33:48}: Restored "SPGP-3042 - Out of Memory Exceptions via AA" backup.
+{2019-12-09 15:28:48}: Restored "MASTER" backup.
