@@ -404,3 +404,17 @@
 	Custom - SalesPad.Module.ThePondGuy.4.6.4.20
 	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
 	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-10 07:53:27}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.20
+{2019-12-10 08:56:59}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+	Extended - SalesPad.Module.RemoteLibrary.4.6.4.20
+{2019-12-10 10:56:14}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+	Custom - SalesPad.Module.Agru.4.6.4.20
+	Custom - SalesPad.Module.AlbertaTrafficSupply.4.6.4.20
+	Custom - SalesPad.Module.Amada.4.6.4.20
+	Custom - SalesPad.Module.ArcticInsulation.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+	Extended - SalesPad.Module.BlueMoonAdvancedUDF.4.6.4.20
+	Extended - SalesPad.Module.BlueMoonOperationsCore.4.6.4.20
+	Extended - SalesPad.Module.BusinessRules.4.6.4.20
+	Extended - SalesPad.Module.CollectionsManagement.4.6.4.20

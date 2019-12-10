@@ -593,3 +593,5 @@
 {2019-12-09 14:30:27}: Restored "MASTER" backup.
 {2019-12-09 14:33:48}: Restored "SPGP-3042 - Out of Memory Exceptions via AA" backup.
 {2019-12-09 15:28:48}: Restored "MASTER" backup.
+{2019-12-10 08:02:04}: Restored "EDI" backup.
+{2019-12-10 12:22:29}: Restored "MASTER" backup.

@@ -1161,7 +1161,7 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                InstallLog(Instl,BuildLoc)
+                                InstallLog(Instl)
                                 ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Gui, SPGP:Destroy
                                 Return
@@ -1187,7 +1187,7 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                InstallLog(Instl,BuildLoc)
+                                InstallLog(Instl)
                                 ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
@@ -1221,7 +1221,7 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                InstallLog(Instl,BuildLoc)
+                                InstallLog(Instl)
                                 ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, ExtList, `|
                                 {
@@ -1257,7 +1257,7 @@ Install:
                                 Sleep 1000
                                 Gui, Prog: Destroy
                                 Run, %BuildLoc%\SalesPad.exe
-                                InstallLog(Instl,BuildLoc)
+                                InstallLog(Instl)
                                 ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                                 Loop, Parse, CustList, `|
                                 {
@@ -1311,7 +1311,7 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            InstallLog(Instl,BuildLoc)
+                            InstallLog(Instl)
                             ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Gui, SPGP:Destroy
                             Return
@@ -1337,7 +1337,7 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            InstallLog(Instl,BuildLoc)
+                            InstallLog(Instl)
                             ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
@@ -1371,7 +1371,7 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            InstallLog(Instl,BuildLoc)
+                            InstallLog(Instl)
                             ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, ExtList, `|
                             {
@@ -1407,7 +1407,7 @@ Install:
                             Sleep 1000
                             Gui, Prog: Destroy
                             Run, %BuildLoc%\SalesPad.exe
-                            InstallLog(Instl,BuildLoc)
+                            InstallLog(Instl)
                             ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                             Loop, Parse, CustList, `|
                             {
