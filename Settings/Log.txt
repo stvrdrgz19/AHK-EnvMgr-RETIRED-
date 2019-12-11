@@ -595,3 +595,27 @@
 {2019-12-09 15:28:48}: Restored "MASTER" backup.
 {2019-12-10 08:02:04}: Restored "EDI" backup.
 {2019-12-10 12:22:29}: Restored "MASTER" backup.
+{2019-12-10 14:30:30}: Restored "MASTER" backup.
+{2019-12-10 14:43:24}: Restored "MASTER" backup.
+{2019-12-10 15:04:03}: Restored "MASTER" backup.
+{2019-12-10 15:08:44}: Restored "MASTER" backup.
+{2019-12-10 15:15:03}: Restored "MASTER" backup.
+{2019-12-10 15:27:45}: Restored "MASTER" backup.
+{2019-12-10 15:37:57}: Restored "MASTER" backup.
+{2019-12-10 15:48:59}: Restored "MASTER" backup.
+{2019-12-10 15:49:52}: Restored "MASTER" backup.
+{2019-12-11 07:26:39}: Restored "MASTER" backup.
+{2019-12-11 08:52:41}: Restored "MASTER" backup.
+{2019-12-11 08:57:51}: Restored "MASTER" backup.
+{2019-12-11 08:59:13}: Restored "MASTER" backup.
+{2019-12-11 09:00:30}: Restored "MASTER" backup.
+{2019-12-11 09:08:21}: Restored "MASTER" backup.
+{2019-12-11 09:14:14}: Restored "MASTER" backup.
+{2019-12-11 09:14:36}: Restored "MASTER" backup.
+{2019-12-11 09:23:08}: Restored "MASTER" backup.
+{2019-12-11 09:33:13}: Restored "MASTER" backup.
+{2019-12-11 11:23:21}: Restored "MASTER" backup.
+{2019-12-11 11:26:57}: Restored "SPGP-3034 - License Plate Packaging Unit Maintenance changes" backup.
+{2019-12-11 15:09:35}: Restored "MASTER" backup.
+{2019-12-11 15:14:45}: Restored "SPGP-3034 - License Plate Packaging Unit Maintenance changes" backup.
+{2019-12-11 15:44:06}: Restored "SPGP-3034 - License Plate Packaging Unit Maintenance changes" backup.

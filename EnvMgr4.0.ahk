@@ -1070,22 +1070,23 @@ Install:
             Gui, SPGP:Add, Text, x455 y95, Custom
             Gui, SPGP:Add, ListBox, 8 x15 y115 w285 r15 vExtList
             Gui, SPGP:Add, ListBox, 8 x330 y115 w285 r15 vCustList
-            Gui, SPGP:Add, GroupBox, x15 y325 w155 h70, Large Custom Projects
-            Gui, SPGP:Add, CheckBox, x30 y345 gGrizzCheck vGrizzValue, Install with Grizzly DLLs
-            Gui, SPGP:Add, CheckBox, x30 y365 gTPGCheck vTPGValue, Install with TPG DLLs
-            GUi, SPGP:Add, GroupBox, x185 y325 w155 h70, Build Options
-            Gui, SPGP:Add, Checkbox, x200 y345 gDBUpdateCheck vDBUpdateValue, Run Database Update
-            Gui, SPGP:Add, Checkbox, x200 y365 gRunBuild vRunBuild, Run Build after Install
-            Gui, SPGP:Add, Button, x516 y370 w100 h25 gSPGPCan, Cancel
-            Gui, SPGP:Add, Button, Default x405 y370 w100 h25 gSPGPOK, OK
+            Gui, SPGP:Add, GroupBox, x15 y325 w285 h70, Common Projects
+            Gui, SPGP:Add, CheckBox, x30 y350 gGrizzCheck vGrizzValue, Grizzly DLLs
+            Gui, SPGP:Add, CheckBox, x30 y370 gTPGCheck vTPGValue, TPG DLLs
+            Gui, SPGP:Add, CheckBox, x160 y350 gEDI vEDI, EDI DLL(s)
+            Gui, SPGP:Add, CheckBox, x160 y370 gAutomationAgent vAutomationAgent, Automation Agent DLLs
+            GUi, SPGP:Add, GroupBox, x330 y325 w285 h70, Build Options
+            Gui, SPGP:Add, Checkbox, x345 y350 gDBUpdateCheck vDBUpdateValue, Run Database Update
+            Gui, SPGP:Add, Checkbox, x345 y370 gRunBuild vRunBuild Checked, Launch after Install
+            Gui, SPGP:Add, CheckBox, x475 y350 vInstallFolder, Open Install Folder
+            Gui, SPGP:Add, CheckBox, x475 y370 vPlaceholder, Placeholder 
+            Gui, SPGP:Add, Button, x516 y400 w100 h25 gSPGPCan, Cancel
+            Gui, SPGP:Add, Button, Default x405 y400 w100 h25 gSPGPOK, OK
+            GuiControl, SPGP:Disable, Placeholder
             WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
             xVarEnv -= 79
             yVarEnv += 46
-            Gui, SPGP:Show, x%xVarEnv% y%yVarEnv% w630 h410, Install SalesPad GP
-            GuiControl, SPGP:Disable, TPGValue
-            GuiControl, SPGP:Disable, DBUpdateValue
-            GuiControl, SPGP:Disable, GrizzValue
-            GuiControl, SPGP:Disable, RunBuild
+            Gui, SPGP:Show, x%xVarEnv% y%yVarEnv% w630 h440, Install SalesPad GP
             Loop, %Instl%\ExtModules\WithOutCardControl\*.*
             {
                 GuiControl, SPGP:, ExtList, %A_LoopFileName%
@@ -1100,6 +1101,12 @@ Install:
                 Return
 
             TPGCheck:
+                Return
+
+            EDI:
+                Return
+
+            AutomationAgent:
                 Return
 
             DBUpdateCheck:

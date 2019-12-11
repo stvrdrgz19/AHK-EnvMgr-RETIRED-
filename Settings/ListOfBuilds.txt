@@ -7,3 +7,5 @@ C:\Program Files (x86)\SalesPad.Desktop\WesKrug\SPGP-3042\4.6.4.20.11
 C:\Program Files (x86)\SalesPad.Desktop\Release\4.6.4.20 EDI
 C:\Program Files (x86)\SalesPad.Desktop\Release\4.6.4.20 Remote Libriary
 C:\Program Files (x86)\SalesPad.Desktop\Release\4.6.4.20 DLLs
+C:\Program Files (x86)\SalesPad.Desktop\ExpressPoint\SOL-8377\4.6.4.4.314
+C:\Program Files (x86)\SalesPad.Desktop\ExpressPoint\SOL-8249\4.6.4.4.280
