@@ -61,10 +61,12 @@ If A_UserName = steve.rodriguez
     Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
     Menu, ToolsMenu, Add, &Database Log, Log
 }
-Menu, ToolsMenu, Add, &Add Dll(s), AddDLLs
-Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
+;Menu, ToolsMenu, Add, &Add Dll(s), AddDLLs
+;Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
 Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager 
 Menu, ToolsMenu, Add, &Ticket Hyperlink Maker (THM), THM 
+Menu, ToolsMenu, Add, &DLL Manager, DLLManager
+Menu, ToolsMenu, Add, &SalesPad Remover, SalesPadRemover
 
 If A_UserName = steve.rodriguez
 {
@@ -307,19 +309,19 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
         Run, chrome.exe https://github.com/stvrdrgz19
         Return
 
-AddDLLs:
-    Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
-    {
-        Run *RunAs %A_LoopFilePath%
-    }
-    Return
-
-GetInstalledDLLs:
-    Loop, \\sp-fileserv-01\Team QA\Tools\Get Installed DLLs\*.exe
-    {
-        Run *RunAs %A_LoopFilePath%
-    }
-    Return
+;AddDLLs:
+;    Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
+;    {
+;        Run *RunAs %A_LoopFilePath%
+;    }
+;    Return
+;
+;GetInstalledDLLs:
+;    Loop, \\sp-fileserv-01\Team QA\Tools\Get Installed DLLs\*.exe
+;    {
+;        Run *RunAs %A_LoopFilePath%
+;    }
+;    Return
 
 OneSourceManager:
     Loop, \\sp-fileserv-01\Team QA\Tools\OneSource Management\*.exe
@@ -330,6 +332,20 @@ OneSourceManager:
 
 THM:
     Loop, \\sp-fileserv-01\Team QA\Tools\Ticket Hyperlink Maker\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
+    Return
+
+DLLManager:
+    Loop, \\sp-fileserv-01\Team QA\Tools\DLL Manager\*.exe
+    {
+        Run *RunAs %A_LoopFilePath%
+    }
+    Return
+
+SalesPadRemover:
+    Loop, \\sp-fileserv-01\Team QA\Tools\Remove SalesPad\*.exe
     {
         Run *RunAs %A_LoopFilePath%
     }
