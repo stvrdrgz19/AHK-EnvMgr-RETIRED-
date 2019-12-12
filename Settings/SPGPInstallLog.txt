@@ -425,3 +425,6 @@
 {2019-12-10 15:49:43}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\ExpressPoint\SOL-8249\4.6.4.4.280
 {2019-12-11 09:08:45}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\master\4.6.4.21.5
 {2019-12-11 11:24:10}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-3034\4.6.4.20.136
+{2019-12-12 07:05:33}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\ExpressPoint\SOL-8124\4.6.4.4.279
+	Extended - SalesPad.Module.CrossUpsell.4.6.4.4
+{2019-12-12 12:37:53}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SPGP-2892\4.6.4.20.13
