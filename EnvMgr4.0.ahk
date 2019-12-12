@@ -51,7 +51,7 @@ If A_UserName = steve.rodriguez
     Menu, ToolsMenu, Add, &F8 Scripts, F8Utils
     Menu, ToolsMenu, Add, &Utilities, Utilities
     Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
-    Menu, ToolsMenu, Add, &Button Counters, Metrics
+    Menu, ToolsMenu, Add, &Metrics, Metrics
     Menu, ToolsMenu, Add, &Database Log, Log
 }
 Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager 
@@ -143,10 +143,12 @@ MenuHandler:
     Return
 
 Utilities:
+    Metrics("Utilities")
     Run, "C:\Users\steve.rodriguez\Desktop\Scripts\SteveUtilities.ahk"
     Return
 
 Log:
+    Metrics("Log")
     Gui, DBLog:Destroy
     Gui, DBLog:Add, Edit, x30 y30 w500 h500 ReadOnly cGray vEdit1,
     WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
@@ -158,6 +160,7 @@ Log:
     Return
 
 sppResetDB:
+    Metrics("sppResetDatabase")
     MsgBox, 36, RESET DATABASE?, Are you sure you want to run the sppResetDatabase proc against TWO?
     IfMsgBox, Yes
     {
@@ -170,6 +173,7 @@ sppResetDB:
     }
 
 Metrics:
+    Metrics("Metrics")
     IniRead, Restore, Settings\Metrics.ini, Metrics, RestoreDB
     IniRead, Overwrite, Settings\Metrics.ini, Metrics, OverwriteDB
     IniRead, New, Settings\Metrics.ini, Metrics, NewBackup
@@ -193,59 +197,115 @@ Metrics:
     IniRead, SPCCounterScreen3, Settings\Metrics.ini, Metrics, SPC3
     IniRead, SPCCounterScreen4, Settings\Metrics.ini, Metrics, SPC4
     IniRead, SPCCounterScreen5, Settings\Metrics.ini, Metrics, SPC5
-    Gui, Metrics:Add, Text, x65 y55, Restore
-    Gui, Metrics:Add, Text, x65 y85, Overwrite
-    Gui, Metrics:Add, Text, x65 y115, New
-    Gui, Metrics:Add, Text, x65 y145, Delete
-    Gui, Metrics:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
-    Gui, Metrics:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
-    Gui, Metrics:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
-    Gui, Metrics:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
-    Gui, Metrics:Add, Text, x200 y55, Desktop
-    Gui, Metrics:Add, Text, x200 y85, Mobile
-    Gui, Metrics:Add, Text, x200 y115, DC
-    Gui, Metrics:Add, Text, x200 y145, SC
-    Gui, Metrics:Add, Text, x200 y175, API
-    Gui, Metrics:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
-    Gui, Metrics:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
-    Gui, Metrics:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
-    Gui, Metrics:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
-    Gui, Metrics:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
-    Gui, Metrics:Add, Text, x335 y55, Web
-    Gui, Metrics:Add, Text, x335 y85, CC
-    Gui, Metrics:Add, Text, x335 y115, Launch
-    Gui, Metrics:Add, Text, x335 y145, Windows Mobile
-    Gui, Metrics:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
-    Gui, Metrics:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
-    Gui, Metrics:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
-    Gui, Metrics:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
-    Gui, Metrics:Add, Text, x470 y55, GP1
-    Gui, Metrics:Add, Text, x470 y85, GP2
-    Gui, Metrics:Add, Text, x470 y115, GP3
-    Gui, Metrics:Add, Text, x470 y145, GP4
-    Gui, Metrics:Add, Text, x470 y175, GP5
-    Gui, Metrics:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
-    Gui, Metrics:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
-    Gui, Metrics:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
-    Gui, Metrics:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
-    Gui, Metrics:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
-    Gui, Metrics:Add, Text, x605 y55, SCP1
-    Gui, Metrics:Add, Text, x605 y85, SCP2
-    Gui, Metrics:Add, Text, x605 y115, SCP3
-    Gui, Metrics:Add, Text, x605 y145, SCP4
-    Gui, Metrics:Add, Text, x605 y175, SCP5
-    Gui, Metrics:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
-    Gui, Metrics:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
-    Gui, Metrics:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
-    Gui, Metrics:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
-    Gui, Metrics:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
-    WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
-    xVarEnv -= 105
-    yVarEnv += 126
-    Gui, Metrics:Show, x%xVarEnv% y%yVarEnv% w680 h250, Button Counters
+    IniRead, UtilitiesRead, Settings\Metrics.ini, Metrics, Utilities
+    IniRead, LogRead, Settings\Metrics.ini, Metrics, Log
+    IniRead, sppResetDatabaseRead, Settings\Metrics.ini, Metrics, sppResetDatabase
+    IniRead, MetricsRead, Settings\Metrics.ini, Metrics, Metrics
+    IniRead, AboutRead, Settings\Metrics.ini, Metrics, About
+    IniRead, OneSourceManagerRead, Settings\Metrics.ini, Metrics, OneSourceManager
+    IniRead, TicketHyperlinkMakerRead, Settings\Metrics.ini, Metrics, TicketHyperlinkMaker
+    IniRead, DLLManagerRead, Settings\Metrics.ini, Metrics, DLLManager
+    IniRead, SalesPadRemoverRead, Settings\Metrics.ini, Metrics, SalesPadRemover
+    IniRead, ToolMetricsRead, Settings\Metrics.ini, Metrics, ToolMetrics
+    IniRead, UpdateProjectsRead, Settings\Metrics.ini, Metrics, UpdateProjects
+    IniRead, SettingsRead, Settings\Metrics.ini, Metrics, Settings
+    IniRead, F8UtilitiesRead, Settings\Metrics.ini, Metrics, F8Utilities
+    IniRead, BuildFolderRead, Settings\Metrics.ini, Metrics, BuildFolder
+
+    Gui, Metrics:Add, ListView, r15 w400 vListView1, Object|Count
+    LV_Add("RestoreDB", Restore)
+    LV_Add("OverwriteDB", Overwrite)
+    LV_Add("NewBackup", New)
+    LV_Add("DeleteBackup", Delete)
+    LV_Add("SalesPadDesktop", Desktop)
+    LV_Add("SalesPadMobile", Mobile)
+    LV_Add("DataCollection", DC)
+    LV_Add("ShipCenter", SC)
+    LV_Add("WebAPI", API)
+    LV_Add("WebPortal", Web)
+    LV_Add("CardControl", CC)
+    LV_Add("LaunchBuild", Launch)
+    LV_Add("Cab", CabWM)
+    LV_Add("GP1", GP1CounterScreen)
+    LV_Add("GP2", GP2CounterScreen)
+    LV_Add("GP3", GP3CounterScreen)
+    LV_Add("GP4", GP4CounterScreen)
+    LV_Add("GP5", GP5CounterScreen)
+    LV_Add("SPC1", SPCCounterScreen1)
+    LV_Add("SPC2", SPCCounterScreen2)
+    LV_Add("SPC3", SPCCounterScreen3)
+    LV_Add("SPC4", SPCCounterScreen4)
+    LV_Add("SPC5", SPCCounterScreen5)
+    LV_Add("Utilities", UtilitiesRead)
+    LV_Add("Log", LogRead)
+    LV_Add("sppResetDatabase", sppResetDatabaseRead)
+    LV_Add("Metrics", MetricsRead)
+    LV_Add("About", AboutRead)
+    LV_Add("OneSourceManager", OneSourceManagerRead)
+    LV_Add("TicketHyperlinkMaker", TicketHyperlinkMakerRead)
+    LV_Add("DLLManager", DLLManagerRead)
+    LV_Add("SalesPadRemover", SalesPadRemoverRead)
+    LV_Add("ToolMetrics", ToolMetricsRead)
+    LV_Add("UpdateProjects", UpdateProjectsRead)
+    LV_Add("Settings", SettingsRead)
+    LV_Add("F8Utilities", F8UtilitiesRead)
+    LV_Add("BuildFolder", BuildFolderRead)
+    Gui, Metrics:Show
+
+    ;Gui, Metrics:Add, Text, x65 y55, Restore
+    ;Gui, Metrics:Add, Text, x65 y85, Overwrite
+    ;Gui, Metrics:Add, Text, x65 y115, New
+    ;Gui, Metrics:Add, Text, x65 y145, Delete
+    ;Gui, Metrics:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
+    ;Gui, Metrics:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
+    ;Gui, Metrics:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
+    ;Gui, Metrics:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
+    ;Gui, Metrics:Add, Text, x200 y55, Desktop
+    ;Gui, Metrics:Add, Text, x200 y85, Mobile
+    ;Gui, Metrics:Add, Text, x200 y115, DC
+    ;Gui, Metrics:Add, Text, x200 y145, SC
+    ;Gui, Metrics:Add, Text, x200 y175, API
+    ;Gui, Metrics:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
+    ;Gui, Metrics:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
+    ;Gui, Metrics:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
+    ;Gui, Metrics:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
+    ;Gui, Metrics:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
+    ;Gui, Metrics:Add, Text, x335 y55, Web
+    ;Gui, Metrics:Add, Text, x335 y85, CC
+    ;Gui, Metrics:Add, Text, x335 y115, Launch
+    ;Gui, Metrics:Add, Text, x335 y145, Windows Mobile
+    ;Gui, Metrics:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
+    ;Gui, Metrics:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
+    ;Gui, Metrics:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
+    ;Gui, Metrics:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
+    ;Gui, Metrics:Add, Text, x470 y55, GP1
+    ;Gui, Metrics:Add, Text, x470 y85, GP2
+    ;Gui, Metrics:Add, Text, x470 y115, GP3
+    ;Gui, Metrics:Add, Text, x470 y145, GP4
+    ;Gui, Metrics:Add, Text, x470 y175, GP5
+    ;Gui, Metrics:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
+    ;Gui, Metrics:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
+    ;Gui, Metrics:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
+    ;Gui, Metrics:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
+    ;Gui, Metrics:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
+    ;Gui, Metrics:Add, Text, x605 y55, SCP1
+    ;Gui, Metrics:Add, Text, x605 y85, SCP2
+    ;Gui, Metrics:Add, Text, x605 y115, SCP3
+    ;Gui, Metrics:Add, Text, x605 y145, SCP4
+    ;Gui, Metrics:Add, Text, x605 y175, SCP5
+    ;Gui, Metrics:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
+    ;Gui, Metrics:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
+    ;Gui, Metrics:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
+    ;Gui, Metrics:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
+    ;Gui, Metrics:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
+    ;WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
+    ;xVarEnv -= 105
+    ;yVarEnv += 126
+    ;Gui, Metrics:Show, x%xVarEnv% y%yVarEnv% w680 h250, Metrics
     Return
 
 AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
+    Metrics("About")
     Iniread, VersionX, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Core Projects\#Project Updater\Versions.ini, Versions, EnvMgr
     Gui, ABOUTS:Add, Progress, x0 y0 w400 h310 BackgroundFFFFFF Disabled,
     Gui, ABOUTS:Add, Progress, x0 y311 w400 h40 BackgroundF0F0F0 Disabled,
@@ -291,6 +351,7 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
         Return
 
 OneSourceManager:
+    Metrics("OneSourceManager")
     Loop, \\sp-fileserv-01\Team QA\Tools\OneSource Management\*.exe
     {
         Run *RunAs %A_LoopFilePath%
@@ -298,6 +359,7 @@ OneSourceManager:
     Return
 
 THM:
+    Metrics("TicketHyperlinkMaker")
     Loop, \\sp-fileserv-01\Team QA\Tools\Ticket Hyperlink Maker\*.exe
     {
         Run *RunAs %A_LoopFilePath%
@@ -306,6 +368,7 @@ THM:
 
 AddDLL:
 DLLManager:
+    Metrics("DLLManager")
     Loop, \\sp-fileserv-01\Team QA\Tools\DLL Manager\*.exe
     {
         Run *RunAs %A_LoopFilePath%
@@ -313,6 +376,7 @@ DLLManager:
     Return
 
 SalesPadRemover:
+    Metrics("SalesPadRemover")
     Loop, \\sp-fileserv-01\Team QA\Tools\Remove SalesPad\*.exe
     {
         Run *RunAs %A_LoopFilePath%
@@ -320,14 +384,17 @@ SalesPadRemover:
     Return
 
 ToolMetrics:
+    Metrics("ToolMetrics")
     Run, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Metrics\Metrics.ahk
     Return
 
 UpdateProjects:
+    Metrics("UpdateProjects")
     Run, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Core Projects\#Project Updater\Updater.ahk
     Return
 
 SettingsScreen:
+    Metrics("Settings")
     Gui, 4:Destroy
     Gui, 4:Add, Button, x459 y220 w100 h25 gSave, Save
     Gui, 4:Add, Button, x569 y220 w100 h25 gCan2, Exit
@@ -1500,6 +1567,7 @@ LaunchBuild:
     Return
 
 BuildFolder:
+    Metrics("BuildFolder")
     GuiControlGet, Combo2
     IniRead, LocSPGP, Settings\Settings.ini, InstallPaths, LSPGP
     IniRead, LocSPM, Settings\Settings.ini, InstallPaths, LSPM
@@ -1709,6 +1777,7 @@ Always:
     }
 
 F8Utils:
+    Metrics("F8Utilities")
     Gui, F8Script:Destroy
     Gui, F8Script:Add, ComboBox, x15 y15 w200 vF8Combo, Select a script to run||
     Gui, F8Script:Add, Button, x14 y36 w202 h23 gF8Run, Run
