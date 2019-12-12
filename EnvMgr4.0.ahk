@@ -12,7 +12,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 #Include, Functions\GuiButtonIcon.ahk
-#Include, Functions\ButtonCounters.ahk
+#Include, Functions\Metrics.ahk
 #Include, Functions\EnvMgrClose.ahk
 #Include, Functions\LoadFromSettings.ahk
 #Include, Functions\LoadSettingsScreen.ahk
@@ -51,7 +51,7 @@ If A_UserName = steve.rodriguez
     Menu, ToolsMenu, Add, &F8 Scripts, F8Utils
     Menu, ToolsMenu, Add, &Utilities, Utilities
     Menu, ToolsMenu, Add, &Reset Database Version, sppResetDB
-    Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
+    Menu, ToolsMenu, Add, &Button Counters, Metrics
     Menu, ToolsMenu, Add, &Database Log, Log
 }
 Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager 
@@ -169,80 +169,80 @@ sppResetDB:
         Return
     }
 
-ButtonCounters:
-    IniRead, Restore, Settings\ButtonCounters.ini, ButtonCounters, RestoreDB
-    IniRead, Overwrite, Settings\ButtonCounters.ini, ButtonCounters, OverwriteDB
-    IniRead, New, Settings\ButtonCounters.ini, ButtonCounters, NewBackup
-    IniRead, Delete, Settings\ButtonCounters.ini, ButtonCounters, DeleteBackup
-    IniRead, Desktop, Settings\ButtonCounters.ini, ButtonCounters, SalesPadDesktop
-    IniRead, Mobile, Settings\ButtonCounters.ini, ButtonCounters, SalesPadMobile
-    IniRead, DC, Settings\ButtonCounters.ini, ButtonCounters, DataCollection
-    IniRead, SC, Settings\ButtonCounters.ini, ButtonCounters, ShipCenter
-    IniRead, API, Settings\ButtonCounters.ini, ButtonCounters, WebAPI
-    IniRead, Web, Settings\ButtonCounters.ini, ButtonCounters, WebPortal
-    IniRead, CC, Settings\ButtonCounters.ini, ButtonCounters, CardControl
-    IniRead, Launch, Settings\ButtonCounters.ini, ButtonCounters, LaunchBuild
-    IniRead, CabWM, Settings\ButtonCounters.ini, ButtonCounters, Cab
-    IniRead, GP1CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP1
-    IniRead, GP2CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP2
-    IniRead, GP3CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP3
-    IniRead, GP4CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP4
-    IniRead, GP5CounterScreen, Settings\ButtonCounters.ini, ButtonCounters, GP5
-    IniRead, SPCCounterScreen1, Settings\ButtonCounters.ini, ButtonCounters, SPC1
-    IniRead, SPCCounterScreen2, Settings\ButtonCounters.ini, ButtonCounters, SPC2
-    IniRead, SPCCounterScreen3, Settings\ButtonCounters.ini, ButtonCounters, SPC3
-    IniRead, SPCCounterScreen4, Settings\ButtonCounters.ini, ButtonCounters, SPC4
-    IniRead, SPCCounterScreen5, Settings\ButtonCounters.ini, ButtonCounters, SPC5
-    Gui, ButtonC:Add, Text, x65 y55, Restore
-    Gui, ButtonC:Add, Text, x65 y85, Overwrite
-    Gui, ButtonC:Add, Text, x65 y115, New
-    Gui, ButtonC:Add, Text, x65 y145, Delete
-    Gui, ButtonC:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
-    Gui, ButtonC:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
-    Gui, ButtonC:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
-    Gui, ButtonC:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
-    Gui, ButtonC:Add, Text, x200 y55, Desktop
-    Gui, ButtonC:Add, Text, x200 y85, Mobile
-    Gui, ButtonC:Add, Text, x200 y115, DC
-    Gui, ButtonC:Add, Text, x200 y145, SC
-    Gui, ButtonC:Add, Text, x200 y175, API
-    Gui, ButtonC:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
-    Gui, ButtonC:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
-    Gui, ButtonC:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
-    Gui, ButtonC:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
-    Gui, ButtonC:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
-    Gui, ButtonC:Add, Text, x335 y55, Web
-    Gui, ButtonC:Add, Text, x335 y85, CC
-    Gui, ButtonC:Add, Text, x335 y115, Launch
-    Gui, ButtonC:Add, Text, x335 y145, Windows Mobile
-    Gui, ButtonC:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
-    Gui, ButtonC:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
-    Gui, ButtonC:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
-    Gui, ButtonC:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
-    Gui, ButtonC:Add, Text, x470 y55, GP1
-    Gui, ButtonC:Add, Text, x470 y85, GP2
-    Gui, ButtonC:Add, Text, x470 y115, GP3
-    Gui, ButtonC:Add, Text, x470 y145, GP4
-    Gui, ButtonC:Add, Text, x470 y175, GP5
-    Gui, ButtonC:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
-    Gui, ButtonC:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
-    Gui, ButtonC:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
-    Gui, ButtonC:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
-    Gui, ButtonC:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
-    Gui, ButtonC:Add, Text, x605 y55, SCP1
-    Gui, ButtonC:Add, Text, x605 y85, SCP2
-    Gui, ButtonC:Add, Text, x605 y115, SCP3
-    Gui, ButtonC:Add, Text, x605 y145, SCP4
-    Gui, ButtonC:Add, Text, x605 y175, SCP5
-    Gui, ButtonC:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
-    Gui, ButtonC:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
-    Gui, ButtonC:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
-    Gui, ButtonC:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
-    Gui, ButtonC:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
+Metrics:
+    IniRead, Restore, Settings\Metrics.ini, Metrics, RestoreDB
+    IniRead, Overwrite, Settings\Metrics.ini, Metrics, OverwriteDB
+    IniRead, New, Settings\Metrics.ini, Metrics, NewBackup
+    IniRead, Delete, Settings\Metrics.ini, Metrics, DeleteBackup
+    IniRead, Desktop, Settings\Metrics.ini, Metrics, SalesPadDesktop
+    IniRead, Mobile, Settings\Metrics.ini, Metrics, SalesPadMobile
+    IniRead, DC, Settings\Metrics.ini, Metrics, DataCollection
+    IniRead, SC, Settings\Metrics.ini, Metrics, ShipCenter
+    IniRead, API, Settings\Metrics.ini, Metrics, WebAPI
+    IniRead, Web, Settings\Metrics.ini, Metrics, WebPortal
+    IniRead, CC, Settings\Metrics.ini, Metrics, CardControl
+    IniRead, Launch, Settings\Metrics.ini, Metrics, LaunchBuild
+    IniRead, CabWM, Settings\Metrics.ini, Metrics, Cab
+    IniRead, GP1CounterScreen, Settings\Metrics.ini, Metrics, GP1
+    IniRead, GP2CounterScreen, Settings\Metrics.ini, Metrics, GP2
+    IniRead, GP3CounterScreen, Settings\Metrics.ini, Metrics, GP3
+    IniRead, GP4CounterScreen, Settings\Metrics.ini, Metrics, GP4
+    IniRead, GP5CounterScreen, Settings\Metrics.ini, Metrics, GP5
+    IniRead, SPCCounterScreen1, Settings\Metrics.ini, Metrics, SPC1
+    IniRead, SPCCounterScreen2, Settings\Metrics.ini, Metrics, SPC2
+    IniRead, SPCCounterScreen3, Settings\Metrics.ini, Metrics, SPC3
+    IniRead, SPCCounterScreen4, Settings\Metrics.ini, Metrics, SPC4
+    IniRead, SPCCounterScreen5, Settings\Metrics.ini, Metrics, SPC5
+    Gui, Metrics:Add, Text, x65 y55, Restore
+    Gui, Metrics:Add, Text, x65 y85, Overwrite
+    Gui, Metrics:Add, Text, x65 y115, New
+    Gui, Metrics:Add, Text, x65 y145, Delete
+    Gui, Metrics:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
+    Gui, Metrics:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
+    Gui, Metrics:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
+    Gui, Metrics:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
+    Gui, Metrics:Add, Text, x200 y55, Desktop
+    Gui, Metrics:Add, Text, x200 y85, Mobile
+    Gui, Metrics:Add, Text, x200 y115, DC
+    Gui, Metrics:Add, Text, x200 y145, SC
+    Gui, Metrics:Add, Text, x200 y175, API
+    Gui, Metrics:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
+    Gui, Metrics:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
+    Gui, Metrics:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
+    Gui, Metrics:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
+    Gui, Metrics:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
+    Gui, Metrics:Add, Text, x335 y55, Web
+    Gui, Metrics:Add, Text, x335 y85, CC
+    Gui, Metrics:Add, Text, x335 y115, Launch
+    Gui, Metrics:Add, Text, x335 y145, Windows Mobile
+    Gui, Metrics:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
+    Gui, Metrics:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
+    Gui, Metrics:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
+    Gui, Metrics:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
+    Gui, Metrics:Add, Text, x470 y55, GP1
+    Gui, Metrics:Add, Text, x470 y85, GP2
+    Gui, Metrics:Add, Text, x470 y115, GP3
+    Gui, Metrics:Add, Text, x470 y145, GP4
+    Gui, Metrics:Add, Text, x470 y175, GP5
+    Gui, Metrics:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
+    Gui, Metrics:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
+    Gui, Metrics:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
+    Gui, Metrics:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
+    Gui, Metrics:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
+    Gui, Metrics:Add, Text, x605 y55, SCP1
+    Gui, Metrics:Add, Text, x605 y85, SCP2
+    Gui, Metrics:Add, Text, x605 y115, SCP3
+    Gui, Metrics:Add, Text, x605 y145, SCP4
+    Gui, Metrics:Add, Text, x605 y175, SCP5
+    Gui, Metrics:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
+    Gui, Metrics:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
+    Gui, Metrics:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
+    Gui, Metrics:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
+    Gui, Metrics:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
     WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
     xVarEnv -= 105
     yVarEnv += 126
-    Gui, ButtonC:Show, x%xVarEnv% y%yVarEnv% w680 h250, Button Counters
+    Gui, Metrics:Show, x%xVarEnv% y%yVarEnv% w680 h250, Button Counters
     Return
 
 AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
@@ -289,20 +289,6 @@ AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without
     HubIcon:
         Run, chrome.exe https://github.com/stvrdrgz19
         Return
-
-;AddDLLs:
-;    Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
-;    {
-;        Run *RunAs %A_LoopFilePath%
-;    }
-;    Return
-;
-;GetInstalledDLLs:
-;    Loop, \\sp-fileserv-01\Team QA\Tools\Get Installed DLLs\*.exe
-;    {
-;        Run *RunAs %A_LoopFilePath%
-;    }
-;    Return
 
 OneSourceManager:
     Loop, \\sp-fileserv-01\Team QA\Tools\OneSource Management\*.exe
@@ -839,7 +825,7 @@ Restore:
             WinWaitClose
             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%Combo1%" backup.`n, Settings\Log.txt
             MsgBox, 0, COMPLETED, Database %Combo1% was restored successfully.
-            ButtonCounters("RestoreDB")
+            Metrics("RestoreDB")
             Return
         }
         IfMsgBox, No
@@ -892,7 +878,7 @@ Overwrite:
                 FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%Combo1%\Description.txt
                 FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
                 GuiControl, 1:, DBDesc, %TestXD% 
-                ButtonCounters("OverwriteDB")
+                Metrics("OverwriteDB")
                 Return
             }
             if OverCheck = 1
@@ -916,7 +902,7 @@ Overwrite:
                     FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Combo1%\Description.txt
                     FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
                     GuiControl, 1:, DBDesc, %TestXD% 
-                    ButtonCounters("OverwriteDB")
+                    Metrics("OverwriteDB")
                     Return
                     
                 OverCancel:
@@ -994,7 +980,7 @@ NewDB:
                             GuiControl, 1:, Combo1, %A_LoopFileName%
                         }
                         Gui, NewDB:Destroy
-                        ButtonCounters("NewBackup")
+                        Metrics("NewBackup")
                         Return
                     }
                 }
@@ -1023,7 +1009,7 @@ Delete:
         FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Deleted "%Combo1%" backup.`n, Settings\Log.txt
         FileRemoveDir, %DBListDelete%\%Combo1%, 1
         MsgBox, 48, DELETED, Database "%Combo1%" was deleted.
-        ButtonCounters("DeleteBackup")
+        Metrics("DeleteBackup")
         GuiControl, 1:, Combo1, |
         GuiControl, 1:, Combo1, Select a Database ||
         Loop, %DBListDisplay%\*, 2
@@ -1125,7 +1111,7 @@ Install:
                 }
             
             SPGPOK:
-                ButtonCounters("SalesPadDesktop")
+                Metrics("SalesPadDesktop")
                 GuiControlGet, BuildLoc
                 Gui, Prog:Destroy
                 Gui, Prog:Add, Text, x15 y15 vProgressText, Copying installer from network...
@@ -1464,7 +1450,7 @@ Install:
                     MsgBox, 0, CANCEL, CAB file was NOT deleted.
                 }
             }
-            ButtonCounters("Cab")
+            Metrics("Cab")
             FileSelectFile, CabFile, 1, \\sp-fileserv-01\Shares\Builds\Ares\DataCollection\, Select a Windows Mobile file to move, *.cab
             if CabFile = 
             {
@@ -1509,7 +1495,7 @@ LaunchBuild:
         Run, %Launch%
         Return
     }
-    ButtonCounters("LaunchBuild")
+    Metrics("LaunchBuild")
     LaunchBuild(Combo2)
     Return
 
@@ -1568,31 +1554,31 @@ LaunchGP:
     If Combo3 = %GPLabel1%
     {
         Run, "%GPLaunchPath1%"
-        ButtonCounters("GP1")
+        Metrics("GP1")
         Return
     }
     If Combo3 = %GPLabel2%
     {
         Run, "%GPLaunchPath2%"
-        ButtonCounters("GP2")
+        Metrics("GP2")
         Return
     }
     If Combo3 = %GPLabel3%
     {
         Run, "%GPLaunchPath3%"
-        ButtonCounters("GP3")
+        Metrics("GP3")
         Return
     }
     If Combo3 = %GPLabel4%
     {
         Run, "%GPLaunchPath4%"
-        ButtonCounters("GP4")
+        Metrics("GP4")
         Return
     }
     If Combo3 = %GPLabel5%
     {
         Run, "%GPLaunchPath5%"
-        ButtonCounters("GP5")
+        Metrics("GP5")
         Return
     }
     Return
@@ -1630,7 +1616,7 @@ DeleteCloud:
         IfMsgBox, Yes
         {
             Run, "Scripts\Script.DropSR01.bat" %CloudLab1%
-            ButtonCounters("SPC1")
+            Metrics("SPC1")
             Return
         }
         IfMsgBox, No
@@ -1644,7 +1630,7 @@ DeleteCloud:
         IfMsgBox, Yes
         {
             Run, "Scripts\Script.DropSR01.bat" %CloudLab2%
-            ButtonCounters("SPC2")
+            Metrics("SPC2")
             Return
         }
         IfMsgBox, No
@@ -1658,7 +1644,7 @@ DeleteCloud:
         IfMsgBox, Yes
         {
             Run, "Scripts\Script.DropSR01.bat" %CloudLab3%
-            ButtonCounters("SPC3")
+            Metrics("SPC3")
             Return
         }
         IfMsgBox, No
@@ -1672,7 +1658,7 @@ DeleteCloud:
         IfMsgBox, Yes
         {
             Run, "Scripts\Script.DropSR01.bat" %CloudLab4%
-            ButtonCounters("SPC4")
+            Metrics("SPC4")
             Return
         }
         IfMsgBox, No
@@ -1686,7 +1672,7 @@ DeleteCloud:
         IfMsgBox, Yes
         {
             Run, "Scripts\Script.DropSR01.bat" %CloudLab5%
-            ButtonCounters("SPC5")
+            Metrics("SPC5")
             Return
         }
         IfMsgBox, No

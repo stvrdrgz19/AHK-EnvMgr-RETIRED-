@@ -1,7 +1,7 @@
 InstallBuilds(Product,Path,Prompt,SaveTo,Title,Launcher)
 {
     global
-    ButtonCounters(Product)
+    Metrics(Product)
     FileSelectFile, SelectInstaller, 1, %Path%, %Prompt%, *.exe
     if ErrorLevel
         Return
