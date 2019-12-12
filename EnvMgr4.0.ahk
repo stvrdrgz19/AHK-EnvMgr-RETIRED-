@@ -11,13 +11,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 
-;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\GuiButtonIcon.ahk
-;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\ButtonCounters.ahk
-;#Include, C:\Users\steve.rodriguez\Desktop\EnvironmentManager\AHK-EnvMgr-RETIRED-\Functions\EnvMgrClose.ahk
-
-;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\GuiButtonIcon.ahk
-;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\ButtonCounters.ahk
-;#Include, C:\Users\stvrd\Desktop\EnvMgr\Functions\EnvMgrClose.ahk
 #Include, Functions\GuiButtonIcon.ahk
 #Include, Functions\ButtonCounters.ahk
 #Include, Functions\EnvMgrClose.ahk
@@ -61,8 +54,6 @@ If A_UserName = steve.rodriguez
     Menu, ToolsMenu, Add, &Button Counters, ButtonCounters
     Menu, ToolsMenu, Add, &Database Log, Log
 }
-;Menu, ToolsMenu, Add, &Add Dll(s), AddDLLs
-;Menu, ToolsMenu, Add, &Get Installed DLL(s), GetInstalledDLLs
 Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager 
 Menu, ToolsMenu, Add, &Ticket Hyperlink Maker (THM), THM 
 Menu, ToolsMenu, Add, &DLL Manager, DLLManager
@@ -82,9 +73,7 @@ Menu, MyMenuBar, Add, &Help, :HelpMenu
 
 Gui, Menu, MyMenuBar
 
-;Gui, Font, s10
 Gui, Add, GroupBox, x12 w443 h235 cBlue, Database Management
-;Gui, Font, s9
 Gui, Add, ComboBox, x25 y30 w359 vCombo1 gCombo1, Select a Database||
 Gui, Add, Button, x24 y202 w100 h25 vRestore gRestore, Restore DB
 Gui, Add, Button, x129 y202 w100 h25 vOverwrite gOverwrite, Overwrite DB
@@ -96,28 +85,20 @@ GuiButtonIcon(IconDBFolder, "imageres.dll", 4, "s21")
 Gui, Add, Button, x413 y28 w25 h25 vAddDesc gAddDesc hwndIconAdd,
 GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
-;Gui, Font, s10
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
-;Gui, Font, s9
 Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||
-;Gui, Font, s9 bold
 Gui, Add, Button, x24 y300 w100 h25 vInstall gInstall, Install
-;Gui, Font, s9 norm
 Gui, Add, Button, x129 y300 w100 h25 vLaunchBuild gLaunchBuild, Launch Build
 Gui, Add, Button, x234 y300 w100 h25 vAddDLL gAddDLL, Add DLLs 
 Gui, Add, Button, x339 y300 w100 h25 vBuildFolder gBuildFolder, Build Folder
 
-;Gui, Font, s10
 Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
-;Gui, Font, s9
 Gui, Add, ComboBox, x25 y360 w184 vCombo3, Select GP to Launch||
 Gui, Add, Button, x110 y390 w100 h25 vLaunchGP gLaunchGP, Launch
 Gui, Add, Button, x80 y390 w25 h25 vGPFolder gGPFolder hwndIconGP
 GuiButtonIcon(IconGP, "C:\Program Files (x86)\Microsoft Dynamics\GP2016\GPIcons.dll", 159,"s21")
 
-;Gui, Font, s10
 Gui, Add, GroupBox, x241 y339 w214 h85 cBlue, Delete Cloud DB
-;Gui, Font, s9
 Gui, Add, ComboBox, x254 y360 w184 vCombo4, Select Cloud Tenant to Delete||
 Gui, Add, Button, x339 y390 w100 h25 vDeleteCloud gDeleteCloud, Delete
 Gui, Add, Button, x309 y390 w25 h25 vOctopush gOctopush hwndIconSPC
@@ -337,6 +318,7 @@ THM:
     }
     Return
 
+AddDLL:
 DLLManager:
     Loop, \\sp-fileserv-01\Team QA\Tools\DLL Manager\*.exe
     {
@@ -835,7 +817,6 @@ AddDesc:
 
 Restore:
     GuiControlGet, Combo1
-    ButtonCounters("RestoreDB")
     If Combo1 = Select a Database
     {
         MsgBox, 16, ERROR, Please select a database backup to restore.
@@ -1073,7 +1054,6 @@ Install:
     {
         If Combo2 = SalesPad Desktop
         {
-            ButtonCounters("SalesPadDesktop")
             FileSelectFile, SelectedFile, 1, \\sp-fileserv-01\Shares\Builds\SalesPad.GP\, Select a SalesPad Build, *.exe
             if ErrorLevel
                 Return
@@ -1145,6 +1125,7 @@ Install:
                 }
             
             SPGPOK:
+                ButtonCounters("SalesPadDesktop")
                 GuiControlGet, BuildLoc
                 Gui, Prog:Destroy
                 Gui, Prog:Add, Text, x15 y15 vProgressText, Copying installer from network...
@@ -1512,7 +1493,6 @@ Install:
 
 LaunchBuild:
     GuiControlGet, Combo2
-    ButtonCounters("LaunchBuild")
     If Combo2 = Select a Product to Install
     {
         MsgBox, 16, ERROR, Please select a product to launch.
@@ -1529,29 +1509,9 @@ LaunchBuild:
         Run, %Launch%
         Return
     }
+    ButtonCounters("LaunchBuild")
     LaunchBuild(Combo2)
     Return
-
-AddDLL:
-    GuiControlGet, Combo2
-    If Combo2 = Select a Product to Install
-    {
-        MsgBox, 16, ERROR, Please select a Product to add DLLs to.
-        Return
-    }
-    If Combo2 = SalesPad Desktop
-    {
-        Loop, \\sp-fileserv-01\Team QA\Tools\Add DLLs\*.exe
-        {
-            Run *RunAs %A_LoopFilePath%
-        }
-        Return
-    }
-    If Combo2 != SalesPad Desktop & Combo2 != Select a Product to Install
-    {
-        MsgBox, 0, test, No dll's for this product.
-        Return
-    }
 
 BuildFolder:
     GuiControlGet, Combo2
