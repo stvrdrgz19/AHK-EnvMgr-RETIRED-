@@ -212,45 +212,50 @@ Metrics:
     IniRead, F8UtilitiesRead, Settings\Metrics.ini, Metrics, F8Utilities
     IniRead, BuildFolderRead, Settings\Metrics.ini, Metrics, BuildFolder
 
-    Gui, Metrics:Add, ListView, r15 w400 vListView1, Object|Count
-    LV_Add("RestoreDB", Restore)
-    LV_Add("OverwriteDB", Overwrite)
-    LV_Add("NewBackup", New)
-    LV_Add("DeleteBackup", Delete)
-    LV_Add("SalesPadDesktop", Desktop)
-    LV_Add("SalesPadMobile", Mobile)
-    LV_Add("DataCollection", DC)
-    LV_Add("ShipCenter", SC)
-    LV_Add("WebAPI", API)
-    LV_Add("WebPortal", Web)
-    LV_Add("CardControl", CC)
-    LV_Add("LaunchBuild", Launch)
-    LV_Add("Cab", CabWM)
-    LV_Add("GP1", GP1CounterScreen)
-    LV_Add("GP2", GP2CounterScreen)
-    LV_Add("GP3", GP3CounterScreen)
-    LV_Add("GP4", GP4CounterScreen)
-    LV_Add("GP5", GP5CounterScreen)
-    LV_Add("SPC1", SPCCounterScreen1)
-    LV_Add("SPC2", SPCCounterScreen2)
-    LV_Add("SPC3", SPCCounterScreen3)
-    LV_Add("SPC4", SPCCounterScreen4)
-    LV_Add("SPC5", SPCCounterScreen5)
-    LV_Add("Utilities", UtilitiesRead)
-    LV_Add("Log", LogRead)
-    LV_Add("sppResetDatabase", sppResetDatabaseRead)
-    LV_Add("Metrics", MetricsRead)
-    LV_Add("About", AboutRead)
-    LV_Add("OneSourceManager", OneSourceManagerRead)
-    LV_Add("TicketHyperlinkMaker", TicketHyperlinkMakerRead)
-    LV_Add("DLLManager", DLLManagerRead)
-    LV_Add("SalesPadRemover", SalesPadRemoverRead)
-    LV_Add("ToolMetrics", ToolMetricsRead)
-    LV_Add("UpdateProjects", UpdateProjectsRead)
-    LV_Add("Settings", SettingsRead)
-    LV_Add("F8Utilities", F8UtilitiesRead)
-    LV_Add("BuildFolder", BuildFolderRead)
+    Gui, Metrics:Destroy
+    Gui, Metrics:Default
+    Gui, Metrics:Add, ListView, r10 w400 vListView1, OBJECT|COUNT
+    LV_ModifyCol(1, 200, "OBJECT")
+    LV_ModifyCol(2, 175, "COUNT")
+    LV_Add(,"Restore DB", Restore)
+    LV_Add(,"Overwrite DB", Overwrite)
+    LV_Add(,"New Backup", New)
+    LV_Add(,"Delete Backup", Delete)
+    LV_Add(,"SalesPad Desktop", Desktop)
+    LV_Add(,"SalesPad Mobile", Mobile)
+    LV_Add(,"DataCollection", DC)
+    LV_Add(,"ShipCenter", SC)
+    LV_Add(,"WebAPI", API)
+    LV_Add(,"WebPortal", Web)
+    LV_Add(,"CardControl", CC)
+    LV_Add(,"Launch Build", Launch)
+    LV_Add(,"Cab", CabWM)
+    LV_Add(,"GP1", GP1CounterScreen)
+    LV_Add(,"GP2", GP2CounterScreen)
+    LV_Add(,"GP3", GP3CounterScreen)
+    LV_Add(,"GP4", GP4CounterScreen)
+    LV_Add(,"GP5", GP5CounterScreen)
+    LV_Add(,"SPC1", SPCCounterScreen1)
+    LV_Add(,"SPC2", SPCCounterScreen2)
+    LV_Add(,"SPC3", SPCCounterScreen3)
+    LV_Add(,"SPC4", SPCCounterScreen4)
+    LV_Add(,"SPC5", SPCCounterScreen5)
+    LV_Add(,"Utilities", UtilitiesRead)
+    LV_Add(,"Log", LogRead)
+    LV_Add(,"sppResetDatabase", sppResetDatabaseRead)
+    LV_Add(,"Metrics", MetricsRead)
+    LV_Add(,"About", AboutRead)
+    LV_Add(,"OneSource Manager", OneSourceManagerRead)
+    LV_Add(,"Ticket Hyperlink Maker", TicketHyperlinkMakerRead)
+    LV_Add(,"DLL Manager", DLLManagerRead)
+    LV_Add(,"SalesPad Remover", SalesPadRemoverRead)
+    LV_Add(,"Tool Metrics", ToolMetricsRead)
+    LV_Add(,"Update Projects", UpdateProjectsRead)
+    LV_Add(,"Settings", SettingsRead)
+    LV_Add(,"F8 Utilities", F8UtilitiesRead)
+    LV_Add(,"Build Folder", BuildFolderRead)
     Gui, Metrics:Show
+    Return
 
     ;Gui, Metrics:Add, Text, x65 y55, Restore
     ;Gui, Metrics:Add, Text, x65 y85, Overwrite
@@ -1811,6 +1816,11 @@ F8Utils:
     F8ScriptGuiClose:
         Gui, F8Script:Destroy
         Return
+
+If GetKeyState("CapsLock","T") = 1
+{
+	F2::Reload
+}
 
 ;=================================================================================================================================
 ;   END

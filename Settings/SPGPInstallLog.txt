@@ -428,3 +428,18 @@
 {2019-12-12 07:05:33}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\ExpressPoint\SOL-8124\4.6.4.4.279
 	Extended - SalesPad.Module.CrossUpsell.4.6.4.4
 {2019-12-12 12:37:53}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SPGP-2892\4.6.4.20.13
+{2019-12-13 08:28:15}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\ProductDev\RonPatrick\SPGP-2892\4.6.4.21.24
+{2019-12-13 09:01:39}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-2881\4.6.4.20.11
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-13 09:20:19}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.20
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-13 09:56:57}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-2881\4.6.4.20.12
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-13 14:10:06}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottF\SPGP-3076\4.6.4.19.1
+{2019-12-13 15:17:55}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3191\4.6.4.21.3
+{2019-12-13 15:43:17}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-2881\4.6.4.20.13
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
