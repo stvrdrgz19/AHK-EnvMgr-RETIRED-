@@ -15,6 +15,14 @@ SaveSettingsEdit(FieldToSave,Section,Key)
     GuiControlGet, GP5Loc, 4:
     GuiControlGet, PromptCloseBox, 4:
     GuiControlGet, SharedF, 4:
+    GuiControlGet, GrizzDisable, 4:
+    GuiControlGet, TPGDisable, 4:
+    GuiControlGet, EDIDisable, 4:
+    GuiControlGet, AADisable, 4:
+    GuiControlGet, DBUpdateDisable, 4:
+    GuiControlGet, LaunchAfterDisable, 4:
+    GuiControlGet, OpenAfterDisable, 4:
+    GuiControlGet, PlaceholderDisable, 4:
     IniWrite, %FieldToSave%, Settings\Settings.ini, %Section%, %Key%
 }
 

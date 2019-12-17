@@ -443,3 +443,11 @@
 {2019-12-13 15:43:17}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-2881\4.6.4.20.13
 	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
 	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-16 08:14:58}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\WesKrug\SPGP-2881\4.6.4.20.13
+	Extended - SalesPad.Module.AutomationAgent.4.6.4.20
+	Extended - SalesPad.Module.AutomationAgentService.4.6.4.20
+{2019-12-16 09:24:49}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3191\4.6.4.21.3
+{2019-12-16 09:40:53}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Customers\Apet\SPGP-2524\4.6.4.21.9
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.21
+{2019-12-16 10:55:40}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3240\4.6.4.21.9
+{2019-12-16 11:12:57}: \\SP-FILESERV-01\Shares\Builds\SalesPad.GP\Customers\Knightwatch\SOL-7746\4.6.4.19.1

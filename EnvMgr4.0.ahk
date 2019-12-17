@@ -34,6 +34,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include, Functions\SaveSettingsProductCheckbox.ahk
 #Include, Functions\SaveSettingsSPCCheckbox.ahk
 #Include, Functions\InstallLogs.ahk
+#Include, Functions\InstallLoadFromSettings.ahk
 
 If A_IsAdmin = 0
 {
@@ -257,58 +258,6 @@ Metrics:
     Gui, Metrics:Show
     Return
 
-    ;Gui, Metrics:Add, Text, x65 y55, Restore
-    ;Gui, Metrics:Add, Text, x65 y85, Overwrite
-    ;Gui, Metrics:Add, Text, x65 y115, New
-    ;Gui, Metrics:Add, Text, x65 y145, Delete
-    ;Gui, Metrics:Add, Edit, x30 y50 w30 cgray ReadOnly, %Restore%
-    ;Gui, Metrics:Add, Edit, x30 y80 w30 cgray ReadOnly, %Overwrite%
-    ;Gui, Metrics:Add, Edit, x30 y110 w30 cgray ReadOnly, %New%
-    ;Gui, Metrics:Add, Edit, x30 y140 w30 cgray ReadOnly, %Delete%
-    ;Gui, Metrics:Add, Text, x200 y55, Desktop
-    ;Gui, Metrics:Add, Text, x200 y85, Mobile
-    ;Gui, Metrics:Add, Text, x200 y115, DC
-    ;Gui, Metrics:Add, Text, x200 y145, SC
-    ;Gui, Metrics:Add, Text, x200 y175, API
-    ;Gui, Metrics:Add, Edit, x165 y50 w30 cgray ReadOnly, %Desktop%
-    ;Gui, Metrics:Add, Edit, x165 y80 w30 cgray ReadOnly, %Mobile%
-    ;Gui, Metrics:Add, Edit, x165 y110 w30 cgray ReadOnly, %DC%
-    ;Gui, Metrics:Add, Edit, x165 y140 w30 cgray ReadOnly, %SC%
-    ;Gui, Metrics:Add, Edit, x165 y170 w30 cgray ReadOnly, %API%
-    ;Gui, Metrics:Add, Text, x335 y55, Web
-    ;Gui, Metrics:Add, Text, x335 y85, CC
-    ;Gui, Metrics:Add, Text, x335 y115, Launch
-    ;Gui, Metrics:Add, Text, x335 y145, Windows Mobile
-    ;Gui, Metrics:Add, Edit, x300 y50 w30 cgray ReadOnly, %Web%
-    ;Gui, Metrics:Add, Edit, x300 y80 w30 cgray ReadOnly, %CC%
-    ;Gui, Metrics:Add, Edit, x300 y110 w30 cgray ReadOnly, %Launch%
-    ;Gui, Metrics:Add, Edit, x300 y140 w30 cgray ReadOnly, %CabWM%
-    ;Gui, Metrics:Add, Text, x470 y55, GP1
-    ;Gui, Metrics:Add, Text, x470 y85, GP2
-    ;Gui, Metrics:Add, Text, x470 y115, GP3
-    ;Gui, Metrics:Add, Text, x470 y145, GP4
-    ;Gui, Metrics:Add, Text, x470 y175, GP5
-    ;Gui, Metrics:Add, Edit, x435 y50 w30 cgray ReadOnly, %GP1CounterScreen%
-    ;Gui, Metrics:Add, Edit, x435 y80 w30 cgray ReadOnly, %GP2CounterScreen%
-    ;Gui, Metrics:Add, Edit, x435 y110 w30 cgray ReadOnly, %GP3CounterScreen%
-    ;Gui, Metrics:Add, Edit, x435 y140 w30 cgray ReadOnly, %GP4CounterScreen%
-    ;Gui, Metrics:Add, Edit, x435 y170 w30 cgray ReadOnly, %GP5CounterScreen%
-    ;Gui, Metrics:Add, Text, x605 y55, SCP1
-    ;Gui, Metrics:Add, Text, x605 y85, SCP2
-    ;Gui, Metrics:Add, Text, x605 y115, SCP3
-    ;Gui, Metrics:Add, Text, x605 y145, SCP4
-    ;Gui, Metrics:Add, Text, x605 y175, SCP5
-    ;Gui, Metrics:Add, Edit, x570 y50 w30 cgray ReadOnly, %SPCCounterScreen1%
-    ;Gui, Metrics:Add, Edit, x570 y80 w30 cgray ReadOnly, %SPCCounterScreen2%
-    ;Gui, Metrics:Add, Edit, x570 y110 w30 cgray ReadOnly, %SPCCounterScreen3%
-    ;Gui, Metrics:Add, Edit, x570 y140 w30 cgray ReadOnly, %SPCCounterScreen4%
-    ;Gui, Metrics:Add, Edit, x570 y170 w30 cgray ReadOnly, %SPCCounterScreen5%
-    ;WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
-    ;xVarEnv -= 105
-    ;yVarEnv += 126
-    ;Gui, Metrics:Show, x%xVarEnv% y%yVarEnv% w680 h250, Metrics
-    Return
-
 AboutScreen:    ;https://autohotkey.com/board/topic/80739-editboxtextbox-without-border/
     Metrics("About")
     Iniread, VersionX, C:\Users\steve.rodriguez\Desktop\Scripts\Projects\Core Projects\#Project Updater\Versions.ini, Versions, EnvMgr
@@ -500,7 +449,18 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y154 w23 h23 gSelectCloudLabel04, ...
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectCloudLabel05, ...
     Gui, 4:Tab, 6
-    Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt user when closing Environment Manager 
+    Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt when closing EnvMgr 
+    ;Gui, 4:Add, Checkbox, x30 y85 v, 
+    ;Gui, 4:Add, Checkbox, x30 y115 v, 
+    ;Gui, 4:Add, Checkbox, x30 y145 v, 
+    Gui, 4:Add, Checkbox, x260 y55 vGrizzDisable, Disable Add Grizzly DLLs
+    Gui, 4:Add, Checkbox, x260 y85 vTPGDisable, Disable Add TPG DLLs
+    Gui, 4:Add, Checkbox, x260 y115 vEDIDisable, Disable Add EDI DLLs
+    Gui, 4:Add, Checkbox, x260 y145 vAADisable, Disable Add AA DLLs
+    Gui, 4:Add, Checkbox, x490 y55 vDBUpdateDisable, Disable DB Update After Install
+    Gui, 4:Add, Checkbox, x490 y85 vLaunchAfterDisable, Disable Launch Build After Install
+    Gui, 4:Add, Checkbox, x490 y115 vOpenAfterDisable, Disable Open Folder After Install
+    Gui, 4:Add, Checkbox, x490 y145 vPlaceholderDisable, Disable Placeholder
     WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
     xVarEnv -= 104
     yVarEnv += 126
@@ -532,9 +492,6 @@ SettingsScreen:
     LoadSettingsScreen("AddLoad","BuildManagement","Add","DisableAdd")
     LoadSettingsScreen("SharedLoad","BuildManagement","SharedLocation","SharedF")
     LoadSettingsScreen("BuildLoad","BuildManagement","Build","DisableBuild")
-    ;LoadSettingsScreen("GrizzLoad","BuildManagement","Grizz","DisableGrizz")
-    ;LoadSettingsScreen("TPGLoad","BuildManagement","TPG","DisableTPG")
-    ;LoadSettingsScreen("DBUpdateLoad","BuildManagement","DBUpdate","DisableDBUpdate")
     LoadSettingsScreen("Dyn10Load","GPButtons","Dynamics10","CheckDyn10")
     LoadSettingsScreen("Dyn13Load","GPButtons","Dynamics13","CheckDyn13")
     LoadSettingsScreen("Dyn15Load","GPButtons","Dynamics15","CheckDyn15")
@@ -546,6 +503,14 @@ SettingsScreen:
     LoadSettingsScreen("Cloud04Load","SPCButtons","Cloud4","CheckSPC4")
     LoadSettingsScreen("Cloud05Load","SPCButtons","Cloud5","CheckSPC5")
     LoadSettingsScreen("Other1Load","PromptClose","Close","PromptCloseBox")
+    LoadSettingsScreen("GrizzLoad","Install","Grizzly","GrizzDisable")
+    LoadSettingsScreen("TPGLoad","Install","TPG","TPGDisable")
+    LoadSettingsScreen("EDILoad","Install","EDI","EDIDisable")
+    LoadSettingsScreen("AALoad","Install","AA","AADisable")
+    LoadSettingsScreen("RunDBUpdateLoad","Install","RunDBUpdate","DBUpdateDisable")
+    LoadSettingsScreen("LaunchBuildAfterLoad","Install","LaunchAfterInstall","LaunchAfterDisable")
+    LoadSettingsScreen("OpenBuilderFolderLoad","Install","OpenInstallFolder","OpenAfterDisable")
+    LoadSettingsScreen("PlaceholderLoad","Install","Placeholder","PlaceholderDisable")
     LoadSettingsScreen("CloudButtonLabel01","CloudButtonNames","01","CloudLabel01")
     LoadSettingsScreen("CloudButtonLabel02","CloudButtonNames","02","CloudLabel02")
     LoadSettingsScreen("CloudButtonLabel03","CloudButtonNames","03","CloudLabel03")
@@ -580,6 +545,14 @@ SettingsScreen:
         SaveSettingsEdit(GP4Loc,"GPLaunchFile","GPLaunch4")
         SaveSettingsEdit(GP5Loc,"GPLaunchFile","GPLaunch5")
         SaveSettingsEdit(PromptCloseBox,"PromptClose","Close")
+        SaveSettingsEdit(GrizzDisable,"Install","Grizzly")
+        SaveSettingsEdit(TPGDisable,"Install","TPG")
+        SaveSettingsEdit(EDIDisable,"Install","EDI")
+        SaveSettingsEdit(AADisable,"Install","AA")
+        SaveSettingsEdit(DBUpdateDisable,"Install","RunDBUpdate")
+        SaveSettingsEdit(LaunchAfterDisable,"Install","LaunchAfterInstall")
+        SaveSettingsEdit(OpenAfterDisable,"Install","OpenInstallFolder")
+        SaveSettingsEdit(PlaceholderDisable,"Install","Placeholder")
         SaveSettingsEdit(SharedF,"BuildManagement","SharedLocation")
         SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","Restore")
         SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","Overwrite")
@@ -1136,7 +1109,7 @@ Install:
             Gui, SPGP:Add, CheckBox, x475 y370 vPlaceholder, Placeholder 
             Gui, SPGP:Add, Button, x516 y400 w100 h25 gSPGPCan, Cancel
             Gui, SPGP:Add, Button, Default x405 y400 w100 h25 gSPGPOK, OK
-            GuiControl, SPGP:Disable, Placeholder
+            ;GuiControl, SPGP:Disable, Placeholder
             WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
             xVarEnv -= 79
             yVarEnv += 46
@@ -1149,6 +1122,14 @@ Install:
             {
                 GuiControl, SPGP:, CustList, %A_LoopFileName%
             }
+            InstallLoadFromSettings("GrizzDisable","Install","Grizzly","GrizzValue")
+            InstallLoadFromSettings("TPGDisable","Install","TPG","TPGValue")
+            InstallLoadFromSettings("EDIDisable","Install","EDI","EDI")
+            InstallLoadFromSettings("AADisable","Install","AA","AutomationAgent")
+            InstallLoadFromSettings("RunDisable","Install","RunDBUpdate","DBUpdateValue")
+            InstallLoadFromSettings("LaunchDisable","Install","LaunchAfterInstall","RunBuild")
+            InstallLoadFromSettings("OpenDisable","Install","OpenInstallFolder","InstallFolder")
+            InstallLoadFromSettings("PlaceholderDisable","Install","Placeholder","Placeholder")
             Return
 
             GrizzCheck:
