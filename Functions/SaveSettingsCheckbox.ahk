@@ -16,6 +16,11 @@ SaveSettingsCheckbox(FieldToSave,Section,Key,ButtonName)
     GuiControlGet, CheckSPC3, 4:
     GuiControlGet, CheckSPC4, 4:
     GuiControlGet, CheckSPC5, 4:
+    GuiControlGet, GPInstallFolder, 4:
+    GuiControlGet, SPCDeleteButton, 4:
+    GuiControlGet, LaunchOctopush, 4:
+    GuiControlGet, AOT, 4:
+    GuiControlGet, GPLaunchButton, 4:
     IniWrite, %FieldToSave%, Settings\Settings.ini, %Section%, %Key%
     If FieldToSave = 1
     {

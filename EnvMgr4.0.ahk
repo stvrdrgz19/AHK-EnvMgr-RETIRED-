@@ -119,6 +119,11 @@ LoadFromSettings("LaunchLoad","BuildManagement","Launch","DisableLaunch","Launch
 LoadFromSettings("AddLoad","BuildManagement","Add","DisableAdd","AddDLL")
 LoadFromSettings("BuildLoad","BuildManagement","Build","DisableBuild","BuildFolder")
 LoadFromSettings("InstallLoad","BuildManagement","Install","DisableInstall","Install")
+LoadFromSettings("GPLaunchLoad","Install","GPLaunch","x","LaunchGP")
+LoadFromSettings("GPFolderLoad","Install","GPFolder","x","GPFolder")
+LoadFromSettings("SPCDeleteLoad","Install","SPCDelete","x","DeleteCloud")
+LoadFromSettings("OctoLaunchLoad","Install","OctoLaunch","x","Octopush")
+LoadFromSettings("AOTLoad","Install","AOT","x","Always")
 LoadGPEnabled()
 LoadSPCEnabled()
 LoadProductEnabled()
@@ -450,9 +455,10 @@ SettingsScreen:
     Gui, 4:Add, Button, x630 y184 w23 h23 gSelectCloudLabel05, ...
     Gui, 4:Tab, 6
     Gui, 4:Add, Checkbox, x30 y55 vPromptCloseBox, Prompt when closing EnvMgr 
-    ;Gui, 4:Add, Checkbox, x30 y85 v, 
-    ;Gui, 4:Add, Checkbox, x30 y115 v, 
-    ;Gui, 4:Add, Checkbox, x30 y145 v, 
+    Gui, 4:Add, Checkbox, x30 y85 vGPLaunchButton, Disable GP Launch
+    Gui, 4:Add, Checkbox, x30 y115 vGPInstallFolder, Disable GP Folder
+    Gui, 4:Add, Checkbox, x30 y145 vSPCDeleteButton, Disable SPC Delete
+    Gui, 4:Add, Checkbox, x30 y175 vLaunchOctopush, Disable Octopush
     Gui, 4:Add, Checkbox, x260 y55 vGrizzDisable, Disable Add Grizzly DLLs
     Gui, 4:Add, Checkbox, x260 y85 vTPGDisable, Disable Add TPG DLLs
     Gui, 4:Add, Checkbox, x260 y115 vEDIDisable, Disable Add EDI DLLs
@@ -461,6 +467,7 @@ SettingsScreen:
     Gui, 4:Add, Checkbox, x490 y85 vLaunchAfterDisable, Disable Launch Build After Install
     Gui, 4:Add, Checkbox, x490 y115 vOpenAfterDisable, Disable Open Folder After Install
     Gui, 4:Add, Checkbox, x490 y145 vPlaceholderDisable, Disable Placeholder
+    Gui, 4:Add, Checkbox, x490 y175 vAOT, Disable Always On Top
     WinGetPos, xVarEnv, yVarEnv, varEnvWidth, varEnvHeight, Environment Manager
     xVarEnv -= 104
     yVarEnv += 126
@@ -511,6 +518,11 @@ SettingsScreen:
     LoadSettingsScreen("LaunchBuildAfterLoad","Install","LaunchAfterInstall","LaunchAfterDisable")
     LoadSettingsScreen("OpenBuilderFolderLoad","Install","OpenInstallFolder","OpenAfterDisable")
     LoadSettingsScreen("PlaceholderLoad","Install","Placeholder","PlaceholderDisable")
+    LoadSettingsScreen("GPLaunchLoad","Install","GPLaunch","GPLaunchButton")
+    LoadSettingsScreen("GPFolderLoad","Install","GPFolder","GPInstallFolder")
+    LoadSettingsScreen("SPCDeleteLoad","Install","SPCDelete","SPCDeleteButton")
+    LoadSettingsScreen("OctoLaunchLoad","Install","OctoLaunch","LaunchOctopush")
+    LoadSettingsScreen("AOTLoad","Install","AOT","AOT")
     LoadSettingsScreen("CloudButtonLabel01","CloudButtonNames","01","CloudLabel01")
     LoadSettingsScreen("CloudButtonLabel02","CloudButtonNames","02","CloudLabel02")
     LoadSettingsScreen("CloudButtonLabel03","CloudButtonNames","03","CloudLabel03")
@@ -532,6 +544,7 @@ SettingsScreen:
         GuiControlGet, BackupPath   ; Might have to add GuiControl for other controls that are being cleared out.
         GuiControlGet, CheckRestore
         GuiControlGet, CloudLabel01
+        GuiControlGet, GPLaunchButton
         SaveSettingsEdit(BackupPath,"BackupFolder","path")
         SaveSettingsEdit(ServName,"SQLCreds","Server")
         SaveSettingsEdit(ServUN,"SQLCreds","User")
@@ -554,6 +567,13 @@ SettingsScreen:
         SaveSettingsEdit(OpenAfterDisable,"Install","OpenInstallFolder")
         SaveSettingsEdit(PlaceholderDisable,"Install","Placeholder")
         SaveSettingsEdit(SharedF,"BuildManagement","SharedLocation")
+
+        SaveSettingsCheckbox(GPLaunchButton,"Install","GPLaunch","LaunchGP")
+        SaveSettingsCheckbox(GPInstallFolder,"Install","GPFolder","GPFolder")
+        SaveSettingsCheckbox(SPCDeleteButton,"Install","SPCDelete","DeleteCloud")
+        SaveSettingsCheckbox(LaunchOctopush,"Install","OctoLaunch","Octopush")
+        SaveSettingsCheckbox(AOT,"Install","AOT","Always")
+
         SaveSettingsCheckbox(CheckRestore,"DBManagement","Rest","Restore")
         SaveSettingsCheckbox(CheckOverwrite,"DBManagement","Over","Overwrite")
         SaveSettingsCheckbox(CheckDelete,"DBManagement","Delete","Delete")
@@ -566,12 +586,7 @@ SettingsScreen:
         SaveSettingsCheckbox(DisableAdd,"BuildManagement","Add","AddDLL")
         SaveSettingsCheckbox(DisableBuild,"BuildManagement","Build","BuildFolder")
         SaveSettingsGPCheckbox()
-        SaveSettingsSPCCheckbox()
-
-        ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableGrizz,"BuildManagement","Grizz")
-        ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableTPG,"BuildManagement","TPG")
-        ; Gotta hook these guys up someday ;SaveSettingsCheckboxNoButton(DisableDBUpdate,"BuildManagement","DBUpdate")
-        SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
+        SaveSettingsSPCCheckbox()SaveSettingsEditAndButton(CloudLabel01,"CloudButtonNames","01","Cloud01")
         SaveSettingsEditAndButton(CloudLabel02,"CloudButtonNames","02","Cloud02")
         SaveSettingsEditAndButton(CloudLabel03,"CloudButtonNames","03","Cloud03")
         SaveSettingsEditAndButton(CloudLabel04,"CloudButtonNames","04","Cloud04")
