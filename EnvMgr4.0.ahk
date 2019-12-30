@@ -1557,6 +1557,35 @@ LaunchBuild:
         MsgBox, 16, ERROR, Windows Mobile is not yet supported as an option here.
         Return
     }
+    If Combo2 = SalesPad Desktop
+    {
+        Gui, LAUNCH:Add, ListBox, 8 x11 y11 w500 r15 vLaunchSPGPLB,
+        Gui, LAUNCH:Add, Button, x412 y215 w100 h25 gLaunchSPGP, Launch
+        Gui, LAUNCH:Show, w522 h245, Launch Selected SalesPad Build(s)
+        Loop, Files, C:\Program Files (x86)\SalesPad.Desktop\*SalesPad.exe, R
+        {
+            SplitPath, A_LoopFileLongPath,, Trimmed
+            GuiControl, LAUNCH:, LaunchSPGPLB, %Trimmed%
+        }
+        Return
+
+        LaunchSPGP:
+            GuiControlGet, LaunchSPGPLB
+            If LaunchSPGPLB = 
+            {
+                Return
+            }
+            Loop, Parse, LaunchSPGPLB, |
+            {
+                Run, %A_LoopField%\SalesPad.exe
+            }
+            Gosub, LAUNCHGuiClose
+            Return
+
+        LAUNCHGuiClose:
+            Gui, LAUNCH:Destroy
+            Return
+    }
     If GetKeyState("Shift", "P")
     {
         IniRead, Launch, Settings\Settings.ini, LastLaunchedBuild, %Combo2%
@@ -1817,6 +1846,7 @@ If GetKeyState("CapsLock","T") = 1
 {
 	F2::Reload
 }
+Return
 
 ;=================================================================================================================================
 ;   END
