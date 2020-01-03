@@ -698,3 +698,24 @@
 {2019-12-30 11:04:09}: Restored "MASTER" backup.
 {2019-12-30 11:14:44}: Restored "MASTER" backup.
 {2019-12-30 14:26:19}: Restored "MASTER" backup.
+{2019-12-31 08:02:11}: Restored "MASTER" backup.
+{2019-12-31 09:13:55}: Restored "EDI" backup.
+{2019-12-31 09:29:34}: Restored "EDI" backup.
+{2019-12-31 09:41:20}: Restored "EDI" backup.
+{2019-12-31 09:51:13}: Restored "EDI" backup.
+{2020-01-02 07:07:23}: Restored "MASTER" backup.
+{2020-01-02 12:42:58}: Created "SPGP-2157 Printing testing" backup.
+{2020-01-02 12:43:43}: Restored "MASTER" backup.
+{2020-01-02 14:07:23}: Restored "MASTER" backup.
+{2020-01-02 14:14:04}: Restored "MASTER" backup.
+{2020-01-02 14:16:16}: Restored "MASTER" backup.
+{2020-01-02 14:18:54}: Restored "MASTER" backup.
+{2020-01-02 14:59:34}: Restored "MASTER" backup.
+{2020-01-02 15:15:02}: Restored "MASTER" backup.
+{2020-01-02 15:34:00}: Restored "MASTER" backup.
+{2020-01-03 07:12:25}: Restored "MASTER" backup.
+{2020-01-03 07:48:42}: Created "43000 Items" backup.
+{2020-01-03 08:25:24}: Restored "MASTER" backup.
+{2020-01-03 08:54:58}: Overwrote "43000 Items" backup.
+{2020-01-03 09:20:44}: Restored "MASTER" backup.
+{2020-01-03 11:57:29}: Created "200,000 Item Backup" backup.

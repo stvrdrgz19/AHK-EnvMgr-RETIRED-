@@ -514,3 +514,11 @@
 	Extended - SalesPad.Module.RemoteLibrary.4.6.4.21
 {2019-12-30 11:04:37}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.16
 {2019-12-30 11:22:59}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3269\4.6.4.21.21
+{2019-12-31 09:14:34}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.21
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.21
+{2019-12-31 09:30:16}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\ScottDang\SPGP-3250\4.6.4.22.8
+	Extended - SalesPad.Module.SalesPadEDI.4.6.4.22
+{2020-01-02 07:07:51}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Joseph_Bentley\SPGP-2157\4.6.4.21.25
+{2020-01-02 12:44:38}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\InventorySearch_LoadColumns\4.6.4.22.16
+{2020-01-02 14:14:27}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\Release\4.6.4.21
+{2020-01-02 14:31:04}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3277\4.6.4.22.3

@@ -1552,6 +1552,12 @@ LaunchBuild:
         MsgBox, 16, ERROR, Please select a product to launch.
         Return
     }
+    If GetKeyState("Shift", "P")
+    {
+        IniRead, Launch, Settings\Settings.ini, LastLaunchedBuild, %Combo2%
+        Run, %Launch%
+        Return
+    }
     If Combo2 = Windows Mobile
     {
         MsgBox, 16, ERROR, Windows Mobile is not yet supported as an option here.
@@ -1559,7 +1565,7 @@ LaunchBuild:
     }
     If Combo2 = SalesPad Desktop
     {
-        Gui, LAUNCH:Add, ListBox, 8 x11 y11 w500 r15 vLaunchSPGPLB,
+        Gui, LAUNCH:Add, ListBox, 8 x11 y11 w500 r15 vLaunchSPGPLB gLaunchSPGPLB,
         Gui, LAUNCH:Add, Button, x412 y215 w100 h25 gLaunchSPGP, Launch
         Gui, LAUNCH:Show, w522 h245, Launch Selected SalesPad Build(s)
         Loop, Files, C:\Program Files (x86)\SalesPad.Desktop\*SalesPad.exe, R
@@ -1568,6 +1574,13 @@ LaunchBuild:
             GuiControl, LAUNCH:, LaunchSPGPLB, %Trimmed%
         }
         Return
+
+        LaunchSPGPLB:
+            GuiControlGet, LaunchSPGPLB
+            If (A_GuiEvent <> "DoubleClick")
+            {
+                Return
+            }
 
         LaunchSPGP:
             GuiControlGet, LaunchSPGPLB
@@ -1585,12 +1598,6 @@ LaunchBuild:
         LAUNCHGuiClose:
             Gui, LAUNCH:Destroy
             Return
-    }
-    If GetKeyState("Shift", "P")
-    {
-        IniRead, Launch, Settings\Settings.ini, LastLaunchedBuild, %Combo2%
-        Run, %Launch%
-        Return
     }
     Metrics("LaunchBuild")
     LaunchBuild(Combo2)
