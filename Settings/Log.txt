@@ -719,3 +719,105 @@
 {2020-01-03 08:54:58}: Overwrote "43000 Items" backup.
 {2020-01-03 09:20:44}: Restored "MASTER" backup.
 {2020-01-03 11:57:29}: Created "200,000 Item Backup" backup.
+{2020-01-06 08:45:18}: Restored "200,000 Item Backup" backup.
+{2020-01-06 09:42:14}: Restored "MASTER" backup.
+{2020-01-06 11:22:39}: Restored "MASTER" backup.
+{2020-01-06 14:09:08}: Restored "MASTER" backup.
+{2020-01-06 14:14:56}: Restored "MASTER" backup.
+{2020-01-06 14:29:05}: Restored "MASTER" backup.
+{2020-01-06 14:36:58}: Restored "MASTER" backup.
+{2020-01-08 07:46:48}: Restored "MASTER" backup.
+{2020-01-08 12:11:54}: Restored "MASTER" backup.
+{2020-01-08 14:25:47}: Restored "200,000 Item Backup" backup.
+{2020-01-08 15:09:20}: Restored "200,000 Item Backup" backup.
+{2020-01-08 15:30:13}: Restored "200,000 Item Backup" backup.
+{2020-01-09 07:50:10}: Restored "200,000 Item Backup" backup.
+{2020-01-09 09:38:16}: Restored "MASTER" backup.
+{2020-01-09 09:42:26}: Restored "MASTER" backup.
+{2020-01-09 09:54:54}: Restored "MASTER" backup.
+{2020-01-09 11:34:47}: Restored "MASTER" backup.
+{2020-01-09 11:49:55}: Restored "MASTER" backup.
+{2020-01-09 12:01:07}: Restored "MASTER" backup.
+{2020-01-09 12:12:17}: Restored "MASTER" backup.
+{2020-01-09 12:16:46}: Restored "MASTER" backup.
+{2020-01-09 12:55:50}: Restored "MASTER" backup.
+{2020-01-09 14:12:13}: Restored "MASTER" backup.
+{2020-01-09 14:58:56}: Restored "MASTER" backup.
+{2020-01-09 15:00:45}: Restored "MASTER" backup.
+{2020-01-10 07:07:43}: Restored "MASTER" backup.
+{2020-01-10 07:17:43}: Restored "MASTER" backup.
+{2020-01-10 08:18:11}: Created "SOL-8022 Cawley Customer UDFs on Customer Creation" backup.
+{2020-01-10 08:18:42}: Restored "MASTER" backup.
+{2020-01-10 08:31:21}: Restored "SOL-8022 Cawley Customer UDFs on Customer Creation" backup.
+{2020-01-10 08:36:10}: Restored "MASTER" backup.
+{2020-01-10 08:39:50}: Restored "MASTER" backup.
+{2020-01-10 08:50:38}: Restored "SOL-8022 Cawley Customer UDFs on Customer Creation" backup.
+{2020-01-10 09:02:38}: Restored "MASTER" backup.
+{2020-01-10 12:14:23}: Restored "MASTER" backup.
+{2020-01-10 12:22:23}: Restored "MASTER" backup.
+{2020-01-10 12:27:34}: Restored "MASTER" backup.
+{2020-01-10 14:32:21}: Restored "MASTER" backup.
+{2020-01-13 12:00:24}: Restored "MASTER" backup.
+{2020-01-13 14:35:48}: Restored "MASTER" backup.
+{2020-01-13 15:23:56}: Restored "MASTER" backup.
+{2020-01-13 15:37:29}: Restored "MASTER" backup.
+{2020-01-14 07:17:07}: Restored "MASTER" backup.
+{2020-01-14 07:19:28}: Restored "MASTER" backup.
+{2020-01-14 07:24:12}: Restored "MASTER" backup.
+{2020-01-14 07:26:50}: Restored "MASTER" backup.
+{2020-01-14 08:04:44}: Restored "MASTER" backup.
+{2020-01-14 08:33:33}: Restored "MASTER" backup.
+{2020-01-14 09:37:37}: Restored "MASTER" backup.
+{2020-01-14 10:56:56}: Restored "MASTER" backup.
+{2020-01-14 11:26:52}: Restored "MASTER" backup.
+{2020-01-14 11:35:29}: Created "SPGP-3238 Core Setup" backup.
+{2020-01-14 11:49:53}: Restored "SPGP-3238 Core Setup" backup.
+{2020-01-14 12:06:06}: Restored "MASTER" backup.
+{2020-01-14 14:05:28}: Restored "MASTER" backup.
+{2020-01-14 14:26:32}: Restored "MASTER" backup.
+{2020-01-14 14:28:57}: Restored "MASTER" backup.
+{2020-01-15 07:55:46}: Restored "MASTER" backup.
+{2020-01-15 08:44:06}: Restored "MASTER" backup.
+{2020-01-15 15:03:32}: Restored "MASTER" backup.
+{2020-01-16 07:12:16}: Restored "MASTER" backup.
+{2020-01-16 08:18:26}: Restored "MASTER" backup.
+{2020-01-16 08:23:17}: Restored "MASTER" backup.
+{2020-01-16 08:27:37}: Restored "MASTER" backup.
+{2020-01-16 09:17:49}: Restored "MASTER" backup.
+{2020-01-16 11:23:14}: Restored "MASTER" backup.
+{2020-01-16 11:47:09}: Restored "MASTER" backup.
+{2020-01-16 12:18:22}: Restored "MASTER" backup.
+{2020-01-16 14:57:05}: Restored "MASTER" backup.
+{2020-01-17 07:08:07}: Restored "MASTER" backup.
+{2020-01-17 07:49:16}: Restored "MASTER" backup.
+{2020-01-17 08:30:58}: Restored "MASTER" backup.
+{2020-01-17 09:09:23}: Created "SPGP-3259 Fulfillment Loss or change Document Combiner" backup.
+{2020-01-17 15:18:19}: Restored "MASTER" backup.
+{2020-01-17 15:33:03}: Overwrote "MASTER" backup.
+{2020-01-20 09:06:13}: Restored "MASTER" backup.
+{2020-01-20 11:41:16}: Created "SPGP-3387 - Recreating ASN Sent issue" backup.
+{2020-01-20 11:42:19}: Restored "EDI" backup.
+{2020-01-20 12:10:22}: Restored "MASTER" backup.
+{2020-01-20 14:38:49}: Restored "MASTER" backup.
+{2020-01-20 14:41:10}: Restored "MASTER" backup.
+{2020-01-20 14:48:48}: Restored "MASTER" backup.
+{2020-01-21 08:15:18}: Restored "MASTER" backup.
+{2020-01-21 08:41:22}: Restored "MASTER" backup.
+{2020-01-21 08:51:16}: Restored "EDI" backup.
+{2020-01-21 09:17:19}: Restored "MASTER" backup.
+{2020-01-21 12:04:58}: Restored "MASTER" backup.
+{2020-01-21 12:05:43}: Restored "SHIPCENTER" backup.
+{2020-01-21 12:19:36}: Restored "EDI" backup.
+{2020-01-21 14:07:31}: Created "EDI and SHIPCENTER" backup.
+{2020-01-21 14:15:05}: Restored "MASTER" backup.
+{2020-01-22 07:29:03}: Created "SOL-8592 Expresspoint Workflow UDFs" backup.
+{2020-01-22 07:29:32}: Restored "MASTER" backup.
+{2020-01-22 07:40:37}: Restored "SOL-8592 Expresspoint Workflow UDFs" backup.
+{2020-01-22 08:08:49}: Restored "SPGP-3387 - Recreating ASN Sent issue" backup.
+{2020-01-22 09:00:50}: Restored "MASTER" backup.
+{2020-01-22 14:54:48}: Created "QA-50 Equipment Testing" backup.
+{2020-01-22 14:55:30}: Restored "EDI and SHIPCENTER" backup.
+{2020-01-23 07:19:49}: Restored "MASTER" backup.
+{2020-01-23 08:03:55}: Restored "MASTER" backup.
+{2020-01-23 11:56:05}: Restored "MASTER" backup.
+{2020-01-23 12:34:07}: Restored "MASTER" backup.

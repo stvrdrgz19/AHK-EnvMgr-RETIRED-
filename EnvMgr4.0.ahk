@@ -87,10 +87,10 @@ Gui, Add, Button, x413 y28 w25 h25 vAddDesc gAddDesc hwndIconAdd,
 GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
-Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product to Install||
+Gui, Add, ComboBox, x25 y270 w413 vCombo2, Select a Product||
 Gui, Add, Button, x24 y300 w100 h25 vInstall gInstall, Install
 Gui, Add, Button, x129 y300 w100 h25 vLaunchBuild gLaunchBuild, Launch Build
-Gui, Add, Button, x234 y300 w100 h25 vAddDLL gAddDLL, Add DLLs 
+Gui, Add, Button, x234 y300 w100 h25 vAddDLL gAddDLL, DLL Manager
 Gui, Add, Button, x339 y300 w100 h25 vBuildFolder gBuildFolder, Build Folder
 
 Gui, Add, GroupBox, x12 y339 w214 h85 cBlue, Launch GP
@@ -884,7 +884,7 @@ Restore:
             WinWait, C:\windows\system32\cmd.exe
             WinWaitClose
             FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Restored "%Combo1%" backup.`n, Settings\Log.txt
-            MsgBox, 0, COMPLETED, Database %Combo1% was restored successfully.
+            MsgBox, 0, COMPLETED, Database "%Combo1%" was restored successfully.
             Metrics("RestoreDB")
             Return
         }
@@ -1090,7 +1090,7 @@ Delete:
 ;=================================================================================================================================
 Install:
     GuiControlGet, Combo2
-    If Combo2 = Select a Product to Install
+    If Combo2 = Select a Product
     {
         MsgBox, 16, ERROR, Please select a SalesPad Product to install.
         Return
@@ -1547,7 +1547,7 @@ Install:
 
 LaunchBuild:
     GuiControlGet, Combo2
-    If Combo2 = Select a Product to Install
+    If Combo2 = Select a Product
     {
         MsgBox, 16, ERROR, Please select a product to launch.
         Return
@@ -1565,35 +1565,134 @@ LaunchBuild:
     }
     If Combo2 = SalesPad Desktop
     {
-        Gui, LAUNCH:Add, ListBox, 8 x11 y11 w500 r15 vLaunchSPGPLB gLaunchSPGPLB,
-        Gui, LAUNCH:Add, Button, x412 y215 w100 h25 gLaunchSPGP, Launch
-        Gui, LAUNCH:Show, w522 h245, Launch Selected SalesPad Build(s)
+        Gui, LAUNCH:Destroy
+        Gui, LAUNCH:Add, GroupBox, cBlue x5 y5 w570 h200, Builds
+        Gui, LAUNCH:Add, ListBox, 8 x15 y25 w550 r10 vLAUNCHBuildsList gLAUNCHBuildsList, 
+        Gui, LAUNCH:Add, Button, x15 y170 w550 h25 gLAUNCHLaunch, Launch
+        Gui, LAUNCH:Add, GroupBox, cBlue x5 y208 w570 h200, DLLs
+        Gui, LAUNCH:Add, ListBox, 8 x15 y228 w550 r10 vLAUNCHDLLList,
+        Gui, LAUNCH:Add, Button, x15 y373 w270 h25 gLAUNCHCopy, Copy Label(s)
+        Gui, LAUNCH:Add, Button, x296 y373 w270 h25 gLAUNCHRemove, Remove DLL(s)
+        Gui, LAUNCH:Show, w580 h417, Launch Selected SalesPad Build(s)
         Loop, Files, C:\Program Files (x86)\SalesPad.Desktop\*SalesPad.exe, R
         {
-            SplitPath, A_LoopFileLongPath,, Trimmed
-            GuiControl, LAUNCH:, LaunchSPGPLB, %Trimmed%
+        	SplitPath, A_LoopFileLongPath,, Trimmed
+        	GuiControl, LAUNCH:, LAUNCHBuildsList, %Trimmed%
         }
         Return
 
-        LaunchSPGPLB:
-            GuiControlGet, LaunchSPGPLB
-            If (A_GuiEvent <> "DoubleClick")
-            {
-                Return
-            }
+        LAUNCHBuildsList:
+        	varCounter = 0
+        	GuiControlGet, LAUNCHBuildsList
+        	Loop, Parse, LAUNCHBuildsList, |
+        	{
+        		varCounter += 1
+        	}
+        	If varCounter > 1
+        	{
+        		GuiControl, LAUNCH:, LAUNCHDLLList, |
+        		GuiControl, LAUNCH:Disable, LAUNCHDLLList
+        		Return
+        	}
+        	If varCounter <= 1
+        	{
+        		GuiControl, LAUNCH:Enable, LAUNCHDLLList
+            	Loop, %LAUNCHBuildsList%\SalesPad.Module.*.dll
+            	{
+            	    If(A_LoopFileName != "SalesPad.Module.App.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.ARTransactionEntry.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.AvaTax.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOffice.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.CCHSalesTaxOnlineWS.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Ccp.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.CRM.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Dashboard.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.DistributionBOM.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.DocumentManagement.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.EquipmentManagement.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.FedExServiceManager.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.GP2010.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.GP2010SP2.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.GP2013.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.GP2013R2.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Inventory.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.NodusPayFabric.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Printing.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Purchasing.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.QuickReports.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Reporting.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.ReturnsManagement.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.Sales.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.SalesEntryQuickPick.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.SignaturePad.dll")
+            	    If(A_LoopFileName != "SalesPad.Module.GP2015.dll")
+            	        GuiControl, LAUNCH:, LAUNCHDLLList, %A_LoopFileName%`n
+            	}
+        	}
+        	If (A_GuiEvent <> "DoubleClick")
+        	{
+        		Return
+        	}
 
-        LaunchSPGP:
-            GuiControlGet, LaunchSPGPLB
-            If LaunchSPGPLB = 
-            {
-                Return
-            }
-            Loop, Parse, LaunchSPGPLB, |
-            {
-                Run, %A_LoopField%\SalesPad.exe
-            }
-            Gosub, LAUNCHGuiClose
-            Return
+        LAUNCHLaunch:
+        	GuiControlGet, LAUNCHBuildsList
+        	If LAUNCHBuildsList = 
+        	{
+        		Return
+        	}
+        	Loop, Parse, LAUNCHBuildsList, |
+        	{
+        		Run, %A_LoopField%\SalesPad.exe
+        	}
+        	GoSub, LAUNCHGuiClose
+        	Return
+
+        LAUNCHCopy:
+        	CopyList = 
+        	GuiControlGet, LAUNCHDLLList
+        	If LAUNCHDLLList = 
+        	{
+        		MsgBox, 16, ERROR, Please select a DLL to copy.
+        		Return
+        	}
+        	Loop, Parse, LAUNCHDLLList, |
+        	{
+        		CopyList .= A_LoopField
+        	}
+        	Clipboard = %CopyList%
+        	MsgBox, 0, COPIED, The following DLLs have been copied to the Clipboard.`n`n%CopyList%
+        	Return
+
+        LAUNCHRemove:
+        	DeleteList = 
+        	GuiControlGet, LAUNCHBuildsList
+        	GuiControlGet, LAUNCHDLLList
+        	If LAUNCHDLLList = 
+        	{
+        		MsgBox, 16, ERROR, No DLLs are selected to be removed.
+        		Return
+        	}
+        	Loop, Parse, LAUNCHDLLList, |
+        	{
+        		DeleteList .= A_LoopField
+        	}
+        	MsgBox, 52, CONTINUE?, Are you sure you want to remove the following DLLs from the selected SalesPad Install?`n`n%DeleteList%
+        	IfMsgBox, No
+        	{
+        		Return
+        	}
+        	IfMsgBox, Yes
+        	{
+        		OutputValue := StrReplace(LAUNCHDLLList, "|", "")
+        		OutputValue := Trim(OutputValue, "`r`n")
+        		Loop, Parse, OutputValue, `n, `r
+        		{
+        			FileDelete, %LAUNCHBuildsList%\%A_LoopField%
+        		}
+        		GuiControl, LAUNCH:, LAUNCHDLLList, |
+        		GoSub, LAUNCHBuildsList
+        	}
+        	Return
 
         LAUNCHGuiClose:
             Gui, LAUNCH:Destroy
@@ -1611,7 +1710,7 @@ BuildFolder:
     IniRead, LocDC, Settings\Settings.ini, InstallPaths, LDC
     IniRead, LocSC, Settings\Settings.ini, InstallPaths, LSC
     IniRead, LocCC, Settings\Settings.ini, InstallPaths, LCC
-    If Combo2 = Select a Product to Install
+    If Combo2 = Select a Product
     {
         MsgBox, 16, ERROR, Please select a SalesPad Product whose install folder you would like to launch.
         Return
@@ -1822,7 +1921,8 @@ F8Utils:
 
     Loop, C:\Users\steve.rodriguez\Desktop\Scripts\F8Scripts\*.ahk
     {
-        Result := RTrim(A_LoopFileName, ".ahk")
+        ;Result := RTrim(A_LoopFileName, ".ahk")
+        Result := StrReplace(A_LoopFileName,".ahk","")
         GuiControl, F8Script:, F8Combo, %Result%
     }
     Return
