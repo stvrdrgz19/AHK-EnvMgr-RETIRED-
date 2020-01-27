@@ -1555,7 +1555,7 @@ LaunchBuild:
     If GetKeyState("Shift", "P")
     {
         IniRead, Launch, Settings\Settings.ini, LastLaunchedBuild, %Combo2%
-        Run, %Launch%
+        Run, %Launch%\SalesPad.exe
         Return
     }
     If Combo2 = Windows Mobile
@@ -1643,7 +1643,9 @@ LaunchBuild:
         	Loop, Parse, LAUNCHBuildsList, |
         	{
         		Run, %A_LoopField%\SalesPad.exe
+                LastLaunched = %A_LoopField%
         	}
+            IniWrite, %LastLaunched%, Settings\Settings.ini, LastLaunchedBuild, SalesPad Desktop
         	GoSub, LAUNCHGuiClose
         	Return
 
