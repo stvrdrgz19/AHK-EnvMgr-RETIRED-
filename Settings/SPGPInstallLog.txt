@@ -565,3 +565,6 @@
 	Extended - SalesPad.Module.BlueMoonOperationsCore.4.6.4.24
 {2020-01-27 07:15:28}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\Trevor\SPGP-3438\4.6.4.24.7
 {2020-01-27 08:00:43}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\TrevorMorehead\SPGP-3442\4.6.4.24.7
+{2020-01-27 15:16:20}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\JACOBPEACOCK\SPGP-3362\4.6.4.24.3
+	Extended - SalesPad.Module.BlueMoonOperationsCore.4.6.4.24
+{2020-01-28 07:08:52}: \\sp-fileserv-01\Shares\Builds\SalesPad.GP\ProductDev\AlecPetzak\SPGP-3249\4.6.4.18.90

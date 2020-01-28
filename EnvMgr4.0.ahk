@@ -1567,7 +1567,7 @@ LaunchBuild:
     {
         Gui, LAUNCH:Destroy
         Gui, LAUNCH:Add, GroupBox, cBlue x5 y5 w570 h200, Builds
-        Gui, LAUNCH:Add, ListBox, 8 x15 y25 w550 r10 vLAUNCHBuildsList gLAUNCHBuildsList, 
+        Gui, LAUNCH:Add, ListBox, Multi x15 y25 w550 r10 vLAUNCHBuildsList gLAUNCHBuildsList, 
         Gui, LAUNCH:Add, Button, x15 y170 w550 h25 gLAUNCHLaunch, Launch
         Gui, LAUNCH:Add, GroupBox, cBlue x5 y208 w570 h200, DLLs
         Gui, LAUNCH:Add, ListBox, 8 x15 y228 w550 r10 vLAUNCHDLLList,
@@ -1584,6 +1584,7 @@ LaunchBuild:
         LAUNCHBuildsList:
         	varCounter = 0
         	GuiControlGet, LAUNCHBuildsList
+            GuiControl, LAUNCH:, LAUNCHDLLList, |
         	Loop, Parse, LAUNCHBuildsList, |
         	{
         		varCounter += 1
