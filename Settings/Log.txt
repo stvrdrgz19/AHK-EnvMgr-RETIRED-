@@ -833,3 +833,112 @@
 {2020-01-27 14:56:17}: Restored "MASTER" backup.
 {2020-01-28 07:00:32}: Restored "MASTER" backup.
 {2020-01-28 07:15:24}: Restored "MASTER" backup.
+{2020-01-28 07:22:04}: Restored "MASTER" backup.
+{2020-01-28 07:27:06}: Overwrote "MASTER" backup.
+{2020-01-28 08:20:41}: Restored "MASTER" backup.
+{2020-01-28 08:43:54}: Restored "MASTER" backup.
+{2020-01-28 09:10:39}: Restored "MASTER" backup.
+{2020-01-28 09:16:51}: Restored "MASTER" backup.
+{2020-01-28 09:30:58}: Restored "MASTER" backup.
+{2020-01-28 09:56:56}: Restored "MASTER" backup.
+{2020-01-28 10:23:03}: Restored "MASTER" backup.
+{2020-01-28 10:29:35}: Restored "MASTER" backup.
+{2020-01-28 11:06:55}: Restored "MASTER" backup.
+{2020-01-28 11:37:42}: Restored "MASTER" backup.
+{2020-01-28 13:59:39}: Restored "MASTER" backup.
+{2020-01-28 14:27:53}: Restored "EDI" backup.
+{2020-01-28 15:13:09}: Created "SOL-8363 Consolidated Shipments Marked For Location" backup.
+{2020-01-28 15:13:33}: Restored "MASTER" backup.
+{2020-01-28 15:35:22}: Restored "MASTER" backup.
+{2020-01-29 07:22:33}: Restored "MASTER" backup.
+{2020-01-29 08:24:07}: Restored "MASTER" backup.
+{2020-01-29 09:16:34}: Restored "MASTER" backup.
+{2020-01-29 09:50:25}: Restored "MASTER" backup.
+{2020-01-29 10:20:49}: Restored "MASTER" backup.
+{2020-01-29 10:54:39}: Restored "MASTER" backup.
+{2020-01-29 11:12:21}: Restored "MASTER" backup.
+{2020-01-29 11:32:36}: Restored "MASTER" backup.
+{2020-01-29 11:53:47}: Restored "MASTER" backup.
+{2020-01-29 12:22:45}: Restored "MASTER" backup.
+{2020-01-29 12:53:41}: Restored "MASTER" backup.
+{2020-01-29 12:54:40}: Restored "MASTER" backup.
+{2020-01-29 12:57:06}: Restored "MASTER" backup.
+{2020-01-29 14:01:07}: Restored "MASTER" backup.
+{2020-01-29 14:07:05}: Restored "MASTER" backup.
+{2020-01-29 14:13:46}: Restored "MASTER" backup.
+{2020-01-30 09:12:56}: Created "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-30 09:34:25}: Restored "MASTER" backup.
+{2020-01-30 11:04:44}: Restored "MASTER" backup.
+{2020-01-30 11:50:38}: Restored "MASTER" backup.
+{2020-01-30 14:16:39}: Restored "SOL-8363 Consolidated Shipments Marked For Location" backup.
+{2020-01-30 14:41:32}: Restored "SOL-8363 Consolidated Shipments Marked For Location" backup.
+{2020-01-30 15:26:17}: Restored "SOL-8363 Consolidated Shipments Marked For Location" backup.
+{2020-01-31 07:30:11}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-31 07:30:22}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-31 08:40:05}: Restored "SOL-8363 Consolidated Shipments Marked For Location" backup.
+{2020-01-31 10:50:35}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-31 11:38:10}: Restored "MASTER" backup.
+{2020-01-31 12:49:26}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-31 12:55:13}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-01-31 14:23:09}: Restored "MASTER" backup.
+{2020-01-31 14:36:49}: Restored "MASTER" backup.
+{2020-01-31 15:15:18}: Restored "MASTER" backup.
+{2020-02-03 07:18:39}: Restored "MASTER" backup.
+{2020-02-03 08:47:52}: Created "SPGP-3458 - Sales Line UDFs causing slowdowns" backup.
+{2020-02-03 08:48:38}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-03 08:50:48}: Restored "SPGP-3458 - Sales Line UDFs causing slowdowns" backup.
+{2020-02-03 09:15:38}: Restored "MASTER" backup.
+{2020-02-03 10:37:34}: Overwrote "SPGP-3458 - Sales Line UDFs causing slowdowns" backup.
+{2020-02-03 10:43:08}: Restored "EDI" backup.
+{2020-02-03 11:22:49}: Restored "EDI" backup.
+{2020-02-03 11:40:24}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-03 11:54:29}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-03 11:54:53}: Restored "MASTER" backup.
+{2020-02-03 12:07:05}: Restored "MASTER" backup.
+{2020-02-03 12:48:52}: Restored "MASTER" backup.
+{2020-02-03 12:52:34}: Restored "MASTER" backup.
+{2020-02-03 14:11:29}: Restored "MASTER" backup.
+{2020-02-03 15:17:15}: Created "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-03 15:31:28}: Restored "MASTER" backup.
+{2020-02-03 15:56:12}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-03 15:58:36}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-04 07:47:28}: Restored "MASTER" backup.
+{2020-02-04 09:30:36}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-04 09:34:38}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-04 10:30:36}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-04 10:38:50}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-04 10:44:50}: Restored "SOL-8610 BusObj Workflow Batch Times" backup.
+{2020-02-04 11:12:38}: Restored "MASTER" backup.
+{2020-02-04 12:03:17}: Restored "MASTER" backup.
+{2020-02-04 14:55:49}: Restored "MANUFACTURING" backup.
+{2020-02-05 07:07:00}: Restored "MASTER" backup.
+{2020-02-05 08:32:57}: Restored "MASTER" backup.
+{2020-02-05 08:36:55}: Restored "MASTER" backup.
+{2020-02-05 08:45:15}: Restored "MASTER" backup.
+{2020-02-05 10:20:54}: Restored "MASTER" backup.
+{2020-02-05 10:30:53}: Restored "MASTER" backup.
+{2020-02-05 11:02:35}: Created "MANUFACTURING" backup.
+{2020-02-05 11:46:54}: Restored "MASTER" backup.
+{2020-02-05 11:56:53}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-05 15:00:53}: Created "SPGP-2928 - BusObjWorkflow Existing Jobs NEW" backup.
+{2020-02-05 15:02:46}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-06 07:29:16}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-06 07:55:26}: Restored "SPGP-2928 - BusObjWorkflow Existing Jobs" backup.
+{2020-02-06 08:01:12}: Restored "MASTER" backup.
+{2020-02-06 08:03:05}: Restored "MASTER" backup.
+{2020-02-06 08:11:41}: Created "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 08:31:27}: Restored "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 09:17:09}: Restored "MASTER" backup.
+{2020-02-06 10:12:37}: Restored "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 10:20:18}: Overwrote "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 10:39:54}: Restored "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 10:47:26}: Restored "SPGP-2928 - Test Setup 1" backup.
+{2020-02-06 10:58:43}: Created "SPGP-2928 - Test Setup 2" backup.
+{2020-02-06 11:02:08}: Overwrote "SPGP-2928 - Test Setup 2" backup.
+{2020-02-06 11:42:23}: Restored "MASTER" backup.
+{2020-02-06 12:56:06}: Restored "MASTER" backup.
+{2020-02-06 14:23:50}: Restored "MASTER" backup.
+{2020-02-06 15:21:32}: Restored "SPGP-2928 - Test Setup 2" backup.
+{2020-02-06 15:24:41}: Restored "MASTER" backup.
+{2020-02-10 07:23:03}: Restored "MASTER" backup.
+{2020-02-10 07:54:58}: Restored "MANUFACTURING" backup.

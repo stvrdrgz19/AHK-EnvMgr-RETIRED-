@@ -59,6 +59,7 @@ Menu, ToolsMenu, Add, &OneSource Manager, OneSourceManager
 Menu, ToolsMenu, Add, &Ticket Hyperlink Maker (THM), THM 
 Menu, ToolsMenu, Add, &DLL Manager, DLLManager
 Menu, ToolsMenu, Add, &SalesPad Remover, SalesPadRemover
+Menu, ToolsMenu, Add, &Rename GP For Mfg, MfgRenamer
 
 If A_UserName = steve.rodriguez
 {
@@ -339,6 +340,21 @@ SalesPadRemover:
     Loop, \\sp-fileserv-01\Team QA\Tools\Remove SalesPad\*.exe
     {
         Run *RunAs %A_LoopFilePath%
+    }
+    Return
+
+MfgRenamer:
+    If FileExist("C:\Program Files (x86)\Microsoft Dynamics\GP2016 MANUFACTURING")
+    {
+    	FileMoveDir, C:\Program Files (x86)\Microsoft Dynamics\GP2016, C:\Program Files (x86)\Microsoft Dynamics\GP2016 NO MANUFACTURING, R
+    	FileMoveDir, C:\Program Files (x86)\Microsoft Dynamics\GP2016 MANUFACTURING, C:\Program Files (x86)\Microsoft Dynamics\GP2016, R
+    	Return
+    }
+    If FileExist("C:\Program Files (x86)\Microsoft Dynamics\GP2016 NO MANUFACTURING")
+    {
+    	FileMoveDir, C:\Program Files (x86)\Microsoft Dynamics\GP2016, C:\Program Files (x86)\Microsoft Dynamics\GP2016 MANUFACTURING, R
+    	FileMoveDir, C:\Program Files (x86)\Microsoft Dynamics\GP2016 NO MANUFACTURING, C:\Program Files (x86)\Microsoft Dynamics\GP2016, R
+    	Return
     }
     Return
 
