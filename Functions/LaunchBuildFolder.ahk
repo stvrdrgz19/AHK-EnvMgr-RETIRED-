@@ -1,6 +1,13 @@
-LaunchBuildFolder(Project)
+LaunchBuildFolder(Project,Version)
 {
-    IniRead, inVar, Settings\Settings.ini, InstallPaths, %Project%
+    If Version = x64
+    {
+        IniRead, inVar, Settings\Settings.ini, InstallPaths, SalesPad Desktop64
+    }
+    If Version = x86
+    {
+        IniRead, inVar, Settings\Settings.ini, InstallPaths, SalesPad Desktop86
+    }
     Run, %inVar%
     Return
 }
