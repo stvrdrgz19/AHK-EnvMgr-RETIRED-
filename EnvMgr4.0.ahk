@@ -89,7 +89,7 @@ GuiButtonIcon(IconAdd, "imageres.dll", 278, "s21")
 
 Gui, Add, GroupBox, x12 y249 w443 h85 cBlue, Build Management
 Gui, Add, ComboBox, x25 y270 w360 vCombo2 gProductPicker, Select a Product||
-Gui, Add, ComboBox, x393 y270 w45 vVersion, x64||x86|Pre
+Gui, Add, ComboBox, x393 y270 w45 vVersion, x86||x64|Pre
 Gui, Add, Button, x24 y300 w100 h25 vInstall gInstall, Install
 Gui, Add, Button, x129 y300 w100 h25 vLaunchBuild gLaunchBuild, Launch Build
 Gui, Add, Button, x234 y300 w100 h25 vAddDLL gAddDLL, DLL Manager
@@ -919,79 +919,71 @@ Overwrite:
         MsgBox, 16, ERROR, Please select a database backup to restore.
         Return
     }
-    MsgBox, 20, OVERWRITE, Are you sure you want to overwrite "%Combo1%" with your current dataset?
-    IfMsgBox, Yes
-    {
+    Gui, OVERWRITE:Destroy
+    Gui, OVERWRITE:Add, Progress, x0 y0 w400 h80 BackgroundFFFFFF Disabled, ; TOP WHITE
+    Gui, OVERWRITE:Add, Progress, x0 y81 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
+    Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25 w370 h110, Are you sure you want to overwrite "%Combo1%" with your current setup?
+    Gui, OVERWRITE:Add, Button, x223 y87 w75 h23 gOverwriteYes, Yes
+    Gui, OVERWRITE:Add, Button, x310 y87 w75 H23 gOverwriteNo, No
+    Gui, OVERWRITE:Add, Checkbox, x15 y93 vOverCheck, Update Backup Description 
+    Gui, OVERWRITE:Show, w400 h120, OVERWRITE?
+    Return
+    
+    OverwriteNo:
         Gui, OVERWRITE:Destroy
-        Gui, OVERWRITE:Add, Progress, x0 y0 w400 h80 BackgroundFFFFFF Disabled, ; TOP WHITE
-        Gui, OVERWRITE:Add, Progress, x0 y81 w400 h40 BackgroundF0F0F0 Disabled, ; BOTTOM GRAY
-        Gui, OVERWRITE:Add, Text, +BackgroundTrans x15 y25 w370 h110, Are you sure you want to overwrite "%Combo1%" with your current setup?
-        Gui, OVERWRITE:Add, Button, x223 y87 w75 h23 gOverwriteYes, Yes
-        Gui, OVERWRITE:Add, Button, x310 y87 w75 H23 gOverwriteNo, No
-        Gui, OVERWRITE:Add, Checkbox, x15 y93 vOverCheck, Update Backup Description 
-        Gui, OVERWRITE:Show, w400 h120, OVERWRITE?
         Return
 
-        OverwriteNo:
+    OverwriteYes:
+        GuiControlGet, OverCheck
+        IniRead, Var1, Settings\Settings.ini, SQLCreds, Server
+        IniRead, Var2, Settings\Settings.ini, SQLCreds, User
+        IniRead, Var3, Settings\Settings.ini, SQLCreds, Password
+        IniRead, Var4, Settings\Settings.ini, BackupFolder, path
+        IniRead, Var5, Settings\Settings.ini, Databases, Dynamics
+        IniRead, Var6, Settings\Settings.ini, Databases, Company1
+        IniRead, Var7, Settings\Settings.ini, Databases, Company2
+        If OverCheck = 0
+        {
             Gui, OVERWRITE:Destroy
+            Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
+            WinWait, C:\windows\system32\cmd.exe
+            WinWaitClose
+            IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
+            FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%Combo1%" backup.`n, Settings\Log.txt
+            FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%Combo1%\Description.txt
+            FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
+            GuiControl, 1:, DBDesc, %TestXD% 
+            Metrics("OverwriteDB")
+            Return
+        }
+        if OverCheck = 1
+        {
+            Gui, OVERWRITE:Destroy
+            Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
+            Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
+            Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
+            Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
+            Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
             Return
 
-        OverwriteYes:
-            GuiControlGet, OverCheck
-            IniRead, Var1, Settings\Settings.ini, SQLCreds, Server
-            IniRead, Var2, Settings\Settings.ini, SQLCreds, User
-            IniRead, Var3, Settings\Settings.ini, SQLCreds, Password
-            IniRead, Var4, Settings\Settings.ini, BackupFolder, path
-            IniRead, Var5, Settings\Settings.ini, Databases, Dynamics
-            IniRead, Var6, Settings\Settings.ini, Databases, Company1
-            IniRead, Var7, Settings\Settings.ini, Databases, Company2
-            If OverCheck = 0
-            {
-                Gui, OVERWRITE:Destroy
+            OverOK:
+                GuiControlGet, DBDescription
+                Gui, OVERWRITEDESC:Destroy
                 Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
                 WinWait, C:\windows\system32\cmd.exe
                 WinWaitClose
                 IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
                 FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%Combo1%" backup.`n, Settings\Log.txt
-                FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}, %DBPath%\%Combo1%\Description.txt
+                FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Combo1%\Description.txt
                 FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
                 GuiControl, 1:, DBDesc, %TestXD% 
                 Metrics("OverwriteDB")
                 Return
-            }
-            if OverCheck = 1
-            {
-                Gui, OVERWRITE:Destroy
-                Gui, OVERWRITEDESC:Add, Text, x15 y15, Enter Description/Notes:
-                Gui, OVERWRITEDESC:Add, Edit, x15 y30 w300 r10 vDBDescription,
-                Gui, OVERWRITEDESC:Add, Button, x100 y175 w100 h25 +Default gOverOK, OK
-                Gui, OVERWRITEDESC:Add, Button, x215 y175 w100 h25 gOverCancel, Cancel
-                Gui, OVERWRITEDESC:Show, w330 h205, Overwrite Description
+                
+            OverCancel:
+                Gui, OVERWRITEDESC:Destroy
                 Return
-
-                OverOK:
-                    GuiControlGet, DBDescription
-                    Gui, OVERWRITEDESC:Destroy
-                    Run, "Scripts\Script.DBOverwrite.bat" %Var1% %Var2% %Var3% %Var4% "%Combo1%" %Var5% %Var6% %Var7%,, UseErrorLevel
-                    WinWait, C:\windows\system32\cmd.exe
-                    WinWaitClose
-                    IniRead, DBPath, Settings\Settings.ini, BackupFolder, path
-                    FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: Overwrote "%Combo1%" backup.`n, Settings\Log.txt
-                    FileAppend, `n`n=================================================================`nBACKUP - %Combo1%`nUPDATED - {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}`n%DBDescription%, %DBPath%\%Combo1%\Description.txt
-                    FileRead, TestXD, %DBPath%\%Combo1%\Description.txt
-                    GuiControl, 1:, DBDesc, %TestXD% 
-                    Metrics("OverwriteDB")
-                    Return
-                    
-                OverCancel:
-                    Gui, OVERWRITEDESC:Destroy
-                    Return
-            }
-    }
-    IfMsgBox, No
-    {
-        Return
-    }
+        }
 
 NewDB:
     MsgBox, 20, NEW BACKUP, Are you sure you want to create a new database backup?
@@ -1122,6 +1114,7 @@ ProductPicker:
 Install:
     GuiControlGet, Combo2
     GuiControlGet, Version
+    VersionVal = %Version%
     If Combo2 = Select a Product
     {
         MsgBox, 16, ERROR, Please select a SalesPad Product to install.
@@ -1256,7 +1249,7 @@ Install:
             SPGPOK:
                 Metrics("SalesPadDesktop")
                 GuiControlGet, BuildLoc
-                GuiControlGet, Version
+                GuiControlGet, RunBuild
                 Gui, Prog:Destroy
                 Gui, Prog:Add, Text, x15 y15 vProgressText, Copying installer from network...
                 Gui, Prog:Add, Progress, w400 h20 x15 y35 cBlue vProgressBar, 1
@@ -1305,8 +1298,14 @@ Install:
                         GuiControl, Prog:, ProgressText, Complete!
                         Sleep 1000
                         Gui, Prog: Destroy
-                        Run, %BuildLoc%\SalesPad.exe
+                        If RunBuild = 1
+                        {
+                            Run, %BuildLoc%\SalesPad.exe
+                        }
+                        FileRead, LogContents, Settings\SPGPInstallLog.txt
+                        FileDelete, Settings\SPGPInstallLog.txt
                         InstallLog(Instl)
+                        FileAppend, %LogContents%, Settings\SPGPInstallLog.txt
                         ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                         Gui, SPGP:Destroy
                         Return
@@ -1315,15 +1314,15 @@ Install:
                     {
                         Loop, Parse, CustList, |
                         {
-                            If Version = x64
+                            If VersionVal = x64
                             {
                                 FileCopy, %Instl%\CustomModules\x64\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
-                            If Version = x86
+                            If VersionVal = x86
                             {
                                 FileCopy, %Instl%\CustomModules\x86\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
-                            If Version = Pre
+                            If VersionVal = Pre
                             {
                                 FileCopy, %Instl%\CustomModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
@@ -1342,7 +1341,12 @@ Install:
                         GuiControl, Prog:, ProgressText, Complete!
                         Sleep 1000
                         Gui, Prog: Destroy
-                        Run, %BuildLoc%\SalesPad.exe
+                        If RunBuild = 1
+                        {
+                            Run, %BuildLoc%\SalesPad.exe
+                        }
+                        FileRead, LogContents, Settings\SPGPInstallLog.txt
+                        FileDelete, Settings\SPGPInstallLog.txt
                         InstallLog(Instl)
                         ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                         Loop, Parse, CustList, `|
@@ -1350,6 +1354,7 @@ Install:
                             CDLL := Rtrim(A_LoopField, ".Zip")
                             FileAppend, %A_Tab%Custom - %CDLL%`n, Settings\SPGPInstallLog.txt
                         }
+                        FileAppend, %LogContents%, Settings\SPGPInstallLog.txt
                         Gui, SPGP:Destroy
                         Return
                     }
@@ -1360,15 +1365,15 @@ Install:
                     {
                         Loop, Parse, ExtList, |
                         {
-                            If Version = x64
+                            If VersionVal = x64
                             {
                                 FileCopy, %Instl%\ExtModules\x64\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
-                            If Version = x86
+                            If VersionVal = x86
                             {
                                 FileCopy, %Instl%\ExtModules\x86\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
-                            If Version = Pre
+                            If VersionVal = Pre
                             {
                                 FileCopy, %Instl%\ExtModules\WithOutCardControl\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
@@ -1387,7 +1392,12 @@ Install:
                         GuiControl, Prog:, ProgressText, Complete!
                         Sleep 1000
                         Gui, Prog: Destroy
-                        Run, %BuildLoc%\SalesPad.exe
+                        If RunBuild = 1
+                        {
+                            Run, %BuildLoc%\SalesPad.exe
+                        }
+                        FileRead, LogContents, Settings\SPGPInstallLog.txt
+                        FileDelete, Settings\SPGPInstallLog.txt
                         InstallLog(Instl)
                         ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                         Loop, Parse, ExtList, `|
@@ -1395,12 +1405,13 @@ Install:
                             EDLL := Rtrim(A_LoopField, ".Zip")
                             FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                         }
+                        FileAppend, %LogContents%, Settings\SPGPInstallLog.txt
                         Gui, SPGP:Destroy
                         Return
                     }
                     if CustList != 
                     {
-                        If Version = x64
+                        If VersionVal = x64
                         {
                             Loop, Parse, CustList, |
                             {
@@ -1411,7 +1422,7 @@ Install:
                                 FileCopy, %Instl%\ExtModules\x64\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
                         }
-                        If Version = x86
+                        If VersionVal = x86
                         {
                             Loop, Parse, CustList, |
                             {
@@ -1422,7 +1433,7 @@ Install:
                                 FileCopy, %Instl%\ExtModules\x86\%A_LoopField%, C:\#EnvMgr\TEMPFILES\DLLs
                             }
                         }
-                        If Version = Pre
+                        If VersionVal = Pre
                         {
                             Loop, Parse, CustList, |
                             {
@@ -1448,7 +1459,12 @@ Install:
                         GuiControl, Prog:, ProgressText, Complete!
                         Sleep 1000
                         Gui, Prog: Destroy
-                        Run, %BuildLoc%\SalesPad.exe
+                        If RunBuild = 1
+                        {
+                            Run, %BuildLoc%\SalesPad.exe
+                        }
+                        FileRead, LogContents, Settings\SPGPInstallLog.txt
+                        FileDelete, Settings\SPGPInstallLog.txtc
                         InstallLog(Instl)
                         ;FileAppend, {%A_YYYY%-%A_MM%-%A_DD% %A_Hour%:%A_Min%:%A_Sec%}: %Instl%`n, Settings\SPGPInstallLog.txt
                         Loop, Parse, CustList, `|
@@ -1461,6 +1477,7 @@ Install:
                             EDLL := Rtrim(A_LoopField, ".Zip")
                             FileAppend, %A_Tab%Extended - %EDLL%`n, Settings\SPGPInstallLog.txt
                         }
+                        FileAppend, %LogContents%, Settings\SPGPInstallLog.txt
                         Gui, SPGP:Destroy
                         Return
                     }
@@ -1516,19 +1533,13 @@ Install:
             }
             Return
         }
-        ;If ((Combo2 = "SalesPad Mobile") || (Combo2 = "DataCollection") || (Combo2 = "Windows Mobile") || (Combo2 = "Ship Center") || (Combo2 = "Card Control"))
-        ;{
-        ;    MsgBox, 0, test, SalesPad Desktop wasn't selected
-        ;    Return
-        ;}
     }
     IfMsgBox, No
     {
-        MsgBox, 0, test, NO Was selected`n`n%Combo2% will NOT be installed.
         Return
     }
 
-LaunchBuild:
+LaunchBuild: ;~ May need to set VersionVal here and call it instead of Version as well? Maybe not.
     GuiControlGet, Combo2
     If Combo2 = Select a Product
     {
@@ -1718,6 +1729,26 @@ BuildFolder:
     If Combo2 = Windows Mobile
     {
         MsgBox, 16, ERROR, There is no %Combo2% folder to run.
+        Return
+    }
+    If Combo2 = DataCollection
+    {
+        Run, C:\Program Files (x86)\DataCollection
+        Return
+    }
+    If Combo2 = SalesPad Mobile
+    {
+        Run, C:\Program Files (x86)\SalesPad.GP.Mobile.Server
+        Return
+    }
+    If Combo2 = Ship Center
+    {
+        Run, C:\Program Files (x86)\ShipCenter
+        Return
+    }
+    If Combo2 = Card Control
+    {
+        Run, C:\Program Files (x86)\Card Control
         Return
     }
     LaunchBuildFolder(Combo2,Version)
